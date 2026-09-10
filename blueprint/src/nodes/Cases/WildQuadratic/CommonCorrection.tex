@@ -1,0 +1,194 @@
+\begin{theorem}[Wild quadratic common correction]
+\label{mod:cases-wildquadratic-commoncorrection}
+Let $K/F$ be wildly ramified quadratic with residue degree one, let $t$ be
+its lower break, and put
+\[
+ T=t+1=v_K(\mathfrak D_{K/F}),\qquad m=m_F(\chi_F).
+\]
+All data below are relative to one of the simultaneous representative
+packages supplied by the high- or low-parameter theorem.  No representative
+is declared canonical.
+
+In the low range $m\leq T$, retain the supplied
+$\epsilon _1,\alpha _1,\beta _1$ and their exact norms
+$\epsilon,\alpha,\beta$.  The low adapter uses that same selected pair and
+sets
+\[
+ u=\frac{\epsilon _1\beta _1}{\alpha _1},
+ \qquad n=\frac{\epsilon\beta}{\alpha}.
+\]
+In the high range $T\leq m$, retain the entire supplied high package,
+including
+\[
+ \delta_h\in U_F^t,
+ \qquad \beta=\delta_hN_{K/F}(\beta _1).
+\]
+Writing $\alpha=N_{K/F}(\alpha _1)$ and $c=\alpha\delta_h$, the high adapter
+sets
+\[
+ u=\frac{\beta _1}{\alpha _1},
+ \qquad n=\frac{\beta}{\alpha\delta_h}=\frac\beta c.
+\]
+Lean proves the literal identities $cn=\beta$ and
+\[
+ N_{K/F}(\text{the selected high correction term})
+   =\beta(\alpha\delta_h).
+\]
+Thus the essential HighQuadratic unit $\delta_h$ remains visible in the
+normalization and its norm identity.
+
+Both adapters return the same choice-relative record type $C=(u,n)$.  The
+record stores the exact facts
+\[
+ [K:F]=2,\qquad f(K/F)=1,\qquad
+ v_K(\mathfrak D_{K/F})=T,
+\]
+\[
+ v_K(u)=v_F(n)=T-m,\qquad N_{K/F}(u)=n,\qquad 1+n\ne0.
+\]
+For the low boundary $m=T$, the last fact is proved using the actual nonzero
+stationary quotient class of the selected $j=1$ twist.  Lean uses the
+already selected field representative and does not manufacture or declare a
+canonical lift.
+The same actual twist noncancellation, now combined with residue
+characteristic two, also excludes $n=1$ for both adapters.  Consequently
+$1+u$ and $1+u^\vee$ are nonzero, so Lean exposes $z_0$ and $z_1$ as
+elements of $F^\times$ for multiplicative-character evaluation.  The generic
+unit constructors require an explicit opposite-noncancellation proof, and
+each stationary adapter supplies precisely that proof.
+
+For one such record define in the fields
+\[
+ s=\operatorname{Tr}_{K/F}(u),\qquad
+ u^\vee=-\frac n u,
+\]
+\[
+ z_0=\frac{N_{K/F}(1+u^\vee)}{1+n},\qquad
+ z_1=\frac{N_{K/F}(1+u)}{1+n},
+ \qquad x=z_0-1,\quad y=z_1-1,
+\]
+and $X=s+nx+y$.  Lean proves the exact identities
+\[
+ N(u^\vee)=n,\qquad \operatorname{Tr}(u^\vee)=-s,
+\]
+\[
+ N(1+u)=1+s+n,\qquad N(1+u^\vee)=1-s+n,
+\]
+and, with the manuscript's signs and denominator direction,
+\begin{equation}\label{eq:lean-wild-quadratic-common-X}
+ x=-\frac{s}{1+n},\qquad
+ y=\frac{s}{1+n},\qquad
+ X=s+nx+y=\frac{2s}{1+n}.
+\end{equation}
+It also proves the literal field equality
+\[
+ \operatorname{Tr}_{K/F}(u^{-1})=\frac{s}{n}.
+\]
+For the four selected stationary parameters, Lean additionally preserves
+the exact ratio and additive identities
+\[
+ n-u=-u(1+u^\vee),\qquad
+ N(n-u)=n(1+n)z_0,\qquad N(1+u)=(1+n)z_1,
+\]
+\[
+ \operatorname{Tr}(n-u)+1-n-(n+1)=-s.
+\]
+
+Suppose $m=2d+1>T$ and put $r=m-T$.  The selected $u^{-1}$ has exact
+order $r$, and the ramification API is used at precisely the adjacent
+lattice depths
+\[
+ \mathfrak p_K^r/\mathfrak p_K^{r+1}
+   \xrightarrow{\ \sim\ }
+ \mathfrak p_F^d/\mathfrak p_F^{d+1}.
+\]
+For $c_\chi=-\operatorname{Tr}_{K/F}(u^{-1})$, Lean proves
+$v_F(c_\chi)=d$ and the graded-quotient equality
+\[
+ \operatorname{grTr}_{r,d}([-u^{-1}])=[c_\chi].
+\]
+It does not turn this class equality into a new equality of field
+representatives.  The associated formula-facing equality is literal:
+\[
+ \frac{x}{c_\chi}=\frac{n}{1+n}.
+\]
+
+At the odd boundary $m=T=2d_\tau+1$, the already selected $u$ is bundled as
+an integral unit.  For every explicitly supplied
+$\widetilde\rho\in\mathcal O_F$ whose residue maps to the residue of this
+$u$, Lean proves
+\[
+ \operatorname{Tr}_{K/F}(u)-2\widetilde\rho
+   \in\mathfrak p_F^{d_\tau+1}
+\]
+and hence, only in the displayed quotient,
+\[
+ \operatorname{grTr}_{0,d_\tau}([u])=[2\widetilde\rho]
+ \quad\text{in }\mathfrak p_F^{d_\tau}/\mathfrak p_F^{d_\tau+1}.
+\]
+The residue lift remains an explicit argument.
+
+The ambiguity API has exactly the strength of the parameter APIs.  For two
+low packages $P,Q$ with the same fixed $\epsilon_1$, it retains the target
+and norm congruences for $\alpha$ at depth $r$ and for $\beta$ at depth $d$,
+the source ratios in $U_K^r$ and $U_K^d$, and only the derived statement
+\[
+ \frac{u(P)}{u(Q)}\in U_K^{\min(r,d)}.
+\]
+For two high packages it retains precisely the proved quotient equalities
+for $\beta$ modulo $\mathfrak p_F^d$, for
+$c=\alpha\delta_h$ in
+$\mathfrak p_F^{m-T}/\mathfrak p_F^{m-T+\lfloor T/2\rfloor}$, for the twist
+representative modulo $\mathfrak p_F^d$, for the upstairs representative
+modulo $\mathfrak p_K^{d_K}$, and for its norm-product class modulo
+$\mathfrak p_F^d$.  It proves no literal equality between the two choices
+of $u,n,s,x,y,$ or $X$, and it does not identify arbitrary high and low
+representatives at the boundary.
+
+The principal theorem bundles the exact norm expansions and all three
+equalities in \eqref{eq:lean-wild-quadratic-common-X} for one common record.
+The surrounding exported declarations provide the two explicit adapters,
+the retained high unit correction, the two graded-trace specializations,
+and the exact ambiguity interfaces.  No coefficient-table, error-formula,
+boundary-cancellation, or First Main Lemma theorem is assumed.
+
+\LeanFile{LanglandsFirstMainLemma/Cases/WildQuadratic/CommonCorrection.lean}
+\lean{LanglandsFirstMainLemma.WildQuadraticCommonCorrectionData}
+\lean{LanglandsFirstMainLemma.lowWildQuadraticCommonCorrection}
+\lean{LanglandsFirstMainLemma.highWildQuadraticCommonCorrection}
+\lean{LanglandsFirstMainLemma.highWildQuadraticCommonCorrection_n_with_delta}
+\lean{LanglandsFirstMainLemma.highWildQuadraticCommonCorrection_delta_factorization}
+\lean{LanglandsFirstMainLemma.highWildQuadraticCommonCorrection_exact_norm}
+\lean{LanglandsFirstMainLemma.lowWildQuadraticCommonCorrection_oppositeNoncancellation}
+\lean{LanglandsFirstMainLemma.highWildQuadraticCommonCorrection_oppositeNoncancellation}
+\lean{LanglandsFirstMainLemma.LowWildQuadraticCommonCorrectionAmbiguity}
+\lean{LanglandsFirstMainLemma.lowWildQuadraticCommonCorrection_ambiguity}
+\lean{LanglandsFirstMainLemma.HighWildQuadraticCommonCorrectionAmbiguity}
+\lean{LanglandsFirstMainLemma.highWildQuadraticCommonCorrection_ambiguity}
+\lean{LanglandsFirstMainLemma.WildQuadraticCommonCorrectionData.norm_one_add_u}
+\lean{LanglandsFirstMainLemma.WildQuadraticCommonCorrectionData.norm_one_add_dual}
+\lean{LanglandsFirstMainLemma.WildQuadraticCommonCorrectionData.norm_n_sub_u_eq}
+\lean{LanglandsFirstMainLemma.WildQuadraticCommonCorrectionData.norm_one_add_u_eq_denominator_mul_z1}
+\lean{LanglandsFirstMainLemma.WildQuadraticCommonCorrectionData.signed_trace_sum_eq}
+\lean{LanglandsFirstMainLemma.WildQuadraticCommonCorrectionData.z0Unit}
+\lean{LanglandsFirstMainLemma.WildQuadraticCommonCorrectionData.z1Unit}
+\lean{LanglandsFirstMainLemma.WildQuadraticCommonCorrectionData.X_eq}
+\lean{LanglandsFirstMainLemma.WildQuadraticCommonCorrectionData.trace_inv_eq}
+\lean{LanglandsFirstMainLemma.wildQuadraticHighOdd_gradedTrace_class}
+\lean{LanglandsFirstMainLemma.wildQuadraticHighOdd_cChi_order}
+\lean{LanglandsFirstMainLemma.wildQuadraticHighOdd_x_div_cChi_eq}
+\lean{LanglandsFirstMainLemma.wildQuadraticBoundary_trace_congr}
+\lean{LanglandsFirstMainLemma.wildQuadraticBoundary_gradedTrace_class}
+\lean{LanglandsFirstMainLemma.wildQuadratic_commonCorrection}
+\leanok
+\SourceText{Lemma lem:quad-X and Lemma lem:quadratic-graded-trace.}
+\uses{mod:parameters-highquadratic,mod:parameters-low,mod:ramification-normfiltration}
+\FormalizationContract
+The high and low constructions consume their supplied simultaneous
+existential packages; they do not construct canonical field
+representatives.  The high package retains $\delta_h$.  Norm, trace, and
+correction equations are literal field equalities only after one package is
+fixed.  The strict-odd and boundary trace conclusions are equalities in the
+stated adjacent lattice quotients, and comparisons between packages use
+only the quotient or filtration precision certified upstream.
+\end{theorem}

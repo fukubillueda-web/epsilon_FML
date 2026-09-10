@@ -1,0 +1,153 @@
+\begin{corollary}[Stationary class under norm pullback]\label{mod:parameters-stationaryclassundernorm}
+Let $K/F$ be a finite extension of nonarchimedean local fields.  Let
+$\chi_F$ and $\chi_K$ be quasi-character data with their exact, separately
+stored conductors
+\[
+ m_F=m_F(\chi_F),\qquad m_K=m_K(\chi_K),
+\]
+and let $\psi_F$ and $\psi_K$ be exact additive-character data.  Assume the
+manuscript's pullback normalizations
+\[
+ \chi_K=\chi_F\circ N_{K/F},\qquad
+ \psi_K=\psi_F\circ\operatorname{Tr}_{K/F}.
+\]
+Choose natural numbers $d_F,d_K,\varepsilon_F,\varepsilon_K$ and a
+\texttt{NormPolynomialPrecision} certificate $h$ for
+\[
+ m_F=2d_F+\varepsilon_F,qquad
+ m_K=2d_K+\varepsilon_K,qquad
+ \varepsilon_F,\varepsilon_K\leq1.
+\]
+The certificate uses the actual conductor $m_K$ of $\chi_K$, not $m_F$, as
+its upstairs conductor.  It also proves $m_F,m_K>1$ and records separately
+\[
+ N(U_K^{d_K+\varepsilon_K})\subseteq U_F^{d_F+\varepsilon_F},qquad
+ N(U_K^{m_K})\subseteq U_F^{m_F},qquad
+ N(U_K^{d_K})\subseteq U_F^{d_F}.
+\]
+The first two inclusions induce the additive truncated norm
+\[
+ P_h:\mathfrak p_K^{d_K+\varepsilon_K}/\mathfrak p_K^{m_K}
+ \longrightarrow
+ \mathfrak p_F^{d_F+\varepsilon_F}/\mathfrak p_F^{m_F},
+ \qquad [y]\longmapsto[N_{K/F}(1+y)-1].
+\]
+
+Choose the ordered denominator pair $(\gamma_F,\gamma_K)$ with
+\[
+ \operatorname{ord}_F(\gamma_F)=m_F+n_F(\psi_F),qquad
+ \operatorname{ord}_K(\gamma_K)=m_K+n_K(\psi_K).
+\]
+Lean explicitly transports the minimal-depth Lamprecht stationary class to
+the literal coefficient quotient and defines
+\[
+ \beta_F=\operatorname{St}_{\gamma_F,d_F+\varepsilon_F}(\chi_F)
+   \in C_F:=\mathcal O_F/\mathfrak p_F^{d_F},
+ \qquad
+ \beta_K=\operatorname{St}_{\gamma_K,d_K+\varepsilon_K}(\chi_K)
+   \in C_K:=\mathcal O_K/\mathfrak p_K^{d_K}.
+\]
+This transport is an additive equivalence which keeps every supplied
+integral representative and uses
+$m_E-(d_E+\varepsilon_E)=d_E$; it makes no representative choice.
+
+For this same ordered denominator pair, the denominator-sensitive adjoint has
+the reverse direction
+\[
+ P^*_{h;\gamma_F,\gamma_K}:C_F\longrightarrow C_K.
+\]
+Then Lean proves the quotient-class equality
+\[
+ \boxed{\ \beta_K=P^*_{h;\gamma_F,\gamma_K}(\beta_F)\ }
+ \qquad\text{in }\mathcal O_K/\mathfrak p_K^{d_K}.
+\]
+Indeed, pullback along the truncated norm identifies the downstairs and
+upstairs stationary linearization characters.  Equivalently, the adjoint
+image satisfies, for every
+$[y]\in\mathfrak p_K^{d_K+\varepsilon_K}/\mathfrak p_K^{m_K}$,
+\[
+ \chi_K(1+y)=
+ \Phi_{K,\gamma_K}
+   \bigl(P^*_{h;\gamma_F,\gamma_K}(\beta_F)\bigr)([y]),
+\]
+where $\Phi_{K,\gamma_K}$ is the quotient pairing from
+Definition~\ref{mod:parameters-adjoint}.
+The proof uses the exact norm identity represented by $P_h$, not a replacement
+of norm by trace.  It then transports
+\texttt{stationaryNumeratorClass\_unique} from
+Lemma~\ref{mod:lamprecht-stationaryclass} at the actual upstairs conductor
+$m_K$ and the exact depth $d_K+\varepsilon_K$.
+
+All field elements in the representative statements are separately supplied.
+If $c,c'\in\mathcal O_F$ both represent $\beta_F$, and $b,b'\in\mathcal O_K$
+represent the corresponding adjoint images, then
+\[
+ b\equiv b'\pmod{\mathfrak p_K^{d_K}}.
+\]
+Every such $b$ satisfies the displayed upstairs linearization.  If
+$y\equiv y'\pmod{\mathfrak p_K^{m_K}}$, both the downstairs norm-polynomial
+phase and the upstairs phase are unchanged.  Thus none of these assertions
+promotes a quotient class to a canonical field representative.
+
+The class is compatible with every deeper admissible stationary depth: the
+canonical coefficient-quotient restriction of the minimal-depth class is exactly the
+stationary class constructed at that deeper depth.  It is also compatible
+with admissible denominator changes.  If $\gamma_E'$ is another admissible
+denominator, let
+\[
+ S_E^{\gamma_E,\gamma_E'}([c])=
+   [\,(\gamma_E'/\gamma_E)c\,]
+   \quad\text{on }\mathcal O_E/\mathfrak p_E^{d_E}.
+\]
+Then the stationary class for $\gamma_E'$ is
+$S_E^{\gamma_E,\gamma_E'}$ of the class for $\gamma_E$, and Lean proves on
+the downstairs stationary class the denominator-sensitive square
+\[
+ P^*_{h;\gamma_F',\gamma_K'}
+   \bigl(S_F^{\gamma_F,\gamma_F'}(\beta_F)\bigr)
+ =S_K^{\gamma_K,\gamma_K'}
+   \bigl(P^*_{h;\gamma_F,\gamma_K}(\beta_F)\bigr).
+\]
+
+Finally, the same precision certificate proves $m_F,m_K>1$.  Hence this
+corollary constructs no stationary class when either actual conductor is zero
+or one; those endpoint cases remain outside its hypotheses.
+
+\LeanFile{LanglandsFirstMainLemma/Parameters/StationaryClassUnderNorm.lean}
+\lean{LanglandsFirstMainLemma.stationaryDepthOfConductorDecomposition}
+\lean{LanglandsFirstMainLemma.stationaryCoefficientLamprechtEquivAtConductor}
+\lean{LanglandsFirstMainLemma.stationaryCoefficientLamprechtEquivAtConductor_mk}
+\lean{LanglandsFirstMainLemma.stationaryCoefficientClass}
+\lean{LanglandsFirstMainLemma.stationaryCoefficientClass_toLamprecht}
+\lean{LanglandsFirstMainLemma.stationaryPairingLeft_eq_lamprechtPairing}
+\lean{LanglandsFirstMainLemma.IsStationaryCoefficientClass}
+\lean{LanglandsFirstMainLemma.stationaryCoefficientClass_isStationary}
+\lean{LanglandsFirstMainLemma.stationaryCoefficientClass_unique}
+\lean{LanglandsFirstMainLemma.stationaryCoefficientClass_existsUnique}
+\lean{LanglandsFirstMainLemma.latticeQuotientMk_eq_stationaryCoefficientClass_iff}
+\lean{LanglandsFirstMainLemma.stationaryCoefficientClass_restrict}
+\lean{LanglandsFirstMainLemma.stationaryLinearizationCharacter_compNorm}
+\lean{LanglandsFirstMainLemma.normPolynomialAdjoint_stationaryClass_isStationary}
+\lean{LanglandsFirstMainLemma.stationaryClass_compNorm}
+\lean{LanglandsFirstMainLemma.stationaryClass_compNorm_representative_linearization}
+\lean{LanglandsFirstMainLemma.stationaryClass_compNorm_representatives_independent}
+\lean{LanglandsFirstMainLemma.stationaryClass_compNorm_variable_representative_independent}
+\lean{LanglandsFirstMainLemma.stationaryCoefficientClass_changeDenominator}
+\lean{LanglandsFirstMainLemma.stationaryClass_compNorm_changeDenominator}
+\lean{LanglandsFirstMainLemma.stationaryClass_compNorm_conductors_gt_one}
+\leanok
+\SourceText{Corollary~\ref{cor:stationary-class-under-norm}.}
+\uses{mod:parameters-adjoint,mod:lamprecht-stationaryclass,mod:lamprecht-formula}
+\FormalizationContract The Lean theorem is parameterized by the three
+certified norm-filtration inclusions rather than by a ramification case split.
+Its coefficient quotients have exactly the depths $d_F$ and $d_K$ from the
+separate exact conductor decompositions, and its variable quotients have
+exactly the depths $d_F+\varepsilon_F$ and $d_K+\varepsilon_K$.  The truncated
+norm points from upstairs variables to downstairs variables, while the
+adjoint points from downstairs coefficient classes to upstairs coefficient
+classes and retains both ordered denominators.  Stationary uniqueness is used
+only after proving the upstairs linearization at the actual upstairs depth.
+All principal equalities are finite lattice-quotient equalities; all
+representatives are explicit hypotheses, and no stationary object is defined
+at conductor zero or one.
+\end{corollary}

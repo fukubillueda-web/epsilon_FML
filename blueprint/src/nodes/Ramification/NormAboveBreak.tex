@@ -1,0 +1,164 @@
+\begin{theorem}[Norm filtration above the break]
+\label{mod:ramification-normabovebreak}
+Let $K/F$ be a cyclic extension of prime degree
+$\ell=[K:F]$, let $t\in\mathbf N$ be its lower ramification break, and
+assume $f(K/F)=1$.  Fix an integral uniformizer $\pi_K$ satisfying the
+explicit monogenicity hypothesis
+\[
+ \operatorname{Algebra.adjoin}_{\mathcal O_F}\{\pi_K\}=\mathcal O_K.
+\]
+For a natural target depth $r$ with the strict inequality $t<r$, Lean uses
+the manuscript's one-break Herbrand depth
+\[
+ a=\texttt{aboveBreakSourceDepth}(t,\ell,r)
+   =\Psi_{t,\ell}(r)=t+\ell(r-t).
+\]
+In particular, the theorem is not stated at the critical depth $r=t$.
+
+Put $D=(\ell-1)(t+1)$.  The two integer-division identities needed at the
+adjacent source layers are proved separately:
+\[
+ \left\lfloor\frac{a+D}{\ell}\right\rfloor=r,
+ \qquad
+ \left\lfloor\frac{a+1+D}{\ell}\right\rfloor=r+1.
+\]
+After substituting $e(K/F)=\ell$, which follows from $f(K/F)=1$, and the
+different formula of module~\ref{mod:ramification-different}, the exact
+trace-image theorem of module~\ref{mod:ramification-traceideals} therefore
+gives
+\[
+ \operatorname{Tr}_{K/F}(\mathfrak p_K^a)=\mathfrak p_F^r,
+ \qquad
+ \operatorname{Tr}_{K/F}(\mathfrak p_K^{a+1})=\mathfrak p_F^{r+1}.
+\]
+These are equalities of mapped submodules; the first is also used in its
+elementwise surjectivity form when constructing graded norm preimages.
+
+For every $x\in K$, Lean records the exact expansion
+\[
+ N_{K/F}(1+x)-1=\sum_{j=1}^{\ell}s_j(x),
+\]
+where $s_j$ is the $j$th elementary symmetric function of the conjugates
+of $x$.  If $v_K(x)\ge a$, then every higher term, including the terminal
+norm coefficient, satisfies the exact next-layer bound
+\[
+ s_j(x)\in\mathfrak p_F^{r+1}
+ \qquad(2\le j\le\ell).
+\]
+For $2\le j<\ell$, the positive-break branch derives
+$\operatorname{char}k_F=\ell$ from the faithful ramification coordinate
+and applies the strong wild symmetric bound; the $t=0$ branch applies the
+totally ramified ceiling bound.  The terminal case $j=\ell$ uses
+$e(K/F)=\ell$ and the exact valuation of the norm.  Thus no coefficient is
+lost at an endpoint, and the expansion gives the precise congruence
+\[
+ N_{K/F}(1+x)-1-\operatorname{Tr}_{K/F}(x)
+   \in\mathfrak p_F^{r+1}.
+\]
+
+The predicate \texttt{AboveBreakNormMapsUnitFiltration} records a certified
+containment between a source and target unit layer.  Lean proves the two
+distinct containments
+\[
+ N_{K/F}(U_K^a)\subseteq U_F^r,
+ \qquad
+ N_{K/F}(U_K^{a+1})\subseteq U_F^{r+1},
+\]
+and only then descends norm to the heterogeneous quotient map
+\[
+ \overline N_r:U_K^a/U_K^{a+1}\longrightarrow U_F^r/U_F^{r+1}.
+\]
+The numerator and denominator containments are separate arguments, so the
+map is independent of representatives by construction.  On a certified
+representative $u=1+x$ its quotient-class formula is exactly
+\[
+ [1+x]\longmapsto[1+\operatorname{Tr}_{K/F}(x)].
+\]
+The general quotient construction also proves that norm commutes with the
+canonical projections obtained by deepening both denominator layers, as
+well as the representative formula and the fact that a representative in
+the deeper source layer maps to the identity class.
+
+Exact trace surjectivity and the displayed congruence show that
+$\overline N_r$ is surjective at every $r>t$.  Since $f(K/F)=1$ identifies
+the finite residue cardinalities, the source and target positive graded
+pieces have the same order; hence the graded norm is bijective and Lean
+packages it as the multiplicative equivalence
+\[
+ U_K^{\Psi_{t,\ell}(r)}/U_K^{\Psi_{t,\ell}(r)+1}
+   \simeq U_F^r/U_F^{r+1}.
+\]
+
+Finally, Lean applies complete successive lifting to the continuous norm.
+For $a=\Psi_{t,\ell}(r)$ it passes the predecessor depths
+\[
+ b(n)=(a-1)+\ell n,
+ \qquad b(n)+1=\Psi_{t,\ell}(r+n),
+\]
+to module~\ref{mod:localfield-successivelifting}.  These depths are
+monotone and tend to infinity, while the local-field hypotheses supply
+completeness and continuity.  The resulting full-layer surjectivity is
+stated elementwise and then as the exact subgroup image
+\[
+ \boxed{N_{K/F}(U_K^{\Psi_{t,\ell}(r)})=U_F^r}.
+\]
+For the adjacent source layer Lean does not identify
+$\Psi_{t,\ell}(r)+1$ with $\Psi_{t,\ell}(r+1)$: it uses
+\[
+ \Psi_{t,\ell}(r)+1<\Psi_{t,\ell}(r+1)
+   =\Psi_{t,\ell}(r)+\ell,
+\]
+combines surjectivity from the deeper Herbrand layer with the separately
+proved denominator containment, and obtains the second exact image
+\[
+ \boxed{N_{K/F}(U_K^{\Psi_{t,\ell}(r)+1})=U_F^{r+1}}.
+\]
+Both formulas are also exported as elementwise if-and-only-if statements.
+
+\LeanFile{LanglandsFirstMainLemma/Ramification/NormAboveBreak.lean}
+\lean{LanglandsFirstMainLemma.aboveBreakSourceDepth}
+\lean{LanglandsFirstMainLemma.aboveBreakSourceDepth_eq}
+\lean{LanglandsFirstMainLemma.aboveBreak_trace_floor}
+\lean{LanglandsFirstMainLemma.aboveBreak_trace_floor_succ}
+\lean{LanglandsFirstMainLemma.residueCharacteristic_eq_degree_of_positive_break}
+\lean{LanglandsFirstMainLemma.norm_one_add_sub_one_eq_sum_elementarySymmetric}
+\lean{LanglandsFirstMainLemma.higher_elementarySymmetric_mem_lattice_aboveBreakCanonical}
+\lean{LanglandsFirstMainLemma.norm_one_add_sub_one_sub_trace_mem_aboveBreakCanonical}
+\lean{LanglandsFirstMainLemma.trace_lattice_image_aboveBreak}
+\lean{LanglandsFirstMainLemma.trace_lattice_image_aboveBreak_succ}
+\lean{LanglandsFirstMainLemma.AboveBreakNormMapsUnitFiltration}
+\lean{LanglandsFirstMainLemma.aboveBreakNormUnitFiltrationHom}
+\lean{LanglandsFirstMainLemma.aboveBreakNormUnitFiltrationQuotient}
+\lean{LanglandsFirstMainLemma.aboveBreakNormUnitFiltrationQuotient_mk}
+\lean{LanglandsFirstMainLemma.aboveBreakNormUnitFiltrationQuotient_deeper_eq_one}
+\lean{LanglandsFirstMainLemma.aboveBreakNormUnitFiltrationQuotient_projection}
+\lean{LanglandsFirstMainLemma.normMapsUnitFiltration_aboveBreakCanonical}
+\lean{LanglandsFirstMainLemma.normMapsUnitFiltration_aboveBreakCanonical_succ}
+\lean{LanglandsFirstMainLemma.normGradedAboveBreakCanonical}
+\lean{LanglandsFirstMainLemma.normGradedAboveBreakCanonical_mk}
+\lean{LanglandsFirstMainLemma.normGradedAboveBreakCanonical_mk_eq_trace}
+\lean{LanglandsFirstMainLemma.norm_graded_surjective_above_break}
+\lean{LanglandsFirstMainLemma.norm_graded_bijective_above_break}
+\lean{LanglandsFirstMainLemma.normGradedAboveBreakEquiv}
+\lean{LanglandsFirstMainLemma.normGradedAboveBreakEquiv_apply}
+\lean{LanglandsFirstMainLemma.normGradedAboveBreakCanonical_range_eq_top}
+\lean{LanglandsFirstMainLemma.norm_unitFiltration_surjective_aboveBreak}
+\lean{LanglandsFirstMainLemma.mem_unitFiltration_iff_exists_norm_aboveBreak}
+\lean{LanglandsFirstMainLemma.norm_unitFiltration_map_eq_aboveBreak}
+\lean{LanglandsFirstMainLemma.mem_unitFiltration_succ_iff_exists_norm_aboveBreak}
+\lean{LanglandsFirstMainLemma.norm_unitFiltration_map_eq_aboveBreak_succ}
+\leanok
+\SourceText{Theorem~\ref{thm:graded-norm}, parts (iii)--(iv),
+Theorem~\ref{thm:norm-filtration}, part (d), and
+Corollary~\ref{cor:wild-norm-truncation}.}
+\uses{mod:ramification-herbrand,mod:ramification-traceideals,
+mod:ramification-symmetricbounds,mod:localfield-successivelifting,
+mod:localfield-finitequotients}
+\FormalizationContract The strict hypothesis $t<r$, both $a$ and $a+1$
+trace targets, every coefficient with $j\ge2$, the factors
+$e(K/F)=\ell$ and $f(K/F)=1$, separate quotient well-definedness,
+projection compatibility, graded bijectivity, complete lifting, and both
+exact norm-image equalities are explicit.  The proof imports neither the
+assembled norm-filtration theorem nor pullback conductors, and it never
+replaces an equality by an inclusion.
+\end{theorem}

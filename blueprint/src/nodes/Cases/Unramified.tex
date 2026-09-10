@@ -1,0 +1,85 @@
+\begin{theorem}[Unramified case]\label{mod:cases-unramified}
+Let $K/F$ be a prime cyclic extension of nonarchimedean local fields with
+$e(K/F)=1$, let $\chi_F$ and $\psi_F$ carry proofs of their exact
+multiplicative and additive conductors, and choose a uniformizer $\pi$ of
+$F$.  Write
+\[
+ \chi_K=\chi_F\circ N_{K/F},\qquad
+ \psi_K=\psi_F\circ\operatorname{Tr}_{K/F},\qquad
+ \gamma_F=\pi^{m_F(\chi_F)+n_F(\psi_F)},
+\]
+and let $\gamma_K$ be the image of $\gamma_F$ in $K^\times$.
+
+For every $\mu\in S(K/F)$, Lean packages $\mu$ with exact conductor zero
+and $\mu\chi_F$ with the unchanged exact conductor of $\chi_F$.  With the
+same uniformizer denominator in every factor, it proves the complete
+computational First Main identity
+\[
+ \Delta_K^{\mathrm{fin}}(\chi_K,\psi_K;\gamma_K)
+ \prod_{\mu\in S(K/F)}
+   \Delta_F^{\mathrm{fin}}(\mu,\psi_F;\gamma_\mu)
+ =
+ \prod_{\mu\in S(K/F)}
+   \Delta_F^{\mathrm{fin}}(\mu\chi_F,\psi_F;\gamma_{\mu\chi_F}).
+\]
+Here $\Delta^{\mathrm{fin}}$ is Lean's \texttt{deltaFinite} with the
+project's normalization, and the products include the trivial norm
+character.
+
+Lean also exports the dispatch-ready wrapper
+\texttt{firstMain\_unramified\_dispatchReady}.  Given proposed local-constant
+functions $\Delta_F,\Delta_K$ satisfying
+\texttt{IsDeltaFiniteLocalConstant}, it constructs
+\texttt{FirstMainComputationalData} from the same private unramified
+conductor packages, chooses the same uniformizer denominators, and identifies
+\texttt{unramifiedNormCharacterFinset} with the full norm-character
+enumeration, including the trivial character.  It supplies the displayed
+computational identity from \texttt{firstMain\_unramified} to
+\texttt{firstMainIdentity\_of\_deltaFinite\_product}, yielding
+\[
+ \texttt{FirstMainIdentity}(F,K,\Delta_F,\Delta_K,
+   \chi_F,\psi_F).
+\]
+Thus the wrapper adds only the dispatch interface; it neither repeats the
+finite-field argument nor duplicates error-term cancellation.
+
+The proof first enumerates all norm characters by
+$\mu\mapsto\mu(\pi)$ and proves
+\[
+ \prod_{\mu\in S(K/F)}\mu(\pi)=(-1)^{[K:F]-1}.
+\]
+It then reduces the displayed identity to the exact signed power formula
+\[
+ \Delta_K^{\mathrm{fin}}(\chi_K,\psi_K;\gamma_K)
+ =(-1)^{m_F(\chi_F)([K:F]-1)}
+  \Delta_F^{\mathrm{fin}}(\chi_F,\psi_F;\gamma_F)^{[K:F]}.
+\]
+Conductor zero follows from the unramified-character formula.  At conductor
+one, the residue multiplicative character is pulled back by the norm and
+the residue additive character by the trace; Hasse--Davenport lifting is
+applied with the existing inverse-character and leading-minus conventions.
+For higher conductor, Lean splits $m=2d+\varepsilon$.  It first transports
+the stationary numerator as an equality in the literal quotient
+$\mathcal O_K/\mathfrak p_K^d$, and only then chooses mapped integral
+representatives for Lamprecht's formula.  The even case has no residual
+factor.  In the odd case the norm expansion retains the unordered second
+coefficient, reduces it to the finite-field pair correction, identifies the
+upstairs Hasse function with the trace lift carrying the exact negative
+correction, and applies the Hasse-function lift.  Thus all three conductor
+ranges, every exponent, and every sign are proved without a
+Hasse--Davenport multiplication argument.
+\LeanFile{LanglandsFirstMainLemma/Cases/Unramified.lean}
+\lean{LanglandsFirstMainLemma.firstMain_unramified}
+\lean{LanglandsFirstMainLemma.firstMain_unramified_dispatchReady}
+\leanok
+\SourceText{Proposition prop:unramified-new.}
+\uses{mod:ramification-unramifiedcompatibility,mod:delta-residueformula,mod:finitefield-hassedavenportlift,mod:finitefield-hassefunctionlift,mod:lamprecht-formula,mod:parameters-highunramifiedstable,mod:ramification-normcharacters,mod:delta-firstmainstatement,mod:delta-errorterm}
+\FormalizationContract The principal Lean theorem is the full
+\texttt{deltaFinite} product identity for supplied exact conductor data and
+a chosen uniformizer.  The dispatch-ready wrapper accepts computationally
+compatible parameters of type \texttt{LocalConstantFunction}, packages the
+same exact character data and denominators, normalizes to the full
+\texttt{NormCharacter} product, and applies the generic product bridge to
+prove \texttt{FirstMainIdentity}.  Every auxiliary theorem in the Lean file
+remains private.
+\end{theorem}

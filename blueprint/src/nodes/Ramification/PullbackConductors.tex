@@ -1,0 +1,237 @@
+\begin{theorem}[Conductors under trace and norm]
+\label{mod:ramification-pullbackconductors}
+Let $K/F$ be a finite Galois valuative extension of nonarchimedean local
+fields.  Fix an integral uniformizer $\pi_K$ such that
+\[
+ \operatorname{Algebra.adjoin}_{\mathcal O_F}\{\pi_K\}=\mathcal O_K,
+\]
+and put
+\[
+ e=e(K/F),\qquad D=d_{K/F}=v_K(\mathfrak D_{K/F}).
+\]
+If $\psi$ has exact additive conductor $n\in\mathbf Z$, in the convention
+that $\mathfrak p_F^{-n}$ is its largest triviality lattice, then
+\[
+ \boxed{\quad
+ n_K(\psi\circ\operatorname{Tr}_{K/F})=e n+D.
+ \quad}
+\]
+Thus the different shift has a plus sign in the conductor and a minus sign
+in the largest trivial lattice.  In particular, the statement is valid for
+arbitrary positive, zero, or negative $n$.
+
+Now assume that $K/F$ is cyclic of prime degree, that $t\in\mathbf N$ is a
+supplied lower-break witness, and that $f(K/F)=1$.  Retain the chosen
+generating uniformizer and write
+\[
+ \ell=[K:F],\qquad D=(\ell-1)(t+1),\qquad
+ \Psi(r)=\Psi_{t,\ell}(r).
+\]
+Then $e=\ell$, so the additive formula specializes to
+\[
+ \boxed{\quad
+ n_K(\psi\circ\operatorname{Tr}_{K/F})
+ =\ell n_F(\psi)+(\ell-1)(t+1).
+ \quad}
+\]
+
+Let $\chi$ be a continuous quasi-character of $F^\times$, and suppose its
+exact conductor is $m$.  Write $m'$ for the exact conductor of
+$\chi\circ N_{K/F}$.  Norm-pullback triviality on a source layer is first
+identified with triviality of $\chi$ on its honest full norm image.  Hence
+the exact image equalities from
+module~\ref{mod:ramification-normfiltration} give
+\[
+ \operatorname{MulTriv}_K(\chi\circ N,U_K^{\Psi(r)})
+ \Longleftrightarrow
+ \operatorname{MulTriv}_F(\chi,U_F^r),
+ \qquad t<r,
+\]
+and, crucially, the separate adjacent-denominator equivalence
+\[
+ \operatorname{MulTriv}_K(\chi\circ N,U_K^{\Psi(r)+1})
+ \Longleftrightarrow
+ \operatorname{MulTriv}_F(\chi,U_F^{r+1}).
+\]
+At the critical successor one similarly has
+\[
+ \operatorname{MulTriv}_K(\chi\circ N,U_K^{t+1})
+ \Longleftrightarrow
+ \operatorname{MulTriv}_F(\chi,U_F^{t+1}).
+\]
+
+These equivalences prove the exact conductor trichotomy, with conductor zero
+kept separate from the positive-boundary argument:
+\begin{enumerate}[label=(\roman*)]
+\item If $m=0$, then $m'=0$.
+\item If $1\le m\le t$, then $m'=m$.  Together with the preceding endpoint,
+this is the formula $m'=m$ for every $m\le t$.
+\item If $m>t+1$, then
+\[
+ \boxed{\quad m'-1=\Psi(m-1),\qquad
+ m'=\Psi(m-1)+1.\quad}
+\]
+The source depths used here are exactly $\Psi(m-1)$ and
+$\Psi(m-1)+1$, never $\Psi(m)$.  Using the prime-cyclic formula for $\Psi$,
+this is equivalently
+\[
+ \boxed{\quad
+ m'=\ell m-(\ell-1)(t+1)=\ell m-D.
+ \quad}
+\]
+\end{enumerate}
+For the positive below-break case, exactness is not deduced from false full
+surjectivity of $U_K^{m-1}\to U_F^{m-1}$.  Instead Lean uses the proved join
+identity
+\[
+ N(U_K^{m-1})\vee U_F^t=U_F^{m-1}
+\]
+together with triviality on $U_F^m\supseteq U_F^t$.
+
+At the critical conductor $m=t+1$, exact successor surjectivity gives only
+the first conclusion
+\[
+ m'\le t+1.
+\]
+Lean then proves the cancellation endpoint exactly.  Let
+\[
+ I_t=N(U_K^t)\le F^\times;
+\]
+equivalently, $I_t$ is the inverse image in $U_F^t$ of the range of the
+critical graded norm.  Then
+\[
+ \boxed{\quad
+ m'<t+1
+ \Longleftrightarrow
+ (\chi\circ N)|_{U_K^t}=1
+ \Longleftrightarrow
+ \chi|_{I_t}=1.
+ \quad}
+\]
+Thus failure of this condition proves the exact equality $m'=t+1$, not just
+an upper bound.
+
+Write
+\[
+ S(K/F)=\{\mu:F^\times\to\C^\times:\mu\circ N_{K/F}=1\}.
+\]
+Without using any theorem from the later norm-character node, Lean also
+proves the manuscript's equivalent criterion
+\[
+ \boxed{\quad
+ m'<m=t+1
+ \Longleftrightarrow
+ \exists\mu\in S(K/F),\ \exists q<t+1,
+ \quad m_F(\mu\chi)=q.
+ \quad}
+\]
+The forward implication is constructive at the level of quotient classes.
+Triviality on $U_K^t$ factors $\chi\circ N$ through
+$K^\times/U_K^t$.  Lean transports the resulting homomorphism through the
+proved equivalence
+\[
+ K^\times/U_K^t\xrightarrow{\ \sim\ }F^\times/U_F^t,
+\]
+pulls it back to a character $\rho$ of $F^\times$, proves continuity from
+its open unit-layer kernel, and sets $\mu=\rho\chi^{-1}$.  The least unit
+layer on which $\rho$ is trivial supplies an exact conductor $q\le t$.
+Conversely, $(\mu\chi)\circ N=\chi\circ N$, and the below-break formula
+proves the stronger exact conclusion
+\[
+ m_K(\chi\circ N)=q.
+\]
+No conductor formula is assumed as a structure field or helper hypothesis.
+
+For packaged exact-conductor data, Lean exports the same equalities as
+equalities of the stored conductors.  In particular, if $\chi$ has minimal
+conductor in its $S(K/F)$-orbit, then
+\[
+ m\le t+1\Longrightarrow m'=m.
+\]
+At and above the critical endpoint this gives the uniform explicit identity
+\[
+ m'=\ell m-D.
+\]
+Combining it with the additive formula gives the denominator-valuation
+identity needed downstream:
+\[
+ \boxed{\quad
+ m_K+n_K=\ell(m_F+n_F).
+ \quad}
+\]
+Lean also exposes the last-nontrivial-layer forms used in the later case
+split:
+\[
+ m'-1=m-1\quad(m-1<t),
+\]
+\[
+ m'-1=t\quad(m-1=t\text{ and the orbit representative is minimal}),
+\]
+and
+\[
+ m'-1=\Psi(m-1)\quad(t<m-1).
+\]
+These statements include the tame critical endpoint $t=0,m=1$: cancellation
+gives conductor $0$, while a minimal-orbit representative has conductor $1$.
+
+\LeanFile{LanglandsFirstMainLemma/Ramification/PullbackConductors.lean}
+\lean{LanglandsFirstMainLemma.quasiCharTrivialOnUnitFiltration_compNorm_iff_image}
+\lean{LanglandsFirstMainLemma.quasiCharTrivialOnUnitFiltration_compNorm_iff_of_image_eq}
+\lean{LanglandsFirstMainLemma.quasiCharTrivialOnUnitFiltration_compNorm_of_maps}
+\lean{LanglandsFirstMainLemma.additiveConductor_compTrace}
+\lean{LanglandsFirstMainLemma.additiveConductor_compTrace_cyclicPrime}
+\lean{LanglandsFirstMainLemma.quasiCharTrivialOnUnitFiltration_compNorm_iff_aboveBreak}
+\lean{LanglandsFirstMainLemma.quasiCharTrivialOnUnitFiltration_compNorm_iff_aboveBreak_succ}
+\lean{LanglandsFirstMainLemma.quasiCharTrivialOnUnitFiltration_compNorm_iff_break_succ}
+\lean{LanglandsFirstMainLemma.multiplicativeConductor_compNorm_zero}
+\lean{LanglandsFirstMainLemma.multiplicativeConductor_compNorm_belowBreak_succ}
+\lean{LanglandsFirstMainLemma.multiplicativeConductor_compNorm_belowBreak}
+\lean{LanglandsFirstMainLemma.multiplicativeConductor_compNorm_aboveBreak}
+\lean{LanglandsFirstMainLemma.multiplicativeConductor_compNorm_high}
+\lean{LanglandsFirstMainLemma.highConductor_cast_eq_degree_mul_sub_different}
+\lean{LanglandsFirstMainLemma.multiplicativeConductor_compNorm_critical_le}
+\lean{LanglandsFirstMainLemma.multiplicativeConductor_compNorm_critical_drop_iff}
+\lean{LanglandsFirstMainLemma.multiplicativeConductor_compNorm_critical_drop_iff_image}
+\lean{LanglandsFirstMainLemma.multiplicativeConductor_compNorm_critical_of_noCancellation}
+\lean{LanglandsFirstMainLemma.normCharacter_mul_compNorm}
+\lean{LanglandsFirstMainLemma.multiplicativeConductor_compNorm_critical_of_twist}
+\lean{LanglandsFirstMainLemma.multiplicativeConductor_compNorm_critical_drop_iff_exists_twist}
+\lean{LanglandsFirstMainLemma.LocalAddCharData.conductor_compTrace_eq_cyclicPrime}
+\lean{LanglandsFirstMainLemma.LocalQuasiCharData.conductor_compNorm_eq_belowBreak}
+\lean{LanglandsFirstMainLemma.LocalQuasiCharData.conductor_compNorm_eq_high}
+\lean{LanglandsFirstMainLemma.LocalQuasiCharData.conductor_compNorm_eq_high_explicit}
+\lean{LanglandsFirstMainLemma.high_compNorm_add_compTrace_conductor_eq}
+\lean{LanglandsFirstMainLemma.LocalQuasiCharData.conductor_compNorm_le_critical}
+\lean{LanglandsFirstMainLemma.LocalQuasiCharData.conductor_compNorm_critical_drop_iff_exists_twist}
+\lean{LanglandsFirstMainLemma.LocalQuasiCharData.conductor_compNorm_eq_of_minimalOrbit}
+\lean{LanglandsFirstMainLemma.LocalQuasiCharData.conductor_compNorm_eq_atOrAboveCritical_of_minimalOrbit}
+\lean{LanglandsFirstMainLemma.compNorm_add_compTrace_conductor_eq_atOrAboveCritical_of_minimalOrbit}
+\lean{LanglandsFirstMainLemma.LocalQuasiCharData.conductor_compNorm_sub_one_eq_belowBreak}
+\lean{LanglandsFirstMainLemma.LocalQuasiCharData.conductor_compNorm_sub_one_eq_critical_of_minimalOrbit}
+\lean{LanglandsFirstMainLemma.LocalQuasiCharData.conductor_compNorm_sub_one_eq_aboveBreak}
+\leanok
+\SourceText{Corollary~\ref{cor:additive-conductor} and
+Proposition~\ref{prop:pullback-conductor}.}
+\uses{mod:ramification-normfiltration,mod:basic-characterconductors}
+\FormalizationContract
+The additive convention is fixed by the largest trivial lattice
+$\mathfrak p^{-n}$, so the different appears with a plus sign in the
+conductor.  The different is normalized upstairs.  The lower break $t$ and
+inverse Herbrand direction are retained exactly.  Above the break, the two
+source layers are $\Psi(r)$ and $\Psi(r)+1$; the proof never substitutes
+$\Psi(r+1)$ for the latter.
+
+Conductor zero is proved without a predecessor layer.  Positive conductors
+use adjacent exact boundary conditions.  The cases $m\le t$, $m=t+1$, and
+$t+1<m$ are disjoint and exhaustive, and the endpoints $t=0,m=1$ and
+$m=t+2$ are not conflated.  Below the break the proof uses the exact join
+description of the norm image, at the critical break it uses the honest
+critical image and exact successor image, and above the break it uses both
+exact Herbrand-indexed full images.
+
+The critical norm character is constructed from quotient maps and their
+proved equivalence.  Quotient well-definedness, the open-kernel continuity
+argument, the exact least conductor of the constructed twist, and equality
+of its norm pullback are explicit.  The proof imports no later parameter,
+case, norm-character conductor, or local-class-field-theory result.
+\end{theorem}

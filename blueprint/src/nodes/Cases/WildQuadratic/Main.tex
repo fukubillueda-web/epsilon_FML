@@ -1,0 +1,121 @@
+\begin{theorem}[Wild quadratic case]\label{mod:cases-wildquadratic-main}
+Let \(K/F\) be a prime-cyclic extension of nonarchimedean local fields of
+degree \(2\), with residue characteristic \(2\), residue degree one, and
+positive lower break \(t\).  Fix an integral uniformizer \(\pi_K\) which
+generates \(\mathcal O_K\) over \(\mathcal O_F\).  Let
+\(\Delta_F,\Delta_K\) be local-constant functions satisfying the proved
+finite-sum specification \texttt{IsDeltaFiniteLocalConstant}.
+
+For arbitrary exact data \(\chi_F\) and \(\psi_F\), let
+\(\chi_{\min}\) be the least-conductor member of the complete
+norm-character orbit of \(\chi_F\).  Higher stationary input is required
+only under the implication
+\[
+  1<m_F(\chi_{\min}).
+\]
+In that event, \texttt{WildQuadraticCommonHigherData} retains exactly the
+q-free information shared by every branch: the coefficient view indexed at
+the actual conductor \(m_F(\chi_{\min})\), its identification with
+\(\chi_{\min}\) and \(\psi_F\), the
+\texttt{FirstMainComputationalData}, \texttt{FirstMainPhaseData}, real
+\texttt{ExactQuadraticPhaseAssembly}, and common coordinate compatibility.
+The branch constructors then add either exact actual-even rows or the
+refined phase-row compatibility.
+
+The higher package is branch-sensitive:
+\[
+\begin{array}{c|l}
+\texttt{allEven}&
+ \text{q-free all-even coefficient view, four actual even rows, and}
+ \\
+ &\texttt{ExactQuadraticPhaseAssembly.CompleteCorrectionData};\\[1mm]
+\texttt{refined}&
+ \text{an actual \texttt{PositivePolarSource}, a normalized refinement tied}
+ \\
+ &\text{to that source, the existing refined coefficient view and row}
+ \\
+ &\text{compatibility, refinement assembly, and mixed-boundary continuation.}
+\end{array}
+\]
+Thus the \texttt{allEven} constructor has no refinement field, while the
+\texttt{refined} constructor cannot be formed without provenance from one
+of the seven actual positive-polar rows.  The all-even/positive-polar
+disjointness proof makes both impossible combinations unrepresentable.
+Only when a refined row is the exceptional odd boundary and \(2\ne0\) in
+\(F\) is the package required to supply the boundary residue data, the two
+actual selected refinement-correction records, their boundary compatibility,
+and their selection equalities.  No boundary witness is requested in equal
+characteristic two or in a nonboundary row.
+
+Then Lean proves the literal First Main identity
+\[
+ \Delta_K(\chi_F\circ N_{K/F},\psi_F\circ\operatorname{Tr}_{K/F})
+ \prod_{\mu\in S(K/F)}\Delta_F(\mu,\psi_F)
+ =
+ \prod_{\mu\in S(K/F)}\Delta_F(\mu\chi_F,\psi_F),
+\]
+where both products range over the complete norm-character group, including
+the identity.
+
+The proof first uses whole-orbit minimality and dispatches on the actual
+conductor of \(\chi_{\min}\).  Conductor zero invokes
+\texttt{firstMain\_wildEndpoint\_zero}, and conductor one invokes
+\texttt{firstMain\_wildEndpoint\_one}; the finite-Delta hypotheses identify
+their concrete \texttt{deltaFinite} products with the displayed
+\(\Delta_F,\Delta_K\) products.  No stationary object is introduced in
+either endpoint branch.
+
+For \(m_F(\chi_{\min})>1\), Lean first eliminates the branch-sensitive
+higher package.  The \texttt{allEven} constructor is sent directly to
+\texttt{wildQuadratic\_nonboundary\_allEven}, so no \(\mathfrak q\) is
+manufactured for the three constant rows.  In the \texttt{refined}
+constructor, the coefficient row is either the exceptional
+\texttt{boundaryOdd} row or its complement.  The complement lies among the
+nine disjoint nonboundary rows---equivalently
+\[
+ m<T,\qquad m=T\text{ with }T\text{ even},\qquad\text{or}\qquad T<m,
+ \quad T=t+1,
+\]
+and is discharged by \texttt{wildQuadratic\_nonboundary} with the derived
+whole-orbit minimality proof.  In the exceptional row, the coefficient
+classifier gives \(T=t+1\) odd.  If \(\operatorname{char}F=2\), the
+equal-characteristic break theorem gives \(t\) odd, while oddness of
+\(t+1\) gives that \(t\) is not odd, a contradiction.  Thus break parity is
+used in this direction and no equal-characteristic boundary data are
+assumed.  If \(2\ne0\) in \(F\), the exact error formula and precisely the
+supplied boundary records are passed to
+\texttt{wildQuadratic\_boundary}.  These alternatives are exhaustive and
+pairwise disjoint.
+
+Finally, the proved equivalence between error one and the fixed-character
+First Main identity converts the higher cancellation result.  Membership of
+\(\chi_{\min}\) in the original norm-character orbit and the already-proved
+reindexing invariance of both complete products transport the identity back
+to \(\chi_F\).
+\LeanFile{LanglandsFirstMainLemma/Cases/WildQuadratic/Main.lean}
+\lean{LanglandsFirstMainLemma.WildQuadraticCommonHigherData}
+\lean{LanglandsFirstMainLemma.WildQuadraticHigherData}
+\lean{LanglandsFirstMainLemma.WildQuadraticHigherData.allEven}
+\lean{LanglandsFirstMainLemma.WildQuadraticHigherData.refined}
+\lean{LanglandsFirstMainLemma.firstMain_wildQuadratic}
+\leanok
+\SourceText{Proposition prop:wild-quadratic-cancellation and the final Wild quadratic case corollary.}
+\uses{mod:cases-wildquadratic-nonboundary,mod:cases-wildquadratic-boundary,mod:cases-wildendpoints,mod:parameters-minimalorbitstationary}
+\FormalizationContract
+The theorem does not claim to reconstruct the higher stationary assembly
+from an arbitrary continuous character.  It consumes that exact completed
+assembly only after proving that the chosen minimal representative has
+conductor greater than one.  In particular, the endpoint branches require
+no \texttt{WildQuadraticHigherData}.
+
+The public conclusion is \texttt{FirstMainIdentity}, not merely an isolated
+finite-field phase equality.  The higher package fixes its coefficient
+index to the actual multiplicative conductor of the selected minimal
+representative and retains the \(t+1\) norm-character boundary.  Its
+\texttt{allEven} branch is q-free; its \texttt{refined} branch contains an
+actual positive-polar source and a refinement normalized from that source,
+and asks for mixed-characteristic boundary compatibility only in the genuine
+\texttt{boundaryOdd} branch.  All stationary representatives, correction
+records, and residual phases are exactly those supplied by the completed
+nonboundary and boundary interfaces; none is reconstructed or re-assumed.
+\end{theorem}

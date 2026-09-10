@@ -1,0 +1,161 @@
+\begin{theorem}[Ramified Hasse-phase comparison]\label{mod:parameters-ramifiedhassecomparison}
+Let $K/F$ be a totally ramified cyclic extension of odd prime degree
+$\ell$, with lower break $t$.  Let
+\[
+ \chi_K=\chi_F\circ N_{K/F},\qquad
+ \psi_K=\psi_F\circ\operatorname{Tr}_{K/F},
+\]
+and suppose
+\[
+ m_F(\chi_F)=2d+1>1,\qquad 2d+1\geq t+1,
+ \qquad m_K(\chi_K)=2d'+1,
+\]
+with
+\[
+ 2d'+(\ell-1)t=2\ell d,
+ \qquad t=0\quad\hbox{or}\quad d\geq t+1.
+\]
+
+Fix odd stationary-conductor decompositions and one exact downstairs
+\texttt{StationaryClassRepresentative} of the type exposed by the public
+\texttt{PhaseReductionResult.representatives} API.  The real stable-high row
+maps that supplied representative to the literal same field element upstairs;
+inserting these two explicit packages with
+\texttt{LocalLamprechtPhaseData.oddOfStationaryClass} gives the actual lower
+and upper local phase data.  Their ordered admissible denominators
+$\Gamma_F,\Gamma_K$ satisfy the exact conductor identity
+\[
+ (2d'+1)+n_K(\psi_K)
+   =\ell\bigl((2d+1)+n_F(\psi_F)\bigr),
+ \qquad \Gamma_K=\Gamma_F\quad\hbox{under }F^\times\longrightarrow K^\times.
+\]
+The downstairs representative remains a caller choice, not a canonical
+stationary representative, and the proved stable-row map makes its upstairs
+image agree.  The lower and upper values in
+the conclusion are the \texttt{criticalFactor}s of these real local phase
+packages, hence the Hasse/refinement phases belonging to the exact choices;
+changing either representative must carry its elementary translation at the
+same time.  The critical coordinates are tied to the displayed uniformizers
+by $\delta_F=\varpi_F^d$ and $\delta_K=\varpi_K^{d'}$.  The supplied residue
+equivalence is required pointwise to be the canonical extension residue map.
+
+More precisely, the principal Lean theorem takes the real stable-high datum
+\texttt{H : HighStableOddParameterData} and one explicitly supplied
+downstairs representative $R$.  Its two sides are definitionally the
+\texttt{downstairs} and \texttt{upstairs} fields of
+\texttt{H.compatiblePhasePair R}; the upstairs denominator is
+\texttt{H.commonDenominator}, and its representative is exactly
+\texttt{H.upstairsRepresentative R}.  Thus the public theorem does not ask a
+caller to rebuild or identify the real PhaseReduction pair.
+
+Choose uniformizers with
+$N_{K/F}(\varpi_K)=\varpi_F$ and explicit residue lifts
+$\widetilde x\in\mathcal O_F$.  The comparison certificate records the named
+truncation
+\[
+ N_{K/F}(1+Y_x)
+ \equiv 1+\operatorname{Tr}(Y_x)+E_2(Y_x)
+       \pmod{\mathfrak p_F^{2d+1}},
+ \qquad Y_x=\varpi_K^{d'}\widetilde x,
+\]
+together with the separate depth statements for $\operatorname{Tr}(Y_x)$
+and $E_2(Y_x)$.  It also supplies the unit $\epsilon$ through the exact
+specialization
+\[
+ \operatorname{Tr}_{K/F}(\varpi_K^{2d'})
+   =\epsilon\varpi_F^{2d}.
+\]
+Lean proves from this identity, rather than storing separately, the bilinear
+specialization
+\[
+ \operatorname{Tr}_{K/F}(Y_xY_y)
+   =\epsilon\varpi_F^{2d}\widetilde x\widetilde y.
+\]
+When $t=0$, the finite coordinate $c$ is explicitly the residue, transported
+back to $k$, of $\varpi_K^{d'}/\varpi_F^d$.  When $t>0$, the finite coordinate
+$\lambda$ is explicitly the transported residue of
+\[
+ \frac{\sigma(\varpi_K)-\varpi_K}{\varpi_K^{t+1}},
+\]
+where $\sigma$ is the fixed generator supplied by the prime-cyclic extension
+interface.  Thus neither scalar is introduced only through its final
+quadratic identity.
+
+For the common residue field, the certificate gives pointwise normal forms
+for the actual two critical functions built from the supplied
+\texttt{PhaseReduction} choices.  The upper function is transported through
+the canonical residue equivalence and, in the tame and characteristic-two
+rows, reindexed by the explicitly supplied nonzero scalar $c$.  The
+characteristic-two row also retains the separate nonzero coordinate scaling
+which identifies its polar character with the normalized absolute-trace
+character.  Exactly one of the manuscript's three cases is available: tame odd characteristic with
+$t=0$ and $\bar\epsilon=\ell c^2$; wild odd characteristic with $t>0$,
+$\ell$ equal to the residue characteristic, and
+$\bar\epsilon=-\lambda^{\ell-1}$; or characteristic two with $t=0$ and its
+full modulo-eight refinement data.  In the last row the residue cardinality is
+recorded as $|k|=2^f$, and the intermediate identity retains the exact factor
+\[
+ \phi(\ell x)\,\psi_0\!\left(-\binom{\ell}{2}x^2\right)=\phi(x)^\ell
+\]
+before passing to the modulo-four phase split.  The pointwise identities imply
+the phase identities by finite reindexing.  The corresponding finite lemmas
+retain every quadratic scalar and affine term and prove
+\[
+ \boxed{\ \Delta_{3,K}(\chi_K)=\Delta_{3,F}(\chi_F)^\ell\ }.
+\]
+Here $\Delta_{3,E}$ denotes the phase attached to the supplied denominator
+and stationary representative; the statement makes no stronger claim that a
+bare Hasse phase is independent of either choice.
+
+The module also isolates three direction-sensitive auxiliary statements.
+The Hasse trace lift is from $L$ down to $k$ and has the exact exponent
+$[L:k]$ and sign $(-1)^{[L:k]-1}$.  The affine-pencil cancellation is gated
+on a real \texttt{ExactOddPhaseAssembly}: its actual conductor is
+$m=t+1$ (equivalently the manuscript parameter $b=m-1$ satisfies $b=t$),
+$T=t+1$ is odd, and its extension, nonidentity norm-character, identity
+twist, and nonidentity twist critical factors are reindexed through an
+explicit equivalence.  The extension degree is retained as $[K:F]=p$.
+Thus \texttt{AffinePencil} acts only on the exact assembly rows, never on a
+free phase tuple.  The
+characteristic-two cancellation uses only the positive orientation
+$\psi_0(c+c^2)=1$.  A denominator-transport theorem keeps both old and new
+ordered denominator pairs, both explicit representative scalings, and the
+inverse affine translations.
+
+The comparison is consequently an equality of the real
+\texttt{LocalLamprechtPhaseData.criticalFactor}s.  No declaration from the
+temporary phase-reduction interface is retained.
+\LeanFile{LanglandsFirstMainLemma/Parameters/RamifiedHasseComparison.lean}
+\lean{LanglandsFirstMainLemma.ramifiedHasseTraceLiftPhase}
+\lean{LanglandsFirstMainLemma.ramifiedHasseTraceLiftPhase_of_oddDegree}
+\lean{LanglandsFirstMainLemma.RamifiedHasseOddCriticalData.ofExactAssembly}
+\lean{LanglandsFirstMainLemma.RamifiedHasseOddCriticalData.ofExactAssembly_residualQuotient}
+\lean{LanglandsFirstMainLemma.ramifiedHasseOddBoundary_affinePencil}
+\lean{LanglandsFirstMainLemma.ramifiedHasseArtinSchreier_oriented}
+\lean{LanglandsFirstMainLemma.ramifiedHasseCharTwo_binomialCorrection}
+\lean{LanglandsFirstMainLemma.RamifiedHasseCharTwoFiniteData.binomialPointwise}
+\lean{LanglandsFirstMainLemma.RamifiedHasseCharTwoFiniteData.upperPointwise_of_mod_four_one}
+\lean{LanglandsFirstMainLemma.RamifiedHasseCharTwoFiniteData.upperPointwise_of_mod_four_three}
+\lean{LanglandsFirstMainLemma.RamifiedHasseComparisonData.traceProductSpecialization}
+\lean{LanglandsFirstMainLemma.ramifiedHasseComparison_of_finiteNormalForms}
+\lean{LanglandsFirstMainLemma.HighStableOddParameterData.ramifiedHasseComparison_compatiblePhasePair}
+\lean{LanglandsFirstMainLemma.ramifiedHasseComparison}
+\lean{LanglandsFirstMainLemma.ramifiedHasseComparison_changeDenominator}
+\leanok
+\SourceText{Theorem thm:ramified-Hasse-comparison.}
+\uses{mod:parameters-phasereduction,mod:parameters-stationaryclassundernorm,mod:finitefield-hassefunctionlift,mod:finitefield-affinepencil,mod:finitefield-artinschreier,mod:finitefield-q0powers}
+\FormalizationContract The finite normal-form fields state pointwise
+identities for the actual Hasse functions constructed from the real local
+phase packages, together with the exact case-specific residue and arithmetic
+specializations; they do not assume the final power equality.  That equality
+is proved by reindexing the actual Hasse sums and applying the finite-field
+lemmas.  The principal exported theorem specializes this calculation to the
+actual \texttt{HighStableOddParameterData.compatiblePhasePair}; its upstairs
+representative and common denominator are constructed by the real stable-high
+row.  The real phase-reduction integration uses
+\texttt{StationaryClassRepresentative},
+\texttt{LocalLamprechtPhaseData.oddOfStationaryClass}, and, for the auxiliary
+affine boundary, \texttt{ExactOddPhaseAssembly.residualPhase}.  All quotient
+representatives, denominator changes, norm and trace directions, scalar
+corrections, and translations remain explicit.
+\end{theorem}

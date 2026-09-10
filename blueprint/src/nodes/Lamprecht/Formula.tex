@@ -1,0 +1,131 @@
+\begin{definition}[Lamprecht formula with stationary classes]\label{mod:lamprecht-formula}
+Let $F$ be a nonarchimedean local field.  Let $\theta$ and $\psi$ have
+exact multiplicative and additive conductors, and write
+\[
+ q=m_F(\theta)=2d+\varepsilon>1,
+ \qquad \varepsilon\leq 1,
+ \qquad r=d+\varepsilon.
+\]
+Thus $\varepsilon\in\{0,1\}$ and $r$ is the minimal stationary depth.
+Fix an admissible $\Gamma\in F^\times$, so
+$\operatorname{ord}_F(\Gamma)=q+n_F(\psi)$.  The stationary numerator used
+throughout the construction is the quotient class
+\[
+ \operatorname{St}_{\Gamma,r}(\theta)
+   \in \mathcal O_F/\mathfrak p_F^d.
+\]
+A stationary representative is a deliberately supplied
+$\beta\in\mathcal O_F$ together with a proof that its class is the displayed
+stationary class; no declaration chooses such a representative.  Lean proves
+that every permitted representative has exact order zero and hence determines
+a local unit.  Put
+\[
+ E_\beta=\psi(\beta/\Gamma)\theta(\beta)^{-1}.
+\]
+
+If $\varepsilon=0$, Lean evaluates the unnormalised finite Gauss sum and its
+phase exactly:
+\[
+ G_\Gamma(\theta,\psi)=q_F^dE_\beta,
+ \qquad
+ \Delta_F^{\mathrm{fin}}(\theta,\psi;\Gamma)
+   =\theta(\Gamma)E_\beta.
+\]
+Here $q_F=|k_F|$; it is distinct from the conductor $q$, and the positive
+factor $q_F^d$ occurs in the raw sum before disappearing under the phase.
+
+Suppose $\varepsilon=1$.  Let $\delta\in F^\times$ be any element satisfying
+$\operatorname{ord}_F(\delta)=d$.  Multiplication by $\delta^2$ descends from
+arbitrary integral lifts to the critical quotient.  Pairing this map with the
+stationary quotient class defines a representative-independent, nontrivial
+additive character $\psi_0$ of $k_F$ such that, for every integral lift
+$\widetilde z$ and every permitted $\beta$,
+\[
+ \psi_0(\bar z)=
+ \psi(\beta\delta^2\widetilde z/\Gamma).
+\]
+Lean constructs the genuine Hasse function
+\[
+ \phi_\beta(\bar x)=
+ \psi(\delta\beta\widetilde x/\Gamma)
+ \theta(1+\delta\widetilde x)^{-1}
+\]
+and proves this value for every integral lift.  It is nowhere zero and has the
+manuscript's positive polar law
+\[
+ \phi_\beta(x+y)=
+ \phi_\beta(x)\phi_\beta(y)\psi_0(xy).
+\]
+Finite additive-character orthogonality gives
+\[
+ \left\lVert\sum_{x\in k_F}\phi_\beta(x)\right\rVert=\sqrt{q_F},
+ \qquad
+ \sum_{x\in k_F}\phi_\beta(x)\ne0.
+\]
+The exact raw and phase formulas are
+\[
+ G_\Gamma(\theta,\psi)
+   =q_F^dE_\beta\sum_{x\in k_F}\phi_\beta(x),
+\]
+\[
+ \Delta_F^{\mathrm{fin}}(\theta,\psi;\Gamma)
+   =\theta(\Gamma)E_\beta
+      \Aphase\!\left(\sum_{x\in k_F}\phi_\beta(x)\right).
+\]
+
+Finally let $\beta'=\beta+h$ be another representative of the same stationary
+class.  In the even case $E_{\beta'}=E_\beta$.  In the odd case Lean constructs
+a residue class $a\in k_F$ by reducing the proved-integral quotient
+$h/(\beta\delta)$.  The residual polar character is unchanged, while Lean
+proves
+\[
+ \phi_{\beta'}=T_a\phi_\beta,
+ \qquad
+ \Aphase\!\left(\sum\phi_{\beta'}\right)
+   =\phi_\beta(a)^{-1}
+      \Aphase\!\left(\sum\phi_\beta\right),
+ \qquad
+ E_{\beta'}=\phi_\beta(a)E_\beta.
+\]
+Consequently the complete elementary--Hasse product is independent of the
+chosen representative.  The two odd factors are transported together; Lean
+does not assert that either factor is separately representative-independent.
+\LeanFile{LanglandsFirstMainLemma/Lamprecht/Formula.lean}
+\lean{LanglandsFirstMainLemma.lamprechtFormula_stationaryDepth}
+\lean{LanglandsFirstMainLemma.StationaryParameter}
+\lean{LanglandsFirstMainLemma.lamprechtStationaryRepresentativeUnit_ord}
+\lean{LanglandsFirstMainLemma.lamprechtResidualVariable}
+\lean{LanglandsFirstMainLemma.lamprechtResidualVariable_integral_lift}
+\lean{LanglandsFirstMainLemma.lamprechtResidualAddChar}
+\lean{LanglandsFirstMainLemma.lamprechtResidualAddChar_integral_lift}
+\lean{LanglandsFirstMainLemma.lamprechtResidualAddChar_ne_one}
+\lean{LanglandsFirstMainLemma.lamprechtOdd_residualCoefficient_ord}
+\lean{LanglandsFirstMainLemma.lamprechtHasseFunction}
+\lean{LanglandsFirstMainLemma.lamprechtHasseFunction_integral_lift}
+\lean{LanglandsFirstMainLemma.lamprechtElementaryFactor}
+\lean{LanglandsFirstMainLemma.lamprechtEven_elementary_representative_independent}
+\lean{LanglandsFirstMainLemma.lamprechtOdd_representative_transport}
+\lean{LanglandsFirstMainLemma.lamprechtOdd_hasseSum_ne_zero}
+\lean{LanglandsFirstMainLemma.lamprechtOdd_hasseSum_norm}
+\lean{LanglandsFirstMainLemma.lamprechtOdd_hasseSumPhase_translate}
+\lean{LanglandsFirstMainLemma.lamprechtOdd_complete_representative_independent}
+\lean{LanglandsFirstMainLemma.finiteGaussSum_lamprecht_even}
+\lean{LanglandsFirstMainLemma.finiteGaussSum_lamprecht_odd}
+\lean{LanglandsFirstMainLemma.lamprechtEven}
+\lean{LanglandsFirstMainLemma.lamprechtOdd}
+\leanok
+\SourceText{Lemma~\ref{lem:stationary-class-existence};
+Lemma~\ref{lem:stationary-class-calculus}; Theorem~\ref{thm:Lamprecht};
+Lemma~\ref{lem:complete-stationary-invariant}.}
+\uses{mod:lamprecht-stationaryclasscalculus,mod:delta-finitedefinition,mod:finitefield-quadraticphase,mod:finitefield-hassefunction}
+\FormalizationContract The theorem concerns the representative-free,
+unnormalised finite Gauss sum and the computational local constant
+$\Delta_F^{\mathrm{fin}}$ from the preceding node.  Its stationary datum and
+residual polar character are quotient-level constructions.  Every use of a
+field-valued stationary numerator quantifies over a supplied representative
+and proves its exact order.  The odd residual refinement is a genuine Hasse
+function for a proved nontrivial additive character, with arbitrary-lift
+evaluation, nonvanishing sum, and positive polar sign.  Under a change of
+stationary representative, the elementary value and Hasse-sum phase are
+transported and cancelled as a single complete invariant.
+\end{definition}

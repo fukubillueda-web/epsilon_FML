@@ -1,0 +1,94 @@
+\begin{lemma}[Wild odd lower residual coefficients]
+\label{mod:cases-wildodd-lowerresidualcoefficients}
+Let $(A,B)$ denote respectively the polar and affine coefficients extracted
+from one complete Lamprecht critical function.  The common lower coordinate
+is the one supplied by PhaseReduction: it is the norm of the common upper
+coordinate.  For a source-to-selected coordinate scalar $\lambda$, the
+transport identities used here have the fixed direction
+\[
+ \Phi_{\mathrm{sel}}(x)=\Phi_{\mathrm{src}}(\lambda x),\qquad
+ A_{\mathrm{sel}}=\lambda^2A_{\mathrm{src}},\qquad
+ B_{\mathrm{sel}}=\lambda B_{\mathrm{src}}.
+\]
+
+Suppose first that the post-drop conductor $t+1$ is odd.  Normalize the
+literal norm-generator row as $(\eta _0,\eta _0\gamma _0)$.  For
+$j\ne0$, represented in Lean by the subtype
+\texttt{OddNormIndex}, the literal natural-multiple row is
+\[
+ (j\eta _0,j\eta _0\gamma _0).
+\]
+The table's actual Teichmuller representative is the selected row, whereas
+the literal natural multiple is the source row.  If $\Delta_j$ is the exact
+translation coefficient furnished by
+\texttt{OddRepresentativeChangeData}, its actual pair is therefore
+\[
+ (j\eta _0,j\eta _0\gamma _0+\Delta_j).
+\]
+The sign is positive.  The strict-lower twist row is proved equal to this
+actual norm row.  The exceptional $j=0$ row is handled separately and, when
+its conductor is odd, is normalized as $(\eta,\eta\gamma)$.
+
+At the boundary put $d_0=\eta/\eta _0$; the denominator $\eta _0$ is proved
+nonzero before this quotient is formed.  The zero row is the clean
+specialization of the boundary formula and is also the actual base row.  For
+every nonzero index the selected boundary row is
+\[
+ \left(
+   \eta _0(j+d_0),
+   \eta _0(j\gamma _0+d_0\gamma)+\Delta_j
+ \right).
+\]
+In addition, $j+d_0\ne0$ is proved from the nonvanishing polar coefficient of
+the actual selected twist row before any later use as a denominator.  In the
+strict-upper (above-break) regime every index, including zero, has the actual
+base pair $(\eta,\eta\gamma)$.  In each corresponding even-conductor branch
+the complete function is one and the pair is $(0,0)$.  The high literal-to-
+actual Teichmuller representative change is also recorded with
+$B_{\mathrm{actual}}=B_{\mathrm{literal}}+\Delta_j$.
+
+For the source-tied correction units, Lean first records
+$N_{K/F}(u)=n$, the separate numerator and denominator nonvanishing proofs
+for $z_0$ and for every $j\ne0$, and the nonvanishing of $[j]$ before forming
+$(u+[j])/[j]$.  It then proves
+\[
+ z_j=\frac{N_{K/F}(u+[j])}{n+[j]},\qquad
+ z_0=\frac{N_{K/F}(n-u)}{\prod_k(n+[k])}.
+\]
+Before applying a character, the selected representative ratios retain the
+inverse norm factors exactly:
+\[
+ \frac{r^{N,\mathrm{low}}_j}{r^{\mathrm{tw},\mathrm{low}}_j}
+   =N_{K/F}\!\left(\frac{u+[j]}{[j]}\right)^{-1}z_j,
+\]
+and
+\[
+ \frac{[j]}{r^{\mathrm{tw},\mathrm{high}}_j}
+   =N_{K/F}\!\left(\alpha _1\frac{u+[j]}{[j]}\right)^{-1}z_j.
+\]
+Only after applying the indexed norm character $\mu_j$ and using its
+triviality on the displayed norm does Lean obtain, in the corresponding low
+and high cases,
+\[
+ \mu_j(z_j)=\mu_j\!\left(
+   \frac{r^N_j}{r^{\mathrm{tw}}_j}\right).
+\]
+The $j=0$ correction is tied to the selected rows by separate identities;
+no indexed-character bridge is asserted at zero.
+
+All of these results are exposed by one cohesive lower-table API.  This node
+does not construct a coordinate, prove an upstairs coefficient row, invoke
+higher symmetric vanishing, prove a boundary pencil, cancel a residual
+phase, or choose a canonical stationary representative.
+\LeanFile{LanglandsFirstMainLemma/Cases/WildOdd/LowerResidualCoefficients.lean}
+\lean{LanglandsFirstMainLemma.wildOdd_lowerResidualCoefficients}
+\leanok
+\SourceText{Proposition prop:odd-coefficient-table, lower rows; Proposition prop:exact-odd-assembly, raw norm-row and indexed-character identities.}
+\uses{mod:parameters-phasereduction}
+\FormalizationContract
+This is one cohesive lower-table responsibility, expected to occupy roughly
+1000--2000 Lean lines.  Construction, transport, and public assembly must not
+be recombined here.  Above 3000 lines pause for an explicit cohesion and API
+review; above 5000 lines normally requires splitting.  Line count alone does
+not determine the architecture.
+\end{lemma}

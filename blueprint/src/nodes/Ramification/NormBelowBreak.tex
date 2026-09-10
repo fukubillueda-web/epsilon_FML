@@ -1,0 +1,332 @@
+\begin{theorem}[Norm filtration below and at the break]
+\label{mod:ramification-normbelowbreak}
+Let $K/F$ be a ramified cyclic extension of prime degree
+$\ell=[K:F]$, let $t\in\mathbf N$ be its unique lower break, and assume
+$f(K/F)=1$.  Fix an integral uniformizer $\pi_K$ together with the
+explicit generator hypothesis
+\[
+ \operatorname{Algebra.adjoin}_{\mathcal O_F}\{\pi_K\}=\mathcal O_K.
+\]
+The residue-degree assumption is retained explicitly throughout; in
+particular, it gives $e(K/F)=\ell$ and identifies the cardinalities of the
+two residue fields and of their corresponding unit-graded pieces.
+
+Write
+\[
+ \operatorname{gr}^iU_E=U_E^i/U_E^{i+1}.
+\]
+For two certified depths $a,b$, the predicate
+\texttt{NormMapsUnitFiltration} records the containment
+$N_{K/F}(U_K^a)\subseteq U_F^b$.  The norm is then restricted to these
+subgroups and descended to quotient groups.  Numerator containment and
+denominator containment are separate hypotheses, so representative
+independence is part of the construction.  In particular, the exact graded
+norm is the homomorphism
+\[
+ \overline N_i:\operatorname{gr}^iU_K\longrightarrow
+                 \operatorname{gr}^iU_F,
+ \qquad [u]\longmapsto[N_{K/F}(u)],
+\]
+defined only after the containments at both $i$ and $i+1$ have been
+supplied.  Its representative formula is an equality of quotient classes,
+not a choice of a representative.
+
+The trace input needed to prove these containments is established here,
+independently of the final norm-filtration theorem.  Put
+\[
+ D=(\ell-1)(t+1).
+\]
+Trace duality for the chosen integral generator proves, for every
+$q\in\mathbf Z$,
+\[
+ \operatorname{Tr}_{K/F}(\mathfrak p_K^q)
+ \subseteq
+ \mathfrak p_F^{\lfloor(q+D)/\ell\rfloor},
+\]
+and proves surjectivity onto the displayed target lattice.  Together these
+are the exact trace-ideal equality used in the norm corrections; neither
+direction is imported from Theorem~\ref{thm:norm-filtration}.
+
+The ramification homomorphism is constructed before its relation to the
+norm is considered.  For $\sigma\in G_i$, the unit
+\[
+ \rho_{i,\pi_K}(\sigma)=\frac{\sigma(\pi_K)}{\pi_K}
+\]
+belongs to $U_K^i$, and changing $\sigma$ by an element of $G_{i+1}$
+does not change its class in $\operatorname{gr}^iU_K$.  This gives an
+injective homomorphism
+\[
+ \overline\rho_i:G_i/G_{i+1}\hookrightarrow
+                  \operatorname{gr}^iU_K.
+\]
+At $i=0$ this is the multiplicative residue coordinate
+$\overline{\sigma(\pi_K)/\pi_K}$.  At positive depth, under the usual
+additive identification of the graded line, the same quotient class is
+the coordinate
+\[
+ \overline{\frac{\sigma(\pi_K)-\pi_K}{\pi_K^{i+1}}}.
+\]
+Its kernel is exactly $G_{i+1}$, and
+$N_{K/F}(\rho_{i,\pi_K}(\sigma))=1$ exactly.  At a positive break, the
+faithful positive-depth coordinate also proves
+$\operatorname{char}k_F=\ell$ rather than taking wildness as an additional
+hypothesis.
+
+For $t>0$, the exact elementary-symmetric expansion supplies the
+representative formulas needed for the graded maps.  If
+$v_K(x)\geq i<t$, then
+\[
+ N_{K/F}(1+x)-1-N_{K/F}(x)\in\mathfrak p_F^{i+1};
+\]
+thus, for $i>0$, the additive coordinate of $\overline N_i$ is represented
+by the terminal norm term; at $i=0<t$ the same calculation is the residue
+Frobenius.  At the positive critical depth,
+\[
+ N_{K/F}(1+x)-1-\operatorname{Tr}_{K/F}(x)-N_{K/F}(x)
+ \in\mathfrak p_F^{t+1}
+ \qquad(v_K(x)\geq t),
+\]
+so precisely the trace and terminal norm terms survive.  The separate
+deeper estimate controls all nontrace coefficients for successive lifting.
+In the tame branch $t=0$, norm preserves $U^0$ and $U^1$; the critical map
+is the honest residue-unit norm, and a corresponding trace congruence at
+depths $\ell(n+1)$ drives the lifting above $U^1$.
+
+Strictly below the break, for every $0\leq i<t$, the exact graded norm has
+\[
+ \ker(\overline N_i)=1,
+ \qquad
+ \operatorname{im}(\overline N_i)=\operatorname{gr}^iU_F,
+\]
+and the pair
+$G_i/G_{i+1}\longrightarrow\operatorname{gr}^iU_K
+\longrightarrow\operatorname{gr}^iU_F$ is exact: below the break
+$G_i=G_{i+1}=G$, so its first term and the graded norm kernel are both
+trivial.
+The graded norm hence induces a multiplicative equivalence
+\[
+ \operatorname{gr}^iU_K\simeq\operatorname{gr}^iU_F.
+\]
+Injectivity follows from the representative congruence; surjectivity then
+uses the equality of the finite source and target cardinalities.  Splicing
+exactly the indices
+\[
+ i=r,r+1,\ldots,t-1
+\]
+gives
+\[
+ U_K^r/U_K^t\simeq U_F^r/U_F^t
+ \qquad(0\leq r\leq t).
+\]
+The endpoint $i=t$ is deliberately excluded from this splice.  The same
+finite induction produces both a representative modulo $U_F^t$ and the
+reverse membership test: a norm lying in $U_F^t$ forces a source unit,
+initially in $U_K^r$, to lie in $U_K^t$.  After matching valuations using
+$f(K/F)=1$, these two statements give the corresponding norm equivalence
+$K^\times/U_K^t\simeq F^\times/U_F^t$.
+
+At the critical depth, numerator and denominator preservation are proved
+at the separate endpoints $t$ and $t+1$, and the resulting map is
+\[
+ \overline N_t:U_K^t/U_K^{t+1}\longrightarrow
+                 U_F^t/U_F^{t+1}.
+\]
+For both $t=0$ and $t>0$, the exact sequence at the middle term is
+\[
+ G_t/G_{t+1}\xrightarrow{\ \overline\rho_t\ }
+ \operatorname{gr}^tU_K\xrightarrow{\ \overline N_t\ }
+ \operatorname{gr}^tU_F,
+ \qquad
+ \operatorname{im}(\overline\rho_t)=\ker(\overline N_t),
+\]
+with $\overline\rho_t$ injective.  Hence
+\[
+ \#\ker(\overline N_t)=\ell,
+ \qquad
+ \#\bigl(\operatorname{gr}^tU_F/
+                 \operatorname{im}(\overline N_t)\bigr)=\ell.
+\]
+For $t>0$, equivalently,
+\[
+ \#\operatorname{im}(\overline N_t)\,\ell=\#k_F.
+\]
+The cokernel is the displayed quotient by the actual norm range, so its
+direction is fixed explicitly; its cardinality follows from the proved
+exact kernel and equality of the finite graded cardinalities, not from an
+assumed graded-kernel statement.
+
+For an arbitrary positive lower break $t$---without presenting it as an
+endpoint $s+1$---put $\pi_F=N_{K/F}(\pi_K)$ and use the normalized additive
+coordinates on the two critical graded lines.  If $g$ is the chosen generator
+of the cyclic Galois group, define
+\[
+ c=\overline{\frac{\operatorname{Tr}_{K/F}(\pi_K^t)}{\pi_F^t}}
+ \quad\text{and}\quad
+ \lambda=(k_F\simeq k_K)^{-1}
+   \left(\overline{\frac{g(\pi_K)-\pi_K}{\pi_K^{t+1}}}\right).
+\]
+The critical norm polynomial in these coordinates is then proved exactly:
+\[
+ P_t(z)=z^\ell+c z
+       =z^\ell-\lambda^{\ell-1}z,
+ \qquad c=-\lambda^{\ell-1}.
+\]
+Thus the polynomial, its linear coefficient, and its ramification parameter
+are reusable at every positive break, rather than being tied to either of the
+later endpoint cases.  The same construction fixes the cyclic enumeration
+$\mathbf Z/\ell\mathbf Z\simeq\operatorname{Gal}(K/F)$ by sending $1$ to
+$g$ and proves that the actual residue displacement of the class $j$ is
+$j\lambda$ in $k_K$.
+
+The reverse critical-kernel inclusion is proved by an explicit
+Hilbert--90 correction.  A representative whose norm is only trivial
+modulo $U_F^{t+1}$ is first divided by an element of $U_K^{t+1}$ having
+the same exact norm.  This yields a representative $w\in U_K^t$ with
+$N_{K/F}(w)=1$ and with the original class in
+$U_K^t/U_K^{t+1}$.  Only after this exact correction is Hilbert 90 applied,
+in the fixed orientation
+\[
+ \frac{y}{g(y)}=w,
+\]
+where $g$ is the chosen generator of the cyclic Galois group.  Removing the
+uniformizer power from $y$ shows that the class of $w$ is a power of the
+ramification coordinate.  The tame and positive-break corrections are
+proved separately and then combined in the principal kernel theorem.
+
+Finally, the lifting depths used in that correction are explicit.  For a
+positive break, a target error in $U_F^{t+1+n}$ is corrected one level
+deeper by a source element at depth
+\[
+ t+\ell n+(\ell-1)+1=t+\ell(n+1)
+   =\Psi_{t,\ell}(t+1+n),
+\]
+leaving an error in $U_F^{t+1+n+1}$.  In the tame case the corresponding
+source depth is
+$\ell n+(\ell-1)+1=\ell(n+1)=\Psi_{0,\ell}(1+n)$.
+The monotonicity and divergence of these depths, completeness, and
+continuity of norm invoke the lifting mechanism of
+module~\ref{mod:localfield-successivelifting}; they give exact norm
+representatives for $U_F^{t+1}$ in $U_K^{t+1}$ (and for $U_F^1$ in
+$U_K^1$ when $t=0$).  Notice the endpoint distinction
+\[
+ \Psi_{t,\ell}(t)=t,
+ \qquad
+ \Psi_{t,\ell}(t+1)=t+\ell,
+\]
+and the different roles of $t+1$ and $t+\ell$: the critical graded
+denominator is $U^{t+1}$, whereas the first positive-break correction is
+chosen at the Herbrand depth $t+\ell$.
+
+\LeanFile{LanglandsFirstMainLemma/Ramification/NormBelowBreak.lean}
+\lean{LanglandsFirstMainLemma.traceIdealLowerBound_of_integralGenerator}
+\lean{LanglandsFirstMainLemma.trace_lattice_surjective_of_integralGenerator}
+\lean{LanglandsFirstMainLemma.ramificationRatioUnit}
+\lean{LanglandsFirstMainLemma.coe_ramificationRatioUnit}
+\lean{LanglandsFirstMainLemma.ord_ramificationRatioUnit}
+\lean{LanglandsFirstMainLemma.ramificationRatioUnit_mem}
+\lean{LanglandsFirstMainLemma.ramificationUnitGradedPreHom}
+\lean{LanglandsFirstMainLemma.ramificationRatioUnit_mem_succ_iff}
+\lean{LanglandsFirstMainLemma.ramificationUnitGradedHom}
+\lean{LanglandsFirstMainLemma.ramificationUnitGradedHom_mk}
+\lean{LanglandsFirstMainLemma.ramificationUnitGradedHom_injective}
+\lean{LanglandsFirstMainLemma.norm_ramificationRatioUnit_eq_one}
+\lean{LanglandsFirstMainLemma.residueCharacteristic_eq_degree_of_positive_isLowerBreak}
+\lean{LanglandsFirstMainLemma.wild_norm_one_add_sub_one_mem_lattice}
+\lean{LanglandsFirstMainLemma.wild_norm_one_add_sub_one_sub_norm_mem_lattice}
+\lean{LanglandsFirstMainLemma.wild_norm_critical_sub_trace_sub_norm_mem_lattice}
+\lean{LanglandsFirstMainLemma.wild_norm_one_add_sub_one_sub_trace_mem_lattice}
+\lean{LanglandsFirstMainLemma.NormMapsUnitFiltration}
+\lean{LanglandsFirstMainLemma.normMapsUnitFiltration_zero}
+\lean{LanglandsFirstMainLemma.normBelowBreakUnitFiltrationHom}
+\lean{LanglandsFirstMainLemma.coe_normBelowBreakUnitFiltrationHom}
+\lean{LanglandsFirstMainLemma.normUnitFiltrationQuotient}
+\lean{LanglandsFirstMainLemma.normUnitFiltrationQuotient_mk}
+\lean{LanglandsFirstMainLemma.normUnitGraded}
+\lean{LanglandsFirstMainLemma.normUnitGraded_mk}
+\lean{LanglandsFirstMainLemma.exists_normUnitFiltration_oneStepCorrection}
+\lean{LanglandsFirstMainLemma.mem_unitFiltration_succ_of_norm_of_graded_injective}
+\lean{LanglandsFirstMainLemma.exists_normUnitFiltration_finiteCorrection}
+\lean{LanglandsFirstMainLemma.mem_unitFiltration_of_norm_mem_of_graded_injective}
+\lean{LanglandsFirstMainLemma.normUnitFiltrationInterval}
+\lean{LanglandsFirstMainLemma.normUnitFiltrationInterval_mk}
+\lean{LanglandsFirstMainLemma.normUnitFiltrationInterval_surjective}
+\lean{LanglandsFirstMainLemma.normUnitFiltrationInterval_injective}
+\lean{LanglandsFirstMainLemma.normUnitFiltrationIntervalEquiv}
+\lean{LanglandsFirstMainLemma.normUnitFiltrationIntervalEquiv_apply}
+\lean{LanglandsFirstMainLemma.residueCard_eq_of_residueDegree_eq_one}
+\lean{LanglandsFirstMainLemma.unitGradedPiece_card_eq_of_residueDegree_eq_one}
+\lean{LanglandsFirstMainLemma.unitGradedMap_bijective_of_injective_of_residueDegree_eq_one}
+\lean{LanglandsFirstMainLemma.wild_normMapsUnitFiltration}
+\lean{LanglandsFirstMainLemma.normUnitGraded_injective_belowBreak}
+\lean{LanglandsFirstMainLemma.normUnitGraded_bijective_belowBreak}
+\lean{LanglandsFirstMainLemma.normUnitGradedEquiv_belowBreak}
+\lean{LanglandsFirstMainLemma.exists_wild_norm_aboveBreak_oneStep}
+\lean{LanglandsFirstMainLemma.wild_norm_unitFiltration_surjective_break_succ}
+\lean{LanglandsFirstMainLemma.ramificationUnitGradedHom_le_normUnitGraded_ker}
+\lean{LanglandsFirstMainLemma.exists_exactNormOneRepresentative_of_criticalKernel}
+\lean{LanglandsFirstMainLemma.exists_hilbert90_coboundary_of_criticalKernel}
+\lean{LanglandsFirstMainLemma.gradedNorm_kernel_positiveBreak}
+\lean{LanglandsFirstMainLemma.norm_one_add_sub_one_mem_lattice_one_of_residueDegree_eq_one}
+\lean{LanglandsFirstMainLemma.tame_norm_one_add_sub_one_sub_trace_mem_lattice}
+\lean{LanglandsFirstMainLemma.normMapsUnitFiltration_one_of_residueDegree_eq_one}
+\lean{LanglandsFirstMainLemma.exists_tame_norm_aboveBreak_oneStep}
+\lean{LanglandsFirstMainLemma.tame_norm_unitFiltration_surjective_break_succ}
+\lean{LanglandsFirstMainLemma.tame_ramificationUnitGradedHom_le_normUnitGraded_ker}
+\lean{LanglandsFirstMainLemma.exists_tame_exactNormOneRepresentative_of_criticalKernel}
+\lean{LanglandsFirstMainLemma.exists_tame_hilbert90_coboundary_of_criticalKernel}
+\lean{LanglandsFirstMainLemma.gradedNorm_kernel_tameBreak}
+\lean{LanglandsFirstMainLemma.normMapsUnitFiltration_atBreak}
+\lean{LanglandsFirstMainLemma.normMapsUnitFiltration_break_succ}
+\lean{LanglandsFirstMainLemma.criticalGradedNorm}
+\lean{LanglandsFirstMainLemma.criticalGradedNorm_mk}
+\lean{LanglandsFirstMainLemma.criticalGradedNorm_kernel_card_positiveBreak}
+\lean{LanglandsFirstMainLemma.ramification_gradedNorm_mulExact_positiveBreak}
+\lean{LanglandsFirstMainLemma.criticalGradedNorm_cokernel_card_positiveBreak}
+\lean{LanglandsFirstMainLemma.criticalGradedNorm_range_card_mul_degree}
+\lean{LanglandsFirstMainLemma.gradedNorm_kernel}
+\lean{LanglandsFirstMainLemma.ramification_criticalGradedNorm_mulExact}
+\lean{LanglandsFirstMainLemma.criticalGradedNorm_kernel_card}
+\lean{LanglandsFirstMainLemma.criticalGradedNorm_cokernel_card}
+\lean{LanglandsFirstMainLemma.criticalNormLinearCoefficient}
+\lean{LanglandsFirstMainLemma.criticalNormRamificationLambda}
+\lean{LanglandsFirstMainLemma.criticalNormPolynomialValue}
+\lean{LanglandsFirstMainLemma.criticalNormPolynomialValue_exact_of_positiveBreak}
+\lean{LanglandsFirstMainLemma.criticalNormLinearCoefficient_eq_neg_ramificationLambda_pow}
+\lean{LanglandsFirstMainLemma.criticalNormGaloisZModEquiv}
+\lean{LanglandsFirstMainLemma.criticalNormGaloisZModEquiv_apply_val}
+\lean{LanglandsFirstMainLemma.criticalNormResidueDisplacement_zmod}
+\lean{LanglandsFirstMainLemma.normMapsUnitFiltration_belowBreak}
+\lean{LanglandsFirstMainLemma.gradedNorm_bijective_belowBreak}
+\lean{LanglandsFirstMainLemma.gradedNorm_kernel_belowBreak}
+\lean{LanglandsFirstMainLemma.gradedNorm_range_belowBreak}
+\lean{LanglandsFirstMainLemma.ramification_gradedNorm_mulExact_belowBreak}
+\lean{LanglandsFirstMainLemma.gradedNormEquiv_belowBreak}
+\lean{LanglandsFirstMainLemma.normUnitFiltrationEquiv_belowBreak}
+\lean{LanglandsFirstMainLemma.exists_norm_belowBreak_finiteCorrection}
+\lean{LanglandsFirstMainLemma.mem_unitFiltration_of_norm_mem_belowBreak}
+\lean{LanglandsFirstMainLemma.exists_norm_representative_mod_break}
+\lean{LanglandsFirstMainLemma.mem_unitFiltration_break_of_norm_mem}
+\lean{LanglandsFirstMainLemma.normFieldFiltrationQuotient}
+\lean{LanglandsFirstMainLemma.normFieldFiltrationQuotient_mk}
+\lean{LanglandsFirstMainLemma.normFieldFiltrationEquiv_belowBreak}
+\leanok
+\SourceText{Theorems~\ref{thm:graded-norm} and
+\ref{thm:norm-filtration}, including the below-break and critical-break
+parts of their proofs.}
+\uses{mod:ramification-lowergroups,mod:ramification-herbrand,mod:localfield-successivelifting}
+\FormalizationContract The exact quotient norm keeps its numerator and
+denominator containments separate.  The integral uniformizer, its
+$\mathcal O_F$-algebra generator proof, the residue-degree-one hypothesis,
+and the unique-break witness remain explicit inputs.  No declaration imports
+or assumes the final norm-filtration theorem or a graded-kernel theorem.
+The tame coordinate and positive-depth coordinate are not conflated.
+Approximate critical norm-one classes are corrected to exact norm one before
+Hilbert 90, whose quotient orientation is $y/g(y)$.  Finite below-break
+splicing uses only $i<t$, critical quotients use the denominator $t+1$, and
+the first above-break correction uses the distinct Herbrand depth
+$\Psi(t+1)=t+\ell$.  Kernel and image directions, representative
+independence, and the finite kernel, range, and cokernel cardinalities are
+all stated as quotient-group facts.  The critical polynomial and its
+coefficient identity are stated for an arbitrary positive break $t$, with
+the residue-field transport and the integral-generator witness explicit.
+\end{theorem}

@@ -1,0 +1,114 @@
+\begin{theorem}[Integral--finite bridge]\label{mod:delta-integralfinitebridge}
+Let $F$ be a nonarchimedean local field, let
+$\chi:F^\times\to\mathbf C^\times$ have exact multiplicative conductor
+$m\in\mathbf N$, let $\psi:F\to\mathbf C^\times$ have exact additive
+conductor $n\in\mathbf Z$,
+and let $\gamma\in F^\times$ be an admissible denominator, so that
+$\operatorname{ord}_F(\gamma)=m+n$.  Let $du$ be an arbitrary positive
+left Haar measure on the multiplicative group $U_F^0$.
+
+Put
+\[
+ Q_m=U_F^0/U_F^m
+\]
+using exactly the finite quotient from the computational definition.  For
+$z\in Q_m$, Lean defines $C_z$ without choosing a representative, as the
+literal fibre over $z$ of the canonical quotient map $U_F^0\to Q_m$.  It
+proves
+\[
+ U_F^0=\bigcup_{z\in Q_m}C_z,
+ \qquad C_z\cap C_w=\varnothing\quad(z\ne w),
+\]
+and identifies $C_z$ with the left coset
+$(\operatorname{out}z)U_F^m$ to prove the cover, its topology, and Haar
+measure.  Every $C_z$ is open and Borel measurable.
+
+For
+\[
+ g_\gamma(u)=\psi(u/\gamma)\chi(u)^{-1},
+\]
+membership $u\in C_z$ gives the exact identity
+\[
+ g_\gamma(u)=g^{\mathrm{fin}}_\gamma(z),
+\]
+where the right side is the existing representative-free
+\texttt{finiteGaussSummand}.  Thus the additive argument has no inserted
+minus sign, the quasi-character is inverted exactly once, and the same
+admissible $\gamma$ is used on both sides.  The integrand is already proved
+continuous, Borel measurable, and integrable on $U_F^0$; Lean also proves
+its integrability on each measurable coset.
+
+Left Haar invariance gives every coset the common measure
+\[
+ du(C_z)=du(U_F^m).
+\]
+The subgroup $U_F^m$ is open and contains $1$, while $U_F^0$ is compact.
+Consequently Lean proves
+\[
+ 0<du(U_F^m)<\infty,
+ \qquad du(U_F^m)\ne0.
+\]
+Set
+\[
+ c=\bigl(du(U_F^m)\bigr)_{\mathbf R}.
+\]
+The conversion is justified by finiteness, and $c>0$, $c\ne0$, and
+$\operatorname{ph}(c)=1$ are all proved explicitly.
+
+The pointwise finite-coset decomposition is expressed as a finite sum of
+indicator functions.  Each indicator set is measurable and each constant
+term is proved integrable using the finite coset measure.  Termwise Bochner
+integration then gives the literal identity
+\[
+ \int_{U_F^0}\psi(u/\gamma)\chi(u)^{-1}\,du
+   =c\sum_{z\in Q_m}g^{\mathrm{fin}}_\gamma(z)
+   =c\,\operatorname{finiteGaussSum}(\chi,\psi;\gamma).
+\]
+There is no factor involving $|Q_m|$, $q_F$, a sign, or a Haar
+normalization.  The raw integral is nonzero because $c\ne0$ and the finite
+Gauss sum was proved nonzero independently in
+Definition~\ref{mod:delta-finitedefinition}; no local integral
+nonvanishing theorem or First Main Lemma case is assumed.
+
+Finally, positivity gives
+$\operatorname{ph}(cG)=\operatorname{ph}(G)$.  Multiplying both sides by
+the unchanged outside factor $\chi(\gamma)$ proves exactly
+\[
+ \Delta_F^{\mathrm{int}}(\chi,\psi;\gamma)
+   =\Delta_F^{\mathrm{fin}}(\chi,\psi;\gamma).
+\]
+
+\LeanFile{LanglandsFirstMainLemma/Delta/IntegralFiniteBridge.lean}
+\lean{LanglandsFirstMainLemma.integralFiniteCoset}
+\lean{LanglandsFirstMainLemma.mem_integralFiniteCoset_iff}
+\lean{LanglandsFirstMainLemma.integralFiniteCoset_eq_out_smul}
+\lean{LanglandsFirstMainLemma.integralFiniteCoset_cover}
+\lean{LanglandsFirstMainLemma.integralFiniteCoset_pairwiseDisjoint}
+\lean{LanglandsFirstMainLemma.integralFiniteCoset_isOpen}
+\lean{LanglandsFirstMainLemma.integralFiniteCoset_measurableSet}
+\lean{LanglandsFirstMainLemma.unitHaarIntegrand_eq_on_integralFiniteCoset}
+\lean{LanglandsFirstMainLemma.unitHaarIntegrand_integrableOn_integralFiniteCoset}
+\lean{LanglandsFirstMainLemma.integralFiniteCoset_measure_eq}
+\lean{LanglandsFirstMainLemma.integralFiniteCoset_measure_pos}
+\lean{LanglandsFirstMainLemma.integralFiniteCoset_measure_lt_top}
+\lean{LanglandsFirstMainLemma.integralFiniteCoset_measure_ne_zero}
+\lean{LanglandsFirstMainLemma.integralFinitePositiveScalar}
+\lean{LanglandsFirstMainLemma.integralFinitePositiveScalar_pos}
+\lean{LanglandsFirstMainLemma.integralFinitePositiveScalar_ne_zero}
+\lean{LanglandsFirstMainLemma.phase_integralFinitePositiveScalar}
+\lean{LanglandsFirstMainLemma.unitHaarIntegrand_eq_coset_sum}
+\lean{LanglandsFirstMainLemma.unitGaussIntegral_eq_positiveScalar_mul_finiteGaussSum}
+\lean{LanglandsFirstMainLemma.unitGaussIntegral_ne_zero_of_finiteGaussSum}
+\lean{LanglandsFirstMainLemma.deltaIntegral_eq_deltaFinite}
+\leanok
+\SourceText{Definition of Delta; Lemma lem:gamma-independent; Corollary cor:local-gauss-integral-nonzero.}
+\uses{mod:delta-finitedefinition,mod:delta-integraldefinition}
+\FormalizationContract The comparison is performed on the multiplicative
+Haar space $U_F^0$ and uses exactly $U_F^0/U_F^m$.  Cosets are quotient-map
+fibres, and quotient representatives occur only in a proved left-coset
+description used for the cover, openness, and Haar invariance.  The common scalar is the
+proved finite positive Haar measure of $U_F^m$.  The finite sum is the
+existing unnormalised \texttt{finiteGaussSum}; the proof introduces no sign,
+cardinality factor, normalization, nonvanishing postulate, bridge assumption,
+or First Main Lemma case theorem.
+\end{theorem}

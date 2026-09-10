@@ -1,0 +1,112 @@
+\begin{definition}[Haar-integral local constant]\label{mod:delta-integraldefinition}
+Let $F$ be a nonarchimedean local field.  Let
+$\chi:F^\times\to\mathbf C^\times$ have exact multiplicative conductor
+$m\in\mathbf N$, and let $\psi:F\to\mathbf C^\times$ have exact additive
+conductor $n\in\mathbf Z$ in the conventions of
+Definition~\ref{mod:basic-characterconductors}: $m$ is the least depth at
+which $\chi$ is trivial on $U_F^m$, while $\mathfrak p_F^{-n}$ is the
+largest fractional ideal on which $\psi$ is trivial.  An
+\emph{integral-admissible denominator} is a proof-bearing element
+$\gamma\in F^\times$ satisfying
+\[
+  \operatorname{ord}_F(\gamma)=m+n.
+\]
+Equivalently, $\gamma\mathcal O_F=\mathfrak p_F^{m+n}$.  Such
+denominators exist.  If $\gamma$ and $\gamma'$ are admissible, the
+explicit ratio $a=\gamma'/\gamma$ belongs to
+$U_F^0=\mathcal O_F^\times$ and satisfies $\gamma'=a\gamma$.
+
+Lean equips the subtype $U_F^0$ with its Borel measurable structure and
+proves that it is a compact multiplicative group.  Let $du$ be an arbitrary
+positive left Haar measure on this group: formally it is a measure with
+Mathlib's \texttt{IsHaarMeasure} instance, which includes left invariance,
+positive mass on every nonempty open set, and finite mass on compact sets.
+In particular,
+\[
+  0<du(U_F^0)<\infty.
+\]
+No probability normalization or prescribed value of $du(U_F^0)$ is chosen.
+
+For $u\in U_F^0$, define exactly
+\[
+  g_\gamma(u)=\psi(u/\gamma)\chi(u)^{-1},
+  \qquad
+  I_{du,\gamma}(\chi,\psi)
+    =\int_{U_F^0}g_\gamma(u)\,du.
+\]
+The Lean integral is over the whole subtype $U_F^0$ itself, not over the
+additive field, all of $F^\times$, or a set with an additive Haar measure.
+The function $g_\gamma$ is continuous and Borel measurable, and it is
+integrable for every such Haar measure.  Rescaling a measure by
+$c\in\mathbf R_{\geq0}$ gives the literal identity
+\[
+  I_{c\,du,\gamma}=c\,I_{du,\gamma}.
+\]
+
+Using the total phase of Definition~\ref{mod:basic-phase}, with
+$\ph(0)=1$ and $\ph(z)=z/|z|$ for $z\ne0$, define
+\[
+  \Delta^{\mathrm{int}}_{F,du}(\chi,\psi;\gamma)
+    =\chi(\gamma)\,\ph\!\left(I_{du,\gamma}(\chi,\psi)\right).
+\]
+For any two positive left Haar measures $du$ and $dv$, Haar uniqueness on
+the compact group writes $dv=c\,du$ for a strictly positive real scalar.
+Positive real scaling does not change the total phase, so Lean proves
+$\Delta^{\mathrm{int}}_{F,dv}=\Delta^{\mathrm{int}}_{F,du}$ without
+renormalizing either measure.
+
+The admissible-denominator transformation has the manuscript's exact
+orientation:
+\[
+  g_{\gamma'}(au)=\chi(a)^{-1}g_\gamma(u),
+  \qquad
+  I_{du,\gamma'}=\chi(a)^{-1}I_{du,\gamma}.
+\]
+The second equality uses left Haar invariance under the substitution
+$u=av$.  Exact multiplicative-conductor data imply
+$|\chi(a)|=1$; the formal proof factors the restriction of $\chi$ through
+the finite conductor quotient only for this unitary assertion and never
+chooses a quotient representative.  Consequently, if
+$I_{du,\gamma}\ne0$, Lean proves that the two admissible denominators give
+the same integral local constant.  The nonzero hypothesis is stated
+explicitly because the total phase has a separate value at zero; this node
+does not assume the later integral--finite bridge or its nonvanishing
+consequence.
+
+\LeanFile{LanglandsFirstMainLemma/Delta/IntegralDefinition.lean}
+\lean{LanglandsFirstMainLemma.IntegralAdmissibleGamma}
+\lean{LanglandsFirstMainLemma.IntegralAdmissibleGamma.exists_admissible}
+\lean{LanglandsFirstMainLemma.IntegralAdmissibleGamma.smul_lattice_zero}
+\lean{LanglandsFirstMainLemma.IntegralAdmissibleGamma.ratio_mem_unitFiltration}
+\lean{LanglandsFirstMainLemma.isOpen_unitFiltration}
+\lean{LanglandsFirstMainLemma.isOpen_unitFiltrationInside_zero}
+\lean{LanglandsFirstMainLemma.unitFiltrationZeroMeasurableSpace}
+\lean{LanglandsFirstMainLemma.unitFiltrationZeroCompactSpace}
+\lean{LanglandsFirstMainLemma.integralQuasiChar_norm_eq_one_of_mem_unitFiltration_zero}
+\lean{LanglandsFirstMainLemma.unitHaarIntegrand}
+\lean{LanglandsFirstMainLemma.unitHaarIntegrand_continuous}
+\lean{LanglandsFirstMainLemma.unitHaarIntegrand_measurable}
+\lean{LanglandsFirstMainLemma.unitHaarIntegrand_integrable}
+\lean{LanglandsFirstMainLemma.unitHaarMeasure_univ_pos}
+\lean{LanglandsFirstMainLemma.unitHaarMeasure_univ_lt_top}
+\lean{LanglandsFirstMainLemma.unitGaussIntegral}
+\lean{LanglandsFirstMainLemma.unitGaussIntegral_smul_nnreal_measure}
+\lean{LanglandsFirstMainLemma.unitGaussIntegral_admissibleGamma_change}
+\lean{LanglandsFirstMainLemma.deltaIntegral}
+\lean{LanglandsFirstMainLemma.deltaIntegral_measure_independent}
+\lean{LanglandsFirstMainLemma.deltaIntegral_gamma_independent_of_ne_zero}
+\leanok
+\SourceText{Definition of Delta and Lemma lem:gamma-independent.}
+\uses{mod:basic-charactertypes,mod:basic-characterconductors,mod:localfield-finitequotients,mod:basic-phase}
+\FormalizationContract The integration domain is definitionally the
+multiplicative group $U_F^0$, and the public local constant requires an
+explicit positive left Haar measure and an admissible denominator.  The
+measure remains unnormalised.  Measure independence is proved from a
+strictly positive Haar-uniqueness scalar, while denominator independence is
+proved only under the raw integral's explicit nonvanishing hypothesis.
+The admissibility subtype is reducibly the same order-equality subtype used
+by the later finite API, so their denominators and integrands agree
+definitionally.
+No finite Gauss sum or integral--finite comparison theorem is imported or
+used.
+\end{definition}

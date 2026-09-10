@@ -1,0 +1,196 @@
+\begin{theorem}[Characters of the norm quotient]
+\label{mod:ramification-normcharacters}
+Let $K/F$ be a finite extension of nonarchimedean local fields and write
+\[
+ Q_{K/F}=F^\times/N_{K/F}(K^\times)
+ =F^\times/\operatorname{range}(N_{K/F}).
+\]
+The quotient is always oriented with $F^\times$ as numerator.  Lean defines
+$\widehat Q_{K/F}$ to be the continuous homomorphisms
+$Q_{K/F}\to\mathbf C^\times$, and equips the project's type
+\[
+ S(K/F)=\{\mu:F^\times\to\mathbf C^\times:
+             \mu\circ N_{K/F}=1\}
+\]
+with its pointwise commutative-group structure.  Quotient lifting and
+pullback are inverse multiplicative equivalences
+\[
+ \widehat Q_{K/F}\simeq S(K/F).
+\]
+Thus a character is trivial on the norm subgroup if and only if it factors
+through $Q_{K/F}$; the construction uses the quotient topology and makes
+representative independence explicit.  When the norm range is open, every
+algebraic character of $Q_{K/F}$ is continuous, and complex finite-group
+duality gives
+\[
+ \#S(K/F)=\#Q_{K/F}.
+\]
+
+Now assume that $K/F$ is prime cyclic, let
+$\ell=[K:F]$, and first consider the ramified case.  Supply a lower break
+$t$, the equality $f(K/F)=1$, an integral uniformizer $\pi_K$, and the
+monogenicity equality required by
+module~\ref{mod:ramification-normfiltration}.  Put
+\[
+ C_t=\operatorname{gr}^tU_F/
+   \operatorname{range}(\overline N_t).
+\]
+Lean constructs the surjection $U_F^t\to C_t$ and proves that its kernel is
+the honest critical norm image.  The global intersection and join formulas
+from the norm-filtration theorem then give
+\[
+ \#Q_{K/F}
+ =\#\bigl(U_F^t/(N(K^\times)\cap U_F^t)\bigr)
+ =\#C_t=\ell.
+\]
+In particular, this cardinality is derived from the proved norm-filtration
+API and does not use local class field theory.  The norm quotient and the
+complete character group are finite, and
+\[
+ \#Q_{K/F}=\#S(K/F)=\ell.
+\]
+The trivial character is included among these $\ell$ characters.  The
+subtype of nontrivial characters has cardinality $\ell-1$.
+
+The exact conductor statements are as follows.
+\begin{itemize}
+\item The trivial norm character has multiplicative conductor $0$.
+\item If $K/F$ is unramified, every norm character, including every
+  nontrivial one, has conductor $0$.
+\item In the ramified case, every norm character is trivial on
+  $U_F^{t+1}$.  A norm character trivial already on $U_F^t$ is globally
+  trivial, by the global join formula.  Hence every nontrivial norm
+  character has exact conductor $t+1$.
+\item Consequently the tame case $t=0$ gives exact conductor $1$, while
+  the wild case $t>0$ gives exact conductor $t+1\ge2$.
+\end{itemize}
+All these are proofs of \texttt{IsMultiplicativeConductor}; no conductor is
+assumed as a field of a norm-character structure.
+
+In the unramified case Lean reuses the explicit normalized-order quotient
+from module~\ref{mod:ramification-unramifiedcompatibility}.  It re-exports
+\[
+ \#Q_{K/F}=\#S(K/F)=[K:F]
+\]
+and the corresponding finiteness results.  For an unramified prime cyclic
+extension it constructs both an arbitrary cyclic enumeration
+\[
+ \operatorname{Multiplicative}(\mathbf Z/\ell\mathbf Z)
+ \simeq S(K/F)
+\]
+and the enumeration aligned with a chosen uniformizer $\pi_F$,
+\[
+ S(K/F)\simeq\mu_\ell(\mathbf C),\qquad
+ \mu\longmapsto\mu(\pi_F).
+\]
+The latter is an equivalence, so every $\ell$-th root occurs uniquely as a
+uniformizer value.
+
+Combining the two branches, Lean exports the global non-instance theorem
+\texttt{primeCyclicNormCharacter\_finite}.  It classifies a prime-cyclic
+extension according to whether $e(K/F)=1$.  The unramified branch uses the
+preceding unramified finiteness theorem.  In the ramified branch, the green
+preparation package from
+module~\ref{mod:ramification-primecyclicpreparation} supplies the canonical
+lower break, residue-degree equality, integral uniformizer, and monogenicity
+proof required by the ramified finiteness theorem.  Consequently
+\[
+ \operatorname{Finite}(S(K/F))
+\]
+holds for every prime-cyclic extension, still including the trivial norm
+character.  Downstream files install this result locally with
+\texttt{letI := primeCyclicNormCharacter\_finite ...}.
+
+For both ramified and unramified prime-degree cases, Lean exports explicit
+finite sets of all norm characters and all cyclic indices, cyclic
+equivalences, the fact that index zero is the trivial character, an
+equivalence between nonzero indices and nontrivial characters, and
+full-product reindexing formulas.  These products retain the zero/trivial
+term.  Multiplication by any fixed norm character is also exported as a
+permutation, together with invariance of a full product under that
+reindexing.
+
+Finally, let $\chi$ be a quasi-character carrying an exact conductor proof,
+and suppose a depth $T$ is supplied at which every norm character is
+trivial.  For every $\mu\in S(K/F)$, Lean constructs the actual least
+conductor of $\mu\chi$ by minimizing the unit layers on which it is trivial.
+It then chooses
+\[
+ \mu_0\in S(K/F)
+\]
+whose twist has least conductor in the orbit.  The chosen twist is packaged
+with its exact conductor proof, and Lean proves both
+\[
+ m(\mu_0\chi)\le m(\nu\chi)
+ \qquad(\nu\in S(K/F))
+\]
+and the orbit-stable formulation: whenever $m$ is an exact conductor of
+$\nu(\mu_0\chi)$,
+\[
+ m(\mu_0\chi)\le m.
+\]
+No uniqueness of the minimizing character is asserted.
+
+\LeanFile{LanglandsFirstMainLemma/Ramification/NormCharacters.lean}
+\lean{LanglandsFirstMainLemma.NormQuotient}
+\lean{LanglandsFirstMainLemma.NormQuotientCharacter}
+\lean{LanglandsFirstMainLemma.normQuotientCharacterEquivNormCharacter}
+\lean{LanglandsFirstMainLemma.normQuotientCharacterEquivMonoidHom}
+\lean{LanglandsFirstMainLemma.normQuotientCharacter_card}
+\lean{LanglandsFirstMainLemma.normCharacter_card_of_isOpen}
+\lean{LanglandsFirstMainLemma.CriticalNormCokernel}
+\lean{LanglandsFirstMainLemma.criticalNormCokernelProjection}
+\lean{LanglandsFirstMainLemma.criticalNormCokernelProjection_ker}
+\lean{LanglandsFirstMainLemma.criticalNormTargetQuotientEquivCokernel}
+\lean{LanglandsFirstMainLemma.normQuotient_card}
+\lean{LanglandsFirstMainLemma.normQuotient_finite}
+\lean{LanglandsFirstMainLemma.ramifiedNormCharacter_card}
+\lean{LanglandsFirstMainLemma.ramifiedNormCharacter_finite}
+\lean{LanglandsFirstMainLemma.unramifiedNormQuotient_card}
+\lean{LanglandsFirstMainLemma.unramifiedNormCharacter_card}
+\lean{LanglandsFirstMainLemma.unramifiedNormCharacter_finite}
+\lean{LanglandsFirstMainLemma.primeCyclicNormCharacter_finite}
+\lean{LanglandsFirstMainLemma.trivialNormCharacter_conductor}
+\lean{LanglandsFirstMainLemma.ramifiedNormCharacter_conductor}
+\lean{LanglandsFirstMainLemma.tameNormCharacter_conductor}
+\lean{LanglandsFirstMainLemma.wildNormCharacter_conductor}
+\lean{LanglandsFirstMainLemma.unramifiedNormCharacter_conductor}
+\lean{LanglandsFirstMainLemma.normCharacterFintype}
+\lean{LanglandsFirstMainLemma.normCharacterFinset}
+\lean{LanglandsFirstMainLemma.normCharacter_prod_mul}
+\lean{LanglandsFirstMainLemma.nontrivialNormCharacterIndexEquiv}
+\lean{LanglandsFirstMainLemma.ramifiedNormCharacterZModEquiv}
+\lean{LanglandsFirstMainLemma.ramifiedNontrivialNormCharacter_card}
+\lean{LanglandsFirstMainLemma.ramifiedNormCharacterProduct_eq_zmodProduct}
+\lean{LanglandsFirstMainLemma.unramifiedNormCharacterZModEquiv}
+\lean{LanglandsFirstMainLemma.unramifiedNormCharacterEvaluationEquiv}
+\lean{LanglandsFirstMainLemma.existsUnique_normCharacter_uniformizer_value}
+\lean{LanglandsFirstMainLemma.unramifiedNontrivialNormCharacter_card}
+\lean{LanglandsFirstMainLemma.unramifiedNormCharacterProduct_eq_zmodProduct}
+\lean{LanglandsFirstMainLemma.normCharacterTwistData}
+\lean{LanglandsFirstMainLemma.minimalConductorTwist}
+\lean{LanglandsFirstMainLemma.minimalConductorTwistData}
+\lean{LanglandsFirstMainLemma.minimalConductorTwist_isConductor}
+\lean{LanglandsFirstMainLemma.minimalConductorTwist_minimal}
+\lean{LanglandsFirstMainLemma.minimalConductorTwist_actualMinimal}
+\leanok
+\SourceText{Corollary~\ref{cor:norm-characters} and
+Lemma~\ref{lem:norm-character-conversion}.}
+\uses{mod:ramification-normfiltration,mod:delta-firstmainstatement,
+mod:ramification-unramifiedcompatibility,
+mod:ramification-primecyclicpreparation}
+\FormalizationContract
+The quotient/type conversion proved here is the equivalence between
+characters of $F^\times/N(K^\times)$ and the project's
+\texttt{NormCharacter}.  The manuscript's
+Lemma~\ref{lem:norm-character-conversion} is a later stationary
+norm--trace phase identity; this node does not claim that separate identity.
+
+The ramified cardinality proof uses only the critical cokernel cardinality,
+critical successor image, and global intersection/join fields of
+module~\ref{mod:ramification-normfiltration}.  It assumes no local
+class-field-theory identification.  Positive ramified conductor statements
+explicitly assume that the character is nontrivial; the trivial character
+is retained in every finite type, enumeration, and full product.  The
+unramified and ramified conductor-zero boundaries are kept separate.
+\end{theorem}

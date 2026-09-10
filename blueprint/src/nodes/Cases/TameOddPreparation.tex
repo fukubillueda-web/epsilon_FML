@@ -1,0 +1,27 @@
+\begin{theorem}[Tame odd preparation]
+\label{mod:cases-tameoddpreparation}
+Select the minimal norm-character-orbit representative, route conductor zero,
+one, high even, and high odd through the completed tame-odd APIs, supply the
+prepared ramified Hasse input only in the high odd branch, bridge the full
+product identity (including the trivial norm character), and transport it back
+to the original character by the proved orbit invariances.
+
+For high conductor, use the actual norm and trace pullbacks, decompose each
+actual conductor by quotient and remainder modulo two, choose admissible
+denominators, and choose the stationary representative as a preimage of the
+stationary coefficient quotient class.  In the odd branch, use the lower and
+upper source-uniformizer coordinates and the resulting prepared ramified Hasse
+comparison.  The final theorem is dispatch-ready and concludes the literal
+\texttt{FirstMainIdentity}.
+\LeanFile{LanglandsFirstMainLemma/Cases/TameOddPreparation.lean}
+\lean{LanglandsFirstMainLemma.firstMain_tameOdd_of_isDeltaFinite}
+\leanok
+\SourceText{Proposition prop:tame-odd-new and Section sec:first-main-completion.}
+\uses{mod:ramification-primecyclicpreparation,mod:parameters-minimalorbitstationary,mod:parameters-ramifiedhassepreparation,mod:cases-tameodd,mod:delta-errorterm}
+\FormalizationContract
+No new Hasse calculation belongs here, and no stationary data are introduced
+in conductors zero or one.  The tame hypothesis is used only to identify the
+break with zero.  If twisting lowers a conductor, build the stationary class
+at the new depth; never reuse a cancelled sum from the old layer.  Transport
+the elementary stationary value and residual Hasse phase together.
+\end{theorem}

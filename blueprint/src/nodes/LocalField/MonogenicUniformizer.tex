@@ -1,0 +1,50 @@
+\begin{theorem}[Monogenic uniformizers]
+\label{mod:localfield-monogenicuniformizer}
+Let $K/F$ be a finite valuative extension of nonarchimedean local fields and
+assume
+\[
+  f(K/F)=\operatorname{residueDegree}(F,K)=1.
+\]
+For every integral uniformizer
+$\pi_K\in\mathcal O_K$, prove
+\[
+ \operatorname{Algebra.adjoin}_{\mathcal O_F}\{\pi_K\}
+   =\mathcal O_K.
+\]
+There is consequently an integral uniformizer with its uniformizer proof and
+this monogenicity equality:
+\[
+ \exists\,\pi_K\in\mathcal O_K,\quad
+ \operatorname{IsUniformizer}(\pi_K)\ \wedge\
+ \operatorname{Algebra.adjoin}_{\mathcal O_F}\{\pi_K\}
+   =\mathcal O_K.
+\]
+
+The result is a reusable local-field theorem.  Its statement and proof contain
+no cyclicity, Galois, ramification-break, character, local-constant, or case
+hypotheses.
+\LeanFile{LanglandsFirstMainLemma/LocalField/MonogenicUniformizer.lean}
+\lean{LanglandsFirstMainLemma.algebra_adjoin_uniformizer_eq_top_of_residueDegree_eq_one}
+\lean{LanglandsFirstMainLemma.monogenicUniformizer}
+\leanok
+\SourceText{The totally ramified uniformizer input used in the proof of Theorem thm:norm-filtration and in Section sec:first-main-completion.}
+\uses{mod:localfield-valuation,mod:localfield-lattices,mod:localfield-residuefield,mod:localfield-extension}
+\FormalizationContract
+Put $C=\mathcal O_F[\pi_K]$.  Residue degree one makes the canonical map
+$k_F\to k_K$ surjective.  Hence every $b\in\mathcal O_K$ has a lower integral
+lift modulo the maximal ideal, and principality
+$\mathfrak p_K=(\pi_K)$ gives
+\[
+ \mathcal O_K=C+\pi_K\mathcal O_K.
+\]
+The finite $\mathcal O_F$-module $\mathcal O_K$ is also finite over $C$.
+Furthermore, integrality and lying-over show that every maximal ideal of $C$
+lifts to the unique maximal ideal of $\mathcal O_K$; consequently
+$\pi_K\in\operatorname{Jac}(C)$.  Nakayama's lemma applied over $C$ proves
+$C=\mathcal O_K$.  This finite argument replaces an infinite uniformizer
+expansion and uses neither a prior monogenicity assertion nor a power basis.
+
+The existential statement is obtained from the universal theorem and the
+existing canonical-valuation uniformizer-existence theorem.  In particular,
+the proof does not choose a specially adapted generating uniformizer.
+\end{theorem}

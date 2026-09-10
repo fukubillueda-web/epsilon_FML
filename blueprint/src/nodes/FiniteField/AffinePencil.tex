@@ -1,0 +1,71 @@
+\begin{theorem}[Affine pencil of quadratic phases]\label{mod:finitefield-affinepencil}
+Let $p$ be an odd prime, let $k$ be a finite field of characteristic
+$p$, and write $[j]\in k$ for the canonical image of
+$j\in\F_p=\mathbf Z/p\mathbf Z$.  Let $\psi:k\to\C^\times$ be a
+nontrivial additive character satisfying
+\[
+  \psi(z^p)=\psi(z)\qquad(z\in k).
+\]
+Suppose that $\rho,\sigma,\tau,a_0,b_0\in k$ satisfy
+\[
+ \rho\ne0,\qquad 1+[j]\rho\ne0\quad(j\in\F_p),
+\]
+and
+\[
+ a_0^p=1-(\rho^{p-1})^{-1},
+ \qquad b_0^p=\sigma-\rho^{-1}\tau.
+\]
+Then, for the normalized quadratic phase of
+Theorem~\ref{mod:finitefield-quadraticphase},
+\[
+ Q_\psi(a_0,b_0)
+ \prod_{j\in\F_p^\times}Q_\psi([j]\rho,[j]\tau)
+ =\prod_{j\in\F_p}Q_\psi(1+[j]\rho,\sigma+[j]\tau).
+\]
+
+In particular, all quadratic coefficients occurring here are nonzero;
+this is a consequence of the displayed hypotheses, rather than an
+additional assumption.  The proof includes the exact rational identity
+\[
+ \sum_{j\in\F_p}\frac{(\sigma+[j]\tau)^2}{1+[j]\rho}
+ =\frac{\rho^{p-3}(\sigma\rho-\tau)^2}{\rho^{p-1}-1},
+\]
+with the denominator proved nonzero from
+$\prod_j(1+[j]\rho)=1-\rho^{p-1}$.
+
+The identity is homogeneous in the common coefficient scale in the precise
+form required at the wild odd boundary.  Namely, let $c,c_0\in k$ satisfy
+$c\ne0$ and $c_0^p=c$.  Then
+\[
+ \frac{
+   Q_\psi(ca_0^p,cb_0^p)
+   \displaystyle\prod_{u\in\F_p^\times}
+     Q_\psi(c[u]\rho,c[u]\tau)}{
+   \displaystyle\prod_{j\in\F_p}
+     Q_\psi(c(1+[j]\rho),c(\sigma+[j]\tau))}
+ =
+ \frac{
+   Q_\psi(a_0,b_0)
+   \displaystyle\prod_{u\in\F_p^\times}
+     Q_\psi([u]\rho,[u]\tau)}{
+   \displaystyle\prod_{j\in\F_p}
+     Q_\psi(1+[j]\rho,\sigma+[j]\tau)}.
+\]
+Indeed, with $z_0=-b_0^2/(2a_0)$, the nonzero norm rows contribute
+$\nu(c)^{p-1}=1$ and no additive factor because
+$\sum_{u\in\F_p^\times}[u]=0$.  The affine rational-sum identity makes the
+twist-row exponent equal to $z_0^p$.  Frobenius invariance and $c_0^p=c$
+give
+\[
+ \nu(c)^p=\nu(c_0),\qquad
+ \psi((c-1)z_0^p)=\psi((c_0-1)z_0).
+\]
+Thus the numerator and denominator acquire the same explicitly nonzero
+factor, which is cancelled only after its nonvanishing is proved.
+\LeanFile{LanglandsFirstMainLemma/FiniteField/AffinePencil.lean}
+\lean{LanglandsFirstMainLemma.affinePencil}
+\lean{LanglandsFirstMainLemma.affinePencil_homogeneous_quotient}
+\leanok
+\SourceText{Lemma lem:affine-pencil and the boundary case of Proposition prop:odd-phase-cancel.}
+\uses{mod:finitefield-quadraticphase,mod:basic-finiteproducts}
+\end{theorem}

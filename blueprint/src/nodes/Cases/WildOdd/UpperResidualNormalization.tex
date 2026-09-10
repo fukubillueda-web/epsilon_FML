@@ -1,0 +1,89 @@
+\begin{lemma}[Wild odd upper residual normalization]
+\label{mod:cases-wildodd-upperresidualnormalization}
+Let $t=s+1$ be the last lower break.  For the coherent High source put
+$A=N(\alpha _1)/\gamma_F$ and $u=\beta _1/\alpha _1$; for the actual Low
+stationary norm pair put $A=\alpha/\delta$ and
+$u=\epsilon _1\beta _1/\alpha _1$.  In both cases $A$ is retained as a unit
+and has order
+\[
+ -\bigl((t+1)+n(\psi_F)\bigr).
+\]
+The literal High representative and every explicitly supplied Low upstairs
+witness, divided by their respective unchanged denominators, are exactly
+$A\bigl(N(u)-u\bigr)$.  Thus the source normalization uses the same
+coherent High product/norm rows and the same Low stationary pair, parameter
+table, and witness as PhaseReduction.
+
+For the last-break displacement $x_z=[z]\pi_K^t$, its norm polynomial lies
+on the exact layer $t$.  Specializing the real High and Low raw-factor
+theorems to $x_z$ gives
+\[
+ \psi_F\bigl(A P(x_z)\bigr)=1.
+\]
+Here the indexed norm character is removed only because the displayed unit
+is exhibited in the norm range.  If $\lambda\ne0$ is the ramification
+coordinate, the generic positive-break critical-norm theorem from
+Theorem~\ref{mod:ramification-normbelowbreak}, specialized at $t=s+1$,
+gives exactly
+\[
+ \overline P(z)=z^p-\lambda^{p-1}z,
+\]
+and the raw identity gives the exact annihilator
+\[
+ \psi_0\!\left(\eta_0
+   (z^p-\lambda^{p-1}z)\right)=1.
+\]
+Consequently the inverse Frobenius root has the manuscript's orientation
+\[
+ \operatorname{Frob}^{-1}(\eta_0)=\eta_0\lambda^{p-1}.
+\]
+
+For $y$ of order $r$ with $r+2d_K=t$, and with its normalized initial
+residue equal to $-\iota$, the common-coordinate trace specialization is
+proved exactly as
+\[
+ \psi_F\!\left(A\operatorname{Tr}_{K/F}
+   (y\pi_K^{2d_K}[z])\right)
+ =\psi_0\bigl((\beta^{-1}\iota)z\bigr),
+ \qquad
+ \beta^{-1}=\eta_0\lambda^{p-1}.
+\]
+This is the precise \texttt{hnormalizedTrace} statement: its signed depth,
+initial-residue hypothesis, trace direction, and lower residual coordinate
+are explicit.
+
+At the Low noncancelling boundary, where the actual conductor is $t+1$, the
+normalized ratio has order zero.  Both it and its norm are integral.  For the
+literal integral lift $n_O$ of $N(u)$ and
+$d_0=\zeta^p$ in the common lower residual coordinate, one has
+\[
+  \operatorname{residueMap}(n_O)=d_0,
+  \qquad d_0=\zeta^p,
+\]
+with $\zeta\ne0$ and $d_0\ne0$.  All denominator nonvanishing follows from
+the unit-valued coefficients.  These statements are packaged in the narrow
+normalization API consumed by UpperResidualCoefficients.
+
+This node contains no upper polar rows, upper affine rows,
+HigherSymmetricVanishing argument, final coefficient table, or parity
+cancellation.
+\LeanFile{LanglandsFirstMainLemma/Cases/WildOdd/UpperResidualNormalization.lean}
+\lean{LanglandsFirstMainLemma.wildOdd_upperResidualNormalization}
+\lean{LanglandsFirstMainLemma.wildOddHighStationaryRatio_eq_normalized}
+\lean{LanglandsFirstMainLemma.wildOddLowStationaryRatio_eq_normalized}
+\lean{LanglandsFirstMainLemma.wildOddCompactNormalizedTraceCharacter}
+\lean{LanglandsFirstMainLemma.wildOddHighNormalization_raw}
+\lean{LanglandsFirstMainLemma.wildOddLowNormalization_raw}
+\lean{LanglandsFirstMainLemma.wildOddHighNormalization_annihilator}
+\lean{LanglandsFirstMainLemma.wildOddLowNormalization_annihilator}
+\lean{LanglandsFirstMainLemma.wildOddLowBoundaryNormNormalization_spec}
+\leanok
+\SourceText{Lemma lem:odd-break-line-normalization and the normalization and initial-coordinate portions of Lemma lem:residual-parameter-transport.}
+\uses{mod:parameters-phasereduction,mod:ramification-normbelowbreak}
+\FormalizationContract
+The certificate exposes only the two actual source normalizations, the exact
+last-break trace and norm-polynomial coordinate, the raw and annihilator
+identities, inverse-Frobenius direction, and the integral boundary norm.
+Coefficient rows, higher-symmetric vanishing, and finite-field cancellation
+remain in their separate nodes.
+\end{lemma}

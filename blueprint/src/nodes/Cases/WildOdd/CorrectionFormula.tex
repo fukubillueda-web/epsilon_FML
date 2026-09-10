@@ -1,0 +1,78 @@
+\begin{theorem}[Closed norm-trace correction formula]\label{mod:cases-wildodd-correctionformula}
+Let $d$ be wild odd correction data, put
+$p=\operatorname{char}k_F$, $n=N_{K/F}(u)$, and write
+$s_r=s_r(u)$ for the elementary symmetric functions of the conjugates of
+$u$, so that $s_1=\operatorname{Tr}_{K/F}(u)$ and $s_p=n$.  Lean defines the
+manuscript numerator by the literal finite sum
+\[
+ B=s_1+\sum_{q\in[1,p-1)}(-n)^q s_{p-q}.
+\]
+It also proves an explicit finite-sum reindexing from the shifted range
+$q=0,\ldots,p-3$ produced by the prime-field calculation to this interval:
+\[
+ s_1+\sum_{q=0}^{p-3}(-n)^{q+1}s_{p-(q+1)}=B.
+\]
+
+The exceptional index is kept separate from every nonzero prime-field
+index.  For $j\in\mathbf F_p^\times$, with $[j]$ the canonical
+Teichmüller lift, Lean first derives from
+$N(u+[j])=(n+[j])z_j$ the exact pointwise identity
+\[
+ x_j=
+ \frac{\sum_{r=1}^{p-1}[j]^{p-r}s_r}{n+[j]}.
+\]
+Every denominator $n+[j]$ is proved nonzero before this division.  The
+finite geometric identity
+\[
+ \frac1{n+[j]}=
+ \frac{\sum_{q=0}^{p-2}(-n)^q[j]^{p-2-q}}
+      {1-n^{p-1}}
+\]
+is likewise used only after proving both $n+[j]\ne0$ and
+$1-n^{p-1}\ne0$.  Applying the prime-field power-sum theorem to the
+Teichmüller unit homomorphism leaves exactly the cases $r+q=1$ and
+$r+q=p$, and gives the nonzero-index component
+\[
+ \sum_{j\in\mathbf F_p^\times}[j]x_j
+   =\frac{(p-1)B}{1-n^{p-1}}.
+\]
+
+For the exceptional index, Lean uses the ratio in its proved orientation
+\[
+ N(n-u)=(n^p-n)z_0
+\]
+and the exact symmetric-polynomial expansion of $N(n-u)$.  After a
+separate reflected-interval reindexing, it obtains
+\[
+ nx_0=\frac{B}{1-n^{p-1}}-s_1.
+\]
+Thus the correction quantity is defined exactly as
+\[
+ X=s_1+nx_0+
+   \sum_{j\in\mathbf F_p^\times}[j]x_j,
+\]
+and Lean proves the field equality
+\[
+ \boxed{X=\frac{pB}{1-n^{p-1}}}.
+\]
+This is an equality in $F$, not a congruence.  No valuation or depth
+estimate, and no result from CorrectionValuation or any later wild-odd
+node, is used.
+\LeanFile{LanglandsFirstMainLemma/Cases/WildOdd/CorrectionFormula.lean}
+\lean{LanglandsFirstMainLemma.correctionFormulaB}
+\lean{LanglandsFirstMainLemma.correctionFormula_B_reindex}
+\lean{LanglandsFirstMainLemma.correctionFormula_n_mul_xZero_eq_B_sub_trace}
+\lean{LanglandsFirstMainLemma.correctionFormula_nonzero_sum}
+\lean{LanglandsFirstMainLemma.wildOddCorrectionX}
+\lean{LanglandsFirstMainLemma.wildOdd_correctionFormula}
+\leanok
+\SourceText{Propositions prop:exact-odd-assembly and prop:X-closed, including equations eq:X-def, eq:B-def, eq:inverse-nj, eq:sum-jxj, and eq:X-closed.}
+\uses{mod:cases-wildodd-correctionunits,mod:basic-finiteproducts}
+\FormalizationContract The Lean definition of $X$ preserves the exceptional
+index $0$ and the nonzero Teichmüller indices as distinct summands.  The
+proof expands the already-defined correction units through the exact norm
+identities, establishes every displayed denominator as nonzero before
+division or cancellation, performs the prime-field reindexing explicitly,
+and concludes with the exact rational identity required by the following
+CorrectionValuation node.  It does not import or assume that node.
+\end{theorem}

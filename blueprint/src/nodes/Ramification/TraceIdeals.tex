@@ -1,0 +1,180 @@
+\begin{theorem}[Trace-lattice formulas]\label{mod:ramification-traceideals}
+Let $K/F$ be a finite Galois valuative extension of nonarchimedean local
+fields, put
+\[
+ e=e(K/F),\qquad D=d_{K/F}=v_K(\mathfrak D_{K/F}),
+\]
+and identify $D$ with the nonnegative integer
+\texttt{differentExponent} constructed in
+\ref{mod:ramification-different}.  Lean keeps the following two hypotheses
+on a chosen $\pi\in\mathcal O_K$ explicit:
+\[
+ \operatorname{ord}_K(\pi)=1,
+ \qquad
+ \operatorname{Algebra.adjoin}_{\mathcal O_F}\{\pi\}=\mathcal O_K.
+\]
+The second equality first implies $F(\pi)=K$.  The derivative of the
+minimal polynomial of $\pi$ is then evaluated as
+\[
+ f_\pi'(\pi)
+ =\prod_{\substack{\sigma\in\operatorname{Gal}(K/F)\\\sigma\ne1}}
+   (\pi-\sigma\pi),
+\]
+so its upper normalized order is exactly $D$ by the Hilbert-sum theorem of
+\ref{mod:ramification-different}.  Mathlib's monogenic trace-duality theorem
+therefore identifies the genuine integral trace dual with
+$\mathfrak p_K^{-D}$; the desired lattice identity is not assumed through a
+typeclass.
+
+For every $a\in\mathbf Z$, including all negative depths, Lean proves
+\[
+ \boxed{
+ \left(\mathfrak p_K^a\right)^\vee
+ =\{z\in K:\operatorname{Tr}_{K/F}(z\mathfrak p_K^a)
+                    \subseteq\mathcal O_F\}
+ =\mathfrak p_K^{-a-D}.}
+\]
+Multiplication of integer-indexed lattices transports the integral result to
+arbitrary $a$ and fixes both the minus sign on $a$ and the negative
+different shift.
+
+Lean then proves the exact trace image, not merely its containment:
+\[
+ \boxed{
+ \operatorname{Tr}_{K/F}(\mathfrak p_K^a)
+ =\mathfrak p_F^{\left\lfloor(a+D)/e\right\rfloor}}
+ \qquad(a\in\mathbf Z).
+\]
+Here division in the Lean exponent is Euclidean integer division by the
+positive integer $e$, hence is the displayed floor even when $a+D<0$.
+The theorem is stated both as equality of the mapped submodule and in the
+elementwise form
+\[
+ y\in\mathfrak p_F^{\left\lfloor(a+D)/e\right\rfloor}
+ \quad\Longleftrightarrow\quad
+ \exists x\in\mathfrak p_K^a,\ \operatorname{Tr}_{K/F}(x)=y.
+\]
+Thus the zero target and its zero preimage are included.  The reverse
+inclusion is proved from trace duality: if every trace lay one layer deeper,
+an element of base order $-\lfloor(a+D)/e\rfloor-1$ would contradict the
+dual-lattice formula.  Scaling one resulting exact-depth trace then supplies
+every target element; trace surjectivity is never an input hypothesis.
+
+The annihilator exponent used in the manuscript is recorded with its exact
+endpoint convention:
+\[
+ \left\lceil\frac{-a-D}{e}\right\rceil
+ =\left\lfloor\frac{-(a+D)+e-1}{e}\right\rfloor
+ =-\left\lfloor\frac{a+D}{e}\right\rfloor.
+\]
+Consequently, for every additive character $\psi$ of $F$ and every integer
+$a$, triviality of $\psi\circ\operatorname{Tr}_{K/F}$ on
+$\mathfrak p_K^a$ is equivalent to triviality of $\psi$ on the displayed
+exact trace-image lattice.  With the convention that conductor $n$ means
+that $\mathfrak p_F^{-n}$ is the largest triviality lattice, Lean proves
+\[
+ \operatorname{IsAdditiveConductor}_F(\psi,n)
+ \Longrightarrow
+ \operatorname{IsAdditiveConductor}_K
+   (\psi\circ\operatorname{Tr}_{K/F},e n+D).
+\]
+In the manuscript's numerical conductor notation, this says
+\[
+ n_K(\psi\circ\operatorname{Tr}_{K/F})=e\,n_F(\psi)+D.
+\]
+For the totally ramified prime-degree situation of
+\ref{cor:additive-conductor}, this is exactly
+$\ell n_F(\psi)+d_{K/F}$.
+
+Finally assume
+\[
+ e=2,\qquad [K:F]=2,\qquad r\geq0,
+ \qquad r+D=2q+1.
+\]
+Lean defines trace on quotient representatives and proves the representative
+formula
+\[
+ [x]\longmapsto[\operatorname{Tr}_{K/F}(x)]
+ \colon
+ \mathfrak p_K^r/\mathfrak p_K^{r+1}
+ \longrightarrow
+ \mathfrak p_F^q/\mathfrak p_F^{q+1}.
+\]
+It derives residue degree one from $e=[K:F]=2$, rather than postulating
+surjectivity of the residue map, and proves the exact kernel statement
+\[
+ x\in\mathfrak p_K^r
+ \Longrightarrow
+ \bigl(\operatorname{Tr}_{K/F}(x)\in\mathfrak p_F^{q+1}
+       \iff x\in\mathfrak p_K^{r+1}\bigr).
+\]
+Together with the exact trace-image formula this makes the displayed map an
+$\mathcal O_F$-linear equivalence.  Equivalently, for
+$x\in\mathfrak p_K^r$,
+\[
+ \operatorname{ord}_F(\operatorname{Tr}_{K/F}x)=q
+ \iff \operatorname{ord}_K(x)=r;
+\]
+in particular, zero belongs to neither exact shell.  In the prime-cyclic
+wild quadratic specialization, Lean substitutes the proved equality
+$D=t+1$ and exposes the same equivalence with that shift.
+
+The two endpoints of Lemma~\ref{lem:quadratic-graded-trace} are also formal
+theorems.  If $D=2d_\tau+1$, then
+\[
+ \operatorname{ord}_F(2)=d_\tau.
+\]
+For every integral unit $w$ and every $\widetilde{\bar w}\in\mathcal O_F$
+whose residue maps to that of $w$,
+\[
+ \operatorname{Tr}_{K/F}(w)-2\widetilde{\bar w}
+ \in\mathfrak p_F^{d_\tau+1}.
+\]
+Writing $T=D$, if $m=2d+1>T$ and $r=m-T$, with the strict inequality retained, Lean
+constructs the equivalence at depths $r$ and $d$ and proves the downstream
+nonzero-shell form
+\[
+ \operatorname{ord}_F(-\operatorname{Tr}_{K/F}x)=d
+ \iff \operatorname{ord}_K(x)=r
+ \qquad(x\in\mathfrak p_K^r).
+\]
+
+\LeanFile{LanglandsFirstMainLemma/Ramification/TraceIdeals.lean}
+\lean{LanglandsFirstMainLemma.mem_traceDual_iff_trace_mul_mem_lattice_zero}
+\lean{LanglandsFirstMainLemma.traceDual_lattice_zero}
+\lean{LanglandsFirstMainLemma.traceDual_lattice}
+\lean{LanglandsFirstMainLemma.trace_lattice_image_eq}
+\lean{LanglandsFirstMainLemma.mem_trace_lattice_image_iff}
+\lean{LanglandsFirstMainLemma.trace_mem_lattice_floor}
+\lean{LanglandsFirstMainLemma.trace_annihilator_ceiling_eq}
+\lean{LanglandsFirstMainLemma.addCharTrivialOnLattice_compTrace_iff}
+\lean{LanglandsFirstMainLemma.isAdditiveConductor_compTrace}
+\lean{LanglandsFirstMainLemma.traceLatticeGraded}
+\lean{LanglandsFirstMainLemma.traceLatticeGraded_mk}
+\lean{LanglandsFirstMainLemma.quadraticGradedTrace}
+\lean{LanglandsFirstMainLemma.quadraticGradedTrace_mk}
+\lean{LanglandsFirstMainLemma.quadratic_trace_mem_succ_iff}
+\lean{LanglandsFirstMainLemma.quadraticGradedTrace_bijective}
+\lean{LanglandsFirstMainLemma.quadraticGradedTraceEquiv}
+\lean{LanglandsFirstMainLemma.wildQuadraticGradedTraceEquiv}
+\lean{LanglandsFirstMainLemma.quadratic_trace_shell_iff}
+\lean{LanglandsFirstMainLemma.quadratic_ord_two}
+\lean{LanglandsFirstMainLemma.quadratic_unit_trace_congr}
+\lean{LanglandsFirstMainLemma.quadraticOddConductorGradedTraceEquiv}
+\lean{LanglandsFirstMainLemma.quadratic_odd_conductor_neg_trace_shell_iff}
+\leanok
+\SourceText{Theorem~\ref{thm:norm-filtration}, part (b),
+Corollary~\ref{cor:additive-conductor}, and
+Lemma~\ref{lem:quadratic-graded-trace}.}
+\uses{mod:ramification-different,mod:localfield-lattices,mod:localfield-extension,
+mod:basic-characterconductors}
+\FormalizationContract The different is connected to Mathlib's actual trace
+dual through the chosen generating uniformizer and its minimal-polynomial
+derivative.  Duality and exact trace images are proved at every integer
+depth, with positive ramification index, Euclidean floor division, the
+ceiling annihilator identity, and the additive-conductor sign all explicit.
+No trace-surjectivity or trace-lattice assertion is assumed or stored in a
+helper typeclass.  The quadratic API contains the representative map, exact
+next-layer kernel, linear equivalence, exact-shell criterion, odd-different
+unit endpoint, and strict $m>T$ specialization.
+\end{theorem}

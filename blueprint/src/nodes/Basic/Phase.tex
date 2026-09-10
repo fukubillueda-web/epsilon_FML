@@ -1,0 +1,53 @@
+\begin{definition}[Total complex phase]\label{mod:basic-phase}
+For \(z\in\mathbf C\), define the \emph{total phase}
+\[
+ \operatorname{phase}(z)=
+ \begin{cases}
+  1,&z=0,\\[2mm]
+  \dfrac{z}{\lvert z\rvert},&z\ne0.
+ \end{cases}
+\]
+This is the phase operation used later in the definition of Langlands's
+local constant.  For every \(z\in\mathbf C\),
+\[
+ \operatorname{phase}(z)\ne0,
+ \qquad
+ \bigl\lvert\operatorname{phase}(z)\bigr\rvert=1.
+\]
+If \(\lvert z\rvert=1\), then
+\[
+ \operatorname{phase}(z)=z.
+\]
+For \(z,w\ne0\),
+\[
+ \operatorname{phase}(zw)
+ =\operatorname{phase}(z)\operatorname{phase}(w).
+\]
+The nonzero hypotheses are essential here because the phase has been
+totalized by setting \(\operatorname{phase}(0)=1\); multiplicativity is
+not asserted unconditionally.  For every \(n\in\mathbf N\),
+\[
+ \operatorname{phase}(z^n)=\operatorname{phase}(z)^n,
+\]
+and complex conjugation satisfies
+\[
+ \operatorname{phase}(\overline z)
+ =\overline{\operatorname{phase}(z)}.
+\]
+For every positive real number \(r>0\), regarded as a complex number,
+\[
+ \operatorname{phase}(r)=1,
+ \qquad
+ \operatorname{phase}(rz)=\operatorname{phase}(z).
+\]
+Finally, if \(\lvert u\rvert=1\) and \(z\ne0\), then
+\[
+ \operatorname{phase}(uz)=u\,\operatorname{phase}(z).
+\]
+\LeanFile{LanglandsFirstMainLemma/Basic/Phase.lean}
+\lean{LanglandsFirstMainLemma.phase}
+\leanok
+\SourceText{Local notation, subsection Definition of Delta.}
+\uses{mod:prelude}
+\FormalizationContract
+\end{definition}

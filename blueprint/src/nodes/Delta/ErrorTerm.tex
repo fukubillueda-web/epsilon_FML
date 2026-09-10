@@ -1,0 +1,133 @@
+\begin{definition}[First-Main-Lemma error term]\label{mod:delta-errorterm}
+Let $K/F$ be a finite extension of nonarchimedean local fields for which
+$S(K/F)=\texttt{NormCharacter}(F,K)$ is finite, and let $\Delta_F,\Delta_K$
+be proposed local-constant functions.  Lean defines the error term with the
+manuscript's exact left-over-right orientation:
+\[
+ \texttt{errorTerm}(\chi_F,\psi_F)
+ =\frac{\texttt{firstMainLeftSide}(\chi_F,\psi_F)}
+        {\texttt{firstMainRightSide}(\chi_F,\psi_F)}
+ =\frac{
+  \Delta_K(\chi_F\circ N_{K/F},\psi_F\circ\operatorname{Tr}_{K/F})
+  \prod_{\mu\in S(K/F)}\Delta_F(\mu,\psi_F)}
+ {\prod_{\mu\in S(K/F)}\Delta_F(\mu\chi_F,\psi_F)}.
+\]
+
+The predicate \texttt{IsDeltaFiniteLocalConstant} says that a proposed
+local-constant function agrees with \texttt{deltaFinite} whenever exact
+multiplicative and additive conductor packages and an admissible denominator
+are supplied.  It is a computational compatibility condition, not a
+nonvanishing assumption.  From it, Lean derives nonvanishing directly from
+\texttt{deltaFinite\_ne\_zero}.
+
+For fixed $\chi_F,\psi_F$, the structure
+\texttt{FirstMainComputationalData} packages exact conductor data for the
+extension-field pullbacks and for every base-field character $\mu$ and
+$\mu\chi_F$ occurring in the two products.  Both families are indexed by the
+full type $S(K/F)$, including its trivial character.  With this data Lean
+first proves every denominator factor nonzero and hence proves
+\[
+ \texttt{firstMainRightSide}(\chi_F,\psi_F)\ne0.
+\]
+It separately proves the extension-field factor and every factor of the
+remaining numerator product nonzero before proving the numerator and then
+the error term nonzero.  No product is cancelled before its nonvanishing is
+established.
+
+The proved rearrangement API includes both
+\[
+ \texttt{errorTerm}\cdot\texttt{firstMainRightSide}
+   =\texttt{firstMainLeftSide},\qquad
+ \texttt{firstMainRightSide}\cdot\texttt{errorTerm}
+   =\texttt{firstMainLeftSide},
+\]
+and, for every $z\in\mathbf C$, the two equivalent numerator/denominator
+forms of \texttt{errorTerm}$=z$.  At $z=1$ this gives both implications of
+\[
+ \texttt{errorTerm}(\chi_F,\psi_F)=1
+ \quad\Longleftrightarrow\quad
+ \texttt{FirstMainIdentity}(\chi_F,\psi_F).
+\]
+The corresponding universally quantified equivalence is exported for the
+project's exact proposition \texttt{FirstMainStatement}.  These equivalences
+do not assume the First Main identity.
+
+Lean also exports the generic computational bridge
+\texttt{firstMainIdentity\_of\_deltaFinite\_product}.  Given computational
+specifications for $\Delta_F$ and $\Delta_K$, exact conductor packages for
+the extension pullbacks and every $\mu$ and $\mu\chi_F$, admissible
+denominators $\gamma_K$, $\gamma_{\mu}$, and $\gamma_{\mu\chi}$, it takes the
+single explicit equality
+\[
+ \Delta^{\mathrm{fin}}_K(\chi_K,\psi_K;\gamma_K)
+ \prod_{\mu\in S(K/F)}
+   \Delta^{\mathrm{fin}}_F(\mu,\psi_F;\gamma_{\mu})
+ =
+ \prod_{\mu\in S(K/F)}
+   \Delta^{\mathrm{fin}}_F(\mu\chi_F,\psi_F;\gamma_{\mu\chi})
+\]
+and deduces \texttt{FirstMainIdentity}.  Each displayed product is over the
+full norm-character type, including the identity character.  The proof
+rewrites the proposed local constants through their \texttt{deltaFinite}
+specifications, uses the displayed equality with its left/right orientation
+unchanged, proves the denominator product nonzero through the existing
+nonvanishing API, and then applies
+\texttt{errorTerm}$=1\Longleftrightarrow$\texttt{FirstMainIdentity}.
+
+For twist invariance, Lean constructs multiplication by a fixed
+$\nu\in S(K/F)$ directly on the exact \texttt{NormCharacter} subtype,
+together with the inverse multiplication by $\nu^{-1}$.  This gives a
+genuine equivalence of the full norm-character type and the reindexing
+identity
+\[
+ \prod_{\mu\in S(K/F)} f(\nu\mu)
+ =\prod_{\mu\in S(K/F)} f(\mu),
+\]
+again retaining the trivial-character factor.  The defining property
+$\nu\circ N_{K/F}=1$ proves that the extension-field pullback of
+$\nu\chi_F$ equals that of $\chi_F$, while the displayed bijection reindexes
+the entire denominator.  Therefore Lean proves
+\[
+ \texttt{errorTerm}(\nu\chi_F,\psi_F)
+ =\texttt{errorTerm}(\chi_F,\psi_F)
+\]
+without assuming a First Main identity or any extra nonvanishing hypothesis.
+\LeanFile{LanglandsFirstMainLemma/Delta/ErrorTerm.lean}
+\lean{LanglandsFirstMainLemma.IsDeltaFiniteLocalConstant}
+\lean{LanglandsFirstMainLemma.IsDeltaFiniteLocalConstant.apply_ne_zero}
+\lean{LanglandsFirstMainLemma.FirstMainComputationalData}
+\lean{LanglandsFirstMainLemma.errorTerm_denominator_ne_zero}
+\lean{LanglandsFirstMainLemma.errorTerm_numerator_ne_zero}
+\lean{LanglandsFirstMainLemma.errorTerm}
+\lean{LanglandsFirstMainLemma.errorTerm_ne_zero}
+\lean{LanglandsFirstMainLemma.errorTerm_mul_denominator}
+\lean{LanglandsFirstMainLemma.denominator_mul_errorTerm}
+\lean{LanglandsFirstMainLemma.errorTerm_eq_iff_numerator_eq_mul_denominator}
+\lean{LanglandsFirstMainLemma.errorTerm_eq_iff_denominator_mul_eq_numerator}
+\lean{LanglandsFirstMainLemma.errorTerm_eq_one_iff_firstMainIdentity}
+\lean{LanglandsFirstMainLemma.firstMainIdentity_of_deltaFinite_product}
+\lean{LanglandsFirstMainLemma.normCharacterLeftMul}
+\lean{LanglandsFirstMainLemma.normCharacterLeftMulEquiv}
+\lean{LanglandsFirstMainLemma.normCharacter_fullProduct_leftMul}
+\lean{LanglandsFirstMainLemma.normQuasiChar_normCharacter_mul}
+\lean{LanglandsFirstMainLemma.firstMainRightSide_normCharacter_mul}
+\lean{LanglandsFirstMainLemma.firstMainLeftSide_normCharacter_mul}
+\lean{LanglandsFirstMainLemma.errorTerm_normCharacter_mul}
+\lean{LanglandsFirstMainLemma.firstMainStatement_iff_errorTerm_eq_one}
+\leanok
+\SourceText{Definition eq:error-term and Lemma lem:twist-invariance.}
+\uses{mod:delta-firstmainstatement,mod:delta-nonvanishing}
+\FormalizationContract The definition is exactly the quotient of the two
+previously defined First Main sides, with numerator on the left and
+denominator on the right.  Nonvanishing hypotheses are never accepted as
+inputs: every required nonzero local-constant value is derived from exact
+conductor data, computational compatibility, and
+\texttt{deltaFinite\_ne\_zero}.  The full-product permutation is an explicit
+equivalence of \texttt{NormCharacter}, not a reindexing assertion without a
+bijection.  All products include the trivial norm character.  The fixed-point
+and statement equivalences prove both directions and assume no First Main
+identity.  The generic computational-product bridge accepts exactly the
+extension factor and two full norm-character products, preserves their
+left/right orientation, and performs no cancellation before the existing
+denominator nonvanishing theorem has been applied.
+\end{definition}

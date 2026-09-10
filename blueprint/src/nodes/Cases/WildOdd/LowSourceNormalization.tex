@@ -1,0 +1,54 @@
+\begin{theorem}[Wild odd Low source normalization]
+\label{mod:cases-wildodd-lowsourcenormalization}
+In the Low range, put
+\[
+  a=s+1-2d,\qquad
+  u=\epsilon_1\frac{\beta_1}{\alpha_1},\qquad
+  \zeta=\overline{u/\varpi_K^a}.
+\]
+The actual source coordinate defines one normalization valid in both the
+strict and boundary branches.  In the strict branch it agrees with the
+existing inverse-Frobenius normalization; at the boundary it uses the
+coordinate \(B.\zeta\) carried by the actual norm package, rather than
+reconstructing a coordinate from \(N(u)\).  In particular
+\(d_0=\zeta^p\ne0\).
+
+For the displayed residual variable \(X\), let \(z\) be its prescribed
+inverse-Frobenius reindexing and let
+\(x=\varpi_K^d[z]\).  The exact valuation identities give
+\[
+  ux\in\mathfrak p_K^{a+d}
+     =\mathfrak p_K^{s+1-d},
+\]
+so \(1+ux\) is the canonical actual source unit.
+
+At the post-drop conductor \(s+2\), the literal representative
+\(\alpha\), denominator \(\delta\), and depth
+\(\lfloor(s+1)/2\rfloor\) give the generator polar coefficient
+\(\eta_0\).  For the base row, retain the selected representative \(\beta\)
+and use the literal equality
+\[
+  \frac{\beta}{\gamma_F}
+    =\frac{\alpha}{\delta}\,N_{K/F}(u).
+\]
+The downstairs initial residue of \(N_{K/F}(u)\) is exactly \(\zeta^p\),
+with no extra uniformizer scalar.  Finite additive-character uniqueness then
+identifies the actual base polar coefficient with
+\(\eta=\eta_0d_0\).  The named generator and base rows inherit these two
+identities, and on the boundary their ratio is the same actual \(d_0\).
+
+\LeanFile{LanglandsFirstMainLemma/Cases/WildOdd/LowSourceNormalization.lean}
+\lean{LanglandsFirstMainLemma.wildOdd_lowSourceNormalization}
+\leanok
+\SourceText{Lemmas lem:odd-break-line-normalization, lem:critical-polar-coordinate, and lem:residual-parameter-transport; Proposition prop:odd-coefficient-table, actual Low source rows.}
+\uses{mod:cases-wildodd-lowerresidualcoefficients,mod:cases-wildodd-upperresidualcoefficients}
+\FormalizationContract
+The construction must preserve the actual inverse-Frobenius source
+coordinate, the selected representatives \(P.\alpha\) and \(P.\beta\), and
+the post-conductor-drop stationary depth.  The boundary coordinate comes
+from the existing source package \(B\), never from a reconstruction using
+the normalized norm.  Representative translations and the elementary
+stationary value remain attached to their phases.  This node supplies only
+the normalization bridge and source units; final phase and correction
+assembly remain in their dedicated nodes.
+\end{theorem}

@@ -1,0 +1,121 @@
+\begin{theorem}[Finite stationary-phase duality]\label{mod:lamprecht-finiteduality}
+Let $E$ be a nonarchimedean local field and let
+$\psi:E\to\C^\times$ be a continuous additive character with exact
+conductor $n=n_E(\psi)$.  Let $M,q,r\in\mathbf Z$ satisfy $r\le q$, and
+let $\Gamma\in E^\times$ satisfy
+\[
+ \operatorname{ord}_E(\Gamma)=M+n.
+\]
+Put
+\[
+ A_{M,q,r}=\mathfrak p_E^{M-q}/\mathfrak p_E^{M-r},
+ \qquad
+ B_{q,r}=\mathfrak p_E^r/\mathfrak p_E^q.
+\]
+There is a representative-independent biadditive pairing
+\begin{equation}\label{eq:blueprint-general-stationary-pairing}
+ \langle\ ,\ \rangle_{\psi,\Gamma}:
+ A_{M,q,r}\times B_{q,r}\longrightarrow\C^\times,
+ \qquad
+ \langle\bar c,\bar x\rangle_{\psi,\Gamma}
+   =\psi(cx/\Gamma).
+\end{equation}
+More precisely, multiplication first gives a bilinear quotient map
+\[
+ A_{M,q,r}\times B_{q,r}
+ \longrightarrow
+ \mathfrak p_E^{M-q+r}/\mathfrak p_E^M,
+ \qquad (\bar c,\bar x)\longmapsto\overline{cx},
+\]
+because
+\[
+ M-q+r\le M,
+ \qquad M=(M-r)+r=(M-q)+q.
+\]
+The character $z\mapsto\psi(z/\Gamma)$ descends through the denominator
+$\mathfrak p_E^M$, since division by $\Gamma$ carries that denominator to
+$\mathfrak p_E^{-n}$, where $\psi$ is trivial.  Thus no representative of
+either input quotient is selected by the construction.
+
+The two annihilators occur at the exact stated depths:
+\[
+ \begin{aligned}
+  \bigl(\forall x\in\mathfrak p_E^r,
+     \ \psi(cx/\Gamma)=1\bigr)
+    &\Longleftrightarrow c\in\mathfrak p_E^{M-r},\\
+  \bigl(\forall c\in\mathfrak p_E^{M-q},
+     \ \psi(cx/\Gamma)=1\bigr)
+    &\Longleftrightarrow x\in\mathfrak p_E^q.
+ \end{aligned}
+\]
+Equivalently, on quotient classes,
+\[
+ \begin{aligned}
+  \bigl(\forall\bar x\in B_{q,r},
+    \ \langle\bar c,\bar x\rangle_{\psi,\Gamma}=1\bigr)
+    &\Longleftrightarrow\bar c=0,\\
+  \bigl(\forall\bar c\in A_{M,q,r},
+    \ \langle\bar c,\bar x\rangle_{\psi,\Gamma}=1\bigr)
+    &\Longleftrightarrow\bar x=0.
+ \end{aligned}
+\]
+The forward implications use an element $w$ of exact order $-n-1$ with
+$\psi(w)\ne1$, supplied by exact conductor data.  In particular, they do
+not assume the false pointwise converse
+$\psi(z)=1\Rightarrow z\in\mathfrak p_E^{-n}$.
+
+Both quotients are finite and have the same exact cardinality
+\[
+ |A_{M,q,r}|=|B_{q,r}|=q_E^{(q-r).\operatorname{toNat}}.
+\]
+After composing $\C^\times\hookrightarrow\C$, currying the pairing in
+either variable therefore gives bijective additive homomorphisms
+\[
+ A_{M,q,r}\xrightarrow{\ \sim\ }
+   \operatorname{AddChar}(B_{q,r},\C),
+ \qquad
+ B_{q,r}\xrightarrow{\ \sim\ }
+   \operatorname{AddChar}(A_{M,q,r},\C).
+\]
+The Lean theorem \texttt{lamprechtPerfectPairing} is the conjunction of
+these two bijectivity assertions, and the two resulting additive
+equivalences are exported separately.
+
+For Lamprecht's classical parameters $m=2d+\varepsilon$ and
+$r=d+\varepsilon$, specialize only by taking $M=q=m$ and
+$\Gamma=\gamma$.  Then
+\[
+ A_{m,m,d+\varepsilon}=\mathcal O_E/\mathfrak p_E^d,
+ \qquad
+ B_{m,d+\varepsilon}
+   =\mathfrak p_E^{d+\varepsilon}/\mathfrak p_E^m,
+\]
+and \eqref{eq:blueprint-general-stationary-pairing} is precisely the
+pairing in the manuscript's finite-duality lemma.
+\LeanFile{LanglandsFirstMainLemma/Lamprecht/FiniteDuality.lean}
+\lean{LanglandsFirstMainLemma.LamprechtCoefficientQuotient}
+\lean{LanglandsFirstMainLemma.LamprechtVariableQuotient}
+\lean{LanglandsFirstMainLemma.lamprechtAnnihilatorLeft}
+\lean{LanglandsFirstMainLemma.lamprechtAnnihilatorRight}
+\lean{LanglandsFirstMainLemma.lamprechtProductCharacter}
+\lean{LanglandsFirstMainLemma.lamprechtPairing}
+\lean{LanglandsFirstMainLemma.lamprechtPairing_mk_mk}
+\lean{LanglandsFirstMainLemma.lamprechtPairingLeft}
+\lean{LanglandsFirstMainLemma.lamprechtPairingRight}
+\lean{LanglandsFirstMainLemma.lamprechtPairingLeft_eq_zero_iff}
+\lean{LanglandsFirstMainLemma.lamprechtPairingRight_eq_zero_iff}
+\lean{LanglandsFirstMainLemma.lamprechtPairing_left_nondegenerate}
+\lean{LanglandsFirstMainLemma.lamprechtPairing_right_nondegenerate}
+\lean{LanglandsFirstMainLemma.lamprechtCoefficientQuotient_card}
+\lean{LanglandsFirstMainLemma.lamprechtVariableQuotient_card}
+\lean{LanglandsFirstMainLemma.lamprechtPerfectPairing}
+\lean{LanglandsFirstMainLemma.lamprechtPairingLeftEquiv}
+\lean{LanglandsFirstMainLemma.lamprechtPairingRightEquiv}
+\leanok
+\SourceText{Lemma lem:finite-duality; equation eq:general-stationary-pairing.}
+\uses{mod:localfield-finitequotients,mod:basic-characterconductors}
+\FormalizationContract The denominator is supplied as an element of $E^\times$, exact
+conductor data provide both triviality and the predecessor witness, and every pairing
+input is a quotient class.  No pointwise-kernel characterization and no quotient
+representative choice is assumed.
+\end{theorem}

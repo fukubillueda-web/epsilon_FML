@@ -1,0 +1,25 @@
+\begin{theorem}[Wild quadratic strict-high coordinate transport]
+\label{mod:cases-wildquadratic-highcoordinatetransport}
+In the strict-high range, construct the upper and lower-product coordinate
+certificates from the original high quadratic parameter record.  The public
+producer is \texttt{WildQuadraticHighParameterData.coordinateTransport}; its
+receiver is the original \(Q.\texttt{parameters}\), not a reconstructed
+transport record.
+
+The construction retains
+\(\beta=\delta N(\beta_1)\), \(\alpha=N(\alpha_1)\),
+\(c_F=\alpha\delta\), \(u=\beta_1/\alpha_1\), and
+\(n=\beta/c_F\).  It proves the strict-high depth identities, the zero and
+quadratic residual terms, the actual scalar \(\lambda_\tau=1\), and the
+actual extension and twist phase equalities uniformly in \(q\).
+\LeanFile{LanglandsFirstMainLemma/Cases/WildQuadratic/HighCoordinateTransport.lean}
+\lean{LanglandsFirstMainLemma.WildQuadraticHighParameterData.coordinateTransport}
+\leanok
+\SourceText{Lemma lem:residual-parameter-transport and Propositions prop:quadratic-critical-functions, prop:quadratic-gamma-table, and prop:quadratic-complete-assembly, strict-high rows.}
+\uses{mod:parameters-phasereduction,mod:parameters-highquadratic,mod:cases-wildquadratic-coordinatetransport,mod:cases-wildquadratic-lowproductcoordinatetransport}
+\FormalizationContract
+Use the original high representatives and retain the factor \(\delta\) in
+\(\beta=\delta N(\beta_1)\).  Never replace this identity by
+\(\beta=N(\beta_1)\).  Preserve the actual elementary and Hasse translations,
+and select no refinement \(q\).
+\end{theorem}

@@ -1,0 +1,190 @@
+\begin{theorem}[Wild quadratic refinement identities]\label{mod:cases-wildquadratic-quadraticrefinement}
+Let $k$ be the common finite residue field in the wild quadratic
+calculation and put
+\[
+ \psi_0(x)=(-1)^{\operatorname{Tr}_{k/\mathbf F_2}(x)}.
+\]
+For a normalized characteristic-two refinement $\mathfrak q$, the
+polar sign and Frobenius normalization used here are exactly
+\[
+ \mathfrak q(x+y)=\mathfrak q(x)\mathfrak q(y)\psi_0(xy),
+ \qquad \mathfrak q(x^2)=\mathfrak q(x).
+\]
+Thus the polar character is positive.  Every same-polar critical
+function is uniquely
+\[
+ h_\lambda(z)=\mathfrak q(z)\psi_0(\lambda z).
+\]
+The four names used later are
+$h_{\gamma_0}$ for $\tau$, $h_\gamma$ for $\chi_F$,
+$h_{\gamma_1}$ for $\tau\chi_F$, and $h_{\gamma'}$ for $\chi_K$;
+the name is used only in a parity row in which that odd critical
+function exists.
+
+Every positive-polar Hasse function admits a normalized affine twist.
+Relative to a fixed normalized $\mathfrak q$, the two and only two
+normalized choices are
+\[
+ \mathfrak q,\qquad
+ \mathfrak q_1(z)=\mathfrak q(z)\psi_0(z),
+\]
+and they are distinct.  Changing the normalized base changes the
+coefficient in the precise direction
+\[
+ h^{\mathfrak q_1}_{\lambda+1}=h^{\mathfrak q}_\lambda.
+\]
+The corresponding correction values and phases agree after this
+paired shift; the two normalized refinements themselves are never
+identified.
+
+The complete residual correction value is
+\[
+ C_{\mathfrak q}(\lambda,c)
+ =h_\lambda(c)
+ =\mathfrak q(c)\psi_0(\lambda c)
+ =\mathfrak q(\lambda)^{-1}\mathfrak q(c+\lambda).
+\]
+It is this value, not its inverse or conjugate.  With
+\[
+ H_{\mathfrak q}(\lambda)
+ =\Aphase\!\left(\sum_{z\in k}h_\lambda(z)\right),
+\]
+the inverse occurs only on the translated phase side:
+\[
+ H_{\mathfrak q}(\lambda+c)
+ =C_{\mathfrak q}(\lambda,c)^{-1}H_{\mathfrak q}(\lambda),
+ \qquad
+ C_{\mathfrak q}(\lambda,c)H_{\mathfrak q}(\lambda+c)
+ =H_{\mathfrak q}(\lambda).
+\]
+
+Precomposition by Frobenius sends the affine coefficient to inverse
+Frobenius.  In particular, if $(\gamma')^2=L$, then
+\[
+ h_L(z^2)=h_{\gamma'}(z),
+ \qquad H_{\mathfrak q}(\gamma')=H_{\mathfrak q}(L).
+\]
+The square root is unique in characteristic two.  The remaining
+normalization identities exposed downstream are
+\[
+ \begin{gathered}
+ H_{\mathfrak q}(\lambda)
+   =H_{\mathfrak q}(0)\overline{\mathfrak q(\lambda)},
+ \qquad H_{\mathfrak q}(0)^2=\mathfrak q(1),\\
+ H_{\mathfrak q}(\lambda)^2
+   =\mathfrak q(1)\psi_0(\lambda),
+ \qquad H_{\mathfrak q}(\lambda^2)=H_{\mathfrak q}(\lambda),\\
+ H_{\mathfrak q}(1+\lambda)H_{\mathfrak q}(\lambda)=1.
+ \end{gathered}
+\]
+
+For the boundary coordinate, let $r^2=\rho$ and $1+\rho\ne0$.
+Lean records the two exact affine identities
+\[
+ h_{\gamma_0}(z)h_\gamma(\rho z)
+ =h_{(\gamma_0+\rho\gamma+r)/(1+\rho)}((1+\rho)z)
+\]
+and
+\[
+ h_\gamma(z)h_{\gamma_0}(\rho z)\psi_0(\rho z)
+ =h_{(\gamma+\rho\gamma_0+\rho+r)/(1+\rho)}((1+\rho)z).
+\]
+Thus all affine coefficient directions, including the terms $+r$ and
+$+\rho$, are explicit.  The raw upper functions away from the boundary
+are respectively $h_\gamma$ and $h_{1+\gamma_0}$.
+
+Finally, if $c+d=a+b+A$, then the signed phase quotient is
+\[
+ \frac{H(a)H(b)}{H(c)H(d)}
+ =\mathfrak q(A)\psi_0\bigl((a+b)A+cd+ab\bigr).
+\]
+If also $B+C=A$, multiplication by the positively oriented values
+$\mathfrak q(B)\mathfrak q(C)$ leaves
+\[
+ \psi_0\bigl((a+b)A+cd+ab+A+BC\bigr).
+\]
+When this exponent plus $t$ equals $z+z^2$, the exact
+Artin--Schreier identity $\psi_0(z+z^2)=1$ gives
+\[
+ H(a)H(b)\mathfrak q(B)\mathfrak q(C)\psi_0(t)=H(c)H(d).
+\]
+\LeanFile{LanglandsFirstMainLemma/Cases/WildQuadratic/QuadraticRefinement.lean}
+\lean{LanglandsFirstMainLemma.WildQuadraticRefinement.criticalFunction}
+\lean{LanglandsFirstMainLemma.WildQuadraticRefinement.criticalFunction_apply}
+\lean{LanglandsFirstMainLemma.WildQuadraticRefinement.tauCriticalFunction}
+\lean{LanglandsFirstMainLemma.WildQuadraticRefinement.chiCriticalFunction}
+\lean{LanglandsFirstMainLemma.WildQuadraticRefinement.tauChiCriticalFunction}
+\lean{LanglandsFirstMainLemma.WildQuadraticRefinement.chiKCriticalFunction}
+\lean{LanglandsFirstMainLemma.WildQuadraticRefinement.tauCriticalFunction_apply}
+\lean{LanglandsFirstMainLemma.WildQuadraticRefinement.chiCriticalFunction_apply}
+\lean{LanglandsFirstMainLemma.WildQuadraticRefinement.tauChiCriticalFunction_apply}
+\lean{LanglandsFirstMainLemma.WildQuadraticRefinement.chiKCriticalFunction_apply}
+\lean{LanglandsFirstMainLemma.WildQuadraticRefinement.exists_normalized}
+\lean{LanglandsFirstMainLemma.WildQuadraticRefinement.positive_polar}
+\lean{LanglandsFirstMainLemma.WildQuadraticRefinement.frobenius_normalized}
+\lean{LanglandsFirstMainLemma.WildQuadraticRefinement.existsUnique_criticalFunction}
+\lean{LanglandsFirstMainLemma.WildQuadraticRefinement.criticalFunction_frobenius}
+\lean{LanglandsFirstMainLemma.WildQuadraticRefinement.criticalFunction_frobenius_of_sq}
+\lean{LanglandsFirstMainLemma.WildQuadraticRefinement.squareRoot}
+\lean{LanglandsFirstMainLemma.WildQuadraticRefinement.squareRoot_sq}
+\lean{LanglandsFirstMainLemma.WildQuadraticRefinement.squareRoot_unique}
+\lean{LanglandsFirstMainLemma.WildQuadraticRefinement.secondNormalized}
+\lean{LanglandsFirstMainLemma.WildQuadraticRefinement.secondNormalized_apply}
+\lean{LanglandsFirstMainLemma.WildQuadraticRefinement.normalized_eq_or_eq_second}
+\lean{LanglandsFirstMainLemma.WildQuadraticRefinement.secondNormalized_ne}
+\lean{LanglandsFirstMainLemma.WildQuadraticRefinement.secondNormalized_criticalFunction}
+\lean{LanglandsFirstMainLemma.WildQuadraticRefinement.correctionValue}
+\lean{LanglandsFirstMainLemma.WildQuadraticRefinement.correctionValue_apply}
+\lean{LanglandsFirstMainLemma.WildQuadraticRefinement.correctionValue_eq_criticalFunction}
+\lean{LanglandsFirstMainLemma.WildQuadraticRefinement.correctionValue_eq_inv_mul}
+\lean{LanglandsFirstMainLemma.WildQuadraticRefinement.secondNormalized_correctionValue}
+\lean{LanglandsFirstMainLemma.WildQuadraticRefinement.phase}
+\lean{LanglandsFirstMainLemma.WildQuadraticRefinement.phase_add}
+\lean{LanglandsFirstMainLemma.WildQuadraticRefinement.correction_phase_translation}
+\lean{LanglandsFirstMainLemma.WildQuadraticRefinement.secondNormalized_phase}
+\lean{LanglandsFirstMainLemma.WildQuadraticRefinement.phase_eq}
+\lean{LanglandsFirstMainLemma.WildQuadraticRefinement.phase_zero_sq}
+\lean{LanglandsFirstMainLemma.WildQuadraticRefinement.phase_sq}
+\lean{LanglandsFirstMainLemma.WildQuadraticRefinement.phase_frobenius}
+\lean{LanglandsFirstMainLemma.WildQuadraticRefinement.phase_eq_of_sq}
+\lean{LanglandsFirstMainLemma.WildQuadraticRefinement.phase_pair}
+\lean{LanglandsFirstMainLemma.WildQuadraticRefinement.absoluteTraceChar_mul_sq_of_sq}
+\lean{LanglandsFirstMainLemma.WildQuadraticRefinement.value_mul_scale_root}
+\lean{LanglandsFirstMainLemma.WildQuadraticRefinement.rawUpperBelow}
+\lean{LanglandsFirstMainLemma.WildQuadraticRefinement.rawUpperAbove}
+\lean{LanglandsFirstMainLemma.WildQuadraticRefinement.boundaryLowerProduct}
+\lean{LanglandsFirstMainLemma.WildQuadraticRefinement.rawUpperBoundary}
+\lean{LanglandsFirstMainLemma.WildQuadraticRefinement.boundaryLowerProduct_eq_affine}
+\lean{LanglandsFirstMainLemma.WildQuadraticRefinement.rawUpperBoundary_eq_affine}
+\lean{LanglandsFirstMainLemma.WildQuadraticRefinement.phase_four}
+\lean{LanglandsFirstMainLemma.WildQuadraticRefinement.phase_four_correction}
+\lean{LanglandsFirstMainLemma.WildQuadraticRefinement.artinSchreier_sign}
+\lean{LanglandsFirstMainLemma.WildQuadraticRefinement.phase_four_cancel}
+\lean{LanglandsFirstMainLemma.wildQuadratic_refinement}
+\leanok
+\SourceText{Lemmas lem:normalized-refinement and lem:quadratic-correction-rule.}
+\uses{mod:finitefield-chartworefinement,mod:finitefield-artinschreier}
+\FormalizationContract
+\end{theorem}
+\begin{proof}
+Existence and uniqueness of the normalized affine family, the positive
+polar identity, the two normalized choices, correction translation,
+phase identities, and signed four-phase formulas are specialized
+directly from the certified characteristic-two refinement theory.
+The paired coefficient shift is obtained by expanding
+$\mathfrak q_1=\mathfrak q\psi_0$ and using
+$\psi_0(x)^2=1$.
+
+For the boundary formula, the refinement law first gives
+\[
+ \mathfrak q(z)\mathfrak q(\rho z)
+ =\mathfrak q((1+\rho)z)\psi_0(\rho z^2).
+\]
+If $r^2=\rho$, Frobenius invariance of the absolute trace changes the
+last phase to $\psi_0(rz)$.  Combining it with the two affine phases
+and clearing the proved nonzero denominator $1+\rho$ gives the two
+displayed coefficients.  Frobenius precomposition uses the unique
+square root of a raw coefficient.  The final cancellation is the
+certified four-phase formula followed by the literal plus-sign
+Artin--Schreier identity.
+\end{proof}

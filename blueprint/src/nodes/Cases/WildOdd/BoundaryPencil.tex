@@ -1,0 +1,61 @@
+\begin{theorem}[Wild odd boundary pencil]\label{mod:cases-wildodd-boundarypencil}
+Let $F$ be a nonarchimedean local field, let $p\ne2$ be prime with
+$\operatorname{char}(k_F)=p$, and let $C$ be residual additive-character
+data whose lower character $\psi_0$ is nontrivial and Frobenius invariant.
+Let
+\[
+ (\eta_0,\eta_0\gamma_0),\qquad (\eta,\eta\gamma)
+\]
+be respectively the certified boundary generator and base rows from
+\texttt{ResidualCoefficients}, and put
+\[
+ d_0=\eta/\eta_0,\qquad
+ \rho=d_0^{-1},\qquad
+ \sigma=\gamma,\qquad
+ \tau=\rho\gamma_0.
+\]
+Assume the imported nonzero-index boundary facts
+$[j]+d_0\ne0$ for every $j\in\F_p^\times$.  With the exact upstream
+inverse-Frobenius choices
+\[
+ a_0=\operatorname{Frob}^{-1}(1-d_0^{p-1}),
+ \qquad
+ b_0=\operatorname{Frob}^{-1}(\gamma-\gamma_0),
+\]
+one has the boundary upper--norm versus twist identity
+\[
+ Q_{\psi_0}(a_0,b_0)
+ \prod_{u\in\F_p^\times}Q_{\psi_0}([u]\rho,[u]\tau)
+ =
+ \prod_{j\in\F_p}
+ Q_{\psi_0}(1+[j]\rho,\sigma+[j]\tau).
+\]
+Here the prime-field scalars are exactly the values of
+\texttt{ZMod.castHom}; the left product is indexed by
+$(\operatorname{ZMod}p)^\times$, while the right product includes the zero
+index.  Thus the upper factor is on the left and every boundary twist factor
+is on the right, with the Frobenius direction and both affine coefficients
+unchanged from the residual-coefficient certificate.
+\LeanFile{LanglandsFirstMainLemma/Cases/WildOdd/BoundaryPencil.lean}
+\lean{LanglandsFirstMainLemma.wildOdd_boundaryPencil}
+\leanok
+\SourceText{Lemma lem:affine-pencil and the boundary part of Proposition prop:odd-phase-cancel.}
+\uses{mod:finitefield-affinepencil,mod:cases-wildodd-residualcoefficients}
+\FormalizationContract
+The proof constructs
+\texttt{wildOdd\_boundaryAffinePencilCertificate} from the two named rows
+and the nonzero-index facts, then applies \texttt{affinePencil} directly to
+its four fields.  It performs no residual-coefficient calculation, no
+coordinate transport, no scalar-phase product, and no parity reduction.
+\end{theorem}
+\begin{proof}
+The boundary certificate supplies $\rho\ne0$, all conditions
+$1+[j]\rho\ne0$, and the two exact identities
+\[
+ a_0^p=1-(\rho^{p-1})^{-1},
+ \qquad
+ b_0^p=\sigma-\rho^{-1}\tau.
+\]
+Apply Lemma~\ref{lem:affine-pencil} with these data and with the Frobenius
+invariance carried by $C$.
+\end{proof}

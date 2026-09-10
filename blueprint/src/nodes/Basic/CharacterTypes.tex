@@ -1,0 +1,92 @@
+\begin{definition}[Character wrappers]\label{mod:basic-charactertypes}
+Let \(A\) be an additive monoid equipped with a topology.  A
+\emph{continuous additive character} is a continuous homomorphism
+\[
+ \psi:(A,+)\longrightarrow\mathbf C^\times,
+ \qquad
+ \psi(0)=1,
+ \quad
+ \psi(x+y)=\psi(x)\psi(y).
+\]
+In the Lean formalization this is a continuous \texttt{AddChar} with
+codomain \(\mathbf C^\times\).  For a monoid \(F\) equipped with a
+topology, a \emph{continuous quasi-character} is a continuous monoid
+homomorphism
+\[
+ \chi:F^\times\longrightarrow\mathbf C^\times.
+\]
+In the later local-field applications, \(F\) will be a field.
+
+Continuous additive characters are closed under pointwise multiplication;
+if \(A\) is an additive commutative group, they are also closed under
+pointwise inverse.  Quasi-characters inherit the usual pointwise group
+operations.  Every value is nonzero when viewed in \(\mathbf C\), since
+the codomain is \(\mathbf C^\times\):
+\[
+ (\psi(x):\mathbf C)\ne0,
+ \qquad
+ (\chi(u):\mathbf C)\ne0.
+\]
+An additive character also has the explicit complex-valued realization
+\[
+ A\longrightarrow\mathbf C,
+ \qquad
+ x\longmapsto(\psi(x):\mathbf C),
+\]
+which is again an additive character with complex values and is continuous.
+The Lean API exposes this realization as an explicit view, rather than as
+a second implicit coercion.
+
+\smallskip\noindent\emph{Generic pullback.}
+For a continuous additive homomorphism \(f:A\to B\) and a continuous
+additive character \(\psi\) of \(B\), define
+\[
+ f^*\psi=\psi\circ f.
+\]
+For a continuous homomorphism of unit groups
+\(g:K^\times\to F^\times\) and a quasi-character \(\chi\) of \(F\),
+define
+\[
+ g^*\chi=\chi\circ g.
+\]
+These pullbacks preserve the trivial character, pointwise multiplication,
+inverse, and natural powers.  For additive characters the formulas are
+\[
+ \begin{aligned}
+  f^*1&=1,&
+  f^*(\psi\phi)&=(f^*\psi)(f^*\phi),\\
+  f^*(\psi^{-1})&=(f^*\psi)^{-1},&
+  f^*(\psi^n)&=(f^*\psi)^n,
+ \end{aligned}
+\]
+and the same formulas hold for quasi-characters with \(g^*\) in place of
+\(f^*\).  The inverse formula for additive characters requires the source
+and target to be additive commutative groups.
+
+\smallskip\noindent\emph{Trace and norm.}
+Let \(R\) be a commutative topological ring and let \(S\) be a finite free
+\(R\)-algebra, commutative for the trace construction, under the topology
+hypotheses that make trace and norm continuous.  Pullback along trace and
+norm gives, respectively,
+\[
+ \begin{aligned}
+  \psi_S(x)
+   &=\psi_R\!\left(\operatorname{Tr}_{S/R}(x)\right),
+   &&x\in S,\\
+  \chi_S(u)
+   &=\chi_R\!\left(\operatorname{N}_{S/R}(u)\right),
+   &&u\in S^\times.
+ \end{aligned}
+\]
+The current generic Lean definitions use an
+\texttt{IsModuleTopology R S} hypothesis to establish continuity of
+trace and norm.  This topology witness is not part of the character types
+themselves; the later local-field extension layer supplies the convenient
+local-field specialization.
+\LeanFile{LanglandsFirstMainLemma/Basic/CharacterTypes.lean}
+\lean{LanglandsFirstMainLemma.ContinuousAddChar}
+\leanok
+\SourceText{Local notation, subsections Local fields, ideals, and characters and Norm and trace notation.}
+\uses{mod:basic-phase}
+\FormalizationContract
+\end{definition}

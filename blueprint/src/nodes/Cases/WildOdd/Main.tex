@@ -1,0 +1,88 @@
+\begin{theorem}[Wild odd-prime non-stable case]\label{mod:cases-wildodd-main}
+Let \(K/F\) be a wildly ramified prime-cyclic extension of
+nonarchimedean local fields, with positive lower break \(t\), residue degree
+one, and
+\[
+ [K:F]=p=\operatorname{char}(k_F),\qquad p\ne2.
+\]
+Fix an integral uniformizer \(\pi_K\) which generates
+\(\mathcal O_K\) over \(\mathcal O_F\).  Let
+\(\Delta_F,\Delta_K\) be local-constant functions satisfying
+\texttt{IsDeltaFiniteLocalConstant}.
+
+For exact multiplicative and additive data \(\chi_F,\psi_F\), let
+\(\chi_{\min}\) be the least-conductor member of the complete
+norm-character orbit of \(\chi_F\).  Higher data are required only under the
+implication \(1<m_F(\chi_{\min})\).  In that branch,
+\texttt{WildOddNonstableHigherData} supplies:
+\begin{itemize}
+\item the actual decomposition
+  \(m_F(\chi_{\min})=2d+\varepsilon\), with its exact parity proof and the
+  non-stable inequality \(d<t+1\);
+\item complete \texttt{FirstMainComputationalData},
+  \texttt{FirstMainPhaseData}, and the \texttt{ExactOddPhaseAssembly}
+  indexed by all nonidentity norm characters at the actual conductor;
+\item the certified residual additive character and the completed
+  \texttt{WildOddParityReductionData}, together with the identification of
+  the assembly's residual phase with the complete residual phase quotient;
+\item the completed \texttt{WildOddCorrectionData} at \(T=t+1\), tied to
+  the actual conductor, the assembly element \(u\), and the exact correction
+  coordinate \(X\); and
+\item a nontrivial norm character of conductor \(T\), with its proved
+  stationary linearization on a positive depth \(r\le T\).
+\end{itemize}
+No stationary datum is requested when \(m_F(\chi_{\min})\le1\).
+
+Then Lean proves the literal First Main identity
+\[
+ \Delta_K(\chi_F\circ N_{K/F},\psi_F\circ\operatorname{Tr}_{K/F})
+ \prod_{\mu\in S(K/F)}\Delta_F(\mu,\psi_F)
+ =
+ \prod_{\mu\in S(K/F)}\Delta_F(\mu\chi_F,\psi_F),
+\]
+where both products range over the complete norm-character group, including
+the identity.
+
+The proof first reduces to \(\chi_{\min}\).  Actual conductors zero and one
+invoke \texttt{firstMain\_wildEndpoint\_zero} and
+\texttt{firstMain\_wildEndpoint\_one}; the finite-Delta hypotheses identify
+their concrete finite sums with the displayed local constants.  In the
+higher branch, \texttt{PhaseReductionResult} gives the exact equality
+\[
+ \operatorname{Err}_{K/F}(\chi_{\min})
+ =\mathcal R_{\mathrm{odd}}\,\psi_F(-AX).
+\]
+The complete theorem exported by \texttt{wildOdd\_parityReduction} gives
+\(\mathcal R_{\mathrm{odd}}=1\).  The correction-coordinate equality and
+\texttt{wildOdd\_correction\_phase} give \(\psi_F(-AX)=1\), using the
+conductor-\(T\) norm character and its supplied linearization.  Hence the
+complete error term is one.
+
+Finally, the proved equivalence between error one and
+\texttt{FirstMainIdentity} is applied.  The minimal representative's exact
+computational data are reindexed through its norm-character twist, and the
+proved equality
+\(\operatorname{Err}_{K/F}(\chi_{\min})=
+  \operatorname{Err}_{K/F}(\chi_F)\)
+transports the result back in the established direction.
+\LeanFile{LanglandsFirstMainLemma/Cases/WildOdd/Main.lean}
+\lean{LanglandsFirstMainLemma.WildOddNonstableHigherData}
+\lean{LanglandsFirstMainLemma.firstMain_wildOdd_nonstable}
+\leanok
+\SourceText{Corollary cor:wild-odd.}
+\uses{mod:cases-wildendpoints,mod:cases-wildodd-parityreduction,mod:cases-wildodd-correctionvaluation,mod:parameters-phasereduction,mod:parameters-minimalorbitstationary}
+\FormalizationContract
+The higher package consumes only the completed public interfaces of the five
+dependency nodes.  It does not reconstruct stationary coefficients, choose
+canonical representatives, transport residual coordinates, prove a new
+finite-field phase identity, or establish a new norm--trace valuation.  Its
+correction conductor, element, and coordinate are explicitly identified
+with the actual phase assembly.
+
+The theorem is an assembly statement for exact conductor packages and
+computational local constants.  The non-stable boundary is the literal
+\(d<t+1\), complementary to the stable hypothesis \(t+1\le d\).  Endpoint
+conductors are dispatched before any higher package is opened.  The public
+conclusion is \texttt{FirstMainIdentity}, not merely a residual phase or an
+error-term equality.
+\end{theorem}

@@ -1,0 +1,178 @@
+\begin{lemma}[Characteristic-independent critical polar coordinate]\label{mod:lamprecht-criticalpolarcoordinate}
+Let $F$ be a nonarchimedean local field, let $\psi$ be a nontrivial
+additive character, let $m(\chi)=2d+1>1$, and let $\Gamma$ be admissible,
+so
+\[
+ \operatorname{ord}_F(\Gamma)=2d+1+n(\psi).
+\]
+Choose $\delta\in F^\times$ with $\operatorname{ord}_F(\delta)=d$, and
+fix a nontrivial additive character $\psi_0$ of $k_F$.  At the minimal
+stationary depth $d+1$, the stationary numerator is the quotient class
+\[
+ \operatorname{St}_{\Gamma,d+1}(\chi)
+ \in \mathcal O_F/\mathfrak p_F^d.
+\]
+Multiplication of a residue variable by $\delta^2$ descends to the other
+side of the stationary pairing.  Pairing these two quotient classes defines
+an intrinsic nontrivial additive character
+\[
+ \mathfrak a_{\chi,\delta}(z)
+  =\psi\!\left(\frac{\beta\delta^2\widetilde z}{\Gamma}\right),
+ \qquad z\in k_F,
+\]
+where the displayed value holds for every integral lift $\widetilde z$ and
+every permitted stationary representative $\beta$.  Thus there is a unique
+coefficient
+\[
+ A=\kappa_\chi(\delta)\in k_F^\times,
+ \qquad \mathfrak a_{\chi,\delta}(z)=\psi_0(Az).
+\]
+The Lean definition of $A$ has no stationary-representative argument.
+
+For an explicit conductor-one denominator $\gamma_0$ defining $\psi_0$,
+Lean also proves, for every permitted $\beta$, the equality in the residue
+field
+\[
+ A=
+ \overline{\frac{\beta\delta^2\gamma_0}{\Gamma}}\in k_F.
+\]
+The quotient is integral of valuation zero.  This is a residue-class
+identity only: no equality between arbitrary representatives in $F$ is
+asserted.  In particular, the reductions obtained from any two permitted
+stationary representatives agree.
+
+If $u\in\mathcal O_F^\times$, $\lambda=\bar u$, and
+$\delta'=u\delta$, then
+\[
+ \mathfrak a_{\chi,\delta'}
+   =\mathfrak a_{\chi,\delta}.\operatorname{mulShift}(\lambda^2),
+ \qquad
+ \kappa_\chi(\delta')=\lambda^2\kappa_\chi(\delta).
+\]
+The formula depends only on $\lambda$, hence is independent of the chosen
+integral unit lift.  If a residual automorphism $\sigma$ fixes $\psi_0$,
+precomposition by $\sigma$ sends $A$ to $\sigma^{-1}(A)$, while
+precomposition by $\sigma^{-1}$ sends it to $\sigma(A)$.  These are the
+manuscript's Frobenius and inverse-Frobenius directions.
+
+For a supplied stationary representative $\beta$, define the complete
+critical function
+\[
+ \Phi_\beta(x)=
+ \psi\!\left(\frac{\beta\delta\widetilde x}{\Gamma}\right)
+ \chi(1+\delta\widetilde x)^{-1}.
+\]
+It is independent of every integral lift and satisfies the positive-polar
+identity
+\[
+ \Phi_\beta(x+y)
+ =\Phi_\beta(x)\Phi_\beta(y)\psi_0(Axy).
+\]
+In particular the sign is $+Axy$.
+
+If $\beta'=\beta+c_0$ is another permitted representative, Lean bundles
+$c_0=\beta'-\beta$ at exactly the depth $\mathfrak p_F^d$ and defines
+$\Delta B\in k_F$ by
+\[
+ \psi\!\left(\frac{c_0\delta\widetilde z}{\Gamma}\right)
+   =\psi_0(\Delta Bz).
+\]
+It also defines, without choosing a new representative,
+\[
+ a=\overline{\frac{\beta'-\beta}{\beta\delta}}\in k_F
+ \quad\text{and proves}\quad
+ \Delta B=Aa.
+\]
+These are distinct quantities.  The exact representative-translation
+formulas are
+\[
+ \Phi_{\beta'}(x)=\Phi_\beta(x)\psi_0(+\Delta Bx)
+ =\Phi_\beta(x)\mathfrak a_{\chi,\delta}(a x).
+\]
+Thus the polar coefficient is unchanged and only the affine character is
+translated.
+
+Finally, Lean packages any nowhere-zero function with this positive polar
+law as \texttt{CriticalPolarFunction}.  Its scalar and automorphism
+precompositions transport the polar coefficient as
+\[
+ A\longmapsto\lambda^2A,
+ \qquad A\longmapsto\sigma^{-1}A,
+\]
+respectively.  In odd characteristic its quotient by the standard quadratic
+refinement is an additive character, giving a unique $B\in k_F$ such that
+\[
+ \Phi_\beta(x)=\psi_0(Ax^2/2+Bx).
+\]
+For this same package,
+\[
+ B\longmapsto B+C\quad\text{under affine translation by }C,
+ \qquad
+ B\longmapsto\lambda B,
+ \qquad
+ B\longmapsto\sigma^{-1}B.
+\]
+For the local critical functions the representative formula specializes to
+$B'=B+\Delta B=B+Aa$.  Their complete finite sum, with no elementary
+translation discarded, has exactly the certified phase
+\[
+ \operatorname{phase}\!\left(\sum_{x\in k_F}\Phi_\beta(x)\right)
+ =\operatorname{quadraticPhase}(\psi_0,A,B).
+\]
+\LeanFile{LanglandsFirstMainLemma/Lamprecht/CriticalPolarCoordinate.lean}
+\lean{LanglandsFirstMainLemma.finiteAddCharCoefficient}
+\lean{LanglandsFirstMainLemma.finiteAddCharCoefficient_mulShift}
+\lean{LanglandsFirstMainLemma.finiteAddCharCoefficient_precompose}
+\lean{LanglandsFirstMainLemma.finiteAddCharCoefficient_precompose_symm}
+\lean{LanglandsFirstMainLemma.CriticalPolarFunction}
+\lean{LanglandsFirstMainLemma.CriticalPolarFunction.translate}
+\lean{LanglandsFirstMainLemma.CriticalPolarFunction.scale}
+\lean{LanglandsFirstMainLemma.CriticalPolarFunction.precompose}
+\lean{LanglandsFirstMainLemma.CriticalPolarFunction.affineCoefficient}
+\lean{LanglandsFirstMainLemma.CriticalPolarFunction.eq_quadratic}
+\lean{LanglandsFirstMainLemma.CriticalPolarFunction.affineCoefficient_translate}
+\lean{LanglandsFirstMainLemma.CriticalPolarFunction.affineCoefficient_scale}
+\lean{LanglandsFirstMainLemma.CriticalPolarFunction.affineCoefficient_precompose}
+\lean{LanglandsFirstMainLemma.CriticalPolarFunction.affineCoefficient_precompose_symm}
+\lean{LanglandsFirstMainLemma.CriticalPolarFunction.phase_sum_eq_quadraticPhase}
+\lean{LanglandsFirstMainLemma.criticalPolarVariable}
+\lean{LanglandsFirstMainLemma.criticalPolarVariable_integral_lift}
+\lean{LanglandsFirstMainLemma.criticalPolarAddChar}
+\lean{LanglandsFirstMainLemma.criticalPolarAddChar_integral_lift}
+\lean{LanglandsFirstMainLemma.criticalPolarAddChar_ne_one}
+\lean{LanglandsFirstMainLemma.criticalPolarCoefficient}
+\lean{LanglandsFirstMainLemma.criticalPolarCoefficient_integral_lift}
+\lean{LanglandsFirstMainLemma.criticalPolarCoefficient_eq_residue}
+\lean{LanglandsFirstMainLemma.criticalPolarResidue_representative_independent}
+\lean{LanglandsFirstMainLemma.criticalPolarAddChar_scaleCoordinate}
+\lean{LanglandsFirstMainLemma.criticalPolarCoefficient_scaleCoordinate}
+\lean{LanglandsFirstMainLemma.criticalPolarCoefficient_scaleCoordinate_lift_independent}
+\lean{LanglandsFirstMainLemma.criticalPolarCoefficient_frobenius}
+\lean{LanglandsFirstMainLemma.criticalPolarCoefficient_frobenius_symm}
+\lean{LanglandsFirstMainLemma.criticalAffineTranslationCoefficient}
+\lean{LanglandsFirstMainLemma.criticalStationaryRepresentativeDifference}
+\lean{LanglandsFirstMainLemma.criticalRepresentativeTranslationParameter}
+\lean{LanglandsFirstMainLemma.criticalAffineTranslationAddChar_eq_polar_mulShift}
+\lean{LanglandsFirstMainLemma.criticalRepresentativeAffineCoefficient_eq_polar_mul_parameter}
+\lean{LanglandsFirstMainLemma.criticalPolarFunction}
+\lean{LanglandsFirstMainLemma.criticalPolarFunction_integral_lift}
+\lean{LanglandsFirstMainLemma.criticalPolarFunction_positivePolar}
+\lean{LanglandsFirstMainLemma.criticalPolarFunction_changeRepresentative}
+\lean{LanglandsFirstMainLemma.criticalPolarFunction_changeRepresentative_intrinsic}
+\lean{LanglandsFirstMainLemma.criticalPolarData}
+\lean{LanglandsFirstMainLemma.criticalAffineCoefficient}
+\lean{LanglandsFirstMainLemma.criticalPolarFunction_eq_quadratic}
+\lean{LanglandsFirstMainLemma.criticalPolarFunction_phase_eq_quadraticPhase}
+\lean{LanglandsFirstMainLemma.criticalAffineCoefficient_changeRepresentative}
+\lean{LanglandsFirstMainLemma.criticalAffineCoefficient_changeRepresentative_eq_add_polar_mul_parameter}
+\leanok
+\SourceText{Lemma \texttt{lem:critical-polar-coordinate}.}
+\uses{mod:lamprecht-stationaryclasscalculus,mod:finitefield-quadraticphase,mod:delta-residueformula}
+\FormalizationContract The stationary numerator remains a lattice-quotient
+class until an arbitrary representative is explicitly quantified.  Every
+lift formula is proved for all permitted integral lifts.  Coordinate and
+Frobenius directions, the positive polar sign, the distinction between
+$\Delta B$ and $a$, and the odd $A/2$ convention are literal.  No canonical
+stationary representative, local-field equality inferred from residue
+equality, later parameter theorem, or later case theorem is used.
+\end{lemma}

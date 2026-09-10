@@ -1,0 +1,48 @@
+\begin{theorem}[Finite products and prime-field sums]\label{mod:basic-finiteproducts}
+Let $p$ be prime.  If $R$ is an integral domain and
+$\omega:\mathbf F_p^\times\to R^\times$ is an injective homomorphism, then for
+every $r\geq 0$,
+\[
+ \sum_{j\in\mathbf F_p^\times}\omega(j)^r=
+ \begin{cases}
+  p-1,&p-1\mid r,\\
+  0,&p-1\nmid r.
+ \end{cases}
+\]
+If $p\neq2$, then also
+$\prod_{j\in\mathbf F_p^\times}\omega(j)=-1$.
+
+Let $K$ be a field of characteristic $p$, and write $j$ for the canonical
+image of $j\in\mathbf F_p$ in $K$.  For every $x,\rho\in K$,
+\[
+ \prod_{j\in\mathbf F_p}(x+j)=x^p-x,
+ \qquad
+ \prod_{j\in\mathbf F_p}(1+j\rho)=1-\rho^{p-1}.
+\]
+If $x^p-x\neq0$, then
+\[
+ \sum_{j\in\mathbf F_p}\frac1{x+j}=\frac1{x-x^p}.
+\]
+Finally, if $\rho\neq0$ and $\rho^{p-1}\neq1$, then
+\[
+ \sum_{j\in\mathbf F_p}\frac1{1+j\rho}
+   =\frac{\rho^{p-1}}{\rho^{p-1}-1},
+ \qquad
+ \sum_{j\in\mathbf F_p}\frac{j}{1+j\rho}
+   =-\frac{\rho^{p-2}}{\rho^{p-1}-1};
+\]
+when $p\neq2$ one further has
+\[
+ \sum_{j\in\mathbf F_p}\frac{j^2}{1+j\rho}
+   =\frac{\rho^{p-3}}{\rho^{p-1}-1}.
+\]
+Finite reindexing itself is supplied by Mathlib's sum and product lemmas for
+finite equivalences; the declarations here are the prime-field and
+logarithmic-derivative specializations used downstream.
+\LeanFile{LanglandsFirstMainLemma/Basic/FiniteProducts.lean}
+\lean{LanglandsFirstMainLemma.sum_primeField}
+\leanok
+\SourceText{Theorems thm:HD-product, lem:affine-pencil, prop:odd-phase-cancel, and prop:X-closed.}
+\uses{mod:prelude}
+\FormalizationContract
+\end{theorem}

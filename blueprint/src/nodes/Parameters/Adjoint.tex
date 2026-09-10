@@ -1,0 +1,181 @@
+\begin{definition}[Denominator-sensitive adjoint stationary map]\label{mod:parameters-adjoint}
+Let $K/F$ be a finite extension of nonarchimedean local fields.  For
+$E=F,K$, let
+\[
+ m_E=2d_E+\varepsilon_E,\qquad
+ 1<m_E,\qquad \varepsilon_E\leq1,
+\]
+and put
+\[
+ C_E=\mathcal O_E/\mathfrak p_E^{d_E},
+ \qquad
+ V_E=\mathfrak p_E^{d_E+\varepsilon_E}/\mathfrak p_E^{m_E}.
+\]
+Thus $C_E$ is the Lean type
+\texttt{StationaryCoefficientQuotient $E$ $d_E$}.  Let
+\[
+ P_{K/F}:V_K\longrightarrow V_F
+\]
+be the additive truncated norm map constructed from a
+\texttt{NormPolynomialPrecision} certificate.
+
+Fix exact additive-character data $\psi_E$ and denominators
+$\gamma_E\in E^\times$ satisfying
+\[
+ \operatorname{ord}_E(\gamma_E)=m_E+n_E(\psi_E).
+\]
+Finite duality gives the additive equivalence
+\[
+ \Phi_{E,\gamma_E}:C_E\xrightarrow{\ \sim\ }
+   \operatorname{AddChar}(V_E,\C),
+ \qquad
+ \Phi_{E,\gamma_E}(\bar c)(\bar y)
+   =\psi_E(cy/\gamma_E).
+\]
+Both arguments are quotient classes, and evaluation is independent of
+representatives modulo $\mathfrak p_E^{d_E}$ and
+$\mathfrak p_E^{m_E}$ respectively.
+
+Define the pulled-back character and the denominator-sensitive adjoint by
+\[
+ P^\vee_{\gamma_F}(\bar c)
+   =\Phi_{F,\gamma_F}(\bar c)\circ P_{K/F},
+ \qquad
+ P^*_{K/F;\gamma_F,\gamma_K}
+   =\Phi_{K,\gamma_K}^{-1}\circ P^\vee_{\gamma_F}.
+\]
+This is an additive homomorphism
+\[
+ P^*_{K/F;\gamma_F,\gamma_K}:C_F\longrightarrow C_K
+\]
+and satisfies, for all $\bar c\in C_F$ and $\bar y\in V_K$,
+\[
+ \Phi_{F,\gamma_F}(\bar c)\bigl(P_{K/F}(\bar y)\bigr)
+ =
+ \Phi_{K,\gamma_K}
+   \bigl(P^*_{K/F;\gamma_F,\gamma_K}(\bar c)\bigr)(\bar y).
+\]
+Equivalently, for supplied representatives $c,b,y$ such that
+$P^*_{K/F;\gamma_F,\gamma_K}([c])=[b]$,
+\[
+ \psi_F\!\left(
+   \frac{c\,\bigl(N_{K/F}(1+y)-1\bigr)}{\gamma_F}\right)
+ =
+ \psi_K\!\left(\frac{by}{\gamma_K}\right),
+\]
+where the norm displacement on the left is the certified representative
+of the truncated norm class.  Perfectness proves that this adjoint is the
+unique additive homomorphism satisfying the displayed pairing identity.
+
+All needed representative invariances are explicit.  If
+$c\equiv c'\pmod{\mathfrak p_F^{d_F}}$, then the two adjoint inputs give
+the same class.  If their images are represented by $b$ and $b'$, then
+\[
+ b\equiv b'\pmod{\mathfrak p_K^{d_K}}.
+\]
+If $y\equiv y'\pmod{\mathfrak p_K^{m_K}}$, both sides of the
+representative-level adjoint identity are unchanged.  These are quotient
+equalities and character equalities; no field-valued representative of an
+adjoint class is chosen.
+
+For two admissible denominators $\gamma,\gamma'$ over the same field, put
+\[
+ a_{\gamma,\gamma'}=\frac{\gamma'}{\gamma}.
+\]
+It has order zero, so multiplication by it defines a
+representative-independent additive endomorphism
+\[
+ S_{\gamma,\gamma'}:C_E\longrightarrow C_E,
+ \qquad [c]\longmapsto[a_{\gamma,\gamma'}c].
+\]
+The pairing obeys
+\[
+ \Phi_{E,\gamma'}\bigl(S_{\gamma,\gamma'}(\bar c)\bigr)
+ =\Phi_{E,\gamma}(\bar c).
+\]
+Consequently adjoints for two denominator pairs satisfy both pointwise and
+as additive homomorphisms
+\[
+ P^*_{K/F;\gamma_F',\gamma_K'}\circ
+   S_{\gamma_F,\gamma_F'}
+ =
+ S_{\gamma_K,\gamma_K'}\circ
+   P^*_{K/F;\gamma_F,\gamma_K}.
+\]
+
+Suppose now that
+\[
+ \psi_K=\psi_F\circ\operatorname{Tr}_{K/F}
+\]
+and that the truncated norm map equals the trace map on $V_K$.  Assume
+separately the trace-lattice inclusions at depths
+$d_K+\varepsilon_K$ and $m_K$, the quotient-depth bound
+\[
+ d_K\leq e(K/F)d_F,
+\]
+and
+\[
+ \operatorname{ord}_K\!\left(
+   \frac{\gamma_K}{\iota(\gamma_F)}\right)=0.
+\]
+Then the adjoint is exactly the quotient homomorphism
+\[
+ P^*_{K/F;\gamma_F,\gamma_K}([c])
+ =
+ \left[
+   \frac{\gamma_K}{\iota(\gamma_F)}\,\iota(c)
+ \right]
+ \in\mathcal O_K/\mathfrak p_K^{d_K}.
+\]
+This equality is also exported for every supplied integral representative
+$c$.  In the common-denominator case
+$\gamma_K=\iota(\gamma_F)$ it specializes to
+\[
+ P^*_{K/F;\gamma_F,\iota(\gamma_F)}([c])=[\iota(c)].
+\]
+Both specializations assert equality only in the target quotient.
+
+\LeanFile{LanglandsFirstMainLemma/Parameters/Adjoint.lean}
+\lean{LanglandsFirstMainLemma.StationaryCoefficientQuotient}
+\lean{LanglandsFirstMainLemma.stationaryPairingLeftEquiv}
+\lean{LanglandsFirstMainLemma.stationaryPairingLeft}
+\lean{LanglandsFirstMainLemma.stationaryPairingLeft_mk_mk}
+\lean{LanglandsFirstMainLemma.normPolynomialPullbackCharacter}
+\lean{LanglandsFirstMainLemma.normPolynomialAdjoint}
+\lean{LanglandsFirstMainLemma.normPolynomialAdjoint_character}
+\lean{LanglandsFirstMainLemma.normPolynomialAdjoint_pairing}
+\lean{LanglandsFirstMainLemma.normPolynomialAdjoint_unique}
+\lean{LanglandsFirstMainLemma.normPolynomialAdjoint_existsUnique}
+\lean{LanglandsFirstMainLemma.stationaryPairingLeft_coefficient_representative_independent}
+\lean{LanglandsFirstMainLemma.stationaryPairingLeft_variable_representative_independent}
+\lean{LanglandsFirstMainLemma.normPolynomialAdjoint_pairing_mk}
+\lean{LanglandsFirstMainLemma.normPolynomialAdjoint_input_representative_independent}
+\lean{LanglandsFirstMainLemma.normPolynomialAdjoint_representatives_congruent}
+\lean{LanglandsFirstMainLemma.normPolynomialAdjoint_variable_representative_independent}
+\lean{LanglandsFirstMainLemma.denominatorChangeRatio}
+\lean{LanglandsFirstMainLemma.denominatorChangeRatio_ne_zero}
+\lean{LanglandsFirstMainLemma.denominatorChangeRatio_ord_eq_zero}
+\lean{LanglandsFirstMainLemma.stationaryCoefficientScaledRepresentative}
+\lean{LanglandsFirstMainLemma.stationaryCoefficientScale}
+\lean{LanglandsFirstMainLemma.stationaryCoefficientScale_mk}
+\lean{LanglandsFirstMainLemma.stationaryCoefficientScale_representative_independent}
+\lean{LanglandsFirstMainLemma.stationaryPairingLeft_changeDenominator}
+\lean{LanglandsFirstMainLemma.normPolynomialAdjoint_changeDenominator}
+\lean{LanglandsFirstMainLemma.normPolynomialAdjoint_changeDenominator_hom}
+\lean{LanglandsFirstMainLemma.normPolynomialAdjoint_eq_denominatorScaledAlgebraMap}
+\lean{LanglandsFirstMainLemma.normPolynomialAdjoint_trace_denominatorRatio_mk}
+\lean{LanglandsFirstMainLemma.normPolynomialAdjoint_commonDenominator_mk}
+\leanok
+\SourceText{Lemma~\ref{lem:truncated-norm-adjoint}.}
+\uses{mod:parameters-normpolynomial,mod:lamprecht-finiteduality}
+\FormalizationContract The truncated norm has direction
+$V_K\to V_F$, while its adjoint has direction $C_F\to C_K$.
+The source and target coefficient depths are exactly $d_F$ and $d_K$.
+Both denominators, their order proofs, and every denominator-change factor
+are explicit inputs.  Existence and uniqueness are derived from the
+perfect left pairing rather than stored as fields of an adjoint structure.
+All maps are defined on finite lattice quotients, all representative
+invariances needed downstream are separate theorems, and the trace and
+common-denominator formulas assert quotient equality without choosing
+canonical field representatives or strengthening it to equality in $K$.
+\end{definition}

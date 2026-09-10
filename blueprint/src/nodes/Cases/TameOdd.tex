@@ -1,0 +1,291 @@
+\begin{theorem}[Tamely ramified odd degree]\label{mod:cases-tameodd}
+Let $K/F$ be a cyclic extension of odd prime degree
+$\ell=[K:F]$.  Assume that its lower break is exactly $t=0$, that
+$f(K/F)=1$, and choose an integral uniformizer $\varpi_K$ which generates
+$\mathcal O_K$ over $\mathcal O_F$.  Put
+\[
+ \varpi_F=N_{K/F}(\varpi_K),\qquad
+ \chi_K=\chi_F\circ N_{K/F},\qquad
+ \psi_K=\psi_F\circ\operatorname{Tr}_{K/F}.
+\]
+Thus $\varpi_F$ is a uniformizer.  In each of the four proof-bearing
+conductor branches below, Lean proves the literal computational identity
+\[
+ \Delta_K^{\mathrm{fin}}(\chi_K,\psi_K;\Gamma_K)
+ \prod_{\mu\in S(K/F)}
+   \Delta_F^{\mathrm{fin}}(\mu,\psi_F;\Gamma_\mu)
+ =
+ \prod_{\mu\in S(K/F)}
+   \Delta_F^{\mathrm{fin}}(\mu\chi_F,\psi_F;\Gamma_{\mu\chi}).
+ \tag{*}
+\]
+Every displayed product is over the literal full finite norm-character
+group, including its identity element.  Each denominator in $(*)$ is the
+one carried by that actual \texttt{deltaFinite} term; no denominator factor
+is suppressed.
+
+If $m_F(\chi_F)=0$ and $n=n_F(\psi_F)$, the tame different and trace
+pullback give the exact integer
+\[
+ n_K(\psi_K)=\ell n+(\ell-1).
+\]
+The upper conductor-zero formula, with the uniformizer-power admissible
+denominator, is
+\[
+ \Delta_K^{\mathrm{fin}}(\chi_K,\psi_K)
+   =\chi_F(\varpi_F)^{\ell n+\ell-1}.
+\]
+For the identity norm character the lower exponent is $n$, whereas every
+nonidentity $\mu$ has exact conductor one, satisfies $\mu(\varpi_F)=1$,
+and obeys
+\[
+ \Delta_F^{\mathrm{fin}}(\mu\chi_F,\psi_F)
+ =\chi_F(\varpi_F)^{n+1}
+   \Delta_F^{\mathrm{fin}}(\mu,\psi_F).
+\]
+The implementation retains the identity factor and sums the exact
+conductors over the full group:
+\[
+ n+(\ell-1)(n+1)=\ell n+\ell-1.
+\]
+This proves $(*)$ without introducing a stationary numerator at conductor
+zero.
+
+Suppose next that $m_F(\chi_F)=1$ and that $\chi_F$ is supplied together
+with a proof that it is a minimal-conductor member of its $S(K/F)$-orbit.
+The public theorem receives actual local character data $\chi_K$ and
+$\psi_K$, with the displayed norm and trace pullback equalities; it does not
+replace them by freshly chosen data.  Internally Lean constructs, for every
+$\mu\in S(K/F)$, the exact norm-character datum $\theta_\mu$ and orbit-twist
+datum $\xi_\mu$, satisfying
+\[
+ \operatorname{char}(\theta_\mu)=\mu,\qquad
+ \operatorname{char}(\xi_\mu)=\mu\chi_F.
+\]
+The tame conductor theorem and orbit minimality then derive, rather than
+assume as endpoint-row certificates,
+\[
+ \begin{aligned}
+  &m_K(\chi_K)=1,\qquad m_F(\theta_1)=0,\\
+  &m_F(\theta_\mu)=1\quad(\mu\ne1),\qquad
+    m_F(\xi_\mu)=1\quad(\text{all }\mu).
+ \end{aligned}
+\]
+In particular a cancelled twist cannot be passed to a conductor-one
+residue formula.
+
+The denominators in this branch are also constructed from the actual
+characters and conductors.  Set
+\[
+ \Gamma_F=\varpi_F^{\,1+n_F(\psi_F)},\qquad
+ \Gamma_K=\iota_{F,K}(\Gamma_F),
+\]
+and define
+\[
+ \Gamma_\mu=\varpi_F^{\,m_F(\theta_\mu)+n_F(\psi_F)},\qquad
+ \Gamma_{\mu\chi}
+   =\varpi_F^{\,m_F(\xi_\mu)+n_F(\psi_F)}.
+\]
+Consequently $\Gamma_\mu=\Gamma_F$ for $\mu\ne1$ and
+$\Gamma_{\mu\chi}=\Gamma_F$ for every $\mu$, while the identity norm
+character keeps its conductor-zero denominator
+$\Gamma_1=\varpi_F^{n_F(\psi_F)}$.  The exact trace conductor and the
+mapped common-denominator theorem prove that $\Gamma_K$ is admissible for
+$(\chi_K,\psi_K)$; in valuation notation this is the equality
+\[
+ v_K(\Gamma_K)=\ell(1+n_F(\psi_F))
+              =1+n_K(\psi_K).
+\]
+Moreover $\chi_K(\Gamma_K)=\chi_F(\Gamma_F)^\ell$, and for every
+nonidentity norm character the common element $\Gamma_F$ is exhibited in
+the norm range, so $\mu(\Gamma_F)=1$.
+
+Use the canonical cyclic enumeration
+\[
+ S(K/F)=\{\mu_j:0\leq j<\ell\},\qquad \mu_0=1,
+\]
+coming in Lean from \texttt{ramifiedNormCharacterZModEquiv}.  There is no
+residual-transport certificate among the public theorem's inputs.  From
+$h_{\mathrm{res}}:f(K/F)=1$, Lean proves that the canonical extension
+residue map is bijective and packages it as
+\[
+ e:k_F\simeq k_K.
+\]
+It then defines
+\[
+ \tau=\mu_1,\qquad
+ \eta=\overline{\theta_\tau},
+\]
+using the canonical $\operatorname{ZMod}(\ell)$ norm-character
+equivalence.  The homomorphism law for that equivalence gives
+$\mu_j=\tau^j$; the exact conductor of $\tau$, prime degree, and the
+residual-character formula prove internally that
+\[
+ \operatorname{ord}(\eta)=\ell,\qquad
+ \overline{\theta_{\mu_j}}=\eta^j
+ \quad(0\leq j<\ell).
+\]
+In particular the required nonidentity rows for
+$j\in\operatorname{Icc}(1,\ell-1)$ and the divisibility
+$\ell\mid(|k_F|-1)$ are consequences, not hypotheses.
+
+Likewise the public equalities
+$h_{\mathrm{comp}}:\chi_K=\chi_F\circ N$ and
+$h_{\mathrm{trace}}:\psi_K=\psi_F\circ\operatorname{Tr}$, together with
+the actual mapped denominator pair, are used to prove the upper transports
+\[
+ \bar\chi_K(e(x))=\bar\chi(x)^\ell,\qquad
+ \bar\psi_K(e(x))=\bar\psi(\ell x).
+\]
+The first follows by lifting a residue unit, applying
+$N_{K/F}(\iota(u))=u^\ell$, and reducing again.  The second lifts an
+integral representative and applies
+$\operatorname{Tr}_{K/F}(\iota(a))=\ell a$ with
+$\Gamma_K=\iota(\Gamma_F)$.  Thus the residue equivalence, the canonical
+$\eta$ and its order, every norm row, and both upper transports are all
+constructed or proved internally.  Here $\bar\chi$ and $\bar\psi$ are
+formed from the actual downstairs data and $\Gamma_F$.  Nonvanishing of
+the residual additive character, all conductor assertions, equality of
+the common denominators, and every local $\Delta$ row below are also
+derived; the theorem has no residual certificate parameter.
+
+Applying the conductor-zero and conductor-one formulas from
+\texttt{Delta.ResidueFormula} gives, with
+$s=\chi_F(\Gamma_F)$,
+\begin{align*}
+ \Delta_K^{\mathrm{fin}}(\chi_K,\psi_K;\Gamma_K)
+  &=-s^\ell\,
+    \Aphase\!\left(
+      \bar\chi(\ell^\ell)
+      \tau_{k_F}(\bar\chi^{\,\ell},\bar\psi)\right),\\
+ \Delta_F^{\mathrm{fin}}(\theta_{\mu_j},\psi_F;\Gamma_{\mu_j})
+  &=-\Aphase\!\left(\tau_{k_F}(\eta^j,\bar\psi)\right)
+       &&\left(j\in\operatorname{Icc}(1,\ell-1)\right),\\
+ \Delta_F^{\mathrm{fin}}(\xi_1,\psi_F;\Gamma_{1\chi})
+  &=-s\,\Aphase\!\left(\tau_{k_F}(\bar\chi,\bar\psi)\right),\\
+ \Delta_F^{\mathrm{fin}}(\xi_{\mu_j},\psi_F;\Gamma_{\mu_j\chi})
+  &=-s\,\Aphase\!\left(
+      \tau_{k_F}(\bar\chi\eta^j,\bar\psi)\right)
+       &&\left(j\in\operatorname{Icc}(1,\ell-1)\right),
+\end{align*}
+while
+$\Delta_F^{\mathrm{fin}}(\theta_1,\psi_F;\Gamma_1)=1$.
+The positive factor $\bar\chi(\ell^\ell)$ comes from transporting the
+actual upper Gauss sum across $e$ and scaling
+$\bar\psi(x)\mapsto\bar\psi(\ell x)$; it is neither inverted nor replaced
+by a sign.  The definition of \texttt{langlandsGaussSum} retains the
+project's inverse multiplicative-character convention, and every
+conductor-one row retains its leading minus sign.
+
+Lean reindexes both full norm-character products through the canonical
+$\operatorname{ZMod}(\ell)$ equivalence, separates the identity index, and
+applies phases to the exact Hasse--Davenport identity
+\[
+ \bar\chi(\ell^\ell)
+ \tau_{k_F}(\bar\chi^{\,\ell},\bar\psi)
+ \prod_{j\in\operatorname{Icc}(1,\ell-1)}
+   \tau_{k_F}(\eta^j,\bar\psi)
+ =
+ \tau_{k_F}(\bar\chi,\bar\psi)
+ \prod_{j\in\operatorname{Icc}(1,\ell-1)}
+   \tau_{k_F}(\bar\chi\eta^j,\bar\psi).
+\]
+There is no additional Hasse--Davenport sign: each side of $(*)$ has
+exactly $\ell$ conductor-one leading minus signs and the same factor
+$s^\ell$.
+
+Finally write a high conductor as
+\[
+ m_F(\chi_F)=2d+\varepsilon>1,
+ \qquad d\geq1,\qquad \varepsilon\in\{0,1\}.
+\]
+Every norm character has conductor at most one.  Let $\Gamma_F$ be the
+explicitly supplied admissible denominator and let
+\[
+ R:\quad\text{a supplied representative of the actual stationary
+ coefficient quotient class for }(\chi_F,\psi_F;\Gamma_F).
+\]
+Lean transports $R$ to the corresponding Lamprecht lattice, retaining its
+proof of quotient-class membership, and constructs the field unit
+\[
+ \beta=
+ \texttt{stableStationaryRepresentativeUnit}(R.\texttt{toLamprecht})
+\]
+from that supplied representative.  Thus $\beta$ is not an independent or
+canonical input.  Exact stable twisting then has the orientation
+\[
+ \Delta_F^{\mathrm{fin}}(\mu\chi_F,\psi_F;\Gamma_F)
+ =\mu(\Gamma_F/\beta)\,
+  \Delta_F^{\mathrm{fin}}(\chi_F,\psi_F;\Gamma_F).
+\]
+The inverse is on $\beta$, and there is no extra sign.  Inversion pairing
+in the odd-order norm-character group proves
+\[
+ \prod_{\mu\in S(K/F)}\mu(\Gamma_F/\beta)=1,
+ \qquad
+ \prod_{\mu\in S(K/F)}
+   \Delta_F^{\mathrm{fin}}(\mu,\psi_F;\Gamma_\mu)=1,
+\]
+with the identity character retained and with each $\Gamma_\mu$ supplied
+as an admissible denominator for its actual norm-character datum.  Hence
+the lower twisted product is exactly
+\[
+ \Delta_F^{\mathrm{fin}}(\chi_F,\psi_F;\Gamma_F)^\ell.
+\]
+
+The high comparison uses an actual
+\texttt{HighStableOddParameterData} object.  Its ordered denominator pair
+has $\Gamma_K$ equal to the image of $\Gamma_F$; the same supplied $R$ is
+mapped upstairs.  Norm and trace give the exact $\ell$th power of the
+admissible and elementary Lamprecht factors.  If $\varepsilon=0$, supplied
+lower and upper even critical coordinates give critical factors equal to
+one.  If $\varepsilon=1$, supplied lower and upper odd critical coordinates
+and a \texttt{RamifiedHasseComparisonData} certificate in the tame row
+$t=0$ prove
+\[
+ \Delta_{3,K}=\Delta_{3,F}^{\ell}.
+\]
+This includes the characteristic-two tame normal form when that is the
+residue characteristic; odd extension degree does not impose odd residue
+characteristic.  In both parity branches one obtains
+\[
+ \Delta_K^{\mathrm{fin}}(\chi_K,\psi_K;\Gamma_K)
+ =\Delta_F^{\mathrm{fin}}(\chi_F,\psi_F;\Gamma_F)^\ell,
+\]
+and hence $(*)$.  No stationary quotient is represented by a hidden
+choice: $R$, its membership proof, the ordered denominator data, the
+critical coordinates, and, in the odd branch, the finite Hasse-comparison
+certificate remain explicit inputs; $\beta$ is deterministically wrapped
+from $R$.
+
+\LeanFile{LanglandsFirstMainLemma/Cases/TameOdd.lean}
+\lean{LanglandsFirstMainLemma.firstMain_tameOdd_zero}
+\lean{LanglandsFirstMainLemma.firstMain_tameOdd_one}
+\lean{LanglandsFirstMainLemma.firstMain_tameOdd_high_even}
+\lean{LanglandsFirstMainLemma.firstMain_tameOdd_high_odd}
+\lean{LanglandsFirstMainLemma.firstMain_tameOdd}
+\leanok
+\SourceText{Propositions prop:tame-conductor-one-comparison and prop:tame-odd-new.}
+\uses{mod:parameters-ramifiedhassecomparison,mod:finitefield-hassedavenportproduct,mod:lamprecht-stabletwist,mod:delta-residueformula}
+\FormalizationContract The principal Lean declaration is a proposition-valued
+branch bundle whose fields are the conductor-zero, conductor-one, high-even,
+and high-odd computational theorems described above.  It performs neither
+minimal-orbit selection nor case dispatch.  A caller selects the appropriate
+field and supplies that branch's hypotheses and data: in particular
+minimality and the actual norm/trace pullback equalities in the conductor-one
+branch, and the actual parameter, representative, critical-coordinate,
+denominator, and Hasse data required by the high branch.  The conductor-one
+implementation itself constructs the residue-field equivalence, the
+canonical residue character $\eta$ and its exact order, every norm-character
+residue row, both upper transports, the actual norm and orbit-twist character
+data, and all their denominators.  It then derives every needed conductor
+equality and every \texttt{deltaFinite} residue row and proves the literal
+full-product identity.  In particular there is no residual-transport
+certificate argument.  The high implementation constructs $\beta$ from the
+explicitly supplied $R$ rather than receiving or choosing a second
+representative.  No theorem from \texttt{Cases.Dispatch}, \texttt{Main}, or
+another completed case is used.  Passing from these computational branch
+theorems to an arbitrary \texttt{LocalConstantFunction} requires the
+separate finite--integral bridge and an external minimal-orbit/case
+dispatcher.
+\end{theorem}

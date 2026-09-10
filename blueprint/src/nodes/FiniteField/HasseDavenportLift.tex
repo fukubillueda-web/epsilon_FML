@@ -1,0 +1,90 @@
+\begin{theorem}[Hasse--Davenport lift]\label{mod:finitefield-hassedavenportlift}
+Let $K/k$ be an extension of finite fields, put $f=[K:k]$, let
+$\chi\in\operatorname{FiniteMulChar}(k)$, and let
+$\psi\in\operatorname{FiniteAddChar}(k)$ be nontrivial.  Then
+\[
+ \operatorname{langlandsGaussSum}
+   \bigl(\operatorname{normMulChar}_{K/k}(\chi),
+         \operatorname{traceAddChar}_{K/k}(\psi)\bigr)
+ =
+ \operatorname{langlandsGaussSum}(\chi,\psi)^f.
+\]
+\LeanFile{LanglandsFirstMainLemma/FiniteField/HasseDavenportLift.lean}
+\lean{LanglandsFirstMainLemma.hasseDavenportLift}
+\leanok
+\SourceText{Theorem thm:HD-lift.}
+\uses{mod:finitefield-characterapi,mod:finitefield-eulerproduct,mod:localfield-extension}
+\FormalizationContract
+\end{theorem}
+\begin{proof}
+Use the polynomial weight
+\[
+ w=w_{\chi^{-1},\psi},\qquad
+ w(P)=\chi^{-1}\!\left((-1)^{\deg P}P(0)\right)
+       \psi\!\left(-\operatorname{nextCoeff}(P)\right).
+\]
+For the degree sums $A_n(w)$ from
+\ref{mod:finitefield-eulerproduct}, the linear-polynomial
+parametrization gives
+\[
+ A_1(w)=G_k(\chi^{-1},\psi).
+\]
+For every $n\geq2$, translation of the freely varying coefficient
+immediately below the leading coefficient multiplies the whole degree
+sum by a nontrivial value of $\psi$.  Hence additive-character
+orthogonality gives $A_n(w)=0$.
+
+The degree-$f$ closed-point sum is
+\[
+ B_f(w)=
+ G_K\!\left(\operatorname{normMulChar}_{K/k}(\chi^{-1}),
+            \operatorname{traceAddChar}_{K/k}(\psi)\right).
+\]
+To prove this without choosing roots globally, partition $K$ by the
+finite quotient $\operatorname{ConjRootClass}(k,K)$.  Minimal polynomial
+gives a bijection from its classes to the monic irreducible polynomials
+whose degrees divide $f$.  For a class with minimal polynomial
+\[
+ P=X^d+a_1X^{d-1}+\cdots+a_d
+\]
+and a member $x$, put $e=f/d$.  The exact coefficient, trace, and norm
+identities are
+\[
+ \operatorname{Tr}_{k(x)/k}(x)=-a_1,
+ \qquad
+ N_{k(x)/k}(x)=(-1)^d a_d,
+\]
+and therefore
+\[
+ \operatorname{Tr}_{K/k}(x)=e(-a_1),
+ \qquad
+ N_{K/k}(x)=\bigl((-1)^d a_d\bigr)^e.
+\]
+Thus the lifted Gauss summand is $w(P)^e$.  The carrier of the class has
+exactly $d$ elements, giving the factor $d$ in $B_f(w)$, and the quotient
+partition counts every element of $K$ exactly once.  This also treats
+$x=0$: both the polynomial weight of $X$ and the extended multiplicative
+character at zero vanish.
+
+Since $f>0$, the reusable identity in
+\ref{mod:finitefield-eulerproduct} now gives
+\[
+ -G_K\!\left(\operatorname{normMulChar}_{K/k}(\chi^{-1}),
+             \operatorname{traceAddChar}_{K/k}(\psi)\right)
+ =
+ \bigl(-G_k(\chi^{-1},\psi)\bigr)^f.
+\]
+Finally,
+\[
+ \operatorname{normMulChar}_{K/k}(\chi^{-1})
+ =\operatorname{normMulChar}_{K/k}(\chi)^{-1}
+\]
+and
+$\operatorname{langlandsGaussSum}(\chi,\psi)
+=-G_k(\chi^{-1},\psi)$, so this is exactly the claimed identity.
+For the trivial multiplicative character both normalized sums are $1$;
+no nontriviality hypothesis on $\chi$ is used.  Equivalently, before
+normalization the parity-sensitive sign is
+$G_K=(-1)^{f-1}G_k^f$, and the leading minus signs in Langlands's
+normalization cancel it in both degree parities.
+\end{proof}

@@ -1,0 +1,25 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{blueprint}[2026/08/20 Local Lean blueprint helpers]
+\RequirePackage{xcolor}
+\RequirePackage[hypertexnames=false]{hyperref}
+\RequirePackage{enumitem}
+\RequirePackage{microtype}
+\RequirePackage{url}
+\RequirePackage{seqsplit}
+\definecolor{bpGreen}{RGB}{25,120,65}
+\definecolor{bpRed}{RGB}{170,35,35}
+\definecolor{bpBlue}{RGB}{25,70,145}
+\newcommand{\lean}[1]{\par\smallskip\noindent\textbf{Lean declaration: }{\footnotesize\path{#1}}\par}
+\newcommand{\leanok}{\par\noindent\textcolor{bpGreen}{\textbf{Status: complete / Lean verified}}\par}
+\newcommand{\notready}{\par\noindent\textcolor{bpRed}{\textbf{Status: pending formalization}}\par}
+\newcommand{\uses}[1]{\par\noindent\textbf{Dependencies: }{\small\ttfamily\raggedright\seqsplit{#1}}\par}
+\newcommand{\LeanFile}[1]{\par\noindent\textbf{Lean file: }{\footnotesize\path{#1}}\par}
+\newcommand{\SourceText}[1]{\par\noindent\textbf{Source: }#1\par}
+\newcommand{\FormalizationContract}{%
+  \par\smallskip\noindent\textbf{Formalization contract.}
+  \begin{enumerate}[leftmargin=*,nosep]
+  \item Preserve the exact normalization and every hypothesis of the authoritative manuscript.
+  \item Split out valuation estimates, finite-sum reindexing, quotient well-definedness, conductor equalities, and nonvanishing assertions.
+  \item Keep this node pending while its Lean file contains \texttt{sorry}, \texttt{admit}, or the temporary \texttt{PendingTask} target.
+  \item After the file is sorry-free, run the project checks before replacing \texttt{\string\notready} by \texttt{\string\leanok}.
+  \end{enumerate}}

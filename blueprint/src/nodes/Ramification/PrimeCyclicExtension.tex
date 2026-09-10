@@ -1,0 +1,140 @@
+\begin{definition}[Prime cyclic extension package]\label{mod:ramification-primecyclicextension}
+Let $K/F$ be a finite valuative extension of nonarchimedean local fields.
+The theorem-level predicate \texttt{CyclicPrimeExtension} already records
+exactly the three field-theoretic hypotheses used in the cyclic-prime
+argument:
+\[
+ K/F\text{ is Galois},\qquad
+ \operatorname{Gal}(K/F)\text{ is cyclic},\qquad
+ \ell=[K:F]\text{ is prime}.
+\]
+The structure \texttt{PrimeCyclicExtension} reuses that predicate as its
+sole field, with constructors and an equivalence in both directions; it
+does not unpack and duplicate the extension data.  Here the degree is
+definitionally the canonical value
+$\ell=\operatorname{finrank}_F K$.  The local fields, algebra structure,
+valuative extension, and finite-module structure remain ambient typeclass
+data.  In particular, the package contains no independently chosen degree,
+Galois generator, ramification invariant, lower filtration, or break.
+
+The Galois and cyclic hypotheses are exposed as instances.  Finite Galois theory
+then gives
+\[
+ \#\operatorname{Gal}(K/F)=\ell,
+\]
+so the Galois group has prime cardinality.  Cyclicity supplies a
+noncomputably chosen automorphism $\sigma_0$ for which
+\[
+ \langle\sigma_0\rangle=\operatorname{Gal}(K/F),\qquad
+ \forall\tau\ \exists n\in\mathbf Z,\quad \sigma_0^n=\tau,
+ \qquad \operatorname{ord}(\sigma_0)=\ell.
+\]
+Consequently $\sigma_0\ne1$, the top and bottom subgroups are distinct,
+and every subgroup of the Galois group is either trivial or the whole group.
+
+No extension invariants are duplicated.  The package uses the canonical
+quantities
+\[
+ e=e(K/F)=\texttt{ramificationIndex}(F,K),\qquad
+ f=f(K/F)=\texttt{residueDegree}(F,K).
+\]
+They are positive and satisfy the already established local-field identity
+\[
+ \ell=ef.
+\]
+This node draws no prime-factor dichotomy from that identity.  The residue
+characteristic is likewise the canonical abbreviation
+\[
+ p_F=\operatorname{char}k_F
+     =\texttt{ringChar}(\operatorname{ResidueField}(F)).
+\]
+It is prime, and the injective residue-field algebra map proves
+$p_K=p_F$ for every valuative extension.
+
+The lower filtration is always the canonical
+$G_i=\texttt{lowerRamificationGroup}(F,K,i)$ from the preceding node.
+Prime cardinality implies, for every $i\in\mathbf Z$,
+\[
+ G_i=1\quad\text{or}\quad G_i=G.
+\]
+For a manuscript-style nonnegative index $t$, define only the minimal
+boundary predicate
+\[
+ \operatorname{IsLowerBreak}(t)
+ \quad\Longleftrightarrow\quad
+ G_t=G\ \text{ and }\ G_{t+1}=1.
+\]
+The complete one-break profile is derived rather than stored:
+\[
+ G_i=G\Longleftrightarrow i\le t,
+ \qquad
+ G_i=1\Longleftrightarrow t<i.
+\]
+In particular such a $t$ is unique, and the chosen generator lies in the
+exact shell $G_t\setminus G_{t+1}$.
+
+The existence theorem deliberately has the explicit premise $G_0=G$.
+Using eventual triviality from the lower-group node, choose the least
+$n\in\mathbf N$ with $G_n=1$ and put $t=n-1$.  The premise gives $n>0$,
+and the prime-order subgroup dichotomy gives $G_t=G$; hence there is a
+unique lower break.  Lean also exposes the resulting canonical selected
+index and proves its boundary property and uniqueness.  The implication
+from ordinary ramifiedness (or total ramification) to $G_0=G$ is not assumed
+here.
+
+Thus this node supplies the raw context and elementary one-break interfaces
+needed after \ref{thm:first-main} and \ref{eq:one-break-new}, while leaving
+the following results to their designated downstream nodes: the
+unramified--totally-ramified and tame--wild dichotomies, the wild equality
+$\ell=p_F$, the Herbrand functions and their piecewise formulas, the
+different and trace-ideal formulas, and every graded or full norm-filtration
+statement from \ref{thm:graded-norm} and \ref{thm:norm-filtration}.
+\LeanFile{LanglandsFirstMainLemma/Ramification/PrimeCyclicExtension.lean}
+\lean{LanglandsFirstMainLemma.PrimeCyclicExtension}
+\lean{LanglandsFirstMainLemma.PrimeCyclicExtension.toCyclicPrimeExtension}
+\lean{LanglandsFirstMainLemma.PrimeCyclicExtension.ofCyclicPrimeExtension}
+\lean{LanglandsFirstMainLemma.PrimeCyclicExtension.iff_cyclicPrimeExtension}
+\lean{LanglandsFirstMainLemma.PrimeCyclicExtension.instIsGalois}
+\lean{LanglandsFirstMainLemma.PrimeCyclicExtension.instIsCyclic}
+\lean{LanglandsFirstMainLemma.PrimeCyclicExtension.degree_prime}
+\lean{LanglandsFirstMainLemma.PrimeCyclicExtension.galoisCard_eq_degree}
+\lean{LanglandsFirstMainLemma.PrimeCyclicExtension.galoisCard_prime}
+\lean{LanglandsFirstMainLemma.PrimeCyclicExtension.instGaloisCardPrimeFact}
+\lean{LanglandsFirstMainLemma.PrimeCyclicExtension.generator}
+\lean{LanglandsFirstMainLemma.PrimeCyclicExtension.generator_mem_zpowers}
+\lean{LanglandsFirstMainLemma.PrimeCyclicExtension.zpowers_generator}
+\lean{LanglandsFirstMainLemma.PrimeCyclicExtension.exists_generator_zpow}
+\lean{LanglandsFirstMainLemma.PrimeCyclicExtension.orderOf_generator}
+\lean{LanglandsFirstMainLemma.PrimeCyclicExtension.generator_ne_one}
+\lean{LanglandsFirstMainLemma.PrimeCyclicExtension.galoisSubgroup_top_ne_bot}
+\lean{LanglandsFirstMainLemma.PrimeCyclicExtension.subgroup_eq_bot_or_eq_top}
+\lean{LanglandsFirstMainLemma.PrimeCyclicExtension.ramificationIndex_positive}
+\lean{LanglandsFirstMainLemma.PrimeCyclicExtension.residueDegree_positive}
+\lean{LanglandsFirstMainLemma.PrimeCyclicExtension.degree_eq_ramificationIndex_mul_residueDegree}
+\lean{LanglandsFirstMainLemma.residueCharacteristic}
+\lean{LanglandsFirstMainLemma.residueCharacteristic_prime}
+\lean{LanglandsFirstMainLemma.residueCharacteristic_extension_eq}
+\lean{LanglandsFirstMainLemma.PrimeCyclicExtension.IsLowerBreak}
+\lean{LanglandsFirstMainLemma.PrimeCyclicExtension.lowerRamificationGroup_eq_top_of_le_break}
+\lean{LanglandsFirstMainLemma.PrimeCyclicExtension.lowerRamificationGroup_eq_bot_of_break_lt}
+\lean{LanglandsFirstMainLemma.PrimeCyclicExtension.lowerRamificationGroup_eq_bot_or_eq_top}
+\lean{LanglandsFirstMainLemma.PrimeCyclicExtension.lowerRamificationGroup_eq_top_iff_le_break}
+\lean{LanglandsFirstMainLemma.PrimeCyclicExtension.lowerRamificationGroup_eq_bot_iff_break_lt}
+\lean{LanglandsFirstMainLemma.PrimeCyclicExtension.isLowerBreak_unique}
+\lean{LanglandsFirstMainLemma.PrimeCyclicExtension.generator_mem_break_and_not_mem_succ}
+\lean{LanglandsFirstMainLemma.PrimeCyclicExtension.existsUnique_isLowerBreak_of_zero_eq_top}
+\lean{LanglandsFirstMainLemma.PrimeCyclicExtension.lowerBreakIndex}
+\lean{LanglandsFirstMainLemma.PrimeCyclicExtension.lowerBreakIndex_isLowerBreak}
+\lean{LanglandsFirstMainLemma.PrimeCyclicExtension.lowerBreakIndex_eq}
+\leanok
+\SourceText{Theorem thm:first-main and Section Ramification notation and the cyclic-prime norm theorem.}
+\uses{mod:delta-firstmainstatement,mod:ramification-lowergroups}
+\FormalizationContract The base structure's sole field reuses the existing
+theorem-level cyclic-prime predicate, whose conjuncts are Galoisness,
+cyclicity of the actual Galois group, and primality of the canonical
+extension degree.  All choices and invariant identities are derived, and
+the lower filtration is reused rather than copied.  A nonnegative break is
+constructed only from the explicit hypothesis $G_0=G$; no ramifiedness,
+total-ramification, tame--wild, Herbrand, different, trace, norm, or
+conductor theorem is stored as structure data or proved in this node.
+\end{definition}

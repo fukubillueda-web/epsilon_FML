@@ -1,0 +1,146 @@
+\begin{theorem}[Tamely ramified quadratic case]\label{mod:cases-tamequadratic}
+Let $K/F$ be a prime cyclic extension of nonarchimedean local fields with
+lower break zero, residue degree one, and $[K:F]=2$.  Choose a uniformizer
+$\varpi_K\in\mathcal O_K$ which generates $\mathcal O_K$ over
+$\mathcal O_F$, and assume $\operatorname{char}k_F\ne2$.  Let
+$\chi_F,\chi_K$ be exact multiplicative-conductor data and
+$\psi_F,\psi_K$ exact additive-conductor data such that
+\[
+ \chi_K=\chi_F\circ N_{K/F},\qquad
+ \psi_K=\psi_F\circ\operatorname{Tr}_{K/F},
+\]
+and suppose that $\chi_F$ has minimal conductor in its
+$S(K/F)$-orbit.  Put $\varpi_F=N_{K/F}(\varpi_K)$.  For every exact
+character datum $\theta$ over $K$ or $F$, Lean uses the literal admissible
+denominator
+\[
+ \Gamma_K(\theta)=\varpi_K^{m_K(\theta)+n_K(\psi_K)},\qquad
+ \Gamma_F(\theta)=\varpi_F^{m_F(\theta)+n_F(\psi_F)}.
+\]
+Then the complete computational First Main identity holds:
+\[
+ \Delta_K^{\mathrm{fin}}(\chi_K,\psi_K;\Gamma_K(\chi_K))
+ \prod_{\mu\in S(K/F)}
+   \Delta_F^{\mathrm{fin}}(\mu,\psi_F;\Gamma_F(\mu))
+ =
+ \prod_{\mu\in S(K/F)}
+   \Delta_F^{\mathrm{fin}}(\mu\chi_F,\psi_F;
+     \Gamma_F(\mu\chi_F)).
+\]
+Both products include the identity norm character, which is packaged with
+exact conductor zero; the unique nonidentity character $\tau$ is packaged
+with exact conductor one.  Every twist $\mu\chi_F$ is likewise packaged
+with its actual conductor.
+
+Lean proves the nonidentity pair by the exact split
+$m_F(\chi_F)=0$, $m_F(\chi_F)=1$, and $m_F(\chi_F)>1$.
+
+If $m_F(\chi_F)=0$, then $m_K(\chi_K)=0$ and
+$n_K(\psi_K)=2n_F(\psi_F)+1$.  The conductor-zero formula from
+\texttt{ResidueFormula} gives
+\[
+ \Delta_E^{\mathrm{fin}}(\theta,\psi;\pi^{n_E(\psi)})
+ =\theta(\pi)^{n_E(\psi)}.
+\]
+The direct finite-sum unramified-twist calculation, with no division by a
+Gauss sum, gives
+\[
+ \Delta_F^{\mathrm{fin}}(\tau\chi_F,\psi_F)
+ =\chi_F(\varpi_F)^{n_F(\psi_F)+1}
+   \Delta_F^{\mathrm{fin}}(\tau,\psi_F).
+\]
+Together with
+$\chi_K(\varpi_K)=\chi_F(N_{K/F}(\varpi_K))$ this proves the endpoint
+identity with exponents
+$2n_F(\psi_F)+1=n_F(\psi_F)+(n_F(\psi_F)+1)$.  The common
+conductor-one factor is retained literally, so its residue Gauss-sum minus
+sign and inverse-character normalization are unchanged.  No stationary
+class is constructed in this branch.
+
+If $m_F(\chi_F)=1$, minimality gives exact conductor one for both
+$\chi_K$ and $\tau\chi_F$.  Lean first uses the common denominator
+\[
+ \Gamma=\varpi_F^{n_F(\psi_F)+1}
+\]
+downstairs and its image upstairs, and then transports to the displayed
+uniformizer-power denominators by denominator independence.  The exact
+conductor-one residue formula is applied to all four factors.  Its leading
+minus sign, inverse multiplicative character, character value at $\Gamma$,
+and residual additive character are retained.  The upper residual
+multiplicative character is $\bar\chi^{\,2}$, its additive character is
+$x\mapsto\bar\psi(2x)$, the residual character of $\tau$ is the normalized
+quadratic character $\nu$, and $\tau(\Gamma)=1$.  Thus the two leading
+minus signs on each side cancel in pairs and the remaining equality is
+exactly the degree-two Hasse--Davenport phase identity
+\[
+ \bar\chi(4)\,
+ \operatorname{ph}\tau_k(\bar\chi^{\,2},\bar\psi)\,
+ \operatorname{ph}\tau_k(\nu,\bar\psi)
+ =
+ \operatorname{ph}\tau_k(\bar\chi,\bar\psi)\,
+ \operatorname{ph}\tau_k(\bar\chi\nu,\bar\psi).
+\]
+No stationary class is constructed at conductor one.
+
+Finally suppose $m=m_F(\chi_F)=2d+\varepsilon>1$, with
+$\varepsilon\in\{0,1\}$.  Lean sets
+\[
+ \rho=\varpi_K-\sigma(\varpi_K),\qquad
+ \pi_F=N_{K/F}(\rho)=-\rho^2,
+\]
+uses $\pi_F^{m+n_F(\psi_F)}$ as an internal common denominator, and
+transports the result back to the displayed denominators by
+\texttt{deltaFinite\_gamma\_independent}.  It chooses an actual
+representative only after constructing the downstairs stationary quotient
+class.  The tame high-parameter comparison maps that representative and the
+ordered denominator pair upstairs.  The nonidentity norm character has
+residual character $\nu$, its conductor-one factor is
+$Q_{\psi_0}(2,0)$, and exact stable twisting is used in the direction
+$\tau\chi_F$:
+\[
+ \Delta_F^{\mathrm{fin}}(\tau\chi_F,\psi_F)
+ =\tau(\Gamma/\beta)\Delta_F^{\mathrm{fin}}(\chi_F,\psi_F),
+ \qquad
+ \tau(\Gamma/\beta)=\nu(\bar\beta).
+\]
+
+For $m=2d$, the actual upper critical phase is
+$Q_{\psi_0}(-2\bar\beta,0)$, including the displayed minus sign, and the
+exact normalized identity is
+\[
+ Q_{\psi_0}(-2\bar\beta,0)Q_{\psi_0}(2,0)
+ =\nu(\bar\beta).
+\]
+For $m=2d+1$, the complete lower critical function has coefficients
+$(\bar\beta,c)$, while the upper one has coefficients
+$(2\bar\beta,2sc)$, where
+$s=\overline{(-1)^d}$ and $s^2=1$.  The affine translation is retained, and
+\[
+ Q_{\psi_0}(2\bar\beta,2sc)Q_{\psi_0}(2,0)
+ =\nu(\bar\beta)Q_{\psi_0}(\bar\beta,c)^2.
+\]
+In both parities the mapped nonresidual Lamprecht factor upstairs is the
+literal square of the downstairs factor.  Combining this with the stable
+factor proves the nonidentity pair, and the two-element enumeration
+$S(K/F)=\{1,\tau\}$ restores the full products.
+\LeanFile{LanglandsFirstMainLemma/Cases/TameQuadratic.lean}
+\lean{LanglandsFirstMainLemma.firstMain_tameQuadratic}
+\leanok
+\SourceText{Propositions prop:tame-conductor-one-comparison and prop:tame-two-new.}
+\uses{mod:parameters-ramifiedhassecomparison,mod:finitefield-quadraticphase,mod:lamprecht-stabletwist,mod:delta-residueformula}
+\FormalizationContract The principal Lean theorem is the full
+\texttt{deltaFinite} product identity for supplied exact conductor data, a
+chosen integral uniformizer generator, the exact pullback identities, and a
+minimal-orbit certificate.  Its explicit odd-residue-characteristic
+hypothesis is retained.  The theorem uses actual-conductor packages for the
+identity norm character, the nonidentity norm character, and every twist;
+it does not assert an identity for an arbitrary value of type
+\texttt{LocalConstantFunction}.  Endpoint conductors use only the residue
+formulas and direct finite sums.
+Stationary representatives occur only when $m_F(\chi_F)>1$, remain attached
+to their quotient classes and denominator pair, and in the odd branch carry
+the complete affine translation.  The stable-twist factor is literally
+$\tau(\Gamma/\beta)$, and every final denominator is the exact displayed
+uniformizer power.  No theorem from Dispatch, Main, or another case file is
+used.
+\end{theorem}

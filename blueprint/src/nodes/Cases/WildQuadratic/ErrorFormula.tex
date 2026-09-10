@@ -1,0 +1,198 @@
+\begin{theorem}[Wild quadratic exact stationary assembly]\label{mod:cases-wildquadratic-errorformula}
+There are separate q-free and refined stationary assemblies.
+
+For the q-free assembly, let \(V_0\) be a
+\texttt{WildQuadraticAllEvenCoefficientView}, and let \(\mathcal A\) be a
+real \texttt{ExactQuadraticPhaseAssembly} for the same conductors \(t,m\).
+The record \texttt{WildQuadraticActualPhaseRows} identifies the four actual
+local Lamprecht packages and their literal selected stationary pairs without
+mentioning a finite-field refinement.  The
+\texttt{WildQuadraticAllEvenPhaseRowCompatibility} record additionally
+retains the exact proof that each of those four packages is a
+\texttt{LocalLamprechtPhaseData.even} row.  This is stronger than assuming
+that four numerical critical phases happen to be equal to one.
+
+The definition of an actual even Lamprecht row makes its critical factor
+literally \(1\).  Consequently Lean proves from these four exact row
+witnesses that
+\[
+ \mathcal A.\texttt{residualHasseQuotient}=1.
+\]
+The q-free \texttt{WildQuadraticCommonCoordinateCompatibility} identifies
+the supplied \(A,u,n,z_0,z_1\) and the correction coordinate
+\[
+ X=\operatorname{Tr}_{K/F}(u)+n(z_0-1)+(z_1-1)
+\]
+with the common coefficient view.  Given the existing q-free
+\texttt{ExactQuadraticPhaseAssembly.CompleteCorrectionData}, the existing
+PhaseReduction theorem is applied in its exact orientation:
+\[
+ \operatorname{Err}_{K/F}(\chi_F)
+ =\mathcal A.\texttt{residualHasseQuotient}\,
+   \psi_F(-AX).
+\]
+Substitution of the actual-even quotient gives the structured
+\texttt{WildQuadraticAllEvenErrorFormula} and the theorem
+\texttt{wildQuadratic\_allEvenErrorFormula}:
+\[
+ \operatorname{Err}_{K/F}(\chi_F)=\psi_F(-AX).
+\]
+No \(\mathfrak q\), Hasse function, affine coefficient, or refinement
+correction appears in this path.
+
+For the complementary refined assembly, let \(V\) be the existing coherent
+\texttt{WildQuadraticCoefficientView}, and let \(\mathcal A\) be a real
+\texttt{ExactQuadraticPhaseAssembly} for the same conductors \(t,m\).
+The comparison data used by Lean are explicit equalities between supplied
+choices.  They exhibit the four actual local Lamprecht packages
+\[
+  \chi_K,\qquad \tau,\qquad \chi_F,\qquad \tau\chi_F
+\]
+inside the real phase data and identify their literal admissible
+denominator--numerator pairs with the four selected pairs in \(V\).
+For the upper and twisted packages they identify the actual critical factor
+with the corresponding table phase.  For the \(\tau\)- and \(\chi_F\)-packages
+they identify it with the retained quotient-source phase.  The exact actual
+phase assembly carried by \(V\) then proves that the quotient of these four
+factors is the coefficient-table phase ratio.  The coordinate comparison
+separately identifies the supplied \(A,u,n,z_0,z_1\) data and hence the common
+coordinate
+\[
+ X=\operatorname{Tr}_{K/F}(u)+n(z_0-1)+(z_1-1).
+\]
+These are compatibility hypotheses on already supplied representatives; no
+stationary quotient class is eliminated to obtain a distinguished field
+element.  In particular, a high or low representative can be used here only
+when this literal comparison has been supplied.
+
+The real structured result \(\mathcal A.\texttt{Result}\) first gives
+\[
+ \operatorname{Err}_{K/F}(\chi_F)
+ =R_H\,\psi_F(-A s)\chi_F(z_0)^{-1}\tau(z_1)^{-1}.
+\]
+After applying the explicit coordinate equalities \(s=\operatorname{Tr}(u)\)
+and the supplied identifications of \(z_0,z_1,\tau\), this becomes
+\[
+ \operatorname{Err}_{K/F}(\chi_F)
+ =R_H\,
+   \psi_F\!\left(-A\operatorname{Tr}_{K/F}(u)\right)
+   \chi_F(z_0)^{-1}\tau(z_1)^{-1}.
+\]
+The critical quotient keeps the manuscript's orientation
+\[
+ R_H=\frac{H_{\chi_K}H_\tau}{H_{\chi_F}H_{\tau\chi_F}},
+\]
+and the coefficient comparison proves
+\(R_H=\Phi_{\mathrm{table}}\).  Lean also proves that the same error term is
+the quotient of the four actual complete local Lamprecht factors in this
+orientation.  The result retains the exact parameter range, the nonzero
+critical denominator, and the supplied real assembly's essential break-unit
+identity
+\[
+ \mathcal A.\texttt{twistStationaryNumerator}
+ =\mathcal A.\texttt{baseStationaryNumerator}
+  +\mathcal A.\texttt{stationaryScale}\,
+    \mathcal A.\texttt{breakUnit}.
+\]
+The actual conductor decompositions and parities remain in the four
+existential local packages.
+
+For each of the two possible inverse-character corrections, Lean retains an
+optional proof-bearing record.  A present record contains its actual odd
+conductor decomposition \(a(\theta)=2d+1\), stationary depth \(d\),
+admissible denominator \(\Gamma\), stationary numerator \(\beta\), correction
+\(w\), normalized class \(c\), and affine coefficient \(\lambda\), together
+with the positively oriented identity
+\[
+ \theta(1+w)^{-1}
+ =\psi_F(-\beta w/\Gamma)\,
+   \mathfrak q(c)\psi_0(\lambda c).
+\]
+Its \(\Gamma\) and \(\beta\) are required to be exactly the selected pair of
+the corresponding \(\chi_F\)- or \(\tau\)-package.  An absent record
+contributes the literal factor \(1\) and carries the exact pure
+linearization.  Combining only these two justified inverse-character
+identities gives
+\[
+ \operatorname{Err}_{K/F}(\chi_F)
+ =\Phi_{\mathrm{table}}\,R_\chi R_\tau\,\psi_F(-AX),
+\]
+where
+\[
+ R_\theta=\mathfrak q(c_\theta)
+   \psi_0(\lambda_\theta c_\theta)
+\]
+when the correction is present.  Thus every inverse, sign, affine/Hasse
+factor, conductor, depth, gamma, and common norm--trace correction remains
+exposed before the finite table is evaluated.
+
+Representative independence is proved for complete local Lamprecht factors.
+For an odd permitted representative change the real public transport theorem
+supplies a residue translation \(a\), translates the old Hasse function in
+that direction, and multiplies the new elementary value by the old Hasse
+value at \(a\).  Lean transports these two pieces together and proves that
+\[
+ \frac{L_{\chi_K}L_\tau}{L_{\chi_F}L_{\tau\chi_F}}
+\]
+is unchanged.  Since the real error term was identified with precisely this
+quotient, the complete error expression is representative-independent.  No
+isolated odd critical phase is declared invariant.
+
+The file exports separate downstream contracts.  In all nine nonboundary
+coefficient rows, the proved finite identity is
+\[
+ \Phi_{\mathrm{table}}R_\chi R_\tau=1,
+\]
+and the nonboundary contract gives
+\[
+ \operatorname{Err}_{K/F}(\chi_F)=\psi_F(-AX).
+\]
+This does not use the later theorem that the remaining elementary phase is
+one.
+
+At the odd boundary the data directly retain
+\[
+ \rho\ne0,\qquad r^2=\rho,\qquad 1+\rho\ne0,\qquad
+ (\gamma')^2=
+ \frac{\gamma+\rho\gamma_0+\rho+r}{1+\rho}.
+\]
+They also derive \(1+\rho^2\ne0\).  Put
+\[
+ A_\rho=\frac{\rho}{1+\rho},\qquad
+ B=\frac{\rho^2}{1+\rho^2},\qquad
+ C=\frac{\rho}{1+\rho^2},\qquad
+ \gamma_1=\frac{\gamma_0+\rho\gamma+r}{1+\rho}.
+\]
+Given the explicit boundary-compatibility hypothesis
+\(\psi_F(-AX)=\psi_0(C)\), the boundary contract retains the two selected
+correction records and proves exactly
+\[
+ \operatorname{Err}_{K/F}(\chi_F)
+ =\mathfrak q(A_\rho)\mathfrak q(B)\mathfrak q(C)\,
+   \psi_0(\gamma_1A_\rho+\gamma B+\gamma_0C+C+A_\rho).
+\]
+No theorem from the later nonboundary, boundary, main, or final-cancellation
+nodes is assumed.
+
+\LeanFile{LanglandsFirstMainLemma/Cases/WildQuadratic/ErrorFormula.lean}
+\lean{LanglandsFirstMainLemma.LocalLamprechtPhaseData.IsEven}
+\lean{LanglandsFirstMainLemma.LocalLamprechtPhaseData.criticalFactor_eq_one_of_isEven}
+\lean{LanglandsFirstMainLemma.WildQuadraticActualPhaseRows}
+\lean{LanglandsFirstMainLemma.WildQuadraticCommonCoordinateCompatibility}
+\lean{LanglandsFirstMainLemma.WildQuadraticAllEvenPhaseRowCompatibility}
+\lean{LanglandsFirstMainLemma.WildQuadraticAllEvenPhaseRowCompatibility.residualHasseQuotient_eq_one}
+\lean{LanglandsFirstMainLemma.WildQuadraticAllEvenErrorFormula}
+\lean{LanglandsFirstMainLemma.wildQuadratic_allEvenErrorFormula}
+\lean{LanglandsFirstMainLemma.wildQuadratic_errorFormula}
+\lean{LanglandsFirstMainLemma.WildQuadraticPhaseRowCompatibility.toActualPhaseRows}
+\lean{LanglandsFirstMainLemma.WildQuadraticCoordinateCompatibility.toCommon}
+\lean{LanglandsFirstMainLemma.WildQuadraticPhaseRowCompatibility.errorTerm_eq_four_actual_completeFactors}
+\lean{LanglandsFirstMainLemma.wildQuadraticCompleteErrorExpression_representative_independent}
+\lean{LanglandsFirstMainLemma.LocalLamprechtPhaseData.CompleteFactorTransport.ofOdd_translation}
+\lean{LanglandsFirstMainLemma.wildQuadratic_errorFormula_nonboundary}
+\lean{LanglandsFirstMainLemma.wildQuadratic_errorFormula_boundary}
+\leanok
+\SourceText{Proposition prop:quadratic-complete-assembly.}
+\uses{mod:cases-wildquadratic-coefficienttable,mod:parameters-phasereduction,mod:parameters-stationaryclassundernorm,mod:lamprecht-stationaryclasscalculus}
+\FormalizationContract
+\end{theorem}

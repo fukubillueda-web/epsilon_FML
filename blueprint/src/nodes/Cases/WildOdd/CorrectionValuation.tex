@@ -1,0 +1,143 @@
+\begin{theorem}[Valuation of the wild odd correction]\label{mod:cases-wildodd-correctionvaluation}
+Let $d$ be wild odd correction data, and put
+\[
+ p=\operatorname{char}k_F=[K:F],\qquad
+ a=T-m,\qquad n=N_{K/F}(u),
+\]
+\[
+ e_0=\left\lfloor\frac{(p-1)T}{p}\right\rfloor
+     =T-\left\lceil\frac Tp\right\rceil,
+ \qquad
+ B=s_1+\sum_{q\in[1,p-1)}(-n)^q s_{p-q}.
+\]
+Here all quotients in the definitions of $e_0$ and the auxiliary depths
+are integer floors.  The identity with the integer ceiling is the exact
+one supplied by the symmetric-bound API, and for odd $p$ and $T\ge2$ that
+API gives $T\le2e_0$.
+
+Lean first proves the residue-prime valuation statements in the two
+characteristic branches.  If the field element $(p:F)$ is zero, then
+\[
+ v_F(p)=\top
+\]
+exactly.  If $(p:F)\ne0$, there is an integer $e$ with
+\[
+ v_F(p)=e,\qquad e_0\le e.
+\]
+Thus the mixed-characteristic ramification input is the lower bound
+$e\ge e_0$, not the generally false equality $e=e_0$, and
+$T\le e+e_0$.
+
+Write $b=m-1$ and $t=T-1$, as in the manuscript.  Since $a=t-b$, the Lean
+proof uses the following exhaustive, pairwise disjoint trichotomy without
+weakening either strict boundary:
+\[
+ b<t\ \Longleftrightarrow\ m<T\ \Longleftrightarrow\ 0<a,
+\quad
+ b=t\ \Longleftrightarrow\ m=T\ \Longleftrightarrow\ a=0,
+\quad
+ t<b\ \Longleftrightarrow\ T<m\ \Longleftrightarrow\ a<0.
+\]
+Before estimating the quotient in the closed correction formula, Lean
+proves the exact denominator valuation separately in all three cases:
+\[
+ v_F(1-n^{p-1})=
+ \begin{cases}
+  0,&0<a,\\
+  0,&a=0,\\
+  (p-1)a,&a<0.
+ \end{cases}
+\]
+The boundary equality uses the supplied noncancellation of every
+$n+[j]$ and the exact Teichm\"uller product; it is not inferred by merging
+$a=0$ with a weak positive case.  Each displayed valuation is finite, so
+the denominator is nonzero before quotient valuation and cancellation are
+used.
+
+For $a\ge0$, the symmetric-function estimate is applied to $s_1$ and,
+for every $q\in[1,p-1)$, to the exact index $p-q$, whose range is
+$2\le p-q<p$.  It gives
+\[
+ v_F(s_j(u))\ge
+ \left\lfloor\frac{ja+(p-1)T}{p}\right\rfloor\ge e_0
+ \quad(1\le j<p),
+ \qquad v_F(B)\ge e_0.
+\]
+The powers $(-n)^q$ have nonnegative valuation.  Together with the
+separately proved unit denominator and $v_F(p)=e$, this yields
+$v_F(X)\ge e+e_0\ge T$ in both the strict $a>0$ and boundary $a=0$
+branches.
+
+For $a<0$, put $c=-a>0$ and $y=u^{-1}$.  Lean proves the finite-family
+reciprocal identity
+\[
+ s_j(u)=n\,s_{p-j}(y)\qquad(1\le j\le p-1)
+\]
+and applies the symmetric bound to $y$ with
+\[
+ L_r(c)=\left\lfloor\frac{rc+(p-1)T}{p}\right\rfloor.
+\]
+After subtracting the exact denominator valuation $(p-1)a$, the trace term
+uses the endpoint $r=p-1$ and the remaining finite sum uses precisely
+$2\le j<p$:
+\[
+ e_0\le(p-2)c+L_{p-1}(c),
+\qquad
+ e_0\le(j-2)c+L_{p-j}(c)\quad(2\le j<p).
+\]
+These are the literal reciprocal floor inequalities from SymmetricBounds;
+no endpoint $j=p$ is introduced.  Termwise valuation bounds followed by
+the finite-sum inequality give
+\[
+ v_F(B)\ge e_0+(p-1)a,
+\]
+and cancellation against the denominator proves the same unweakened final
+depth in the negative branch.  In equal characteristic the exact closed
+identity instead has $(p:F)=0$ and proves $X=0$.  In all cases the primary
+Lean theorem is therefore
+\[
+ \boxed{\quad X\in\mathfrak p_F^T.\quad}
+\]
+
+Finally, let $\tau$ be packaged exact-conductor data with
+$m_F(\tau)=T$, let $0<r\le T$, and suppose the stationary linearization
+\[
+ \tau(1+x)=\psi(Ax)\qquad(x\in\mathfrak p_F^r)
+\]
+is available.  Lean derives, rather than assumes, the full additive
+triviality statement
+\[
+ x\in\mathfrak p_F^T\quad\Longrightarrow\quad\psi(Ax)=1
+\]
+from exact conductor triviality on $U_F^T$ and the inclusion
+$\mathfrak p_F^T\subseteq\mathfrak p_F^r$.  Applying this result to
+$-X\in\mathfrak p_F^T$ gives the exact phase
+\[
+ \boxed{\quad\psi(-AX)=1.\quad}
+\]
+This is the lattice and phase interface exposed for the later wild-odd
+main theorem; no parity reduction, phase reduction, or First Main Lemma is
+used.
+\LeanFile{LanglandsFirstMainLemma/Cases/WildOdd/CorrectionValuation.lean}
+\lean{LanglandsFirstMainLemma.wildOdd_correction_mem}
+\lean{LanglandsFirstMainLemma.WildOddCorrectionData.ord_one_sub_n_pow_of_pos}
+\lean{LanglandsFirstMainLemma.WildOddCorrectionData.ord_one_sub_n_pow_of_eq_zero}
+\lean{LanglandsFirstMainLemma.WildOddCorrectionData.ord_one_sub_n_pow_of_neg}
+\lean{LanglandsFirstMainLemma.wildOdd_prime_ord_lower_bound}
+\lean{LanglandsFirstMainLemma.wildOdd_prime_ord_eq_top_of_eq_zero}
+\lean{LanglandsFirstMainLemma.wildOdd_prime_ord_exists_of_ne_zero}
+\lean{LanglandsFirstMainLemma.wildOdd_additive_triviality}
+\lean{LanglandsFirstMainLemma.wildOdd_correction_phase}
+\leanok
+\SourceText{Lemma lem:p-valuation and Proposition prop:X-depth.}
+\uses{mod:cases-wildodd-correctionformula,mod:ramification-symmetricbounds,mod:ramification-pullbackconductors}
+\FormalizationContract The closed formula is used as an exact field
+identity.  The three break-position cases remain disjoint; strict
+inequalities, the boundary noncancellation argument, every floor and
+ceiling conversion, denominator valuation, reciprocal index range, and
+the final lattice exponent $T$ are retained literally.  The phase theorem
+derives additive triviality from exact multiplicative conductor data and
+stationary linearization before applying it to the proved correction
+depth.  No helper assumes the desired depth, and no downstream wild-odd or
+First Main Lemma theorem is imported.
+\end{theorem}

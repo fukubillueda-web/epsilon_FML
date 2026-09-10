@@ -1,0 +1,177 @@
+\begin{theorem}[Hasse--Davenport multiplication formula]\label{mod:finitefield-hassedavenportproduct}
+Let $k$ be a finite field, let $\ell\mid(\lvert k\rvert-1)$, let
+$\eta\in\operatorname{FiniteMulChar}(k)$ satisfy
+$\operatorname{orderOf}(\eta)=\ell$, and let
+$\chi\in\operatorname{FiniteMulChar}(k)$.  If
+$\psi\in\operatorname{FiniteAddChar}(k)$ is nontrivial, then
+\[
+ \boxed{
+ \chi\!\left((\ell:k)^\ell\right)
+ \tau_k(\chi^\ell,\psi)
+ \prod_{j=1}^{\ell-1}\tau_k(\eta^j,\psi)
+ =
+ \tau_k(\chi,\psi)
+ \prod_{j=1}^{\ell-1}\tau_k(\chi\eta^j,\psi).}
+\]
+Here $(\ell:k)$ is the natural-number cast into $k$, and every displayed
+product over $1\leq j\leq\ell-1$ is Lean's
+$\operatorname{Finset.Icc}(1,\ell-1)$ product.  In particular the
+statement also covers $\ell=1$ and every case in which one of the
+multiplicative characters is trivial.
+
+Equivalently, for Mathlib's ordinary Gauss sum
+$G_k(\alpha,\psi)$, with $G_k(1,\psi)=-1$, the internally proved formula
+is
+\[
+ \prod_{j=0}^{\ell-1}G_k(\alpha\eta^j,\psi)
+ =
+ \alpha\!\left(((\ell:k)^{-1})^\ell\right)
+ G_k(\alpha^\ell,\psi)
+ \prod_{j=1}^{\ell-1}G_k(\eta^j,\psi).
+\]
+\LeanFile{LanglandsFirstMainLemma/FiniteField/HasseDavenportProduct.lean}
+\lean{LanglandsFirstMainLemma.hasseDavenportProduct}
+\leanok
+\SourceText{Theorem thm:HD-product.}
+\uses{mod:finitefield-characterapi,mod:finitefield-hdproductparametrization,mod:basic-finiteproducts,mod:finitefield-hassedavenportlift}
+\FormalizationContract Mathlib multiplicative characters are used with their
+canonical value zero at the field element zero.  The hypotheses in Lean are
+exactly
+\texttt{hdiv : ell $\mid$ Fintype.card k - 1},
+\texttt{heta : orderOf eta = ell}, and
+\texttt{hpsi : psi $\ne$ 1}; there is no hypothesis on $\chi$.
+The multiplication theorem is not imported or assumed in any equivalent
+form.  The only Davenport--Hasse input is the already proved lifting theorem
+\ref{mod:finitefield-hassedavenportlift}.
+\end{theorem}
+\begin{proof}
+First work with ordinary Gauss sums.  Every multiplicative character,
+including $1$, is extended by zero at zero.  For a family
+$\alpha_i\in\operatorname{FiniteMulChar}(k)$ define
+\[
+ J(\alpha_1,\ldots,\alpha_r)
+ =\sum_{\substack{x_i\in k\\ \sum_i x_i=1}}
+    \prod_i\alpha_i(x_i).
+\]
+Expanding the product of the Gauss sums and grouping tuples by
+$a=\sum_i x_i$ proves
+\[
+ \prod_iG_k(\alpha_i,\psi)
+ =J(\alpha_1,\ldots,\alpha_r)
+   G_k\!\left(\prod_i\alpha_i,\psi\right)
+\]
+when the product character is nontrivial.  No quotient is taken here.
+When the product character is trivial but the family is not all trivial,
+the zero fiber is retained and the separate exact computation gives
+\[
+ \prod_iG_k(\alpha_i,\psi)
+ =-\lvert k\rvert J(\alpha_1,\ldots,\alpha_r).
+\]
+The all-trivial family is evaluated separately by counting the tuples with
+all coordinates nonzero.  Thus neither the product-trivial branch nor a
+possibly vanishing Gauss sum is cancelled.
+
+For binary Jacobi sums put
+$\mathcal J(\alpha,\beta)=-J(\alpha,\beta)$.  If $K/k$ is a finite-field
+extension and $\alpha\ne1$, the lift from
+\ref{mod:finitefield-hassedavenportlift}, together with the preceding
+Gauss--Jacobi identities, proves
+\[
+ \mathcal J(\alpha\circ N_{K/k},\beta\circ N_{K/k})
+ =\mathcal J(\alpha,\beta)^{[K:k]}.
+\]
+For $\alpha\beta\ne1$, the Gauss sum cancelled in this argument is first
+proved nonzero.  For $\alpha\beta=1$, use instead the exact formula
+$J(\alpha,\alpha^{-1})=-\alpha(-1)$.  This is the required
+product-character-trivial lifting branch, not an implicit division.
+
+We next prove the hard Jacobi multiplication identity without assuming the
+desired Gauss multiplication formula.  Choose a primitive $\ell$th root
+$\zeta\in k$, whose existence follows from
+$\ell\mid\lvert k^\times\rvert$, and define the multiplicative monic
+polynomial weight
+\[
+ w(P)=\alpha\!\left(
+   \prod_{j=0}^{\ell-1}P^{\mathrm{rev}}(\zeta^j)\right).
+\]
+For monic polynomials, reversal is multiplicative, so $w$ is a genuine
+monoid homomorphism.  Fourier evaluation gives a bijection from monic
+polynomials of degree $\ell-1$ to tuples
+$(s_j)_{j\in\mathbf Z/\ell\mathbf Z}$ satisfying
+$\sum_j s_j=(\ell:k)$.  The divisibility hypothesis also proves
+$(\ell:k)\ne0$, so scaling this hyperplane to $\sum_jx_j=1$ yields
+\[
+ A_{\ell-1}(w)
+ =\alpha((\ell:k))^\ell
+   J(\underbrace{\alpha,\ldots,\alpha}_{\ell\ \mathrm{terms}}).
+\]
+
+For the degree-$r$ finite extension $k_r/k$, the closed-point power sum of
+this weight is
+\[
+ B_r(w)=\sum_{y\in k_r}
+   \alpha\!\left(N_{k_r/k}(1-y^\ell)\right).
+\]
+The key closed-point calculation is coefficient- and sign-exact.  If
+$P=\operatorname{minpoly}_k(y)$ and $h=[k_r:k(y)]$, then for every
+$z\in k$,
+\[
+ \bigl(P^{\mathrm{rev}}(z)\bigr)^h
+ =N_{k_r/k}(1-zy).
+\]
+It follows from the reverse characteristic polynomial
+$\det(1-Xm_y)$; hence it remains valid at every zero of either side and
+introduces no sign.  Multiplying over the powers of $\zeta$ and using
+$\prod_j(1-\zeta^jy)=1-y^\ell$ proves the displayed formula for $B_r$.
+Minimal-polynomial fibers have their exact degree as cardinality, so the
+factor $d$ and exponent $r/d$ in the closed-point definition are both
+preserved.
+
+Assume now that $\alpha^\ell\ne1$.  Finite character orthogonality for the
+power map, including its zero fiber, and the signed binary Jacobi lift give
+\[
+ B_r(w)=(-1)^{r-1}
+   \sum_{j=1}^{\ell-1}J(\alpha,\eta^j)^r
+ \qquad(r>0).
+\]
+The integral Newton recurrence supplied by the Euler-product machinery
+then gives
+\[
+ A_{\ell-1}(w)=
+   \prod_{j=1}^{\ell-1}J(\alpha,\eta^j).
+\]
+Comparing the two evaluations of $A_{\ell-1}(w)$ proves the hard Jacobi
+identity
+\[
+ \alpha((\ell:k))^\ell
+ J(\alpha,\ldots,\alpha)
+ =\prod_{j=1}^{\ell-1}J(\alpha,\eta^j).
+\]
+Combining it with the generalized and binary Gauss--Jacobi identities
+proves the ordinary multiplication formula.  The generalized Jacobi sum
+is cancelled only after its nonvanishing follows from
+$G_k(\alpha,\psi)^\ell
+=J(\alpha,\ldots,\alpha)G_k(\alpha^\ell,\psi)$ and the nonvanishing of
+both Gauss sums.
+
+It remains to treat $\alpha^\ell=1$.  The finite character group is cyclic,
+and exact order of $\eta$ parametrizes every solution of
+$\gamma^\ell=1$ as $\eta^i$.  Thus $\alpha=\eta^i$, and cyclic reindexing
+of $j\mapsto i+j$ identifies the two complete Gauss products.  Moreover
+$\alpha(((\ell:k)^{-1})^\ell)=1$ and
+$G_k(\alpha^\ell,\psi)=G_k(1,\psi)=-1$, giving the ordinary formula with
+the correct sign.  This branch contains $\alpha=1$ and all exceptional
+trivial-character factors.
+
+Finally apply the ordinary identity to $\alpha=\chi^{-1}$ and
+$\eta^{-1}$.  Inversion permutes the nonzero powers of $\eta$, and
+\[
+ \tau_k(\theta,\psi)=-G_k(\theta^{-1},\psi),
+ \qquad
+ \chi^{-1}\!\left(((\ell:k)^{-1})^\ell\right)
+ =\chi\!\left((\ell:k)^\ell\right).
+\]
+Each side contains exactly $\ell$ ordinary Gauss sums, so all minus signs
+cancel.  Reindexing the finite products gives precisely the boxed
+Langlands-normalized identity.
+\end{proof}

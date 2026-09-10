@@ -1,0 +1,85 @@
+\begin{theorem}[Prime-degree ramification dichotomy]\label{mod:ramification-primedegreedichotomy}
+Let $K/F$ be a finite valuative extension of nonarchimedean local fields
+equipped with the package from
+\ref{mod:ramification-primecyclicextension}.  Thus $K/F$ is cyclic and
+Galois, and its canonical degree
+\[
+  \ell=\operatorname{finrank}_F K
+\]
+is prime.  Write
+\[
+ \begin{aligned}
+  e&=e(K/F)=\texttt{ramificationIndex}(F,K),\\
+  f&=f(K/F)=\texttt{residueDegree}(F,K),\\
+  p&=\operatorname{char}k_F=\texttt{residueCharacteristic}(F).
+ \end{aligned}
+\]
+Lean uses the standard divisibility definitions
+\[
+ \texttt{IsTamelyRamified}(F,K)\iff p\nmid e,
+ \qquad
+ \texttt{IsWildlyRamified}(F,K)\iff p\mid e.
+\]
+In particular the tame convention includes the unramified case.
+
+The canonical local-field identity $\ell=ef$ and primality of $\ell$
+give
+\[
+  e=1\quad\text{or}\quad f=1.
+\]
+For finite extensions of local fields these are respectively the
+unramified and totally ramified alternatives.  Hence if the extension is
+ramified, in the precise sense $e\ne1$, then $f=1$.
+
+Tame and wild ramification are complementary and exhaustive.  In the
+wild branch, $p\mid e$ and $e\mid ef=\ell$, so $p\mid\ell$.  Both $p$ and
+$\ell$ are prime, and therefore
+\[
+  p=\ell.
+\]
+Finally primality also gives the exhaustive split
+\[
+  \ell=2\quad\text{or}\quad \ell\text{ is odd}.
+\]
+
+Besides the individual implications, Lean exports the combined ramified
+classification
+\[
+ f=1\quad\text{and}\quad
+ \left(
+   \begin{array}{l}
+   K/F\text{ is tame and }(\ell=2\text{ or }\ell\text{ is odd}),\\
+   \text{or}\\
+   K/F\text{ is wild, }p=\ell,\text{ and }
+     (\ell=2\text{ or }\ell\text{ is odd}),
+   \end{array}
+ \right)
+\]
+under the sole additional premise $e\ne1$.  The fully exhaustive dispatch
+form is the disjunction of $e=1$ with that ramified classification.  No
+ramification conclusion is added to the prime-cyclic structure or assumed
+as a separate hypothesis.  This is exactly the case organization used in
+the proof of Theorem~\ref{thm:first-main} in
+\ref{sec:first-main-completion}.
+\LeanFile{LanglandsFirstMainLemma/Ramification/PrimeDegreeDichotomy.lean}
+\lean{LanglandsFirstMainLemma.IsTamelyRamified}
+\lean{LanglandsFirstMainLemma.IsWildlyRamified}
+\lean{LanglandsFirstMainLemma.unramified_or_totallyRamified}
+\lean{LanglandsFirstMainLemma.totallyRamified_of_ramified}
+\lean{LanglandsFirstMainLemma.isTamelyRamified_or_isWildlyRamified}
+\lean{LanglandsFirstMainLemma.residueCharacteristic_eq_degree_of_isWildlyRamified}
+\lean{LanglandsFirstMainLemma.degree_eq_two_or_odd}
+\lean{LanglandsFirstMainLemma.ramified_primeDegree_classification}
+\lean{LanglandsFirstMainLemma.primeDegree_ramification_classification}
+\leanok
+\SourceText{The proof of Theorem~\ref{thm:first-main}, especially
+Section~\ref{sec:first-main-completion}.}
+\uses{mod:ramification-primecyclicextension}
+\FormalizationContract The extension invariants and residue
+characteristic are the canonical quantities already supplied by the
+extension and prime-cyclic APIs.  Unramified means $e=1$, totally ramified
+means $f=1$, tame means $p\nmid e$, and wild means $p\mid e$.  Every
+classification conclusion is derived from $\ell=ef$, primality of
+$\ell$ and $p$, and elementary divisibility; none is stored in a structure
+or introduced as a theorem hypothesis.
+\end{theorem}

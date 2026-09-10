@@ -1,0 +1,1041 @@
+\begin{definition}[Exact reduction to residual phases]
+\label{mod:parameters-phasereduction}
+Let $m=a(\chi_F)$ and $T=t+1$.  The phase-reduction interface uses the
+disjoint assembly convention
+\[
+  m\leq T\quad\text{(low)},
+  \qquad
+  T<m\quad\text{(high)}.
+\]
+In particular $m=T$ belongs to the low branch.  Lean proves that every
+pair $(t,m)$ belongs to exactly one of these branches and forwards the
+complete high- and low-parameter tables without weakening their dependent
+hypotheses.
+
+For a stationary decomposition
+\[
+  a(\chi)=2d+\varepsilon,
+  \qquad \varepsilon\leq1,
+\]
+an input representative is a pair consisting of
+\[
+  c\in\mathcal O_E,
+  \qquad
+  [c]=\operatorname{StCoeff}_E(\chi,\psi;\gamma)
+       \quad\text{in }\mathcal O_E/\mathfrak p_E^d.
+\]
+This is a quotient-class package, not a choice of a canonical element of
+$E$.  Two supplied packages for the same class are proved congruent exactly
+modulo $\mathfrak p_E^d$.  The exact norm representatives $\alpha=N(\alpha_1)$
+and $\beta=N(\beta_1)$ from the low table are converted to such packages
+only through the representatives already supplied by that table.
+
+The parity-indexed critical-coordinate type has no field datum in even
+conductor.  In odd conductor it contains precisely a supplied
+$\delta\in E^\times$ satisfying $v_E(\delta)=d$.  Combining such a coordinate
+with a supplied stationary quotient representative inserts the literal
+stationary numerator class into the corresponding even or odd branch of
+Lamprecht's formula.  No stationary package exists at conductors zero or
+one.
+
+Lean fixes one residual-coordinate source from the uniformizer $\varpi_K$
+already supplied to the parameter tables and puts
+$\varpi_F=N_{K/F}(\varpi_K)$.  Residue degree one proves that both have
+valuation one.  At depth $r$ the source coordinates are
+\[
+ c_K(r)=\varpi_K^r,
+ \qquad c_F(r)=\varpi_F^r=N_{K/F}\bigl(c_K(r)\bigr).
+\]
+The parity dispatcher contains no field coordinate in the even case and
+uses exactly the corresponding source coordinate at the actual depth in the
+odd case.  Residue degree one also upgrades the canonical extension residue
+map to a ring equivalence $k_F\simeq k_K$; no independent residue-field
+identification is selected.
+
+Lean also defines a quotient-correct residual-class normalizer.  An element
+$y\in\mathfrak p_E^r$ is divided by the $r$th power of the fixed source
+uniformizer only as an element of the integral lattice and is then reduced
+modulo $\mathfrak p_E$; no representative of a stationary quotient is
+chosen.  Equality modulo $\mathfrak p_E^{r+1}$ gives equality of these
+classes.  Applied to the actual norm polynomial
+$P(x)=N_{K/F}(1+x)-1$, the Low table gives the base class $z^p$ in the
+natural upper coordinate, the boundary norm-row class
+$\overline{N(u)}z^p$, and a zero norm-row class in the strict-low range.
+In the strict-high range both the base and norm-row values lie one step
+beyond their genuine post-drop critical depths, so both residual classes
+are zero.  The depth statements are proved for arbitrary upper elements of
+the required order and are then specialized to the literal source-coordinate
+Teichm\"uller lift; no second upper representative is identified with it.
+
+For every actual local Lamprecht package $L$, Lean exposes the complete
+residual function itself: it is the constant-one parity convention in even
+conductor and the quotient-representative-derived Lamprecht Hasse function
+in odd conductor.  Relative to a supplied nontrivial residual additive
+character, its polar coefficient $A$ and, in odd residue characteristic,
+its affine coefficient $B$ are extracted from that same function.  Lean
+proves
+\[
+ \Phi_L(x)=\psi_0(Ax^2/2+Bx)
+\]
+and identifies the previously used critical factor with the phase of the
+finite sum of $\Phi_L$.  A source-tied-row constructor applies an actual
+High or Low row constructor to the coordinate forced by the common source
+and exports both this complete function and its finite-sum phase.
+
+If a selected odd critical coordinate $c$ has the same exact order as the
+source coordinate $c_0$, Lean derives the integral unit $u_c=c/c_0$ and its
+residue $\lambda$.  In the source-to-selected direction it proves
+\[
+ \Phi_c(x)=\Phi_{c_0}(\lambda x),
+ \qquad A_c=\lambda^2A_{c_0},
+ \qquad B_c=\lambda B_{c_0}.
+\]
+For two supplied representatives $\beta,\beta'$ of the same stationary
+quotient class at the actual depth, it proves, with the displayed positive
+orientations,
+\[
+ \Phi_{\beta'}(x)=\Phi_\beta(x)\psi_0(\Delta Bx),
+ \qquad B_{\beta'}=B_\beta+A a.
+\]
+This function-level statement accompanies the existing transport of the
+elementary factor and Hasse phase together.  Lean also proves reusable
+complete-function identities for a literal sum representative of a product
+character, for a secondary character already linearized on the common
+critical line, and for a literal scalar multiple representing a character
+power.  These are transport identities, not the residual coefficient table.
+
+At the field-character level Lean keeps the exact polynomial
+\[
+ P(y)=N_{K/F}(1+y)-1,
+ \qquad H(y)=P(y)-\operatorname{Tr}_{K/F}(y).
+\]
+From $N(u)=n$ it proves, before any residual coefficient calculation, the
+complete identity
+\[
+ \Phi_K(x)=\Phi_\chi(P(x))\,\Phi_\tau(P(ux))^{-1}
+   \psi_F\!\left(\mathcal A\bigl(H(ux)-nH(x)\bigr)\right),
+\]
+with each displayed function evaluated through its actual stationary
+numerator-to-denominator ratio and with the norm character killed only on
+the literal norm of $1+ux$.  The High and Low specializations derive the
+three ratios $\mathcal A$, $\mathcal A n$, and
+$\mathcal A(n-u)$ from their real table representatives, including the Low
+$\varepsilon_1$ correction.  This is an equality of complete functions;
+it neither asserts nor uses the downstream coefficient table.
+
+For a residue-field equivalence $e:k\simeq l$, Lean defines the reindexed
+complete function by
+\[
+ (e_*\Phi)(y)=\Phi(e^{-1}y).
+\]
+It proves that the coefficient pair becomes $(eA,eB)$ and that the complete
+finite sum and its phase are unchanged.  The canonical upper-to-lower
+transport therefore evaluates the upper function at $e(x)$ and applies
+$e^{-1}$ to both coefficients.  The displayed upper coordinate then
+precomposes this lower-field function by inverse Frobenius.  If
+$\operatorname{Fr}(x)=x^p$, Lean proves
+\[
+ \Phi^{\mathrm{disp}}(z)=
+   \Phi\bigl(\operatorname{Fr}^{-1}z\bigr),
+ \qquad (A,B)\longmapsto(A^p,B^p),
+\]
+where the affine statement has the stated odd-characteristic hypothesis;
+the complete sum and phase are again unchanged.  The combined source-tied
+displayed upper function consequently has coefficient pair
+$((e^{-1}A)^p,(e^{-1}B)^p)$.  These reindexing declarations fix the
+Frobenius direction and introduce no additional rowwise scaling scalar.
+
+For the actual upper row, the residual additive-character datum stores one
+nontrivial lower character $\psi_0$ together with its proved Frobenius
+invariance.  Its upper character is derived, not supplied independently, by
+pulling $\psi_0$ through the inverse of the canonical residue equivalence.
+Lean proves both the compatibility
+\[
+ \psi_{0,K}(e(x))=\psi_0(x)
+\]
+and nontriviality of this derived upper character.  Consequently an actual
+upper Lamprecht package $L_K$ has a displayed complete function in the lower
+residue coordinate with the exact value
+\[
+ \Phi^{\mathrm{disp}}_{L_K}(x)=
+ \Phi_{L_K}\!\left(e\bigl(\operatorname{Fr}^{-1}x\bigr)\right).
+\]
+Lean proves equality of its finite sum and phase with those of the original
+actual upper function.  Its polar coefficient is
+$\bigl(e^{-1}A_K\bigr)^p$, and under the odd-characteristic hypotheses its
+affine coefficient is $\bigl(e^{-1}B_K\bigr)^p$.  Thus the additive
+character, residue equivalence, complete function, and coefficient
+directions in the common displayed coordinate are all derived from the
+actual row data.  The named High and Low coefficient wrappers accept this
+one lower character datum: their upper character is its derived pullback and
+every lower norm, base, and twist wrapper uses its lower character.  Thus
+those wrappers cannot be instantiated with independently rescaled upper and
+lower residual-character coordinates.
+
+In the stable high row for odd prime degree, an explicitly supplied
+downstairs quotient representative $c$ is sent upstairs as the literal field element
+$\iota_{F\to K}(c)$.  The existential depth assertion in the proposition-valued
+high table is eliminated only to prove that this element represents the
+upstairs quotient class; it is not used to select an element.  Lean packages
+the downstairs and upstairs Lamprecht phases with their separate actual
+conductors, depths, and critical coordinates, without identifying the two
+quotient types or asserting that their critical phases agree.
+
+The other high-product adapters likewise use the exact quotient
+representatives of the high table.  In the odd non-stable branch they insert
+the upstairs class and every indexed twist class at the decomposition carried
+by that twist.  One coherent source is obtained by destructuring the
+intermediate-high parameter theorem once: its norm rows and product rows have
+literally the same supplied $\alpha$ and $\alpha_1$.  From that source every
+nonidentity norm-character row is constructed at conductor $t+1$: its
+denominator is exactly $\gamma_F/N_{K/F}(\alpha_1)$, and its representative
+is the corresponding nonzero Teichm\"uller scalar in the stationary
+coefficient quotient at depth $\lfloor(t+1)/2\rfloor$.  The selected-$\alpha$
+linearization and the proved norm order justify this exact-norm replacement;
+Lean does not invent an equality $\alpha=N_{K/F}(\alpha_1)$.
+
+For these High norm rows Lean also retains the distinction between the
+table's Teichm\"uller representative $[j]$ and the literal natural multiple
+$j$.  At the actual dropped conductor $t+1$ and depth
+$\lfloor(t+1)/2\rfloor$, it proves separately that $1$, $j$, and $[j]$
+represent the generator, literal powered, and actual indexed stationary
+classes for the denominator $\gamma_F/N(\alpha_1)$.  The named
+\texttt{highSourceNormFunction} is proved to be the complete function of
+the actual $[j]$ row.  Lean then constructs the exact representative-change
+datum from the literal $j$ row to the actual $[j]$ row, proves
+\[
+ \Phi_{[j]}(X)=\Phi_j(X)\psi_0(\Delta B_jX),
+\]
+and proves that their polar coefficients agree.  Finally it proves
+$\Phi_j(X)=\Phi_1(X)^j$ for the literal rows.  Thus the High power law is
+not obtained by identifying $[j]$ with $j$, and the affine translation is
+not discarded.
+
+For a twist index $j$, the exact-norm representative supplied by the product
+table is congruent at its actual stationary depth to the linear value
+\[
+  c_j^{\mathrm{lin}}=N(\beta_1)+[j]N(\alpha_1)
+    =N(\alpha_1)(n+[j]),
+  \qquad n=N(\beta_1/\alpha_1).
+\]
+Lean therefore builds a second quotient representative from this literal
+linear value.  In odd conductor this replacement is inserted into the
+complete Lamprecht package, so the elementary value and its translated Hasse
+phase travel together.
+
+In the wild quadratic branch the adapters insert the upstairs, base,
+nontrivial norm-character, and twist classes from one simultaneous
+high-product choice;
+the norm-character row uses the literal representative $1$ at conductor
+$t+1$ with the changed denominator supplied by the table.  The public high
+non-stable adapters require the strict assembly inequality $t+1<m$.  The selected
+nontrivial-twist representative retains the exact correction
+\[
+  \beta+N_{K/F}(\alpha_1)\delta_h,
+  \qquad \delta_h\in U_F^t;
+\]
+$\delta_h$ is not replaced by one.  The public high-table adapters return
+these phase packages together from the same existential choice.
+
+For the low table, the base and norm-character-generator packages use the
+explicitly supplied $\beta$ and $\alpha$.  For every nonzero cyclic index
+$j$, Lean proves that the Teichmüller multiple $[j]\alpha$ represents the
+stationary class of $\tau^j$ at conductor $t+1$ and the exact critical
+half-depth, and inserts that class into Lamprecht's formula.  The upstairs representative and
+each nonzero twist representative occur under existential fields of a
+proposition-valued table, so Lean returns only
+\texttt{Nonempty} phase packages and never eliminates those witnesses into
+a canonical Type-valued choice.  Every nonzero twist uses the newly proved
+conductor-$T$ decomposition and the actual depth $\lfloor T/2\rfloor$; the
+identity row retains its conductor $m$.
+
+In the quadratic low branch the nonidentity norm row is also exposed in the
+manuscript normalization
+\[
+  (\delta,\alpha)\longmapsto(\delta/\alpha,1).
+\]
+The representative $1$ is proved to represent the changed-denominator class;
+it is not selected from a quotient.  Its inverse multiplicative elementary
+factor is literally $1$, its positive additive argument is
+$1/(\delta/\alpha)=\alpha/\delta$, and its complete Lamprecht factor equals
+the factor for the original pair.  The equality $\tau(\alpha)=1$ is derived
+from the table's exact norm witness $\alpha=N(\alpha_1)$.
+
+Lean proves that proof-bearing additive-character data are determined by
+their underlying character, and transports a stationary Lamprecht package
+only along equalities of the underlying multiplicative and additive
+characters.  This transport changes neither the stationary quotient
+representative nor its denominator, conductor, depth, critical coordinate,
+or admissible factor.  Consequently every high- and low-table upstairs
+adapter has the exact computational target, and the table-backed records
+identify it with the upstairs row of $D$ by ordinary equality, never by
+heterogeneous equality.
+
+For a stationary local package $L$, write
+\[
+ A(L)=\chi(\gamma),\qquad
+ M_+(L)=\text{its positive additive value},\qquad
+ M_\times(L)=\text{its inverse multiplicative-character value},
+\]
+so that $M(L)=M_+(L)M_\times(L)$, and write
+\[
+ H(L)=\begin{cases}
+  1,&a(\chi)\text{ even},\\
+  \text{the Lamprecht Hasse-sum phase},&a(\chi)\text{ odd}.
+ \end{cases}
+\]
+Lean proves the exact factorization
+\[
+  \Delta_{\mathrm{fin}}(\chi,\psi)
+   =A(L)M(L)H(L).
+\]
+At endpoint conductors the local sum is retained literally and no
+stationary class is manufactured.  In even conductor the elementary factor
+is independent of the supplied representative at depth $d$.  In odd
+conductor Lean transports the elementary value and the translated Hasse
+phase together and proves independence only for their product.  It also
+exports the explicit translation statement; neither member is discarded in
+isolation.  In both parities the complete local Lamprecht factor is then
+proved independent of the representative, using that paired odd result.
+The additive and inverse-character halves of the elementary factor are
+exposed separately, but no representative-independence claim separates them
+from the translated Hasse factor in odd conductor.
+
+Let $D$ contain the local phase package upstairs and the local packages for
+every norm character $\mu$ and every twist $\mu\chi_F$.  Lean separates the
+error term into four oriented quotients
+\[
+ \begin{aligned}
+ E(D)&=
+ \frac{E_K\prod_\mu E_\mu}{\prod_\mu E_{\mu\chi_F}},&
+ A(D)&=
+ \frac{A_K\prod_\mu A_\mu}{\prod_\mu A_{\mu\chi_F}},\\
+ M(D)&=
+ \frac{M_K\prod_\mu M_\mu}{\prod_\mu M_{\mu\chi_F}},&
+ H(D)&=
+ \frac{H_K\prod_\mu H_\mu}{\prod_\mu H_{\mu\chi_F}}.
+ \end{aligned}
+\]
+Here $E_*$ denotes the literal endpoint factor and the other symbols have
+the meanings above.  Every denominator is proved nonzero.  Expanding only
+the already-proved definition of the error term gives
+\[
+  \operatorname{Err}_{K/F}(\chi_F)=E(D)A(D)M(D)H(D).
+\]
+The result also forwards the already-proved invariance under multiplication
+of $\chi_F$ by a norm character.  It nowhere assumes that this error term is
+one.  Lean further splits the elementary quotient, with its orientation
+unchanged, as
+\[
+ M(D)=M_+(D)M_\times(D),\qquad
+ M_+(D)=\frac{M_{+,K}\prod_\mu M_{+,\mu}}
+                  {\prod_\mu M_{+,\mu\chi_F}},\qquad
+ M_\times(D)=\frac{M_{\times,K}\prod_\mu M_{\times,\mu}}
+                  {\prod_\mu M_{\times,\mu\chi_F}}.
+\]
+
+For odd prime degree, the exact assembly record is tied to the computational
+base datum and carries an equivalence
+$\{\ast\}\sqcup I\simeq S(K/F)$ sending $\ast$ to the identity.  Thus $I$
+enumerates every nonidentity norm character exactly once, and each indexed
+norm row is an actual stationary package in $D$.  Its cancellable raw
+endpoint and admissible numerators and denominators are separately identified
+with common nonzero factors.  Its elementary numerator is a common nonzero
+factor and its elementary denominator is
+\[
+ \left[
+  \psi_F\!\left(A\operatorname{Tr}_{K/F}(u)\right)
+  \chi_F(z_0)\prod_i\tau_i(z_i)
+ \right]
+ \times\text{that common factor}.
+\]
+Consequently, without cancelling the residual critical phase,
+\[
+ \operatorname{Err}_{K/F}(\chi_F)
+ =H(D)
+ \left[
+  \psi_F\!\left(A\operatorname{Tr}_{K/F}(u)\right)
+  \chi_F(z_0)\prod_i\tau_i(z_i)
+ \right]^{-1}.
+\]
+The record retains the exact norm identity $N(u)=n$, the explicit scalar
+lift attached to each norm-character index, and
+\[
+ X=\operatorname{Tr}_{K/F}(u)+n(z_0-1)
+      +\sum_i [i](z_i-1).
+\]
+If the two pointwise linearizations
+\[
+ \chi_F(z_0)=\psi_F\bigl(An(z_0-1)\bigr),
+ \qquad
+ \tau_i(z_i)=\psi_F\bigl(A[i](z_i-1)\bigr),
+\]
+are supplied as separate hypotheses, Lean derives the second exact
+orientation
+\[
+ \operatorname{Err}_{K/F}(\chi_F)=H(D)\psi_F(-AX).
+\]
+This is the formal content corresponding to the exact odd assembly; no
+finite-field cancellation of $H(D)$ is performed.
+
+For a prime cyclic extension Lean also exports the concrete index type
+\[
+ I=\{j\in\mathbf Z/[K:F]\mathbf Z:j\ne0\}
+\]
+and constructs the displayed option equivalence from the ramified
+norm-character equivalence.  The scalar in the correction sum is fixed to
+the literal Teichm\"uller lift $[j]$; it is not an arbitrary field-valued
+input.  More precisely, the manuscript correction units are definitions
+\[
+ z_0=\frac{N(n-u)}{\prod_{k\in\mathbf Z/[K:F]\mathbf Z}(n+[k])},
+ \qquad
+ z_j=\frac{N(u+[j])}{n+[j]}\quad(j\ne0).
+\]
+The corresponding Lean record contains only $N(u)=n$ and the nonvanishing
+facts needed to bundle these literal ratios as units.  It has no fields for
+arbitrary replacement values of $z_0$ or $z_j$.  For $j\ne0$, the selected
+norm-row to twist-row ratio is not $z_j$.  In the coherent high source it is
+\[
+ N_{K/F}\!\left(\alpha_1\frac{u+[j]}{[j]}\right)^{-1}z_j,
+\]
+and in the low source it is
+\[
+ N_{K/F}\!\left(\frac{u+[j]}{[j]}\right)^{-1}z_j.
+\]
+Only after applying the actual indexed norm character does Lean use
+triviality on norms and obtain
+\[
+ \tau^j(z_j)=\tau^j(\text{selected row ratio}).
+\]
+The zero index is separate: its full product denominator, nonvanishing
+statement, and selected-row identity belong to $z_0$, and no nonidentity
+character bridge is asserted for $j=0$.
+
+The named high source rows are the actual upstairs row, every nonidentity
+norm row at its post-drop conductor and depth, and every twist row, including
+$j=0$, at its genuine base conductor.  Their phase packages and complete
+residual functions are definitions from one coherent source.  The high odd
+constructor selected by the public table-backed API accepts those named
+extension, norm, and twist phases and only the following correction input:
+the literal
+correction-unit package above,
+$X$ with its displayed defining equality, and the separate pointwise
+$\chi_F$ and indexed norm-character linearizations.  From the source and
+actual rows Lean internally derives the raw additive identity, the selected
+$z_0$ identity, every retained row-ratio identity, and both aggregate
+elementary product identities.  Neither those identities nor a previously
+assembled result are caller inputs.
+
+When the high base conductor is odd, Lean proves from the actual selected
+$\alpha_1$ linearization that every indexed high twist function is pointwise
+equal to the actual zero-index/base function in the common lower source
+coordinate.  The proof first identifies the literal representatives
+$N(\beta_1)+[j]N(\alpha_1)$ and transports the indexed norm character and
+its additive linearization together.  No equality of independently supplied
+functions is assumed.
+
+The named low source rows are the actual upstairs row, the separate $j=0$
+base row at its own conductor, and every nonidentity norm and twist row at
+the newly constructed conductor $t+1$ and its actual depth.  The selected
+low odd constructor requires the explicit odd degree hypothesis, the
+supplied low pair, the existential upstairs and nonzero-twist witnesses,
+their named phase-row equalities, and the same minimal correction input.  It
+internally derives all raw and aggregate row algebra from those witnesses.
+Both constructors select the strict-high or inclusive-low range
+definitionally and derive the endpoint quotient $1$, including the trivial
+norm-character local constant.  Their preferred result eliminators contain
+no independently supplied upper, base, norm-row, or twist-row critical
+coordinates.
+
+Lean further proves the complete lower-function identities forced by those
+literal rows.  In the strict-low range, where the base character is already
+linearized on the deeper line, this holds at either permitted conductor
+parity (both functions are the literal constant-one Lamprecht function in
+the even case):
+\[
+  \Phi_{\tau^j\chi_F}(X)=\Phi_{\tau^j}(X)
+  \qquad(j\ne0).
+\]
+At the boundary conductor, where the two actual characters have the same
+conductor and the selected twist representative is their literal stationary
+sum, it proves at either permitted parity
+\[
+  \Phi_{\tau^j\chi_F}(X)
+    =\Phi_{\tau^j}(X)\Phi_{\chi_F}(X).
+\]
+Both statements use the common lower source coordinate and the actual
+High/Low character data; neither equality is supplied as an input.
+
+The constant-one convention is also proved directly for every actual row
+whose relevant conductor parity is even.  This includes the Low base, norm,
+twist, upstairs, and displayed-upstairs functions, and the High norm, twist,
+upstairs, and displayed-upstairs functions.  Consequently the equality of
+all High twist functions with the zero-index/base function is exported at
+both parities, rather than only under an odd-conductor hypothesis.
+
+For the odd Low base conductor Lean proves the full displayed-upper
+critical-function transport, not only its phase or its polynomial residual
+class.  Put
+\[
+ z=\operatorname{Fr}^{-1}(X),\qquad
+ x=\varpi_K^d\,\iota([z]),\qquad
+ P(y)=N(1+y)-1,\qquad H(y)=P(y)-\operatorname{Tr}(y),
+\]
+and let $u$ and $n=N(u)$ be the literal Low normalized ratio and norm.  The
+upper unit occurring in the statement is required to have underlying field
+value $1+ux$, so it is not an independent residual coordinate.  In the
+strict Low range Lean proves
+\[
+ \Phi_K^{\mathrm{disp}}(X)=
+ \Phi_{\chi_F}(X)\,\Phi_\tau(0)^{-1}
+ \psi_F\!\left(\mathcal A\bigl(H(ux)-nH(x)\bigr)\right).
+\]
+At the boundary it proves first, in the actual quotient at depth $d$, that
+the norm polynomial has class
+\[
+ [P(ux)]=\overline{N(u)}\,X,
+\]
+and then proves
+\[
+ \Phi_K^{\mathrm{disp}}(X)=
+ \Phi_{\chi_F}(X)\,
+ \Phi_\tau\!\left(\overline{N(u)}X\right)^{-1}
+ \psi_F\!\left(\mathcal A\bigl(H(ux)-nH(x)\bigr)\right).
+\]
+Here $\Phi_\tau$ is the actual index-one norm-row function at conductor
+$t+1$ and depth $\lfloor(t+1)/2\rfloor$.  The inverse orientation is
+literal.  The proof evaluates the actual stationary quotient
+representatives, proves the upper and lower source reductions, and retains
+the exact higher-norm correction; it does not invoke the residual coefficient
+table.
+
+For the Low norm rows, the actual representative is the literal
+Teichm\"uller multiple $[j]\alpha$.  Lean proves its stationary quotient
+class is the class of the actual powered norm character at conductor $T$,
+and proves pointwise that the named \texttt{lowSourceNormFunction} is the
+complete function of this same actual Teichm\"uller phase.  Thus the named
+source row is connected directly to the representative-transport package;
+it cannot be replaced by an independently chosen function.
+It separately constructs the natural integer-multiple representative
+$j\alpha$, proves that its complete critical function is the $j$th power of
+the fixed generator function, and gives the exact source-to-selected
+representative translation from $j\alpha$ to $[j]\alpha$.  The exposed
+translation coefficient is definitionally the critical affine translation
+of the exact stationary representative difference; the polar coefficient
+is unchanged while the complete function acquires the corresponding affine
+character factor.  Thus the Teichm\"uller row is not silently identified
+with the literal power row.
+
+For the wild quadratic assembly, an equivalence
+$\{0,1\}\simeq S(K/F)$ identifies the identity and nontrivial norm
+characters.  Lean derives from the computational character equality that
+the identity norm-character package is literally an endpoint, so its
+critical factor is one without introducing a
+stationary class.  Lean thereby derives the actual residual quotient
+\[
+ H_2(D)=
+ \frac{H_K\,H_\tau}{H_{\chi_F}\,H_{\tau\chi_F}}
+\]
+from the four local packages themselves and proves its denominator nonzero.
+The essential unit correction is retained in the selected twist numerator
+\[
+ c_{\tau\chi}=c_\chi+A_0\delta_h,
+ \qquad \delta_h\in U_F^t.
+\]
+The high-backed assembly additionally ties the upper, base, nontrivial norm,
+and nontrivial twist phase packages to one simultaneous high-table source.
+It identifies $\delta_h$, $A_0$, both selected numerators, $u$, and $n$ with
+that source and records $N(u)=n$.
+Before characters are evaluated, the only quadratic coordinate input is the
+raw ratio package
+\[
+ z_0=\frac{N(n-u)}{n(1+n)},
+ \qquad
+ z_1=\frac{N(1+u)}{1+n},
+ \qquad 1+n\ne0,
+\]
+together with $z_0=1+x$ and $z_1=1+y$.  These are field identities, not
+character identities.  For both the high source and the low simultaneous
+table, Lean expands the positive-additive and inverse-multiplicative products
+as the four actual stationary rows and proves the aggregate elementary
+numerator identities from those rows and the displayed raw ratios.  The
+preferred constructors therefore do not take those aggregate identities as
+hypotheses.
+
+After separately cancelling only proved common nonzero endpoint, admissible,
+and elementary scalar factors, Lean proves the raw complete assembly
+\[
+ \operatorname{Err}_{K/F}(\chi_F)=
+ H_2(D)\,\psi_F(-As)\,\chi_F(z_0)^{-1}\tau(z_1)^{-1},
+ \qquad s=\operatorname{Tr}_{K/F}(u).
+\]
+The data also retains $N(u)=n$, $z_0=1+x$, $z_1=1+y$, and
+$X=s+nx+y$.  For such an assembly $A$, Lean defines
+\[
+ u^\vee=-\iota_{F\to K}(n)/u.
+\]
+A separate complete-correction record retains the exact denominator and
+ratio identities
+\[
+ 1+n\ne0,\qquad
+ z_0=\frac{N(1+u^\vee)}{1+n},\qquad
+ z_1=\frac{N(1+u)}{1+n},
+\]
+together with the two pointwise linearizations
+\[
+ \chi_F(z_0)=\psi_F(Anx),\qquad
+ \tau(z_1)=\psi_F(Ay).
+\]
+The two linearizations remain explicit hypotheses of this correction record.
+Using only them and $X=s+nx+y$, Lean proves
+\[
+ \operatorname{Err}_{K/F}(\chi_F)=H_2(D)\psi_F(-AX).
+\]
+The $Q$-backed specialization derives $1+n\ne0$ from the high table's
+denominator theorem via the sourced value of $n$.  In the low specialization
+the same nonvanishing is derived from the selected index-one twist
+representative at its actual conductor.  The two complete ratios and two
+linearizations remain explicit fields in either specialization.  The low
+nonidentity norm row uses the normalized pair $(\delta/\alpha,1)$ above, so
+its multiplicative factor is exactly one while its complete local factor is
+unchanged.  The four critical factors, and hence $H_2(D)$, remain unevaluated:
+no quadratic refinement,
+Ramified-Hasse comparison, error formula, or finite-field phase cancellation
+is used here.
+
+The public result is a Type-valued structured record.  It contains the exact
+High/Low dispatch, the supplied-representative API (including the stable high
+compatible pair), the local Lamprecht API, the global four-factor error
+decomposition and twist invariance, and the structured odd and quadratic
+assembly results.  A separate table-backed API stores dependent eliminators
+for the high and low odd results and the high and low quadratic complete
+results.  Its odd fields use the source-coordinate eliminators just
+described, so an arbitrary independent rescaling of the upper, base, norm,
+or twist residual functions is incompatible with that structured API.
+Their full dependent types retain all source tables, witnesses, conductors,
+representatives, and correction data.  Lean does not prove here the explicit
+$\eta_0,d_0,\gamma_0,\gamma$ coefficient values of
+\texttt{prop:odd-coefficient-table}, nor any downstream finite-field phase
+cancellation.
+
+Lean separately exports the canonical coordinate source and norm
+compatibility, the canonical residue equivalence, and the quadratic,
+representative, selected-coordinate, and residue-reindex transports.  A
+structured residual-critical-function API is a proposition-valued proof
+certificate about those fixed public definitions.  Its fields are only
+theorems: applications of the named actual High and Low source-tied critical
+functions, source-coordinate and representative transports, actual
+stationary-ratio transports, the strict and boundary displayed-upper
+identities above, quotient-class compatibilities, parity-complete actual-row
+identities, and the two raw-row-ratio character bridges.  It has no function-, coordinate-,
+coefficient-, or ratio-valued choice field.  In particular it cannot be
+inhabited by replacing the fixed upper, base, norm, or twist functions by
+independently rescaled alternatives.  This proof certificate is a field of
+the public phase-reduction result, and its concrete proof is built from the
+declarations above.
+
+\LeanFile{LanglandsFirstMainLemma/Parameters/PhaseReduction.lean}
+\LeanFile{LanglandsFirstMainLemma/Parameters/PhaseReduction/Range.lean}
+\LeanFile{LanglandsFirstMainLemma/Parameters/PhaseReduction/StationaryData.lean}
+\LeanFile{LanglandsFirstMainLemma/Parameters/PhaseReduction/ResidualCoordinates.lean}
+\LeanFile{LanglandsFirstMainLemma/Parameters/PhaseReduction/ResidualTransport.lean}
+\LeanFile{LanglandsFirstMainLemma/Parameters/PhaseReduction/ParameterTablePhases.lean}
+\LeanFile{LanglandsFirstMainLemma/Parameters/PhaseReduction/FirstMainFactors.lean}
+\LeanFile{LanglandsFirstMainLemma/Parameters/PhaseReduction/FactorSeparation.lean}
+\LeanFile{LanglandsFirstMainLemma/Parameters/PhaseReduction/Odd/Core.lean}
+\LeanFile{LanglandsFirstMainLemma/Parameters/PhaseReduction/Odd/AssemblyInputs.lean}
+\LeanFile{LanglandsFirstMainLemma/Parameters/PhaseReduction/Odd/ResidualRowCore.lean}
+\LeanFile{LanglandsFirstMainLemma/Parameters/PhaseReduction/Odd/HighAssembly.lean}
+\LeanFile{LanglandsFirstMainLemma/Parameters/PhaseReduction/Odd/HighResidualRows.lean}
+\LeanFile{LanglandsFirstMainLemma/Parameters/PhaseReduction/Odd/LowAssembly.lean}
+\LeanFile{LanglandsFirstMainLemma/Parameters/PhaseReduction/Odd/LowResidualRows.lean}
+\LeanFile{LanglandsFirstMainLemma/Parameters/PhaseReduction/Odd/HighNormLiteralTransport.lean}
+\LeanFile{LanglandsFirstMainLemma/Parameters/PhaseReduction/Quadratic/Core.lean}
+\LeanFile{LanglandsFirstMainLemma/Parameters/PhaseReduction/Quadratic/HighProvenance.lean}
+\LeanFile{LanglandsFirstMainLemma/Parameters/PhaseReduction/Quadratic/LowProvenance.lean}
+\lean{LanglandsFirstMainLemma.PhaseParameterRange}
+\lean{LanglandsFirstMainLemma.phaseParameterRange_cases}
+\lean{LanglandsFirstMainLemma.phaseParameterRange_boundary}
+\lean{LanglandsFirstMainLemma.phaseParameterRange_disjoint}
+\lean{LanglandsFirstMainLemma.StationaryClassRepresentative}
+\lean{LanglandsFirstMainLemma.StationaryClassRepresentative.congruentAtCoefficientDepth}
+\lean{LanglandsFirstMainLemma.StationaryClassRepresentative.ofLowAlpha}
+\lean{LanglandsFirstMainLemma.StationaryClassRepresentative.ofLowBeta}
+\lean{LanglandsFirstMainLemma.LocalLamprechtPhaseData}
+\lean{LanglandsFirstMainLemma.LocalLamprechtPhaseData.deltaFinite_eq_completeFactor}
+\lean{LanglandsFirstMainLemma.LocalLamprechtPhaseData.evenStationaryFactor_representative_independent}
+\lean{LanglandsFirstMainLemma.LocalLamprechtPhaseData.oddStationaryFactor_representative_independent}
+\lean{LanglandsFirstMainLemma.LocalLamprechtPhaseData.evenCompleteFactor_representative_independent}
+\lean{LanglandsFirstMainLemma.LocalLamprechtPhaseData.oddCompleteFactor_representative_independent}
+\lean{LanglandsFirstMainLemma.LocalLamprechtPhaseData.oddRepresentative_transport}
+\lean{LanglandsFirstMainLemma.LamprechtCriticalCoordinate}
+\lean{LanglandsFirstMainLemma.phaseReductionUpperUniformizer}
+\lean{LanglandsFirstMainLemma.phaseReductionUpperUniformizer_order}
+\lean{LanglandsFirstMainLemma.phaseReductionLowerUniformizer}
+\lean{LanglandsFirstMainLemma.phaseReductionLowerUniformizer_order}
+\lean{LanglandsFirstMainLemma.phaseReductionSourceCoordinate}
+\lean{LanglandsFirstMainLemma.phaseReductionSourceCoordinate_order}
+\lean{LanglandsFirstMainLemma.phaseReductionSourceTeichmullerLift_order_ge}
+\lean{LanglandsFirstMainLemma.PhaseReductionResidualCoordinateSource}
+\lean{LanglandsFirstMainLemma.phaseReductionResidualCoordinateSource}
+\lean{LanglandsFirstMainLemma.PhaseReductionResidualCoordinateSource.criticalCoordinateOfParity}
+\lean{LanglandsFirstMainLemma.PhaseReductionResidualCoordinateSource.criticalCoordinate}
+\lean{LanglandsFirstMainLemma.PhaseReductionResidualCoordinateSource.upperCriticalCoordinate}
+\lean{LanglandsFirstMainLemma.PhaseReductionResidualCoordinateSource.lowerCriticalCoordinate}
+\lean{LanglandsFirstMainLemma.PhaseReductionResidualCoordinateSource.lowerSourceCoordinate_eq_norm}
+\lean{LanglandsFirstMainLemma.PhaseReductionResidualCoordinateSource.residueEquiv}
+\lean{LanglandsFirstMainLemma.PhaseReductionResidualCoordinateSource.residueEquiv_apply}
+\lean{LanglandsFirstMainLemma.PhaseReductionResidualCoordinateSource.transportUnit}
+\lean{LanglandsFirstMainLemma.PhaseReductionResidualCoordinateSource.transportScalar}
+\lean{LanglandsFirstMainLemma.PhaseReductionResidualCoordinateSource.scaledSourceCoordinate_eq}
+\lean{LanglandsFirstMainLemma.LocalLamprechtPhaseData.criticalFunction}
+\lean{LanglandsFirstMainLemma.LocalLamprechtPhaseData.criticalFunction_zero}
+\lean{LanglandsFirstMainLemma.LocalLamprechtPhaseData.odd_criticalFunction_eq_criticalPolarFunction}
+\lean{LanglandsFirstMainLemma.LocalLamprechtPhaseData.odd_criticalFunction_integral_div_coordinate}
+\lean{LanglandsFirstMainLemma.LocalLamprechtPhaseData.polarCoefficient}
+\lean{LanglandsFirstMainLemma.LocalLamprechtPhaseData.toCriticalPolarFunction}
+\lean{LanglandsFirstMainLemma.LocalLamprechtPhaseData.affineCoefficient}
+\lean{LanglandsFirstMainLemma.LocalLamprechtPhaseData.criticalFunction_eq_quadratic}
+\lean{LanglandsFirstMainLemma.LocalLamprechtPhaseData.criticalFunctionPhase}
+\lean{LanglandsFirstMainLemma.LocalLamprechtPhaseData.sourceTiedRow}
+\lean{LanglandsFirstMainLemma.LocalLamprechtPhaseData.sourceTiedRowFunction}
+\lean{LanglandsFirstMainLemma.LocalLamprechtPhaseData.sourceTiedRowPhase}
+\lean{LanglandsFirstMainLemma.LocalLamprechtPhaseData.sourceTiedRowFunction_apply}
+\lean{LanglandsFirstMainLemma.LocalLamprechtPhaseData.sourceTiedRowPhase_eq}
+\lean{LanglandsFirstMainLemma.LocalLamprechtPhaseData.criticalFactor_eq_criticalFunctionPhase}
+\lean{LanglandsFirstMainLemma.LocalLamprechtPhaseData.criticalFunctionPhase_eq_quadraticPhase}
+\lean{LanglandsFirstMainLemma.LocalLamprechtPhaseData.criticalFactor_eq_quadraticPhase}
+\lean{LanglandsFirstMainLemma.LocalLamprechtPhaseData.odd_toCriticalPolarFunction_eq_criticalPolarData}
+\lean{LanglandsFirstMainLemma.LocalLamprechtPhaseData.odd_criticalFunction_changeRepresentative}
+\lean{LanglandsFirstMainLemma.LocalLamprechtPhaseData.odd_affineCoefficient_changeRepresentative}
+\lean{LanglandsFirstMainLemma.criticalPolarFunction_scaleCoordinate_apply}
+\lean{LanglandsFirstMainLemma.criticalPolarDataAtScaledCoordinate}
+\lean{LanglandsFirstMainLemma.criticalPolarData_scaleCoordinate}
+\lean{LanglandsFirstMainLemma.criticalPolarData_scaleCoordinate_affine}
+\lean{LanglandsFirstMainLemma.criticalCoordinateTransportUnit}
+\lean{LanglandsFirstMainLemma.criticalCoordinateTransportUnit_scale}
+\lean{LanglandsFirstMainLemma.criticalCoordinateTransportScalar}
+\lean{LanglandsFirstMainLemma.criticalPolarFunction_transportCoordinate_apply}
+\lean{LanglandsFirstMainLemma.criticalPolarCoefficient_transportCoordinate}
+\lean{LanglandsFirstMainLemma.criticalPolarData_transportCoordinate_affine}
+\lean{LanglandsFirstMainLemma.phaseReductionNormPolynomial}
+\lean{LanglandsFirstMainLemma.phaseReductionNormHigherPart}
+\lean{LanglandsFirstMainLemma.phaseReductionExactCriticalTransport_characterIdentity}
+\lean{LanglandsFirstMainLemma.phaseReductionExactCriticalTransport_of_stationaryRatios}
+\lean{LanglandsFirstMainLemma.phaseReductionResidualClass}
+\lean{LanglandsFirstMainLemma.phaseReductionResidualClass_eq_of_sub_mem}
+\lean{LanglandsFirstMainLemma.phaseReductionResidualClass_eq_source_of_sub_mem}
+\lean{LanglandsFirstMainLemma.phaseReductionResidualClass_eq_zero_of_mem_succ}
+\lean{LanglandsFirstMainLemma.phaseReductionUpperSourceDisplacement}
+\lean{LanglandsFirstMainLemma.phaseReductionUpperSourceDisplacement_div_mem}
+\lean{LanglandsFirstMainLemma.phaseReductionUpperSourceDisplacement_reduces}
+\lean{LanglandsFirstMainLemma.phaseReductionLowBaseResidualClass}
+\lean{LanglandsFirstMainLemma.phaseReductionLowBoundaryTauPolynomial_congruent}
+\lean{LanglandsFirstMainLemma.phaseReductionLowStrictTauPolynomial_deep}
+\lean{LanglandsFirstMainLemma.phaseReductionLowStrictTauPolynomial_stationaryLayer}
+\lean{LanglandsFirstMainLemma.phaseReductionLowBoundaryTauResidualClass}
+\lean{LanglandsFirstMainLemma.phaseReductionHighClassDepthArithmetic}
+\lean{LanglandsFirstMainLemma.phaseReductionHighBasePolynomial_deep_of_order}
+\lean{LanglandsFirstMainLemma.phaseReductionHighBaseResidualClass_zero}
+\lean{LanglandsFirstMainLemma.phaseReductionHighTauPolynomial_deep_of_order}
+\lean{LanglandsFirstMainLemma.phaseReductionHighTauResidualClass_zero}
+\lean{LanglandsFirstMainLemma.criticalPolarFunction_mul_of_literal_sum}
+\lean{LanglandsFirstMainLemma.criticalPolarFunction_eq_of_linearized_factor}
+\lean{LanglandsFirstMainLemma.criticalPolarFunction_pow_of_literal_nsmul}
+\lean{LanglandsFirstMainLemma.CriticalPolarFunction.reindex}
+\lean{LanglandsFirstMainLemma.CriticalPolarFunction.reindex_apply}
+\lean{LanglandsFirstMainLemma.CriticalPolarFunction.affineCoefficient_reindex}
+\lean{LanglandsFirstMainLemma.CriticalPolarFunction.sum_reindex}
+\lean{LanglandsFirstMainLemma.CriticalPolarFunction.phase_sum_reindex}
+\lean{LanglandsFirstMainLemma.PhaseReductionResidualTransport.upperInLowerCoordinate}
+\lean{LanglandsFirstMainLemma.PhaseReductionResidualTransport.upperInLowerCoordinate_apply}
+\lean{LanglandsFirstMainLemma.PhaseReductionResidualTransport.upperInLowerCoordinate_affineCoefficient}
+\lean{LanglandsFirstMainLemma.PhaseReductionResidualTransport.primeFrobeniusEquiv}
+\lean{LanglandsFirstMainLemma.PhaseReductionResidualTransport.primeFrobeniusEquiv_apply}
+\lean{LanglandsFirstMainLemma.PhaseReductionResidualTransport.displayedUpperReindex}
+\lean{LanglandsFirstMainLemma.PhaseReductionResidualTransport.displayedUpperReindex_apply}
+\lean{LanglandsFirstMainLemma.PhaseReductionResidualTransport.displayedUpperReindex_polarCoefficient}
+\lean{LanglandsFirstMainLemma.PhaseReductionResidualTransport.displayedUpperReindex_affineCoefficient}
+\lean{LanglandsFirstMainLemma.PhaseReductionResidualTransport.displayedUpperReindex_sum}
+\lean{LanglandsFirstMainLemma.PhaseReductionResidualTransport.displayedUpperReindex_phase}
+\lean{LanglandsFirstMainLemma.PhaseReductionResidualTransport.sourceTiedDisplayedUpper}
+\lean{LanglandsFirstMainLemma.PhaseReductionResidualTransport.sourceTiedDisplayedUpper_apply}
+\lean{LanglandsFirstMainLemma.PhaseReductionResidualTransport.sourceTiedDisplayedUpper_polarCoefficient}
+\lean{LanglandsFirstMainLemma.PhaseReductionResidualTransport.sourceTiedDisplayedUpper_affineCoefficient}
+\lean{LanglandsFirstMainLemma.FrobeniusResidualAddCharData}
+\lean{LanglandsFirstMainLemma.FrobeniusResidualAddCharData.upper}
+\lean{LanglandsFirstMainLemma.FrobeniusResidualAddCharData.upper_apply_equiv}
+\lean{LanglandsFirstMainLemma.FrobeniusResidualAddCharData.upper_ne_one}
+\lean{LanglandsFirstMainLemma.FrobeniusResidualAddCharData.frobeniusEquiv}
+\lean{LanglandsFirstMainLemma.FrobeniusResidualAddCharData.frobeniusEquiv_apply}
+\lean{LanglandsFirstMainLemma.FrobeniusResidualAddCharData.lower_frobeniusEquiv}
+\lean{LanglandsFirstMainLemma.LocalLamprechtPhaseData.displayedInLowerCoordinate}
+\lean{LanglandsFirstMainLemma.LocalLamprechtPhaseData.displayedInLowerCoordinate_apply}
+\lean{LanglandsFirstMainLemma.LocalLamprechtPhaseData.displayedInLowerCoordinate_sum}
+\lean{LanglandsFirstMainLemma.LocalLamprechtPhaseData.displayedInLowerCoordinate_phase}
+\lean{LanglandsFirstMainLemma.LocalLamprechtPhaseData.displayedInLowerCoordinate_polarCoefficient}
+\lean{LanglandsFirstMainLemma.LocalLamprechtPhaseData.displayedInLowerCoordinate_affineCoefficient}
+\lean{LanglandsFirstMainLemma.localPhaseOfStationaryClass}
+\lean{LanglandsFirstMainLemma.localPhaseOfStationaryClass_source_odd_apply_integral}
+\lean{LanglandsFirstMainLemma.transportLocalLamprechtPhaseData_criticalFunction}
+\lean{LanglandsFirstMainLemma.HighStableOddParameterData.upstairsRepresentative}
+\lean{LanglandsFirstMainLemma.HighStableOddParameterData.upstairsRepresentative_coe}
+\lean{LanglandsFirstMainLemma.HighStableOddParameterData.CompatiblePhasePair}
+\lean{LanglandsFirstMainLemma.HighStableOddParameterData.compatiblePhasePair}
+\lean{LanglandsFirstMainLemma.highTableOddPhases_nonempty}
+\lean{LanglandsFirstMainLemma.highOddNormCharacterPowerPhase}
+\lean{LanglandsFirstMainLemma.highTableQuadraticPhases_nonempty}
+\lean{LanglandsFirstMainLemma.WildQuadraticHighProductData.selectedTwist_retains_breakUnit}
+\lean{LanglandsFirstMainLemma.WildQuadraticHighProductData.tauRepresentative}
+\lean{LanglandsFirstMainLemma.WildQuadraticHighProductData.tauPhase}
+\lean{LanglandsFirstMainLemma.lowBasePhase}
+\lean{LanglandsFirstMainLemma.lowNormCharacterGeneratorPhase}
+\lean{LanglandsFirstMainLemma.lowNormCharacterPowerPhase}
+\lean{LanglandsFirstMainLemma.lowUpstairsPhase_nonempty}
+\lean{LanglandsFirstMainLemma.lowNonzeroTwistPhase_nonempty}
+\lean{LanglandsFirstMainLemma.LocalPhaseData}
+\lean{LanglandsFirstMainLemma.LocalPhaseData.deltaFinite_eq_completeFactor}
+\lean{LanglandsFirstMainLemma.FirstMainPhaseData}
+\lean{LanglandsFirstMainLemma.FirstMainPhaseFactors}
+\lean{LanglandsFirstMainLemma.FirstMainPhaseData.factors}
+\lean{LanglandsFirstMainLemma.FirstMainPhaseData.errorTerm_eq_assembledFactors}
+\lean{LanglandsFirstMainLemma.identityNormCharacterEndpoint_of_phaseData}
+\lean{LanglandsFirstMainLemma.ExactOddPhaseAssembly}
+\lean{LanglandsFirstMainLemma.ExactOddPhaseAssembly.criticalFactor_eq_indexedQuotient}
+\lean{LanglandsFirstMainLemma.ExactOddPhaseAssembly.Result}
+\lean{LanglandsFirstMainLemma.ExactOddPhaseAssembly.result}
+\lean{LanglandsFirstMainLemma.OddNormIndex}
+\lean{LanglandsFirstMainLemma.oddNormCharacterIndexing}
+\lean{LanglandsFirstMainLemma.oddNormIndexScalar}
+\lean{LanglandsFirstMainLemma.oddNormIndexUnit}
+\lean{LanglandsFirstMainLemma.OddNormCorrectionUnitData}
+\lean{LanglandsFirstMainLemma.OddNormCorrectionUnitData.zZero}
+\lean{LanglandsFirstMainLemma.OddNormCorrectionUnitData.z}
+\lean{LanglandsFirstMainLemma.OddNormCorrectionUnitData.coe_zZero}
+\lean{LanglandsFirstMainLemma.OddNormCorrectionUnitData.coe_z}
+\lean{LanglandsFirstMainLemma.OddNormCorrectionUnitData.scaledNumeratorUnit}
+\lean{LanglandsFirstMainLemma.HighOddNormRowSource}
+\lean{LanglandsFirstMainLemma.highOddNormRowSource_nonempty}
+\lean{LanglandsFirstMainLemma.HighOddCoherentPhaseSource}
+\lean{LanglandsFirstMainLemma.highOddCoherentPhaseSource_nonempty}
+\lean{LanglandsFirstMainLemma.highOddNormPhaseForComputationalData}
+\lean{LanglandsFirstMainLemma.highOddNormalizedRatio_order}
+\lean{LanglandsFirstMainLemma.highOdd_actualStationaryRatios_exactCriticalTransport}
+\lean{LanglandsFirstMainLemma.highOddLinearTwistValue}
+\lean{LanglandsFirstMainLemma.highOddLinearTwistRepresentative}
+\lean{LanglandsFirstMainLemma.highOddLinearTwistPhaseForComputationalData}
+\lean{LanglandsFirstMainLemma.lowOddNormPhaseForComputationalData}
+\lean{LanglandsFirstMainLemma.OddGlobalScalarInput}
+\lean{LanglandsFirstMainLemma.exactOddAssemblyOfActualNormRows}
+\lean{LanglandsFirstMainLemma.HighTableBackedExactOddAssembly}
+\lean{LanglandsFirstMainLemma.highTableBackedExactOddAssembly}
+\lean{LanglandsFirstMainLemma.HighTableBackedExactOddAssembly.endpointFactor_eq_one}
+\lean{LanglandsFirstMainLemma.HighOddActualRowsCorrectionInput}
+\lean{LanglandsFirstMainLemma.HighOddActualRowsCorrectionInput.toSourceTied}
+\lean{LanglandsFirstMainLemma.highOddSourceTiedCorrectionCoordinatesOfActualRows}
+\lean{LanglandsFirstMainLemma.highOddSourceTied_rowRatio_eq}
+\lean{LanglandsFirstMainLemma.HighOddSourceTiedCorrectionCoordinates.powerCharacterBridge}
+\lean{LanglandsFirstMainLemma.highOddActualRows_additiveDenominator_eq}
+\lean{LanglandsFirstMainLemma.highOddActualRows_multiplicativeDenominator_eq}
+\lean{LanglandsFirstMainLemma.HighActualRowsTableBackedExactOddAssembly}
+\lean{LanglandsFirstMainLemma.highActualRowsTableBackedExactOddAssembly}
+\lean{LanglandsFirstMainLemma.HighActualRowsExactOddResultEliminator}
+\lean{LanglandsFirstMainLemma.highActualRowsConstructedExactOddResultEliminator}
+\lean{LanglandsFirstMainLemma.highSourceUpstairsPhase}
+\lean{LanglandsFirstMainLemma.highSourceUpstairsFunction}
+\lean{LanglandsFirstMainLemma.highSourceUpstairsCriticalPolarFunction}
+\lean{LanglandsFirstMainLemma.highSourceUpstairsCriticalPolarFunction_apply}
+\lean{LanglandsFirstMainLemma.highSourceDisplayedUpstairsCriticalPolarFunction}
+\lean{LanglandsFirstMainLemma.highSourceDisplayedUpstairsCriticalPolarFunction_apply}
+\lean{LanglandsFirstMainLemma.highSourceUpstairsFunction_eq_one_of_even}
+\lean{LanglandsFirstMainLemma.highSourceDisplayedUpstairsFunction_eq_one_of_even}
+\lean{LanglandsFirstMainLemma.highSourceNormPhase}
+\lean{LanglandsFirstMainLemma.highSourceNormFunction}
+\lean{LanglandsFirstMainLemma.highNormGamma}
+\lean{LanglandsFirstMainLemma.highNormGamma_order}
+\lean{LanglandsFirstMainLemma.highNormGenerator_one_class}
+\lean{LanglandsFirstMainLemma.highNormLiteral_class}
+\lean{LanglandsFirstMainLemma.highNormTeichmuller_class}
+\lean{LanglandsFirstMainLemma.highNormGeneratorPhase}
+\lean{LanglandsFirstMainLemma.highNormLiteralPowerPhase}
+\lean{LanglandsFirstMainLemma.highNormActualTeichmullerPhase}
+\lean{LanglandsFirstMainLemma.highSourceNormFunction_eq_actualTeichmuller}
+\lean{LanglandsFirstMainLemma.highTeichmullerLiteralRepresentativeChange}
+\lean{LanglandsFirstMainLemma.highActualTeichmuller_criticalFunction_eq_exact_translation}
+\lean{LanglandsFirstMainLemma.highActualTeichmuller_polarCoefficient_eq_literal}
+\lean{LanglandsFirstMainLemma.highNormLiteralPower_criticalFunction_eq_pow}
+\lean{LanglandsFirstMainLemma.highSourceNormCriticalPolarFunction}
+\lean{LanglandsFirstMainLemma.highSourceNormCriticalPolarFunction_apply}
+\lean{LanglandsFirstMainLemma.highSourceNormFunction_eq_one_of_even}
+\lean{LanglandsFirstMainLemma.highSourceTwistPhase}
+\lean{LanglandsFirstMainLemma.highSourceTwistFunction}
+\lean{LanglandsFirstMainLemma.highSourceTwistCriticalPolarFunction}
+\lean{LanglandsFirstMainLemma.highSourceTwistCriticalPolarFunction_apply}
+\lean{LanglandsFirstMainLemma.highSourceDisplayed_polynomialDepths}
+\lean{LanglandsFirstMainLemma.highSourceDisplayed_exactCriticalTransport_above}
+\lean{LanglandsFirstMainLemma.highOdd_normCharacter_linearization_on_criticalCoordinate}
+\lean{LanglandsFirstMainLemma.highOdd_twistCriticalPolarFunction_eq_base}
+\lean{LanglandsFirstMainLemma.highSourceTwistFunction_eq_base_of_odd}
+\lean{LanglandsFirstMainLemma.highSourceTwistFunction_eq_one_of_even}
+\lean{LanglandsFirstMainLemma.highSourceTwistFunction_eq_base}
+\lean{LanglandsFirstMainLemma.highSourceCoordinateConstructedExactOddResultEliminator}
+\lean{LanglandsFirstMainLemma.LowOddUpstairsWitness}
+\lean{LanglandsFirstMainLemma.lowOddUpstairsWitness_nonempty}
+\lean{LanglandsFirstMainLemma.LowOddTwistWitness}
+\lean{LanglandsFirstMainLemma.lowOddTwistWitness_nonempty}
+\lean{LanglandsFirstMainLemma.lowOdd_actualStationaryRatios_exactCriticalTransport}
+\lean{LanglandsFirstMainLemma.lowOddTwistRepresentative_eq_norm_add_base}
+\lean{LanglandsFirstMainLemma.lowOddTwistCharacter_eq_norm_mul_base}
+\lean{LanglandsFirstMainLemma.lowOddNormRepresentative_eq_teichmuller_mul}
+\lean{LanglandsFirstMainLemma.lowOddNormRepresentative_class_eq_power}
+\lean{LanglandsFirstMainLemma.lowOddNormRepresentative_class_eq_powerCharacter}
+\lean{LanglandsFirstMainLemma.lowNormalizedNormGeneratorPhase}
+\lean{LanglandsFirstMainLemma.lowNormalizedLiteralPowerPhase}
+\lean{LanglandsFirstMainLemma.lowActualTeichmullerPowerPhase}
+\lean{LanglandsFirstMainLemma.OddRepresentativeChangeData}
+\lean{LanglandsFirstMainLemma.OddRepresentativeChangeData.translationCoefficient}
+\lean{LanglandsFirstMainLemma.OddRepresentativeChangeData.criticalFunction_eq_mul_translation}
+\lean{LanglandsFirstMainLemma.lowTeichmullerLiteralRepresentativeChange}
+\lean{LanglandsFirstMainLemma.lowActualTeichmullerPower_criticalFunction_eq_exact_translation}
+\lean{LanglandsFirstMainLemma.lowActualTeichmullerPower_polarCoefficient_eq_literal}
+\lean{LanglandsFirstMainLemma.lowNormalizedLiteralPower_criticalFunction_eq_pow}
+\lean{LanglandsFirstMainLemma.LowTableBackedExactOddAssembly}
+\lean{LanglandsFirstMainLemma.lowTableBackedExactOddAssembly}
+\lean{LanglandsFirstMainLemma.LowOddActualRowsCorrectionInput}
+\lean{LanglandsFirstMainLemma.LowOddActualRowsCorrectionInput.toSourceTied}
+\lean{LanglandsFirstMainLemma.lowOddSourceTiedCorrectionCoordinatesOfActualRows}
+\lean{LanglandsFirstMainLemma.lowOddSourceTied_rowRatio_eq}
+\lean{LanglandsFirstMainLemma.LowOddSourceTiedCorrectionCoordinates.powerCharacterBridge}
+\lean{LanglandsFirstMainLemma.lowOddActualRows_additiveDenominator_eq}
+\lean{LanglandsFirstMainLemma.lowOddActualRows_multiplicativeDenominator_eq}
+\lean{LanglandsFirstMainLemma.LowActualRowsTableBackedExactOddAssembly}
+\lean{LanglandsFirstMainLemma.lowActualRowsTableBackedExactOddAssembly}
+\lean{LanglandsFirstMainLemma.lowActualRowsConstructedExactOddResultEliminator}
+\lean{LanglandsFirstMainLemma.lowSourceUpstairsPhase}
+\lean{LanglandsFirstMainLemma.lowSourceUpstairsFunction}
+\lean{LanglandsFirstMainLemma.lowSourceUpstairsCriticalPolarFunction}
+\lean{LanglandsFirstMainLemma.lowSourceUpstairsCriticalPolarFunction_apply}
+\lean{LanglandsFirstMainLemma.lowSourceDisplayedUpstairsCriticalPolarFunction}
+\lean{LanglandsFirstMainLemma.lowSourceDisplayedUpstairsCriticalPolarFunction_apply}
+\lean{LanglandsFirstMainLemma.lowSourceDisplayedUpstairsFunction_displacement_apply_eq_raw}
+\lean{LanglandsFirstMainLemma.lowSourceUpstairsFunction_eq_one_of_even}
+\lean{LanglandsFirstMainLemma.lowSourceDisplayedUpstairsFunction_eq_one_of_even}
+\lean{LanglandsFirstMainLemma.lowSourceBasePhase}
+\lean{LanglandsFirstMainLemma.lowSourceBaseFunction}
+\lean{LanglandsFirstMainLemma.lowSourceBaseCriticalPolarFunction}
+\lean{LanglandsFirstMainLemma.lowSourceBaseCriticalPolarFunction_apply}
+\lean{LanglandsFirstMainLemma.lowSourceBaseFunction_apply_eq_raw}
+\lean{LanglandsFirstMainLemma.lowSourceBaseFunction_eq_one_of_even}
+\lean{LanglandsFirstMainLemma.lowSourceNormPhase}
+\lean{LanglandsFirstMainLemma.lowSourceNormFunction}
+\lean{LanglandsFirstMainLemma.lowSourceNormFunction_eq_powerPhase}
+\lean{LanglandsFirstMainLemma.lowSourceNormFunction_eq_actualTeichmuller}
+\lean{LanglandsFirstMainLemma.lowSourceNormFunction_one_apply_eq_raw}
+\lean{LanglandsFirstMainLemma.lowSourceNormFunction_eq_one_of_even}
+\lean{LanglandsFirstMainLemma.lowSourceNormCriticalPolarFunction}
+\lean{LanglandsFirstMainLemma.lowSourceNormCriticalPolarFunction_apply}
+\lean{LanglandsFirstMainLemma.lowSourceTwistPhase}
+\lean{LanglandsFirstMainLemma.lowSourceTwistFunction}
+\lean{LanglandsFirstMainLemma.lowSourceTwistFunction_eq_one_of_even}
+\lean{LanglandsFirstMainLemma.lowSourceTwistFunction_eq_norm_of_strict}
+\lean{LanglandsFirstMainLemma.lowSourceTwistFunction_eq_norm_mul_base_of_boundary_of_odd}
+\lean{LanglandsFirstMainLemma.lowSourceTwistFunction_eq_norm_mul_base_of_boundary}
+\lean{LanglandsFirstMainLemma.lowSourceTwistCriticalPolarFunction}
+\lean{LanglandsFirstMainLemma.lowSourceTwistCriticalPolarFunction_apply}
+\lean{LanglandsFirstMainLemma.lowSourceDisplayed_exactCriticalTransport_strict}
+\lean{LanglandsFirstMainLemma.lowSourceDisplayed_exactCriticalTransport_boundary}
+\lean{LanglandsFirstMainLemma.lowSourceCoordinateConstructedExactOddResultEliminator}
+\lean{LanglandsFirstMainLemma.QuadraticCriticalIndexing}
+\lean{LanglandsFirstMainLemma.QuadraticCriticalIndexing.critical_eq_four_actual_factors}
+\lean{LanglandsFirstMainLemma.ExactQuadraticPhaseAssembly}
+\lean{LanglandsFirstMainLemma.ExactQuadraticPhaseAssembly.errorTerm_eq_completeAssembly}
+\lean{LanglandsFirstMainLemma.ExactQuadraticPhaseAssembly.Result}
+\lean{LanglandsFirstMainLemma.ExactQuadraticPhaseAssembly.result}
+\lean{LanglandsFirstMainLemma.ExactQuadraticPhaseAssembly.dualRatio}
+\lean{LanglandsFirstMainLemma.ExactQuadraticPhaseAssembly.CompleteCorrectionData}
+\lean{LanglandsFirstMainLemma.ExactQuadraticPhaseAssembly.CompleteCorrectionData.elementaryCorrection_eq_phase}
+\lean{LanglandsFirstMainLemma.ExactQuadraticPhaseAssembly.CompleteCorrectionData.errorTerm_eq_residual_mul_phase}
+\lean{LanglandsFirstMainLemma.ExactQuadraticPhaseAssembly.CompleteCorrectionData.CompleteResult}
+\lean{LanglandsFirstMainLemma.ExactQuadraticPhaseAssembly.CompleteCorrectionData.completeResult}
+\lean{LanglandsFirstMainLemma.QuadraticRawRatioCoordinates}
+\lean{LanglandsFirstMainLemma.QBackedExactQuadraticAssembly}
+\lean{LanglandsFirstMainLemma.highQuadratic_additiveNumerator_eq_of_actual_rows}
+\lean{LanglandsFirstMainLemma.highQuadratic_multiplicativeNumerator_eq_of_actual_rows}
+\lean{LanglandsFirstMainLemma.qBackedExactQuadraticAssemblyFromActualRows}
+\lean{LanglandsFirstMainLemma.QBackedQuadraticCompleteCorrection}
+\lean{LanglandsFirstMainLemma.QBackedQuadraticCompleteCorrection.one_add_n_ne_zero}
+\lean{LanglandsFirstMainLemma.QBackedQuadraticCompleteCorrection.toCompleteCorrectionData}
+\lean{LanglandsFirstMainLemma.QBackedQuadraticCompleteCorrection.errorTerm_eq_residual_mul_phase}
+\lean{LanglandsFirstMainLemma.QBackedQuadraticCompleteCorrection.qBackedQuadraticCompleteResult}
+\lean{LanglandsFirstMainLemma.lowQuadraticNormalizedTauGamma}
+\lean{LanglandsFirstMainLemma.lowQuadraticNormalizedTauPhaseForComputationalData}
+\lean{LanglandsFirstMainLemma.lowQuadraticNormalizedTauPhase_elementaryMultiplicativeFactor}
+\lean{LanglandsFirstMainLemma.lowQuadraticNormalizedTauPhase_completeFactor_eq_normPhase}
+\lean{LanglandsFirstMainLemma.lowQuadratic_additiveNumerator_eq_of_actual_rows}
+\lean{LanglandsFirstMainLemma.lowQuadratic_multiplicativeNumerator_eq_of_actual_rows}
+\lean{LanglandsFirstMainLemma.lowTableBackedExactQuadraticAssemblyFromActualRows}
+\lean{LanglandsFirstMainLemma.LowTableBackedQuadraticCompleteCorrection}
+\lean{LanglandsFirstMainLemma.LowTableBackedQuadraticCompleteCorrection.toCompleteCorrectionData}
+\lean{LanglandsFirstMainLemma.LowTableBackedQuadraticCompleteCorrection.errorTerm_eq_residual_mul_phase}
+\lean{LanglandsFirstMainLemma.LowTableBackedQuadraticCompleteCorrection.lowTableBackedQuadraticCompleteResult}
+\lean{LanglandsFirstMainLemma.PhaseParameterTableDispatch}
+\lean{LanglandsFirstMainLemma.phaseParameterTableDispatch}
+\lean{LanglandsFirstMainLemma.StationaryRepresentativeAPI}
+\lean{LanglandsFirstMainLemma.LocalLamprechtAPI}
+\lean{LanglandsFirstMainLemma.GlobalPhaseFactorizationAPI}
+\lean{LanglandsFirstMainLemma.ExactPhaseAssemblyAPI}
+\lean{LanglandsFirstMainLemma.TableBackedPhaseAssemblyAPI}
+\lean{LanglandsFirstMainLemma.tableBackedPhaseAssemblyAPI}
+\lean{LanglandsFirstMainLemma.ResidualCriticalFunctionAPI}
+\lean{LanglandsFirstMainLemma.residualCriticalFunctionAPI}
+\lean{LanglandsFirstMainLemma.PhaseReductionResultData}
+\lean{LanglandsFirstMainLemma.PhaseReductionResult}
+\leanok
+\SourceText{Theorem thm:Lamprecht; Lemma lem:odd-break-line-normalization; Lemma lem:critical-polar-coordinate; Lemma lem:critical-polynomial-coordinate; Lemma lem:residual-parameter-transport; Proposition prop:high-parameter-table; Proposition prop:low-parameter-table; Proposition prop:odd-coefficient-table; Proposition prop:exact-odd-assembly; Proposition prop:quadratic-complete-assembly.}
+\uses{mod:parameters-high,mod:parameters-low,mod:parameters-minimalorbitstationary,mod:lamprecht-formula,mod:delta-errorterm}
+\FormalizationContract
+The High/Low tables remain the sole source of stationary quotient classes
+and of every field representative used by their adapters.  A representative
+is always accompanied by its quotient equality at its actual conductor and
+depth.  The stable high adapter maps a separately supplied downstairs
+representative and uses the table existential only in a proof.  Type-valued
+choices are otherwise made only from witnesses explicitly present in input
+data; existential representatives in proposition-valued Low data remain
+under \texttt{Nonempty}.  Conductors zero and one have endpoint packages and
+no stationary class.  After a conductor drop the package is built from the
+new decomposition, never from a cancelled old-layer sum.
+
+The preferred odd API obtains every row coordinate from the one table
+uniformizer and its exact norm.  The corresponding complete residual
+functions are definitions from those actual rows, not freely supplied
+phases.  Coordinate changes use the derived source-to-selected unit and
+transport affine and polar coefficients by $\lambda$ and $\lambda^2$ in the
+proved directions.  Representative translation retains both the affine
+translation and the elementary--Hasse compensation.  Upper-to-lower residue
+transport uses the canonical residue equivalence, and inverse-Frobenius
+display is an exact finite-sum reindexing.  The upper residual additive
+character is derived from the one Frobenius-invariant lower character, and
+the displayed actual upper function preserves its complete sum and phase.
+The structured residual-function API stores only these proved
+theorems about fixed public constructions and contains no alternate
+coordinate or function choices.
+
+The complete odd stationary factor is the elementary value times its
+transported Hasse phase; representative independence never separates those
+two factors.  The wild quadratic high adapter retains the upstream
+$\delta_h$ correction.  Norm, trace, character inverses, denominator
+orientations, additive signs, conductor depths, and critical factors occur
+in the displayed structured records.  The global theorem expands
+\texttt{errorTerm} through its definition and uses its proved twist
+invariance; it does not assume \texttt{errorTerm = 1}.  The source-derived
+constructors expand actual stationary rows and use literal field-ratio
+packages; pointwise character linearizations are retained as explicit
+hypotheses exactly where the final norm--trace rewrite needs them.  All
+cancellations use explicit nonvanishing proofs.  Before applying an indexed
+norm character, the nonzero row ratio retains its inverse norm factor; only
+the proved norm-character bridge removes it.  The zero index and its
+denominator are handled separately.  No odd residual coefficient table,
+Ramified-Hasse comparison, wild-odd parity reduction, wild-quadratic error
+formula, case theorem, or final finite-field phase cancellation is imported
+or used.
+\end{definition}

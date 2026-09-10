@@ -1,0 +1,375 @@
+\begin{theorem}[Cyclic-prime norm filtration theorem]
+\label{mod:ramification-normfiltration}
+Let $K/F$ be a prime cyclic extension of nonarchimedean local fields,
+let $t\in\mathbf N$ be a supplied lower-break witness, and assume explicitly
+that
+\[
+ f(K/F)=1.
+\]
+Fix an integral uniformizer $\pi_K\in\mathcal O_K$ satisfying
+\[
+ \operatorname{Algebra.adjoin}_{\mathcal O_F}\{\pi_K\}=\mathcal O_K.
+\]
+Put
+\[
+ \ell=[K:F],\qquad
+ D=(\ell-1)(t+1),\qquad
+ \Psi(r)=\Psi_{t,\ell}(r).
+\]
+For $a\le b$, write
+\[
+ Q_E(a,b)=U_E^a/U_E^b.
+\]
+All maps below are induced by the field norm.  Their numerator and
+denominator containments are supplied separately, so every quotient map is
+well-defined and independent of representatives.
+
+Lean first identifies the two filtration-containment predicates used by
+modules~\ref{mod:ramification-normbelowbreak} and
+\ref{mod:ramification-normabovebreak}.  For every natural target depth $r$ it
+then proves
+\[
+ N_{K/F}(U_K^{\Psi(r)})\subseteq U_F^r,
+ \qquad
+ N_{K/F}(U_K^{\Psi(r)+1})\subseteq U_F^{r+1}.
+\]
+Thus norm defines the all-depth graded map
+\[
+ \overline N_r^{\mathrm H}:
+ Q_K(\Psi(r),\Psi(r)+1)\longrightarrow
+ Q_F(r,r+1)=\operatorname{gr}^rU_F,
+ \qquad [u]\longmapsto[N_{K/F}(u)].
+\]
+This single Herbrand-indexed map is connected explicitly to all three
+case-specific maps.  It is bijective for $r<t$ and for $t<r$.  At $r=t$
+its range is exactly the range of the canonical critical map, and its
+kernel and cokernel both have order $\ell$.  Thus no dependent transport
+from the identity $\Psi(r)=r$ is left implicit in the assembled API.
+More generally, for $r\le s$ it defines
+\[
+ N^{\mathrm H}_{r,s}:
+ Q_K(\Psi(r),\Psi(s))\longrightarrow Q_F(r,s),
+ \qquad [u]\longmapsto[N_{K/F}(u)].
+\]
+These maps commute with every canonical projection obtained by deepening
+the source and target denominators.  Explicitly, if
+$r\le s_1\le s_2$, then
+\[
+ \operatorname{pr}_F\circ N^{\mathrm H}_{r,s_2}
+ =
+ N^{\mathrm H}_{r,s_1}\circ\operatorname{pr}_K.
+\]
+The same projection identity is exported for arbitrary certified
+heterogeneous numerator and denominator pairs, both in the below-break
+containment notation and in the above-break containment notation.  On the
+successive target quotient,
+\[
+ N^{\mathrm H}_{r,r+1}
+ =
+ \overline N_r^{\mathrm H}\circ
+ \operatorname{pr}:
+ Q_K(\Psi(r),\Psi(r+1))
+ \longrightarrow Q_K(\Psi(r),\Psi(r)+1)
+ \longrightarrow\operatorname{gr}^rU_F.
+\]
+
+Every natural depth belongs to exactly one of the three cases
+\[
+ r<t,\qquad r=t,\qquad t<r.
+\]
+The inverse-Herbrand boundary formulas and denominator comparisons used in
+this case split are
+\[
+ \Psi(t)=t,\qquad
+ \Psi(t+1)=t+\ell,
+\]
+\[
+ \Psi(r)=t+\ell(r-t)\qquad(t\le r),
+\]
+and
+\[
+ \Psi(r)+1\le\Psi(r+1)\qquad(r\ge0).
+\]
+For $t\le r$, primality of $\ell$ gives the strict inequality
+\[
+ \Psi(r)+1<\Psi(r+1).
+\]
+In particular, the denominator of the graded norm above the break is
+$\Psi(r)+1$, never the next Herbrand depth $\Psi(r+1)$.
+
+The different and trace conclusions are
+\[
+ d_{K/F}=D=(\ell-1)(t+1)
+\]
+and, for every $a\in\mathbf Z$,
+\[
+ \operatorname{Tr}_{K/F}(\mathfrak p_K^a)
+ =
+ \mathfrak p_F^{\left\lfloor(a+D)/\ell\right\rfloor}.
+\]
+The trace statement is an equality of mapped lattices.  The replacement of
+the ramification index by $\ell$ uses the explicit equality $f(K/F)=1$.
+
+Strictly below the break, for every $i<t$, the exact same-numbered graded
+norm
+\[
+ \overline N_i:
+ \operatorname{gr}^iU_K\longrightarrow\operatorname{gr}^iU_F
+\]
+is bijective.  Splicing exactly the indices $i=r,\ldots,t-1$ proves that
+\[
+ Q_K(r,t)\longrightarrow Q_F(r,t)
+\]
+is bijective for every $0\le r\le t$, including the trivial endpoint
+$r=t$.  Norm also induces a bijection
+\[
+ K^\times/U_K^t\longrightarrow F^\times/U_F^t.
+\]
+When $t=0$, this is the valuation quotient; it does not assert that the
+critical residue-unit norm is bijective.
+
+Lean additionally describes the honest full norm image on every layer
+$r\le t$.  Define
+\[
+ M_{r,t+1}:Q_K(r,t+1)\longrightarrow Q_F(r,t+1)
+\]
+to be the norm-induced quotient map, and let
+\[
+ J_r=
+ \left\{
+ u\in U_F^r:
+ [u]\in\operatorname{im}(M_{r,t+1})
+ \right\}
+ \le U_F^r.
+\]
+Then the range of the restricted norm homomorphism
+$U_K^r\to U_F^r$ is exactly $J_r$:
+\[
+ \operatorname{im}\bigl(U_K^r\longrightarrow U_F^r\bigr)=J_r
+ \qquad(r\le t).
+\]
+Projection of $M_{r,t+1}$ from denominator $t+1$ to denominator $t$
+recovers the preceding spliced map
+$Q_K(r,t)\to Q_F(r,t)$.
+
+At the critical depth, put
+\[
+ R_t=\operatorname{im}\left(
+ \overline N_t:
+ U_K^t/U_K^{t+1}\longrightarrow U_F^t/U_F^{t+1}
+ \right)
+\]
+and define
+\[
+ J_t^{\mathrm{crit}}
+ =
+ \left\{
+ u\in U_F^t:[u]\in R_t
+ \right\}
+ \le U_F^t.
+\]
+Let $I_t\le F^\times$ be the image of
+$J_t^{\mathrm{crit}}\hookrightarrow F^\times$.  Lean proves
+\[
+ N_{K/F}(U_K^t)=I_t,
+\]
+equivalently,
+\[
+ \operatorname{im}\bigl(U_K^t\longrightarrow U_F^t\bigr)
+ =J_t^{\mathrm{crit}}.
+\]
+The all-below-layers definition agrees with this definition at the endpoint:
+\[
+ J_t=J_t^{\mathrm{crit}}.
+\]
+The reverse inclusion in the critical full-image equality uses the exact
+successor image
+\[
+ \boxed{\,N_{K/F}(U_K^{t+1})=U_F^{t+1}\,}.
+\]
+This equality is also exported in elementwise existence and if-and-only-if
+forms and includes both $t=0$, where it is the $U^1$ endpoint, and every
+positive break.
+
+The critical graded kernel is exactly the ramification image:
+\[
+ \ker(\overline N_t)
+ =
+ \operatorname{im}\left(
+ G_t/G_{t+1}\longrightarrow\operatorname{gr}^tU_K
+ \right).
+\]
+The ramification map is injective, and its composition with
+$\overline N_t$ is exact at the middle term.  Moreover,
+\[
+ \#\ker(\overline N_t)=\ell,
+ \qquad
+ \#\left(
+ \operatorname{gr}^tU_F/R_t
+ \right)=\ell.
+\]
+The cokernel is therefore the target quotient by the actual norm range,
+not a quotient in the reverse direction.
+
+For every $r\le t$, the full below-break image is further characterized by
+the subgroup equalities
+\[
+ N_{K/F}(U_K^r)\cap U_F^t=I_t,
+ \qquad
+ N_{K/F}(U_K^r)\vee U_F^t=U_F^r,
+\]
+where $\vee$ denotes subgroup join in $F^\times$.  These formulas give the
+exact full image without asserting the false equality
+$N_{K/F}(U_K^r)=U_F^r$.  The corresponding full-field equalities are
+\[
+ N_{K/F}(K^\times)\cap U_F^t=I_t,
+ \qquad
+ N_{K/F}(K^\times)\vee U_F^t=F^\times.
+\]
+
+Strictly above the break, for every $r>t$, the canonical graded norm is
+bijective and has full range:
+\[
+ Q_K(\Psi(r),\Psi(r)+1)
+ \xrightarrow{\ \sim\ }
+ \operatorname{gr}^rU_F.
+\]
+Complete lifting gives the two exact full-image equalities
+\[
+ \boxed{\,N_{K/F}(U_K^{\Psi(r)})=U_F^r\,},
+ \qquad
+ \boxed{\,N_{K/F}(U_K^{\Psi(r)+1})=U_F^{r+1}\,}.
+\]
+At the first strict upper depth $r=t+1$, the first source is
+$U_K^{t+\ell}$, whereas the independently proved critical-successor
+equality uses $U_K^{t+1}$.  These endpoints are not identified.
+
+Finally, \texttt{CyclicPrimeNormFiltration} is a proposition-valued record
+packaging the depth trichotomy, the displayed Herbrand formulas and
+containments, the three all-depth graded-map bridges, the different and
+trace equalities, all below-break
+bijectivity and exact-image statements, the critical kernel, exactness,
+kernel and cokernel cardinalities, the critical successor image, both
+above-break graded and full-image statements, and the two global field-image
+equalities.  The canonical homomorphisms, representative formulas, image
+subgroups, and projection compatibilities remain separate public
+definitions and the theorem
+\texttt{cyclicPrimeNormFiltration} constructs this record from
+modules~\ref{mod:ramification-different},
+\ref{mod:ramification-traceideals},
+\ref{mod:ramification-normbelowbreak}, and
+\ref{mod:ramification-normabovebreak}.
+
+\LeanFile{LanglandsFirstMainLemma/Ramification/NormFiltration.lean}
+\lean{LanglandsFirstMainLemma.normMapsUnitFiltration_iff_aboveBreak}
+\lean{LanglandsFirstMainLemma.normUnitFiltrationQuotient_projection}
+\lean{LanglandsFirstMainLemma.cyclicPrimeAboveBreakQuotient_projection}
+\lean{LanglandsFirstMainLemma.normMapsUnitFiltration_herbrand}
+\lean{LanglandsFirstMainLemma.normMapsUnitFiltration_herbrand_succ}
+\lean{LanglandsFirstMainLemma.cyclicPrimeGradedNorm}
+\lean{LanglandsFirstMainLemma.cyclicPrimeGradedNorm_mk}
+\lean{LanglandsFirstMainLemma.cyclicPrimeGradedNorm_bijective_belowBreak}
+\lean{LanglandsFirstMainLemma.cyclicPrimeGradedNorm_range_atBreak}
+\lean{LanglandsFirstMainLemma.cyclicPrimeGradedNorm_cokernel_card_atBreak}
+\lean{LanglandsFirstMainLemma.cyclicPrimeGradedNorm_kernel_card_atBreak}
+\lean{LanglandsFirstMainLemma.cyclicPrimeGradedNorm_bijective_aboveBreak}
+\lean{LanglandsFirstMainLemma.cyclicPrimeNormFiltrationQuotient}
+\lean{LanglandsFirstMainLemma.cyclicPrimeNormFiltrationQuotient_mk}
+\lean{LanglandsFirstMainLemma.cyclicPrimeNormFiltrationQuotient_projection}
+\lean{LanglandsFirstMainLemma.herbrandPsiNat_add_one_le_succ}
+\lean{LanglandsFirstMainLemma.cyclicPrimeNormFiltrationQuotient_succ}
+\lean{LanglandsFirstMainLemma.norm_unitFiltration_surjective_break_succ}
+\lean{LanglandsFirstMainLemma.mem_unitFiltration_break_succ_iff_exists_norm}
+\lean{LanglandsFirstMainLemma.norm_unitFiltration_map_eq_break_succ}
+\lean{LanglandsFirstMainLemma.criticalNormTargetImage}
+\lean{LanglandsFirstMainLemma.norm_unitFiltration_range_eq_criticalNormTargetImage}
+\lean{LanglandsFirstMainLemma.criticalNormImage}
+\lean{LanglandsFirstMainLemma.norm_unitFiltration_map_eq_atBreak}
+\lean{LanglandsFirstMainLemma.norm_unitFiltration_map_inf_eq_criticalNormImage}
+\lean{LanglandsFirstMainLemma.norm_unitFiltration_map_sup_eq_belowBreak}
+\lean{LanglandsFirstMainLemma.norm_range_inf_unitFiltration_atBreak}
+\lean{LanglandsFirstMainLemma.norm_range_sup_unitFiltration_atBreak}
+\lean{LanglandsFirstMainLemma.cyclicPrime_differentExponent_eq}
+\lean{LanglandsFirstMainLemma.cyclicPrime_trace_lattice_image_eq}
+\lean{LanglandsFirstMainLemma.normUnitFiltrationInterval_bijective_belowBreak}
+\lean{LanglandsFirstMainLemma.normFieldFiltrationQuotient_bijective_belowBreak}
+\lean{LanglandsFirstMainLemma.normUnitFiltrationToBreakSucc}
+\lean{LanglandsFirstMainLemma.normUnitFiltrationToBreakSucc_mk}
+\lean{LanglandsFirstMainLemma.belowBreakNormTargetImage}
+\lean{LanglandsFirstMainLemma.norm_unitFiltration_range_eq_belowBreakNormTargetImage}
+\lean{LanglandsFirstMainLemma.normUnitFiltrationToBreakSucc_projection}
+\lean{LanglandsFirstMainLemma.belowBreakNormTargetImage_atBreak}
+\lean{LanglandsFirstMainLemma.CyclicPrimeNormFiltration}
+\lean{LanglandsFirstMainLemma.CyclicPrimeNormFiltration.depth_cases}
+\lean{LanglandsFirstMainLemma.CyclicPrimeNormFiltration.herbrand_at_break}
+\lean{LanglandsFirstMainLemma.CyclicPrimeNormFiltration.herbrand_first_above}
+\lean{LanglandsFirstMainLemma.CyclicPrimeNormFiltration.herbrand_above}
+\lean{LanglandsFirstMainLemma.CyclicPrimeNormFiltration.herbrand_denominator_le_next}
+\lean{LanglandsFirstMainLemma.CyclicPrimeNormFiltration.herbrand_denominator_lt_next}
+\lean{LanglandsFirstMainLemma.CyclicPrimeNormFiltration.herbrand_numerator}
+\lean{LanglandsFirstMainLemma.CyclicPrimeNormFiltration.herbrand_denominator}
+\lean{LanglandsFirstMainLemma.CyclicPrimeNormFiltration.all_depth_below_bijective}
+\lean{LanglandsFirstMainLemma.CyclicPrimeNormFiltration.all_depth_critical_range}
+\lean{LanglandsFirstMainLemma.CyclicPrimeNormFiltration.all_depth_critical_kernel_card}
+\lean{LanglandsFirstMainLemma.CyclicPrimeNormFiltration.all_depth_critical_cokernel_card}
+\lean{LanglandsFirstMainLemma.CyclicPrimeNormFiltration.all_depth_above_bijective}
+\lean{LanglandsFirstMainLemma.CyclicPrimeNormFiltration.different}
+\lean{LanglandsFirstMainLemma.CyclicPrimeNormFiltration.trace_image}
+\lean{LanglandsFirstMainLemma.CyclicPrimeNormFiltration.below_graded_bijective}
+\lean{LanglandsFirstMainLemma.CyclicPrimeNormFiltration.below_interval_bijective}
+\lean{LanglandsFirstMainLemma.CyclicPrimeNormFiltration.below_field_bijective}
+\lean{LanglandsFirstMainLemma.CyclicPrimeNormFiltration.below_full_image}
+\lean{LanglandsFirstMainLemma.CyclicPrimeNormFiltration.below_image_inf}
+\lean{LanglandsFirstMainLemma.CyclicPrimeNormFiltration.below_image_sup}
+\lean{LanglandsFirstMainLemma.CyclicPrimeNormFiltration.critical_kernel}
+\lean{LanglandsFirstMainLemma.CyclicPrimeNormFiltration.critical_exact}
+\lean{LanglandsFirstMainLemma.CyclicPrimeNormFiltration.critical_kernel_card}
+\lean{LanglandsFirstMainLemma.CyclicPrimeNormFiltration.critical_cokernel_card}
+\lean{LanglandsFirstMainLemma.CyclicPrimeNormFiltration.critical_full_image}
+\lean{LanglandsFirstMainLemma.CyclicPrimeNormFiltration.critical_successor_image}
+\lean{LanglandsFirstMainLemma.CyclicPrimeNormFiltration.above_graded_bijective}
+\lean{LanglandsFirstMainLemma.CyclicPrimeNormFiltration.above_graded_range}
+\lean{LanglandsFirstMainLemma.CyclicPrimeNormFiltration.above_image}
+\lean{LanglandsFirstMainLemma.CyclicPrimeNormFiltration.above_successor_image}
+\lean{LanglandsFirstMainLemma.CyclicPrimeNormFiltration.field_image_inf}
+\lean{LanglandsFirstMainLemma.CyclicPrimeNormFiltration.field_image_sup}
+\lean{LanglandsFirstMainLemma.cyclicPrimeNormFiltration}
+\leanok
+\SourceText{Theorem~\ref{thm:graded-norm} and
+Theorem~\ref{thm:norm-filtration}.}
+\uses{mod:ramification-different,mod:ramification-traceideals,
+mod:ramification-normabovebreak,mod:ramification-normbelowbreak}
+\FormalizationContract
+The prime-cyclic instance, lower-break witness, residue-degree-one equality,
+integral uniformizer, and monogenicity proof remain explicit inputs.
+The inverse Herbrand function always converts an upper target depth to a
+lower source depth.  The graded denominator is $\Psi(r)+1$, and above the
+break it is kept distinct from $\Psi(r+1)$.  Numerator and denominator
+containments are separate proofs; all representative formulas are
+equalities of quotient classes, and every denominator-deepening square is
+explicit.  The all-depth graded map is bridged explicitly to the
+below-break, critical, and above-break maps, including the dependent
+transport at $\Psi(r)=r$.
+
+The three cases $r<t$, $r=t$, and $t<r$ are exhaustive and disjoint.
+Strict below-break splicing excludes the critical graded line, includes the
+endpoint $r=t$ only as a trivial interval, and treats
+$K^\times/U_K^0$ as the valuation quotient when $t=0$.  Full images below
+the break are stated as exact range, intersection, and join equalities, not
+as false surjectivity assertions.  The critical cokernel is the target
+graded group modulo the actual norm range; lifting from a graded range to
+the full critical image uses the separately proved exact
+$U_K^{t+1}\to U_F^{t+1}$ endpoint.  Strict above-break statements use the
+exact source depths $\Psi(r)$ and $\Psi(r)+1$ and give subgroup equalities,
+not inclusions.
+
+The proposition-valued record stores only proved propositions.  Its public
+maps, quotient representative formulas, exact-image subgroups, and
+projection compatibilities are separate definitions and theorems.  The
+assembly uses only modules~\ref{mod:ramification-different},
+\ref{mod:ramification-traceideals},
+\ref{mod:ramification-normbelowbreak}, and
+\ref{mod:ramification-normabovebreak}; it assumes neither
+PullbackConductors, NormCharacters, NormRepresentatives, local class field
+theory, nor the First Main Lemma.
+\end{theorem}

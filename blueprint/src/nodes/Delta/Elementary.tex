@@ -1,0 +1,102 @@
+\begin{theorem}[Elementary identities for Delta]\label{mod:delta-elementary}
+Let $F$ be a nonarchimedean local field.  All local constants below are the
+finite constants of Definition~\ref{mod:delta-finitedefinition}; admissible
+denominators remain explicit, and denominator independence permits arbitrary
+admissible choices in every displayed identity.
+
+Let $\chi$ have exact multiplicative conductor $m$, let $\psi$ have exact
+additive conductor $n$, and let $a\in F^\times$.  Define
+$\psi^a(x)=\psi(ax)$.  Its exact conductor is
+\[
+ n_F(\psi^a)=n_F(\psi)+\operatorname{ord}_F(a).
+\]
+If $\gamma$ is admissible for $(\chi,\psi)$, then $a\gamma$ is admissible
+for $(\chi,\psi^a)$.  At every numerator representative $u\in U_F^0$ one
+has the literal identity
+\[
+ \psi^a\!\left(\frac{u}{a\gamma}\right)\chi(u)^{-1}
+ =\psi\!\left(\frac{u}{\gamma}\right)\chi(u)^{-1}.
+\]
+After descending both sides to $U_F^0/U_F^m$ and summing, this gives
+\[
+ G_{a\gamma}(\chi,\psi^a)=G_\gamma(\chi,\psi),
+ \qquad
+ \Delta_F^{\mathrm{fin}}(\chi,\psi^a;\gamma_a)
+ =\chi(a)\Delta_F^{\mathrm{fin}}(\chi,\psi;\gamma)
+\]
+for every admissible $\gamma_a$ for $(\chi,\psi^a)$.
+
+For residual normalization, let $\bar\psi$ and $\psi_{\rm can}$ be
+nontrivial complex-valued additive characters of $k_F$.  There is a local
+unit $a\in\mathcal O_F^\times$ such that
+\[
+ \bar\psi\bigl(\overline a\,x\bigr)=\psi_{\rm can}(x)
+ \qquad(x\in k_F).
+\]
+Formally, nontriviality makes
+$c\mapsto\bar\psi(cx)$ a bijection from $k_F$ to its additive character
+group; the scalar carrying $\bar\psi$ to $\psi_{\rm can}$ is nonzero and is
+then lifted along the surjection
+$\mathcal O_F^\times\twoheadrightarrow k_F^\times$.
+
+Let $\mathbf 1$ denote the globally trivial quasi-character, packaged with
+its exact conductor zero.  The quotient $U_F^0/U_F^0$ is a singleton.  For
+an admissible $\gamma$ the sole finite summand is one, because
+$1/\gamma\in\mathfrak p_F^{-n_F(\psi)}$.  Consequently
+\[
+ G_\gamma(\mathbf 1,\psi)=1,
+ \qquad
+ \Delta_F^{\mathrm{fin}}(\mathbf 1,\psi;\gamma)=1.
+\]
+
+Let $\mu$ be a finite-order quasi-character, and package $\mu^{-1}$ with
+the same exact conductor.  For arbitrary admissible denominators $\gamma$
+and $\gamma_{\rm inv}$,
+\[
+ \Delta_F^{\mathrm{fin}}(\mu,\psi;\gamma)
+ \Delta_F^{\mathrm{fin}}(\mu^{-1},\psi;\gamma_{\rm inv})
+ =\mu(-1).
+\]
+At a common denominator the representative-free finite sums satisfy the
+exact conjugation formula
+\[
+ G_\gamma(\mu^{-1},\psi)
+ =\mu(-1)\,\overline{G_\gamma(\mu,\psi)}.
+\]
+This is proved by the finite reindexing $u\mapsto-u$.  The conjugation step
+uses two explicit unitary facts: quasi-character values on $U_F^0$ factor
+through a finite quotient, and every additive-character value descends to
+a finite lattice quotient and hence has norm one.  The two denominator
+values cancel, while phase and conjugation give the displayed factor
+$\mu(-1)$ with no additional sign.
+
+Finally, let $S$ be a finite subgroup of the continuous quasi-characters of
+$F^\times$, with $|S|$ an odd prime.  For each $\mu\in S$, choose exact
+conductor data realizing its underlying character and an admissible
+denominator $\gamma_\mu$.  Then
+\[
+ \prod_{\mu\in S}
+ \Delta_F^{\mathrm{fin}}(\mu,\psi;\gamma_\mu)=1.
+\]
+Indeed every $\mu\in S$ has finite order dividing $|S|$, so $\mu(-1)=1$;
+inversion pairs the nontrivial elements of $S$, and oddness makes the
+identity its only fixed point.  The trivial factor is one by the preceding
+formula.
+\LeanFile{LanglandsFirstMainLemma/Delta/Elementary.lean}
+\lean{LanglandsFirstMainLemma.delta_additive_scale}
+\lean{LanglandsFirstMainLemma.residual_addChar_normalization}
+\lean{LanglandsFirstMainLemma.delta_trivial_character}
+\lean{LanglandsFirstMainLemma.delta_inverse_pair}
+\lean{LanglandsFirstMainLemma.delta_odd_prime_character_product}
+\leanok
+\SourceText{Lemmas lem:additive-scale, lem:residual-normalization, lem:delta-one, lem:inverse-pair; Corollaries cor:additive-independence and cor:S-product-one.}
+\uses{mod:delta-finitedefinition}
+\FormalizationContract Additive scaling is proved before summation on the
+same quotient representatives, and residual normalization returns an actual
+local-unit lift of the nonzero residual scalar.  The inverse formula uses the
+finite-order hypothesis stated in the manuscript and proves the required
+unitarity and finite-sum conjugation internally.  The odd-prime product is
+formulated for a finite subgroup of local quasi-characters so that the later
+group $S(K/F)$ is an immediate instance; conductor packages and admissible
+denominators are explicit dependent inputs.
+\end{theorem}

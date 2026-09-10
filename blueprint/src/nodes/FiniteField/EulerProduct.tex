@@ -1,0 +1,101 @@
+\begin{theorem}[Reusable Euler-product power identity]\label{mod:finitefield-eulerproduct}
+Let $k$ be a finite field and let
+\[
+ w:\operatorname{MonicPolynomial}(k)\longrightarrow \mathbf C
+\]
+be a monoid homomorphism.  Write $\mathcal M_n(k)$ for the finite type of
+monic polynomials of degree exactly $n$, and $\mathcal P_d(k)$ for its
+subtype of irreducible polynomials.  Define
+\[
+ A_n(w)=\sum_{P\in\mathcal M_n(k)}w(P)
+\]
+and
+\[
+ B_r(w)=
+ \sum_{d\in\operatorname{divisors}(r)}
+ d\sum_{P\in\mathcal P_d(k)}w(P)^{r/d}.
+\]
+Here $\operatorname{divisors}(0)$ is Mathlib's empty finset, so $B_0(w)=0$.
+The corresponding formal power series are
+\[
+ L_w(T)=\sum_{n\geq 0}A_n(w)T^n,
+ \qquad
+ C_w(T)=\sum_{n\geq 0}B_{n+1}(w)T^n.
+\]
+They satisfy the integral formal-power-series identity
+\[
+ \frac{d}{dT}L_w(T)=L_w(T)C_w(T).
+\]
+
+More generally, this derivative identity is proved once for weighted
+multisets of arbitrary positive-degree atoms.  If an atom $p$ has degree
+$d(p)>0$ and weight $u(p)$, put
+\[
+ D(s)=\sum_{p\in s}d(p),\qquad W(s)=\prod_{p\in s}u(p).
+\]
+For every $N$, insertion of a positive block gives an equivalence
+\[
+ (t,p,h),\quad h>0,\quad D(t)+h d(p)=N
+ \quad\longleftrightarrow\quad
+ (s,p,j),\quad D(s)=N,\quad j<\operatorname{count}_s(p),
+\]
+by
+\[
+ (t,p,h)\longmapsto(t+h[p],p,h-1).
+\]
+Summing over this equivalence counts every occurrence of every atom and
+gives the Newton recurrence
+\[
+ N\sum_{D(s)=N}W(s)
+ =\sum_{i+r=N}
+   \left(\sum_{D(t)=i}W(t)\right)
+   \left(\sum_{\substack{p,h>0\\h d(p)=r}}
+      d(p)u(p)^h\right).
+\]
+This recurrence is exactly the coefficientwise statement of the displayed
+derivative identity.  Its proof takes values in a commutative semiring and
+does not divide by a weight or assume that any weight is nonzero.
+
+For the specialization to polynomials, Mathlib's normalized-factor
+factorization gives an equivalence
+\[
+ \operatorname{MonicPolynomial}(k)
+ \simeq
+ \operatorname{Multiset}\{P:k[X]\mid P\text{ is monic and irreducible}\}.
+\]
+It preserves both total degree and the product of the weights.  Exact-degree
+monic polynomials are finite via Mathlib's equivalences with polynomials of
+degree less than $n$ and then with coefficient vectors
+$\operatorname{Fin}(n)\to k$.  Finally, for $r>0$, the pairs $(P,h)$ with
+$h\deg(P)=r$ are reindexed by $d\mid r$ and
+$P\in\mathcal P_d(k)$; this identifies the generic power sum with $B_r(w)$.
+
+Since $A_0(w)=w(1)=1$, if
+\[
+ A_n(w)=0\qquad(n\geq2),
+\]
+then coefficient comparison in the derivative identity yields, for every
+$r>0$,
+\[
+ \boxed{-B_r(w)=\bigl(-A_1(w)\bigr)^r.}
+\]
+This is the exported theorem used unchanged with
+$w_{\chi,\psi}$ in the Hasse--Davenport lift and with
+$w_{\phi,\psi}$ in the Hasse-function lift.  In particular it allows the
+zero value of a multiplicative character on a zero constant term and it
+retains repeated closed points through the powers $w(P)^{r/d}$.
+
+\LeanFile{LanglandsFirstMainLemma/FiniteField/EulerProduct.lean}
+\lean{LanglandsFirstMainLemma.MonicPolynomialOfDegree}
+\lean{LanglandsFirstMainLemma.MonicIrreducibleOfDegree}
+\lean{LanglandsFirstMainLemma.monicFactorsEquiv}
+\lean{LanglandsFirstMainLemma.GradedEulerProduct.global_weighted_derivative}
+\lean{LanglandsFirstMainLemma.MonicWeight.degreeSum}
+\lean{LanglandsFirstMainLemma.MonicWeight.closedPointPowerSum}
+\lean{LanglandsFirstMainLemma.MonicWeight.closedPointSeries_derivative}
+\lean{LanglandsFirstMainLemma.closedPoint_power_identity}
+\leanok
+\SourceText{Proofs of Theorems thm:HD-lift and thm:Hasse-lift.}
+\uses{mod:finitefield-polynomialweights}
+\FormalizationContract
+\end{theorem}

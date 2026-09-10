@@ -1,0 +1,281 @@
+\begin{definition}[Truncated norm map at stationary depth]
+\label{mod:parameters-normpolynomial}
+Let $K/F$ be a finite free valuative extension of nonarchimedean local
+fields.  A stationary conductor decomposition is certified data
+\[
+ m=2d+\varepsilon>1,\qquad 0\leq\varepsilon\leq1.
+\]
+It supplies
+\[
+ r=d+\varepsilon>0,\qquad r\leq m,\qquad m\leq2r,
+ \qquad m-r=d.
+\]
+For decompositions
+\[
+ m_K=2d_K+\varepsilon_K,\qquad
+ m_F=2d_F+\varepsilon_F,
+\]
+put $r_K=d_K+\varepsilon_K$ and $r_F=d_F+\varepsilon_F$.
+
+For natural-number depths $a,b$, let
+\[
+ \operatorname{NormIncl}_{K/F}(a,b)
+\]
+mean the exact filtration inclusion
+\[
+ N_{K/F}(U_K^a)\subseteq U_F^b.
+\]
+A norm-polynomial precision certificate retains separately the three
+inclusions
+\begin{equation}\label{eq:lean-norm-polynomial-three-inclusions}
+ \begin{aligned}
+ N(U_K^{r_K})&\subseteq U_F^{r_F},\\
+ N(U_K^{m_K})&\subseteq U_F^{m_F},\\
+ N(U_K^{d_K})&\subseteq U_F^{d_F}.
+ \end{aligned}
+\end{equation}
+The first gives target membership, the second gives independence modulo
+the conductor layer, and the third is the additional stationary-numerator
+ambiguity inclusion.  These are distinct fields of
+\texttt{NormPolynomialPrecision}.
+
+More generally, suppose
+\[
+ 0<a_K\leq b_K\leq2a_K,\qquad
+ 0<a_F\leq b_F\leq2a_F,
+\]
+and assume
+\[
+ N(U_K^{a_K})\subseteq U_F^{a_F},
+ \qquad
+ N(U_K^{b_K})\subseteq U_F^{b_F}.
+\]
+Norm first descends to the honest unit-filtration quotients and, through
+the positive-depth unit--lattice equivalences, induces the
+representative-free additive homomorphism
+\[
+ \operatorname{trNorm}_{K/F}:
+ \mathfrak p_K^{a_K}/\mathfrak p_K^{b_K}
+ \longrightarrow
+ \mathfrak p_F^{a_F}/\mathfrak p_F^{b_F}.
+\]
+On every supplied numerator it is
+\[
+ [x]\longmapsto[N_{K/F}(1+x)-1].
+\]
+Changing $x$ modulo $\mathfrak p_K^{b_K}$ changes $1+x$ by a ratio in
+$U_K^{b_K}$, so the second inclusion makes the output independent of the
+source representative.  Exact additivity follows from
+\[
+ (1+x)(1+y)=1+x+y+xy.
+\]
+Indeed,
+$xy\in\mathfrak p_K^{2a_K}\subseteq\mathfrak p_K^{b_K}$, while the
+product of the two output displacements lies in
+$\mathfrak p_F^{2a_F}\subseteq\mathfrak p_F^{b_F}$.
+
+The principal declaration \texttt{normPolynomial} is the stationary
+specialization
+\[
+ P_{K/F}:
+ \mathfrak p_K^{r_K}/\mathfrak p_K^{m_K}
+ \longrightarrow
+ \mathfrak p_F^{r_F}/\mathfrak p_F^{m_F}.
+\]
+Both sides are the actual finite lattice quotients used by Lamprecht
+duality.  Evaluation, zero, addition, and source-representative
+independence are exported separately.
+
+For $n=[K:F]$, retain the exact polynomial value
+\begin{equation}\label{eq:lean-exact-norm-polynomial}
+ P_{K/F}(x)=N_{K/F}(1+x)-1
+           =\sum_{j=1}^{n}s_j(x),
+\end{equation}
+where
+\[
+ s_1(x)=\operatorname{Tr}_{K/F}(x),
+ \qquad s_n(x)=N_{K/F}(x).
+\]
+Equation~\ref{eq:lean-exact-norm-polynomial} also holds after passage to
+the target quotient.  Define the complete nonlinear correction
+\[
+ C_{K/F}(x)=\sum_{j=2}^{n}s_j(x);
+\]
+then the exact identity is
+\[
+ P_{K/F}(x)=\operatorname{Tr}_{K/F}(x)+C_{K/F}(x).
+\]
+The trace descends to the lattice quotients only after separately
+certifying
+\[
+ \operatorname{Tr}(\mathfrak p_K^{r_K})
+   \subseteq\mathfrak p_F^{r_F},
+ \qquad
+ \operatorname{Tr}(\mathfrak p_K^{m_K})
+   \subseteq\mathfrak p_F^{m_F}.
+\]
+
+The strong wild estimate from
+Lemma~\ref{lem:wild-symmetric-bound} supplies vanishing only for the
+intermediate degrees $2\leq j<n$.  In a totally ramified extension the
+terminal bound is supplied separately by
+$v_F(s_n(x))=v_K(x)$.  Consequently intermediate vanishing alone gives
+the critical formula
+\[
+ P_{K/F}(x)\equiv
+ \operatorname{Tr}_{K/F}(x)+N_{K/F}(x)
+ \pmod{\mathfrak p_F^{m_F}}.
+\]
+The trace-only identity
+\[
+ P_{K/F}=\operatorname{Tr}_{K/F}
+ \pmod{\mathfrak p_F^{m_F}}
+\]
+is proved only when every intermediate coefficient and, independently,
+the terminal norm coefficient belong to $\mathfrak p_F^{m_F}$.  Thus the
+critical norm polynomial is never identified with its trace term outside
+the range justified by the symmetric bounds.
+
+The predicate \texttt{NormPolynomialElementaryBoundsAt} records that
+every term in the exact expansion has a prescribed target valuation.
+Its degree-one member gives the trace-lattice inclusion, while bounds on
+all terms give the corresponding norm-filtration inclusion.  Bounds at
+$(r_K,r_F)$, $(m_K,m_F)$, and $(d_K,d_F)$ therefore construct the full
+three-part certificate in
+\eqref{eq:lean-norm-polynomial-three-inclusions}.
+
+The ambiguity inclusion induces the honest multiplicative quotient map
+\[
+ U_K^0/U_K^{d_K}\longrightarrow U_F^0/U_F^{d_F},
+ \qquad [u]\longmapsto[N_{K/F}(u)].
+\]
+This is \texttt{normPolynomialStationaryNormClass}.  In particular, the
+norm of a stationary unit class is independent of its unit representative
+at precisely the extra ambiguity depth.  No norm map on arbitrary
+representatives of the additive quotient is asserted.
+
+Both the unit-quotient norm and the additive truncated norm commute with
+replacing stronger denominator depths by shallower ones.  For nested
+source and target denominator depths, the square formed by the canonical
+quotient projections and the corresponding truncated norm maps commutes.
+The construction preserves supplied numerators but makes no quotient
+representative choice.
+
+Finally, retain the denominator data required by the later adjoint.  For
+$\gamma_F\in F^\times$ and $\gamma_K\in K^\times$, define
+\[
+ \rho_{\gamma_F,\gamma_K}
+   =\frac{\gamma_K}{\iota_{F,K}(\gamma_F)}\in K^\times.
+\]
+Its nonvanishing is explicit.  If
+\[
+ \operatorname{ord}_K(\rho_{\gamma_F,\gamma_K})=0,
+ \qquad d_K\leq e(K/F)d_F,
+\]
+then the ramification scaling
+\[
+ \operatorname{ord}_K(\iota_{F,K}(x))
+   =e(K/F)\operatorname{ord}_F(x)
+\]
+makes
+\[
+ \mathcal O_F/\mathfrak p_F^{d_F}
+ \longrightarrow
+ \mathcal O_K/\mathfrak p_K^{d_K},
+ \qquad
+ [x]\longmapsto
+ [\rho_{\gamma_F,\gamma_K}\,\iota_{F,K}(x)]
+\]
+a representative-free additive homomorphism.  For the common denominator
+$\gamma_K=\iota_{F,K}(\gamma_F)$ it is the ordinary base-field inclusion.
+The exact identity required by the trace adjoint is
+\[
+ \operatorname{Tr}_{K/F}\!\left(
+   \frac{\rho_{\gamma_F,\gamma_K}\,
+     \iota_{F,K}(x)y}{\gamma_K}\right)
+ =
+ \frac{x\,\operatorname{Tr}_{K/F}(y)}{\gamma_F}.
+\]
+Thus the truncated norm itself is denominator-independent, while every
+denominator-sensitive scaling used by its later adjoint retains the
+specified pair $(\gamma_F,\gamma_K)$.
+
+\LeanFile{LanglandsFirstMainLemma/Parameters/NormPolynomial.lean}
+\lean{LanglandsFirstMainLemma.IsStationaryConductorDecomposition}
+\lean{LanglandsFirstMainLemma.IsStationaryConductorDecomposition.variableDepth_pos}
+\lean{LanglandsFirstMainLemma.IsStationaryConductorDecomposition.floorDepth_pos}
+\lean{LanglandsFirstMainLemma.IsStationaryConductorDecomposition.variableDepth_le_conductor}
+\lean{LanglandsFirstMainLemma.IsStationaryConductorDecomposition.conductor_le_two_variableDepth}
+\lean{LanglandsFirstMainLemma.IsStationaryConductorDecomposition.conductor_sub_variableDepth}
+\lean{LanglandsFirstMainLemma.NormUnitFiltrationInclusion}
+\lean{LanglandsFirstMainLemma.NormPolynomialPrecision}
+\lean{LanglandsFirstMainLemma.normUnitFiltrationHom}
+\lean{LanglandsFirstMainLemma.coe_normUnitFiltrationHom}
+\lean{LanglandsFirstMainLemma.normUnitFiltrationQuotientHom}
+\lean{LanglandsFirstMainLemma.normUnitFiltrationQuotientHom_mk}
+\lean{LanglandsFirstMainLemma.truncatedNormPolynomial}
+\lean{LanglandsFirstMainLemma.truncatedNormPolynomial_mk}
+\lean{LanglandsFirstMainLemma.normPolynomial}
+\lean{LanglandsFirstMainLemma.normPolynomialValue}
+\lean{LanglandsFirstMainLemma.normPolynomialValue_eq_sum_elementarySymmetric}
+\lean{LanglandsFirstMainLemma.normPolynomialRepresentative}
+\lean{LanglandsFirstMainLemma.coe_normPolynomialRepresentative}
+\lean{LanglandsFirstMainLemma.normPolynomial_mk}
+\lean{LanglandsFirstMainLemma.normPolynomial_zero}
+\lean{LanglandsFirstMainLemma.normPolynomial_add}
+\lean{LanglandsFirstMainLemma.normPolynomial_representative_independent}
+\lean{LanglandsFirstMainLemma.normPolynomial_mk_eq_sum_elementarySymmetric}
+\lean{LanglandsFirstMainLemma.TraceLatticeInclusion}
+\lean{LanglandsFirstMainLemma.traceLatticeHom}
+\lean{LanglandsFirstMainLemma.coe_traceLatticeHom}
+\lean{LanglandsFirstMainLemma.traceLatticeQuotientHom}
+\lean{LanglandsFirstMainLemma.traceLatticeQuotientHom_mk}
+\lean{LanglandsFirstMainLemma.sum_range_pred_shift_eq_sum_Icc}
+\lean{LanglandsFirstMainLemma.normPolynomialHigherCorrectionValue}
+\lean{LanglandsFirstMainLemma.normPolynomialValue_eq_trace_add_higherCorrection}
+\lean{LanglandsFirstMainLemma.NormPolynomialIntermediateTermsVanishAt}
+\lean{LanglandsFirstMainLemma.NormPolynomialTerminalTermVanishAt}
+\lean{LanglandsFirstMainLemma.wild_normPolynomialIntermediateTermsVanishAt}
+\lean{LanglandsFirstMainLemma.totallyRamified_normPolynomialTerminalTermVanishAt}
+\lean{LanglandsFirstMainLemma.normPolynomialValue_sub_trace_mem}
+\lean{LanglandsFirstMainLemma.normPolynomialValue_sub_trace_add_norm_mem}
+\lean{LanglandsFirstMainLemma.normPolynomial_mk_eq_trace_add_norm}
+\lean{LanglandsFirstMainLemma.normPolynomialTrace}
+\lean{LanglandsFirstMainLemma.normPolynomialTrace_mk}
+\lean{LanglandsFirstMainLemma.normPolynomial_eq_trace}
+\lean{LanglandsFirstMainLemma.NormPolynomialElementaryBoundsAt}
+\lean{LanglandsFirstMainLemma.traceLatticeInclusion_of_elementarySymmetricBounds}
+\lean{LanglandsFirstMainLemma.normUnitFiltrationInclusion_of_elementarySymmetricBounds}
+\lean{LanglandsFirstMainLemma.NormPolynomialPrecision.ofElementarySymmetricBounds}
+\lean{LanglandsFirstMainLemma.normUnitFiltrationInclusion_zero}
+\lean{LanglandsFirstMainLemma.stationaryNormClass}
+\lean{LanglandsFirstMainLemma.stationaryNormClass_mk}
+\lean{LanglandsFirstMainLemma.stationaryNormClass_representative_independent}
+\lean{LanglandsFirstMainLemma.normPolynomialStationaryNormClass}
+\lean{LanglandsFirstMainLemma.normUnitFiltrationQuotientHom_projection}
+\lean{LanglandsFirstMainLemma.truncatedNormPolynomial_projection}
+\lean{LanglandsFirstMainLemma.normPolynomialDenominatorRatio}
+\lean{LanglandsFirstMainLemma.normPolynomialDenominatorRatio_ne_zero}
+\lean{LanglandsFirstMainLemma.denominatorScaledRepresentative}
+\lean{LanglandsFirstMainLemma.denominatorScaledAlgebraMap}
+\lean{LanglandsFirstMainLemma.denominatorScaledAlgebraMap_mk}
+\lean{LanglandsFirstMainLemma.denominatorScaledAlgebraMap_common_mk}
+\lean{LanglandsFirstMainLemma.trace_denominatorScaled_div}
+\leanok
+\SourceText{Lemma~\ref{lem:stationary-depth-norm},
+equation~\ref{eq:norm-expansion}, and the truncated norm construction in
+Lemma~\ref{lem:truncated-norm-adjoint}.}
+\uses{mod:localfield-extension,mod:ramification-symmetricbounds,mod:lamprecht-stationaryclass}
+\FormalizationContract
+The source and target are certified finite lattice quotients.  The
+principal norm, projection, stationary-unit, and denominator-scaling maps
+consume quotient classes; representative-level declarations only evaluate
+those maps on a supplied numerator and never choose a quotient
+representative.  The variable, conductor, and ambiguity norm
+inclusions remain distinct.  Exact additivity records both half-depth
+inequalities.  Trace compatibility requires separate numerator and
+denominator trace inclusions together with vanishing of every intermediate
+symmetric term and the terminal norm term.  Denominator-ratio scaling
+retains its chosen pair, exact local-unit order, and ramification-scaled
+depth.
+\end{definition}

@@ -1,0 +1,71 @@
+\begin{theorem}[Bridge from standard continuous characters]\label{mod:basic-standardcharacterbridge}
+Let $F$ be a nonarchimedean local field.  If a standard continuous
+additive character $\psi:F\to\mathbf C^\times$ is supplied together with
+an integer $n$ and a proof that $n$ is its exact additive conductor, define
+\texttt{continuousAddChar\_toData}$(F,\psi,n)$ by retaining $\psi$ as its
+character field, $n$ as its conductor field, and the given exactness proof.
+Thus evaluation of the wrapped character is literally evaluation of $\psi$,
+and
+\[
+ \operatorname{AddTriv}(\psi,r)\quad\Longleftrightarrow\quad -n\le r.
+\]
+In particular, wrapping preserves the manuscript's additive sign convention
+and does not weaken exact conductor to an upper bound.
+
+Similarly, if a standard continuous quasi-character
+$\chi:F^\times\to\mathbf C^\times$ is supplied with a natural number $m$
+and a proof that $m$ is its exact multiplicative conductor, define
+\texttt{continuousQuasiChar\_toData}$(F,\chi,m)$ without changing $\chi$.
+Then
+\[
+ \operatorname{MulTriv}(\chi,r)\quad\Longleftrightarrow\quad m\le r.
+\]
+At the endpoint, conductor zero is equivalent to triviality on
+$U_F^0=\mathcal O_F^\times$; it is not global triviality of $\chi$.
+
+The compact unit group $U_F^0$ is compact as a subset of $F^\times$.
+The continuous image of $U_F^0$ under $\chi$, and hence the norms of all
+its values, is bounded.  Since every positive and negative power of a unit
+remains in $U_F^0$, boundedness of these powers forces
+\[
+ \lVert\chi(u)\rVert=1\qquad(u\in U_F^0).
+\]
+This gives both the standard-character and packaged-data forms of compact
+unit unitarity.
+
+Finally, wrapping commutes with the manuscript's pullbacks.  If the trace
+pullback $\psi\circ\operatorname{Tr}_{K/F}$, respectively norm pullback
+$\chi\circ N_{K/F}$, is supplied with its exact conductor proof, its wrapped
+character is exactly the trace, respectively norm, pullback of the wrapped
+downstairs character.  Pointwise these identities are
+\[
+ \psi_K(x)=\psi(\operatorname{Tr}_{K/F}x),\qquad
+ \chi_K(y)=\chi(N_{K/F}y),
+\]
+so the conversions needed by the final export do not alter either
+mathematical character.
+\LeanFile{LanglandsFirstMainLemma/Basic/StandardCharacterBridge.lean}
+\lean{LanglandsFirstMainLemma.continuousAddChar_toData}
+\lean{LanglandsFirstMainLemma.continuousAddChar_toData_character}
+\lean{LanglandsFirstMainLemma.continuousAddChar_toData_conductor}
+\lean{LanglandsFirstMainLemma.continuousAddChar_toData_apply}
+\lean{LanglandsFirstMainLemma.continuousAddChar_toData_isConductor}
+\lean{LanglandsFirstMainLemma.continuousAddChar_toData_trivialOnLattice_iff}
+\lean{LanglandsFirstMainLemma.continuousQuasiChar_toData}
+\lean{LanglandsFirstMainLemma.continuousQuasiChar_toData_character}
+\lean{LanglandsFirstMainLemma.continuousQuasiChar_toData_conductor}
+\lean{LanglandsFirstMainLemma.continuousQuasiChar_toData_apply}
+\lean{LanglandsFirstMainLemma.continuousQuasiChar_toData_isConductor}
+\lean{LanglandsFirstMainLemma.continuousQuasiChar_toData_trivialOnUnitFiltration_iff}
+\lean{LanglandsFirstMainLemma.continuousQuasiChar_toData_conductor_eq_zero_iff}
+\lean{LanglandsFirstMainLemma.continuousQuasiChar_norm_eq_one_of_mem_unitGroup}
+\lean{LanglandsFirstMainLemma.LocalQuasiCharData.norm_character_eq_one_of_mem_unitGroup}
+\lean{LanglandsFirstMainLemma.continuousAddChar_toData_compTrace_character}
+\lean{LanglandsFirstMainLemma.continuousAddChar_toData_compTrace_apply}
+\lean{LanglandsFirstMainLemma.continuousQuasiChar_toData_compNorm_character}
+\lean{LanglandsFirstMainLemma.continuousQuasiChar_toData_compNorm_apply}
+\leanok
+\SourceText{Local notation, subsection Local fields, ideals, and characters; final export contract.}
+\uses{mod:basic-characterconductors,mod:localfield-extension}
+\FormalizationContract
+\end{theorem}

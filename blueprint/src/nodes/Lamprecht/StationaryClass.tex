@@ -1,0 +1,125 @@
+\begin{lemma}[Stationary numerator class at chosen depth]\label{mod:lamprecht-stationaryclass}
+Let $F$ be a nonarchimedean local field, let
+$\chi:F^\times\to\mathbf C^\times$ have exact multiplicative conductor
+$q=m_F(\chi)>1$, and let $\psi:F\to\mathbf C^\times$ have exact additive
+conductor $n=n_F(\psi)$.  Fix $M\in\mathbf Z$ and $\Gamma\in F^\times$
+with
+\[
+ \operatorname{ord}_F(\Gamma)=M+n,
+\]
+equivalently $\Gamma\mathcal O_F=\mathfrak p_F^{M+n}$.  A natural-number
+depth $r$ is declared admissible when
+\[
+ q\leq 2r,
+ \qquad r+1\leq q.
+\]
+Together with $q>1$, these are exactly
+$\lceil q/2\rceil\leq r\leq q-1$.  In particular $r>0$ and $r\leq q$.
+This is the Lean proposition
+\texttt{IsLamprechtStationaryDepth $q$ $r$}; there is no stationary class
+in this lemma for conductor zero or one.
+
+The restriction of $\chi$ to $U_F^r$ first descends, using its exact
+conductor data, to a homomorphism
+\[
+ U_F^r/U_F^q\longrightarrow\mathbf C^\times.
+\]
+Since $r>0$ and $q\leq2r$, the representative-free linear-range
+equivalence
+\[
+ U_F^r/U_F^q\simeq_\times
+ \operatorname{Multiplicative}
+   (\mathfrak p_F^r/\mathfrak p_F^q),
+ \qquad [1+x]\longmapsto[x],
+\]
+transports this homomorphism to the additive character
+\[
+ L_{\chi,r}:\mathfrak p_F^r/\mathfrak p_F^q\longrightarrow\mathbf C,
+ \qquad [x]\longmapsto\chi(1+x).
+\]
+Both descents are quotient constructions; neither selects a representative.
+
+Finite duality relative to the supplied pair $(\psi,\Gamma)$ gives the
+additive equivalence
+\[
+ \mathfrak p_F^{M-q}/\mathfrak p_F^{M-r}
+ \xrightarrow{\ \sim\ }
+ \operatorname{AddChar}
+   (\mathfrak p_F^r/\mathfrak p_F^q,\mathbf C),
+ \qquad [c]\longmapsto
+   \bigl([x]\mapsto\psi(cx/\Gamma)\bigr).
+\]
+Define the public stationary numerator object to be the quotient class
+\[
+ \operatorname{St}_{\Gamma,r}(\chi)
+ :=L_{\chi,r}\text{ under the inverse of this equivalence}
+ \in\mathfrak p_F^{M-q}/\mathfrak p_F^{M-r}.
+\]
+Thus \texttt{stationaryNumeratorClass} returns this quotient class itself;
+there is no canonical $F$-valued representative and no hidden choice of one.
+Its defining quotient-level equality is
+\[
+ \langle\operatorname{St}_{\Gamma,r}(\chi),-\rangle_{\psi,\Gamma}
+ =L_{\chi,r}.
+\]
+
+For every $c\in\mathfrak p_F^{M-q}$, one has the exact characterization
+\[
+ [c]=\operatorname{St}_{\Gamma,r}(\chi)
+ \quad\Longleftrightarrow\quad
+ \chi(1+x)=\psi(cx/\Gamma)
+ \quad\text{for every }x\in\mathfrak p_F^r.
+\]
+Here Lean's \texttt{positiveUnitOfLattice} is the unit $1+x$; its use does
+not choose a representative of the stationary class.  Consequently there
+exists a unique quotient class satisfying this linearization.  The
+formal predicate \texttt{IsStationaryNumeratorClass} quantifies over every
+numerator representing the proposed class, and the construction satisfies
+it.  In particular, if $c$ and $c'$ both represent the stationary class,
+then for every $x\in\mathfrak p_F^r$,
+\[
+ \psi(cx/\Gamma)=\chi(1+x)=\psi(c'x/\Gamma),
+\]
+so the linearization is explicitly representative-independent.
+
+Finally, every representative has the manuscript's exact valuation
+\[
+ \operatorname{ord}_F(c)=M-q.
+\]
+Indeed $c\in\mathfrak p_F^{M-q}$ by its numerator type.  If an arbitrary
+representative lay in $\mathfrak p_F^{M-q+1}$, then for
+$x\in\mathfrak p_F^{q-1}$ the lattice annihilator calculation would put
+$cx/\Gamma$ in $\mathfrak p_F^{-n}$.  Since $r\leq q-1$, the proved
+linearization would make $\chi$ trivial on $U_F^{q-1}$, contradicting the
+exact conductor $q$.  Hence
+$c\notin\mathfrak p_F^{M-q+1}$, and the exact lattice-shell theorem gives
+the displayed order.  This argument applies directly to every
+representative and does not use a pointwise-kernel converse for $\psi$.
+\LeanFile{LanglandsFirstMainLemma/Lamprecht/StationaryClass.lean}
+\lean{LanglandsFirstMainLemma.IsLamprechtStationaryDepth}
+\lean{LanglandsFirstMainLemma.IsLamprechtStationaryDepth.pos}
+\lean{LanglandsFirstMainLemma.IsLamprechtStationaryDepth.le_conductor}
+\lean{LanglandsFirstMainLemma.stationaryQuasiCharOnUnitQuotient}
+\lean{LanglandsFirstMainLemma.stationaryQuasiCharOnUnitQuotient_mk}
+\lean{LanglandsFirstMainLemma.stationaryLinearizationCharacterUnits}
+\lean{LanglandsFirstMainLemma.stationaryLinearizationCharacter}
+\lean{LanglandsFirstMainLemma.stationaryLinearizationCharacter_mk}
+\lean{LanglandsFirstMainLemma.stationaryNumeratorClass}
+\lean{LanglandsFirstMainLemma.lamprechtPairingLeft_stationaryNumeratorClass}
+\lean{LanglandsFirstMainLemma.stationaryNumeratorClass_linearization}
+\lean{LanglandsFirstMainLemma.latticeQuotientMk_eq_stationaryNumeratorClass_iff}
+\lean{LanglandsFirstMainLemma.IsStationaryNumeratorClass}
+\lean{LanglandsFirstMainLemma.stationaryNumeratorClass_isStationary}
+\lean{LanglandsFirstMainLemma.stationaryNumeratorClass_unique}
+\lean{LanglandsFirstMainLemma.stationaryNumeratorClass_existsUnique}
+\lean{LanglandsFirstMainLemma.stationaryNumeratorClass_representative_independent}
+\lean{LanglandsFirstMainLemma.stationaryNumeratorClass_representative_ord}
+\leanok
+\SourceText{Lemma lem:stationary-class-existence.}
+\uses{mod:lamprecht-finiteduality,mod:basic-characterconductors,mod:localfield-lattices}
+\FormalizationContract The public stationary parameter is the certified
+lattice-quotient class.  The denominator $\Gamma$, exact conductor data, and
+admissible depth proof are explicit inputs.  No declaration chooses a field
+representative, and exact valuation is proved uniformly for every numerator
+whose quotient class is stationary.
+\end{lemma}

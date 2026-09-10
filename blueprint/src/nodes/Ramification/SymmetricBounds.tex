@@ -1,0 +1,146 @@
+\begin{theorem}[Symmetric-function valuation bounds]\label{mod:ramification-symmetricbounds}
+Let $K/F$ be a finite Galois extension of nonarchimedean local fields and
+write
+\[
+ P_i(x)=\operatorname{Tr}_{K/F}(x^i),\qquad
+ s_j(x)=s_j(\{\sigma(x):\sigma\in\operatorname{Gal}(K/F)\}).
+\]
+For an integer $D$ and a positive integer $p=[K:F]$, isolate the exact
+trace-lattice input
+\begin{equation}\label{eq:lean-trace-lower-bound}
+ v_K(z)\ge q
+ \quad\Longrightarrow\quad
+ v_F(\operatorname{Tr}_{K/F}z)
+ \ge \left\lfloor\frac{q+D}{p}\right\rfloor
+ \qquad(q\in\mathbf Z).
+\end{equation}
+Then, if $v_K(x)\ge a$ and $i\ge1$,
+\begin{equation}\label{eq:lean-power-sum-bound}
+ v_F(P_i(x))\ge\left\lfloor\frac{ia+D}{p}\right\rfloor.
+\end{equation}
+This is the public theorem \texttt{powerSum\_bound}.  The trace-lattice
+equality itself belongs to the different and trace-ideal nodes; the present
+node takes precisely its lower-bound half
+\eqref{eq:lean-trace-lower-bound} as an explicit hypothesis, rather than
+assuming an undeclared theorem.
+
+For an arbitrary finite family $z=(z_\sigma)$ in a commutative ring, Lean
+first proves the algebraic Newton identity
+\[
+ j s_j(z)=(-1)^{j+1}
+ \sum_{\substack{r+i=j\\r<j}}(-1)^r s_r(z)P_i(z).
+\]
+After evaluating this identity on the Galois conjugates and using the
+existing \texttt{Extension.elementarySymmetric} API, Lean retains this
+antidiagonal form; equivalently, after reindexing, it is
+\begin{equation}\label{eq:lean-newton-symmetric}
+ j s_j(x)=\sum_{i=1}^{j}(-1)^{i-1}s_{j-i}(x)P_i(x),
+ \qquad s_0(x)=1.
+\end{equation}
+The algebraic identities and the valuation arguments are separate
+declarations.
+
+In the wild prime-degree case assume
+\[
+ p=\operatorname{char}k_F=[K:F],\qquad
+ T\ge2,\qquad D=(p-1)T,
+\]
+and assume \eqref{eq:lean-trace-lower-bound} with this value of $D$.
+For every $1\le j<p$, Lean proves the exact manuscript bound
+\begin{equation}\label{eq:lean-wild-symmetric-bound}
+ v_F(s_j(x))\ge
+ \left\lfloor\frac{ja+(p-1)T}{p}\right\rfloor.
+\end{equation}
+The proof uses that $j<p=\operatorname{char}k_F$ makes $j$ a unit, including
+an explicit residue-characteristic divisibility argument, and that
+$(p-1)T\ge p$.  There is also a source-level specialization in which
+$K/F$ is a prime cyclic extension, $t>0$ is an actual lower break,
+$T=t+1$, and the ramification index is $p$.  It proves
+\eqref{eq:lean-wild-symmetric-bound} for the entire nonterminal range and
+separately proves the endpoint
+\begin{equation}\label{eq:lean-symmetric-endpoint}
+ v_F(s_p(x))=v_F(N_{K/F}x)=v_K(x)\ge a.
+\end{equation}
+
+For the tame odd prime-degree range, let $\ell=[K:F]$ be prime,
+$\ell\ne2$, $\operatorname{char}k_F\ne\ell$, and
+$e(K/F)=\ell$.  If $2\le j<\ell$, then the direct conjugate-monomial
+argument gives
+\begin{equation}\label{eq:lean-tame-symmetric-bound}
+ v_F(s_j(x))\ge
+ \left\lceil\frac{ja}{\ell}\right\rceil
+ =\left\lfloor\frac{ja+\ell-1}{\ell}\right\rfloor.
+\end{equation}
+The proof explicitly transports the estimate upstairs using
+$v_K|_F=\ell v_F$; it does not use the wild Newton estimate.
+
+The norm-truncation specialization retains exactly the range
+$2\le j<p$: for $q,r\ge0$, if
+\[
+ pr\le2q+(p-1)T,
+\]
+then $v_K(x)\ge q$ implies $v_F(s_j(x))\ge r$ for every
+$2\le j<p$.  Thus the range is empty when $p=2$, while $j=1$ and $j=p$
+remain the trace and norm terms.
+
+Finally put
+\[
+ e_0=\left\lfloor\frac{(p-1)T}{p}\right\rfloor
+     =T-\left\lceil\frac{T}{p}\right\rceil.
+\]
+The trace of $1$ gives
+$e_0\le v_F(p)$, and for odd $p$ one has $T\le2e_0$.  The exact numerical
+inequalities used for the negative-valuation reciprocal terms are also
+proved: for $c\ge0$,
+\[
+ e_0\le(p-2)c+
+ \left\lfloor\frac{(p-1)c+(p-1)T}{p}\right\rfloor,
+\]
+and, for $2\le j<p$,
+\[
+ e_0\le(j-2)c+
+ \left\lfloor\frac{(p-j)c+(p-1)T}{p}\right\rfloor.
+\]
+These retain every floor and every endpoint needed in the later proof of
+Proposition~\ref{prop:X-depth}.  The completed finite-products API remains
+the source of the prime-field identities used by those later correction
+calculations; none is duplicated here.
+\LeanFile{LanglandsFirstMainLemma/Ramification/SymmetricBounds.lean}
+\lean{LanglandsFirstMainLemma.FiniteFamily.finitePowerSum}
+\lean{LanglandsFirstMainLemma.FiniteFamily.finiteElementarySymmetric}
+\lean{LanglandsFirstMainLemma.FiniteFamily.newton}
+\lean{LanglandsFirstMainLemma.galoisPowerSum}
+\lean{LanglandsFirstMainLemma.algebraMap_galoisPowerSum_eq_sum_conjugates}
+\lean{LanglandsFirstMainLemma.elementarySymmetric_newton_identity}
+\lean{LanglandsFirstMainLemma.TraceIdealLowerBound}
+\lean{LanglandsFirstMainLemma.integerCeilingDiv}
+\lean{LanglandsFirstMainLemma.powerSum_bound}
+\lean{LanglandsFirstMainLemma.degree_natCast_ord_bound}
+\lean{LanglandsFirstMainLemma.ord_natCast_eq_zero_of_lt_residueCharacteristic}
+\lean{LanglandsFirstMainLemma.elementarySymmetric_degree_ord}
+\lean{LanglandsFirstMainLemma.elementarySymmetric_degree_bound}
+\lean{LanglandsFirstMainLemma.totallyRamified_elementarySymmetric_bound}
+\lean{LanglandsFirstMainLemma.tame_elementarySymmetric_bound}
+\lean{LanglandsFirstMainLemma.wildDifferentContribution}
+\lean{LanglandsFirstMainLemma.wild_elementarySymmetric_bound}
+\lean{LanglandsFirstMainLemma.wild_symmetric_bound}
+\lean{LanglandsFirstMainLemma.wild_elementarySymmetric_uniform_bound}
+\lean{LanglandsFirstMainLemma.wild_intermediateSymmetric_bound}
+\lean{LanglandsFirstMainLemma.wildBaseDepth}
+\lean{LanglandsFirstMainLemma.integerCeilingDiv_eq_neg_ediv}
+\lean{LanglandsFirstMainLemma.wildBaseDepth_eq_sub_integerCeilingDiv}
+\lean{LanglandsFirstMainLemma.two_mul_wildBaseDepth_ge}
+\lean{LanglandsFirstMainLemma.wild_reciprocal_first_depth}
+\lean{LanglandsFirstMainLemma.wild_reciprocal_intermediate_depth}
+\leanok
+\SourceText{Lemma~\ref{lem:wild-symmetric-bound} and Proposition~\ref{prop:X-depth}.}
+\uses{mod:ramification-primecyclicextension,mod:localfield-extension,mod:localfield-valuation,mod:basic-finiteproducts}
+\FormalizationContract The different contribution is exactly
+$D=(p-1)(t+1)$, the trace-lattice lower bound is an explicit input, and
+the wild proof uses the exact floor estimate rather than an asymptotic
+substitute.  The tame proof uses the exact ceiling and the ramification-index
+scaling upstairs.  The ranges $1\le j<p$, $2\le j<p$, and the endpoint
+$j=p$ are represented by separate declarations; every theorem that uses a
+denominator assumes its positivity or primality, and the residue-characteristic
+condition making $j$ a unit is explicit.
+\end{theorem}

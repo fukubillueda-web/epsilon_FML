@@ -1,0 +1,97 @@
+\begin{theorem}[Residue-field formulas]\label{mod:delta-residueformula}
+Let $F$ be a nonarchimedean local field, let $\psi$ have exact additive
+conductor $n\in\mathbf Z$, and let $\gamma\in F^\times$ satisfy
+\[
+ \operatorname{ord}_F(\gamma)=n+1.
+\]
+Using the canonical Teichmuller section $[\,\cdot\,]_F:k_F\to\mathcal O_F$
+from Definition~\ref{mod:localfield-residuefield}, define
+\[
+ \bar\psi_\gamma(x)=\psi([x]_F/\gamma)\qquad(x\in k_F).
+\]
+This is an additive character.  More precisely, for every $a\in\mathcal
+O_F$ and every proof that $a$ is integral,
+\[
+ \bar\psi_\gamma(\bar a)=\psi(a/\gamma).
+\]
+Thus the value is independent of the integral lift, as in
+Lemma~\ref{lem:residual-normalization}, and exactness of the additive
+conductor proves $\bar\psi_\gamma\ne1$.
+
+For exact local quasi-character data $\chi$, define a multiplicative
+character $\bar\chi:k_F\to\mathbf C$ by evaluating $\chi$ on the canonical
+Teichmuller lift of each element of $k_F^\times$ and extending by zero at
+zero.  If $m_F(\chi)\leq1$, then for every $u\in\mathcal O_F^\times$,
+\[
+ \bar\chi(\bar u)=\chi(u).
+\]
+In particular, exact conductor one implies $\bar\chi\ne1$; no residue-field
+unit representative is selected in either definition.
+
+Let $G_\gamma(\chi,\psi)$ and
+$\Delta_F^{\mathrm{fin}}(\chi,\psi;\gamma)$ be the representative-free
+finite sum and computational local constant of
+Definition~\ref{mod:delta-finitedefinition}.  If $m_F(\chi)=0$ and $\gamma$
+is admissible, then
+\[
+ G_\gamma(\chi,\psi)=1,
+ \qquad
+ \Delta_F^{\mathrm{fin}}(\chi,\psi;\gamma)=\chi(\gamma).
+\]
+This is the exact conductor-zero formula: the quotient $U_F^0/U_F^0$ is a
+singleton, the additive value of its sole summand is one, and the unit value
+of $\chi$ is one.
+
+Suppose instead that $m_F(\chi)=1$ and $\gamma$ is admissible.  Then
+$\operatorname{ord}_F(\gamma)=n+1$, so the preceding residual additive
+character applies.  With the normalization of
+Definition~\ref{mod:finitefield-characterapi},
+\[
+ \tau_{k_F}(\bar\chi,\bar\psi_\gamma)
+ =-\sum_{x\in k_F^\times}
+     \bar\chi(x)^{-1}\bar\psi_\gamma(x),
+\]
+the exact local-to-residue identities are
+\[
+ G_\gamma(\chi,\psi)
+   =-\tau_{k_F}(\bar\chi,\bar\psi_\gamma),
+\]
+and
+\[
+ \Delta_F^{\mathrm{fin}}(\chi,\psi;\gamma)
+ =-\chi(\gamma)\,
+   \operatorname{ph}\!\left(
+     \tau_{k_F}(\bar\chi,\bar\psi_\gamma)\right).
+\]
+The proof reindexes the local quotient by the canonical isomorphism
+$U_F^0/U_F^1\simeq k_F^\times$, then uses the arbitrary-lift evaluation
+theorems term by term.  Hence the displayed minus sign, multiplicative
+character inversion, admissible-denominator factor, and phase are all
+literal consequences of the definitions; no desired finite-field formula
+is assumed.
+\LeanFile{LanglandsFirstMainLemma/Delta/ResidueFormula.lean}
+\lean{LanglandsFirstMainLemma.residualAddChar}
+\lean{LanglandsFirstMainLemma.residualAddChar_integral_lift}
+\lean{LanglandsFirstMainLemma.residualAddChar_residueUnits}
+\lean{LanglandsFirstMainLemma.residualAddChar_ne_one}
+\lean{LanglandsFirstMainLemma.teichmullerLocalUnits}
+\lean{LanglandsFirstMainLemma.residueUnits_teichmullerLocalUnits}
+\lean{LanglandsFirstMainLemma.residualMulChar}
+\lean{LanglandsFirstMainLemma.residualMulChar_apply_unit}
+\lean{LanglandsFirstMainLemma.residualMulChar_residueUnits}
+\lean{LanglandsFirstMainLemma.residualMulChar_ne_one}
+\lean{LanglandsFirstMainLemma.finiteGaussSum_conductor_zero}
+\lean{LanglandsFirstMainLemma.deltaFinite_conductor_zero}
+\lean{LanglandsFirstMainLemma.finiteGaussSum_conductor_one}
+\lean{LanglandsFirstMainLemma.deltaFinite_conductor_one}
+\leanok
+\SourceText{Lemma lem:residual-normalization; Proposition prop:tame-conductor-one-comparison; Proposition prop:unramified-new.}
+\uses{mod:delta-finitedefinition,mod:delta-elementary,mod:finitefield-characterapi,mod:localfield-residuefield}
+\FormalizationContract The residual characters use the canonical Teichmuller
+section only for their definitions; separate theorems identify their values
+with every integral or unit lift.  The conductor-one finite sum is proved by
+an explicit quotient equivalence and is exactly the negative of Langlands's
+normalized Gauss sum.  The local-constant theorem then transports that minus
+sign through the nonzero phase, retaining $\chi(\gamma)$ and the inverse on
+$\bar\chi$ with no normalization or representative hypothesis suppressed.
+\end{theorem}

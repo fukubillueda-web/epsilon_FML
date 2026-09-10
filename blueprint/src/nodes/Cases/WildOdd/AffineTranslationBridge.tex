@@ -1,0 +1,67 @@
+\begin{theorem}[Wild odd affine-translation bridge]
+\label{mod:cases-wildodd-affinetranslationbridge}
+For an odd representative-change datum $R$, write
+$c_0=\beta'_R-\beta_R$ for its exact source-to-selected representative
+difference.  If
+\[
+ c_0\in\mathfrak p_E^{d_R+1},
+\]
+then its residual translation coefficient is zero:
+\[
+ \Delta B_R=0.
+\]
+Indeed, $\beta_R$ has order zero and the critical coordinate has order
+$d_R$, so $c_0/(\beta_R\delta_R)$ lies in the maximal ideal.  Its residue
+translation parameter is therefore zero, and the exact identity
+$\Delta B_R=A_Ra_R$ gives the result.  In particular, the proof retains
+$c_0=\beta'_R-\beta_R$, the source representative in the denominator, and
+the chosen critical coordinate.
+
+For every nonzero High index $j$, take the actual datum
+\texttt{highTeichmullerLiteralRepresentativeChange}.  Its difference is
+exactly $[j]-j_{\mathbf Z}$.  Since $p$ and $T=t+1$ are odd, the successor
+half-depth theorem gives
+\[
+ [j]-j_{\mathbf Z}\in
+ \mathfrak p_F^{\lfloor T/2\rfloor+1}.
+\]
+Thus $\Delta_j^H=0$.  Applying the exact complete-function transport before
+simplifying its translation proves that the product of the actual High
+critical factors equals the clean product of the literal natural-power rows
+used by the scalar-pencil calculation.
+
+For the Low row the selected-minus-source difference is
+\[
+ ([j]-j_{\mathbf Z})\alpha.
+\]
+The same successor congruence, multiplied by the actual supplied unit
+$\alpha$, puts this difference in
+$\mathfrak p_F^{\lfloor T/2\rfloor+1}$.  The positive source-to-selected
+translations exposed separately by the actual norm-row and boundary-twist
+row theorems therefore satisfy
+\[
+ \Delta_j^R=0,\qquad \Delta_j^T=0.
+\]
+Only after these two vanishings are invoked does the translated boundary
+critical quotient simplify to the untranslated quotient consumed by the
+boundary pencil.  No cancellation theorem for arbitrary nonzero
+translations is used.  Elementary stationary factors, quotient classes,
+raw inverse norm factors, and denominator orientations are unchanged.
+\LeanFile{LanglandsFirstMainLemma/Cases/WildOdd/AffineTranslationBridge.lean}
+\lean{LanglandsFirstMainLemma.OddRepresentativeChangeData.translationCoefficient_eq_zero_of_difference_mem_succ}
+\lean{LanglandsFirstMainLemma.wildOdd_highTranslationCoefficient_eq_zero}
+\lean{LanglandsFirstMainLemma.wildOdd_lowTranslationCoefficient_eq_zero}
+\lean{LanglandsFirstMainLemma.wildOdd_highActualNormCriticalProduct_eq_clean}
+\lean{LanglandsFirstMainLemma.wildOdd_lowBoundaryTranslatedCriticalQuotient_eq_untranslated}
+\lean{LanglandsFirstMainLemma.wildOdd_affineTranslationBridge}
+\leanok
+\SourceText{Lemma lem:teichmueller-stationary and Propositions prop:odd-coefficient-table and prop:odd-phase-cancel.}
+\uses{mod:parameters-highintermediate,mod:parameters-phasereduction,mod:cases-wildodd-lowerresidualcoefficients,mod:cases-wildodd-scalarphaseproducts,mod:cases-wildodd-boundarypencil}
+\FormalizationContract
+The generic, High, Low norm, and Low twist translation vanishings precede
+the product and quotient bridges.  The High and Low specializations retain
+the actual source-tied representative-change data and use the successor-
+half-depth Teichmuller theorem.  The scalar pencil, affine boundary pencil,
+residual coefficient tables, and complete residual phase quotient are only
+consumed, never reproved.
+\end{theorem}

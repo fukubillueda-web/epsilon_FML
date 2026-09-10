@@ -1,0 +1,173 @@
+\begin{theorem}[Endpoint conductors in wild prime degree]
+\label{mod:cases-wildendpoints}
+Let $K/F$ be a wildly ramified cyclic extension of prime degree
+$p=[K:F]$, with positive lower break $t$, residue degree one, and a chosen
+integral uniformizer $\varpi_K$ generating $\mathcal O_K$ over
+$\mathcal O_F$.  Put $\varpi_F=N_{K/F}(\varpi_K)$ and
+$\psi_K=\psi_F\circ\operatorname{Tr}_{K/F}$.  If
+$n=n_F(\psi_F)$, the exact trace-conductor formula used in both endpoint
+calculations is
+\[
+ n_K(\psi_K)=pn+(p-1)(t+1).
+\]
+Every product below ranges over the complete norm-character group
+$S(K/F)$, including its identity element.
+
+Suppose first that $m_F(\chi_F)=0$.  The identity norm character has
+conductor zero, while every nonidentity $\mu\in S(K/F)$ has conductor
+$t+1$.  Direct substitution in the finite local-constant sum, with exact
+uniformizer-power denominators, gives
+\[
+ \Delta_F(\mu\chi_F,\psi_F)
+ =\chi_F(\varpi_F)^{m_F(\mu)+n}
+   \Delta_F(\mu,\psi_F).
+\]
+The identity norm-character factor is proved literally equal to $1$, and
+the identity twist is the original $\Delta_F(\chi_F,\psi_F)$.  Summing
+the exact conductors over the full group gives
+\[
+ n+(p-1)(t+1+n)=pn+(p-1)(t+1),
+\]
+and hence the complete conductor-zero product identity
+\[
+ \Delta_K(\chi_F\circ N_{K/F},\psi_K)
+ \prod_{\mu\in S(K/F)}\Delta_F(\mu,\psi_F)
+ =
+ \prod_{\mu\in S(K/F)}\Delta_F(\mu\chi_F,\psi_F).
+\]
+No stationary class or Lamprecht formula is used in this branch.
+
+Now suppose that $m_F(\chi_F)=1$.  Lean chooses an admissible denominator
+and normalizes its residual additive character to the canonical
+Frobenius-invariant character.  If $f$ is the minimal polynomial of
+$\varpi_K$, it sets
+\[
+ \gamma_K=\gamma_F\frac{f'(\varpi_K)}{\varpi_K^{p-1}}.
+\]
+The different calculation gives
+$v_K(f'(\varpi_K))=(p-1)(t+1)$, and the trace-dual calculation retains the
+exact sign
+\[
+ \operatorname{Tr}_{K/F}
+   \left(\frac{\varpi_K^{p-1}}{f'(\varpi_K)}\right)=1.
+\]
+Together with the trace-ideal bound, this identifies the residual additive
+characters.  The conductor-one residue formula is applied on both fields
+with its leading minus sign and inverse multiplicative character.  The
+Frobenius change of variables then yields
+\[
+ \frac{\Delta_K(\chi_F\circ N_{K/F},\psi_K)}
+      {\Delta_F(\chi_F,\psi_F)}
+ =\chi_F\left(\frac{N_{K/F}(\gamma_K)}{\gamma_F}\right).
+\]
+
+Let $\lambda\in k_F^\times$ be the normalized ramification displacement.
+The generic positive-break construction in
+Theorem~\ref{mod:ramification-normbelowbreak} fixes the exact source and
+target coordinates of the critical graded norm and proves
+\[
+ P(Z)=Z^p-\lambda^{p-1}Z,
+ \qquad
+ \operatorname{range}(P)
+   =\lambda^p\ker\bigl(\operatorname{Tr}_{k_F/\mathbf F_p}\bigr).
+\]
+It also records exactness of the ramification map followed by the critical
+norm and fixes the cokernel in the target-over-range direction:
+\[
+ \#\left(
+   (U_F^t/U_F^{t+1})/
+   \operatorname{range}(\operatorname{gr}N_{K/F})
+ \right)=p.
+\]
+The endpoint declarations specialize that shared construction at
+$t=s+1$; there is no second endpoint-specific proof of the polynomial or
+its linear coefficient.
+
+Let $\tau$ generate the nontrivial norm-character line.  Its conductor is
+$t+1>1$, so Lean chooses a representative $b_\tau$ of its genuine
+stationary numerator class and puts
+$c_\tau=\gamma_\tau/b_\tau$, where
+$\gamma_\tau=\varpi_F^t\gamma_F$.  Triviality of $\tau$ on the actual
+critical norm image, the exact polynomial, and the trace-pairing
+annihilator give
+\[
+ \left(
+   \overline{\frac{c_\tau}{\varpi_F^t\gamma_F}}
+ \right)^{p-1}
+ =\lambda^{p(p-1)}.
+\]
+For
+$D=f'(\varpi_K)/\varpi_K^{(p-1)(t+1)}$, the conjugate-difference product
+and Wilson's theorem give
+\[
+ \bar D=(-1)^p\lambda^{p-1},
+ \qquad
+ \overline{N_{K/F}(D)}=(-1)^p\lambda^{p(p-1)}.
+\]
+Consequently Lean proves the endpoint discriminant congruence in the exact
+quotient direction
+\[
+ \frac{N_{K/F}(\gamma_K)/\gamma_F}
+      {(-1)^p c_\tau^{p-1}}
+ \in U_F^1.
+\]
+
+For every nonzero cyclic index $j$, stationary-class power calculus proves
+that $j b_\tau$ represents the class of $\tau^j$.  Stable twisting is
+applied only to these conductor-$t+1$ norm characters and gives the factor
+$c_\tau/j$.  Their complete product has residue
+$(-1)^p c_\tau^{p-1}$, including when $p=2$.  The identity norm character
+is retained and evaluated separately.  Combining these facts proves the
+complete conductor-one product identity
+\[
+ \Delta_K(\chi_F\circ N_{K/F},\psi_K)
+ \prod_{\mu\in S(K/F)}\Delta_F(\mu,\psi_F)
+ =
+ \prod_{\mu\in S(K/F)}\Delta_F(\mu\chi_F,\psi_F).
+\]
+
+\LeanFile{LanglandsFirstMainLemma/Cases/WildEndpoints.lean}
+\LeanFile{LanglandsFirstMainLemma/Cases/WildEndpoints/Common.lean}
+\LeanFile{LanglandsFirstMainLemma/Cases/WildEndpoints/Zero.lean}
+\LeanFile{LanglandsFirstMainLemma/Cases/WildEndpoints/One/ResidualGauss.lean}
+\LeanFile{LanglandsFirstMainLemma/Cases/WildEndpoints/One/CyclicWilson.lean}
+\LeanFile{LanglandsFirstMainLemma/Cases/WildEndpoints/One/DerivativeDiscriminant.lean}
+\LeanFile{LanglandsFirstMainLemma/Cases/WildEndpoints/One/IntrinsicCritical.lean}
+\LeanFile{LanglandsFirstMainLemma/Cases/WildEndpoints/One/StationaryReciprocity.lean}
+\LeanFile{LanglandsFirstMainLemma/Cases/WildEndpoints/One/Final.lean}
+\LeanFile{LanglandsFirstMainLemma/FiniteField/FrobeniusTrace.lean}
+\lean{LanglandsFirstMainLemma.firstMain_wildEndpoint_zero}
+\lean{LanglandsFirstMainLemma.firstMain_wildEndpoint_one}
+\lean{LanglandsFirstMainLemma.endpoint_discriminant_congruence}
+\lean{LanglandsFirstMainLemma.wildEndpointIntrinsicCriticalExactAndCokernel}
+\lean{LanglandsFirstMainLemma.wildEndpointIntrinsicCriticalPolynomialValue_exact}
+\lean{LanglandsFirstMainLemma.wildEndpointIntrinsicCriticalPolynomialValue_range_eq_traceKernel}
+\leanok
+\SourceText{Subsection sec:wild-endpoints and Lemma lem:endpoint-discriminant-congruence.}
+\uses{mod:ramification-normfiltration,
+mod:ramification-normbelowbreak,
+mod:ramification-normcharacters,
+mod:ramification-pullbackconductors,
+mod:ramification-traceideals,
+mod:delta-residueformula,
+mod:lamprecht-stabletwist}
+\FormalizationContract
+The two principal Lean theorems are literal \texttt{deltaFinite} product
+identities with proof-bearing exact conductor data and internally fixed
+admissible denominators.  They do not assert an identity for an arbitrary
+parameter of type \texttt{LocalConstantFunction}; that requires a separate
+bridge from arbitrary continuous characters to exact conductor data.
+Every product uses the complete finite norm-character group.  Its identity
+term is never erased: it is proved equal to $1$ on the norm-character side
+and to the original $\chi_F$ factor on the twisted side.  The critical
+polynomial declarations are endpoint wrappers around the generic
+positive-break API in module~\ref{mod:ramification-normbelowbreak}.  The
+critical cokernel is the target modulo the actual norm range, not the
+reverse quotient.  The residue Gauss sum keeps the manuscript's leading
+minus sign and inverse-character convention, and the discriminant congruence keeps
+the displayed quotient direction.  Stationary numerator classes are
+constructed only for nontrivial norm characters of conductor $t+1>1$;
+neither endpoint character of conductor zero or one is assigned a
+stationary parameter or evaluated by a nonexistent higher-conductor
+Lamprecht layer.
+\end{theorem}

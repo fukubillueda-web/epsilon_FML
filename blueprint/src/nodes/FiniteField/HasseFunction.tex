@@ -1,0 +1,105 @@
+\begin{definition}[Hasse functions]\label{mod:finitefield-hassefunction}
+Let $k$ be a field and let
+$\psi\in\operatorname{FiniteAddChar}(k)$.  A Hasse function for $\psi$
+is a function $\phi:k\to\mathbf C$ such that $\phi(x)\ne0$ for every
+$x$ and
+\[
+ \phi(x+y)=\phi(x)\phi(y)\psi(xy).
+\]
+This is the Lean structure $\operatorname{HasseFunction}(k,\psi)$; in
+particular, the polar phase has the manuscript's positive sign.
+The defining law and nonvanishing imply $\phi(0)=1$.
+
+For $a\in k$, define the translated refinement
+\[
+ (T_a\phi)(x)=\phi(x)\psi(ax).
+\]
+It is again a Hasse function for $\psi$, and Lean proves the exact
+representative-change identity
+\[
+ (T_a\phi)(x)=\phi(a)^{-1}\phi(x+a).
+\]
+For every $n\in\mathbf N$, iteration of the refinement law gives the
+scaling formula used in the Hasse-lift calculation:
+\[
+ \phi(n x)=\phi(x)^n
+   \psi\!\left(\binom n2x^2\right).
+\]
+For $c\in k$, the rescaled function $x\mapsto\phi(cx)$ is a Hasse
+function for $\psi^{c^2}(z)=\psi(c^2z)$.
+
+Suppose now that $k$ is finite.  Every value of $\phi$ has absolute
+value one.  With
+\[
+ S(\phi)=\sum_{x\in k}\phi(x),
+ \qquad H(\phi)=\Aphase(S(\phi)),
+\]
+Lean proves
+\[
+ S(T_a\phi)=\phi(a)^{-1}S(\phi),
+ \qquad
+ S(x\mapsto\phi(cx))=S(\phi)\quad(c\ne0).
+\]
+If $\psi\ne1$, additive orthogonality gives the exact identities
+\[
+ \overline{S(\phi)}S(\phi)=|k|,
+ \qquad |S(\phi)|^2=|k|,
+ \qquad |S(\phi)|=\sqrt{|k|}.
+\]
+Thus $S(\phi)\ne0$, and translation transports its phase with no
+discarded factor:
+\[
+ H(T_a\phi)=\phi(a)^{-1}H(\phi).
+\]
+
+Finally, if $\operatorname{char}k\ne2$, Lean constructs the standard
+quadratic Hasse function
+\[
+ x\longmapsto\psi\!\left(\frac a2x^2+bx\right)
+\]
+for the polar character $\psi^a$.  Its sum and its total phase are
+definitionally the previously certified
+$S_\psi(a,b)$ and $Q_\psi(a,b)$.
+\LeanFile{LanglandsFirstMainLemma/FiniteField/HasseFunction.lean}
+\lean{LanglandsFirstMainLemma.HasseFunction}
+\lean{LanglandsFirstMainLemma.HasseFunction.map_zero}
+\lean{LanglandsFirstMainLemma.HasseFunction.translate}
+\lean{LanglandsFirstMainLemma.HasseFunction.translate_apply_eq_inv_mul}
+\lean{LanglandsFirstMainLemma.HasseFunction.map_nsmul}
+\lean{LanglandsFirstMainLemma.HasseFunction.scale}
+\lean{LanglandsFirstMainLemma.HasseFunction.norm_apply}
+\lean{LanglandsFirstMainLemma.HasseFunction.sum_translate}
+\lean{LanglandsFirstMainLemma.HasseFunction.sum_scale}
+\lean{LanglandsFirstMainLemma.HasseFunction.sum_star_mul_self}
+\lean{LanglandsFirstMainLemma.HasseFunction.sum_norm_sq}
+\lean{LanglandsFirstMainLemma.HasseFunction.sum_ne_zero}
+\lean{LanglandsFirstMainLemma.HasseFunction.sum_norm}
+\lean{LanglandsFirstMainLemma.HasseFunction.sumPhase_translate}
+\lean{LanglandsFirstMainLemma.HasseFunction.quadratic}
+\lean{LanglandsFirstMainLemma.HasseFunction.sum_quadratic}
+\lean{LanglandsFirstMainLemma.HasseFunction.sumPhase_quadratic}
+\leanok
+\SourceText{Theorem thm:Lamprecht and Theorem thm:Hasse-lift.}
+\uses{mod:finitefield-characterapi,mod:finitefield-quadraticphase}
+\FormalizationContract
+\end{definition}
+\begin{proof}
+The value at zero follows by cancellation from the refinement law.
+The translation identity is that same law with one argument fixed, and
+the natural-number formula follows by induction using Pascal's identity.
+Argument scaling changes $xy$ to $c^2xy$, while a nonzero $c$ merely
+reindexes the finite sum.
+
+To prove unimodularity, specialize the natural-number formula to the
+characteristic of $k$ and take absolute values.  Expanding
+$\overline{S(\phi)}S(\phi)$, reindexing by $x=y+h$, and applying the
+refinement law leaves
+\[
+ \sum_{h\in k}\phi(h)\sum_{y\in k}\psi(hy).
+\]
+Nontrivial additive-character orthogonality kills every term except
+$h=0$, proving the magnitude and nonvanishing statements.  The phase
+identity then transports the norm-one multiplier $\phi(a)^{-1}$ through
+the total phase.  In odd characteristic, direct expansion of
+$(x+y)^2$ verifies the stated quadratic example and its polar character.
+\end{proof}

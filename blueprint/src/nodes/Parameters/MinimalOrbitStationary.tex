@@ -1,0 +1,181 @@
+\begin{lemma}[Minimal-orbit conductors and leading stationary classes]
+\label{mod:parameters-minimalorbitstationary}
+Let $K/F$ be a ramified cyclic extension of prime degree, let $t$ be its
+lower break, and put $T=t+1$.  Supply the residue-degree, integral
+uniformizer, and monogenicity hypotheses used by
+module~\ref{mod:ramification-normcharacters}.  For an exact
+quasi-character datum $\chi$, Lean defines
+\[
+ \operatorname{MinimalOrbit}_{K/F}(\chi)
+ \quad\Longleftrightarrow\quad
+ \forall\mu\in S(K/F),\ \forall q,\quad
+ m_F(\mu\chi)=q\Longrightarrow m_F(\chi)\le q.
+\]
+The quantifier is over the complete norm-character group, including the
+trivial character.
+
+For arbitrary exact conductor data $\chi_0$, Lean uses the finite
+norm-character group and the least-conductor twist construction of
+module~\ref{mod:ramification-normcharacters} to choose
+$\mu_0\in S(K/F)$ and package
+\[
+ \chi=\mu_0\chi_0
+\]
+with its actual least conductor.  It proves that $\chi$ is minimal against
+every further twist in the whole orbit.  With the proved finite instance
+installed, error-term twist invariance is used in exactly the direction
+\[
+ \operatorname{Err}_{K/F}(\mu_0\chi_0)
+ =\operatorname{Err}_{K/F}(\chi_0).
+\]
+This reduction assumes no First Main identity.
+
+Now suppose that $\chi$ is minimal and put $m=m_F(\chi)$.  For every
+$\mu\in S(K/F)$ Lean constructs the actual least conductor datum of
+$\mu\chi$ and proves the complete piecewise formula
+\[
+ m_F(\mu\chi)=
+ \begin{cases}
+ m,&\mu=1,\\
+ \max\{m,T\},&\mu\ne1.
+ \end{cases}
+\]
+Thus the trivial character remains present but is never assigned the
+positive conductor of a nontrivial norm character.  For $\mu\ne1$ the proof
+is separated into the manuscript's three cases:
+\begin{itemize}
+\item if $m<T$, then $m_F(\mu\chi)=T>m$;
+\item if $m=T$, then $m_F(\mu\chi)=T$, since whole-orbit minimality excludes
+  the only possible conductor drop;
+\item if $T<m$, then $m_F(\mu\chi)=m$.
+\end{itemize}
+The same exact-conductor theorem is exported for every nonidentity power
+$\tau^j$.  No local class-field-theory input is used beyond the proved norm
+character API.
+
+The exact pullback formulas are also exposed with precisely this
+whole-orbit minimality hypothesis.  If $\chi_K=\chi\circ N_{K/F}$ and
+$m\le T$, then
+\[
+ m_K(\chi_K)=m.
+\]
+If $T\le m$, then
+\[
+ m_K(\chi_K)
+ =[K:F]m-([K:F]-1)T.
+\]
+For additive data $\psi_K=\psi_F\circ\operatorname{Tr}_{K/F}$ this gives
+the exact denominator identity
+\[
+ m_K(\chi_K)+n_K(\psi_K)
+ =[K:F]\bigl(m+n_F(\psi_F)\bigr).
+\]
+
+Lean re-exports the full finite ramified orbit and its complete cyclic
+enumeration by $\operatorname{Multiplicative}(\mathbf Z/[K:F]\mathbf Z)$.
+The identity index maps to the trivial character and is a member of the
+finite orbit.  Nonidentity indices satisfy the nontrivial-twist conductor
+formula, and full products may be reindexed by the cyclic enumeration
+without deleting the identity factor.
+
+Assume finally that $m=T>1$.  Let $\psi$ have exact additive conductor
+$n$, choose $\Gamma\in F^\times$ and $M\in\mathbf Z$ with
+\[
+ \operatorname{ord}_F(\Gamma)=M+n,
+\]
+and let $r$ carry the stationary-depth certificate
+$T\le2r$ and $r+1\le T$.  For every nontrivial $\mu$, Lean proves the
+honest quotient-class statement
+\[
+ \operatorname{lead}\bigl(
+   \operatorname{St}_{\Gamma,r}(\mu)
+   +\operatorname{St}_{\Gamma,r}(\chi)\bigr)\ne0
+ \quad\text{in}\quad
+ \mathfrak p_F^{M-T}/\mathfrak p_F^{M-T+1}.
+\]
+For a nonidentity natural power $\tau^j$, the common-layer power calculus
+and stationary-class uniqueness prove, as a quotient equality,
+\[
+ \operatorname{St}_{\Gamma,r}(\tau^j)
+ =j\operatorname{St}_{\Gamma,r}(\tau),
+\]
+and hence
+\[
+ \operatorname{lead}\bigl(
+   j\operatorname{St}_{\Gamma,r}(\tau)
+   +\operatorname{St}_{\Gamma,r}(\chi)\bigr)\ne0.
+\]
+For arbitrary explicitly supplied representatives $a,b$ of the two
+quotient classes, Lean also derives
+\[
+ a+b\notin\mathfrak p_F^{M-T+1}.
+\]
+No representative is asserted to be canonical.
+
+Before minimality is imposed, two exact conductor-$T$ characters can only
+have product conductor $T$ or an actual conductor $q'<T$.  If
+$1<q'<T$, Lean first constructs
+\[
+ \operatorname{St}_{\Gamma,\lceil q'/2\rceil}(\mu\chi)
+ \in
+ \mathfrak p_F^{M-q'}/
+ \mathfrak p_F^{M-\lceil q'/2\rceil}
+\]
+at the new conductor and new depth, and only then maps it into the old
+conductor-$T$ quotient, where its restriction equals the old sum.  If
+$q'\le1$, Lean proves that no stationary depth exists and constructs no
+stationary object.  Consequently the critical stationary theorem has no
+tame $T=1$ instance, while it applies uniformly to the wild odd-prime and
+wild quadratic branches; those later branches introduce no different
+minimal-orbit boundary.
+
+\LeanFile{LanglandsFirstMainLemma/Parameters/MinimalOrbitStationary.lean}
+\lean{LanglandsFirstMainLemma.IsMinimalNormCharacterOrbitRepresentative}
+\lean{LanglandsFirstMainLemma.ramifiedNormCharacterOrbitTwistData}
+\lean{LanglandsFirstMainLemma.ramifiedNormCharacterOrbitTwistData_character}
+\lean{LanglandsFirstMainLemma.minimalOrbitRepresentative}
+\lean{LanglandsFirstMainLemma.minimalOrbitRepresentative_character}
+\lean{LanglandsFirstMainLemma.minimalOrbitRepresentative_isConductor}
+\lean{LanglandsFirstMainLemma.minimalOrbitRepresentative_mem_orbit}
+\lean{LanglandsFirstMainLemma.minimalOrbitRepresentative_isMinimal}
+\lean{LanglandsFirstMainLemma.errorTerm_minimalOrbitRepresentative}
+\lean{LanglandsFirstMainLemma.minimalOrbit_nontrivialTwist_isConductor}
+\lean{LanglandsFirstMainLemma.ramifiedNormCharacterOrbitTwistData_conductor_eq}
+\lean{LanglandsFirstMainLemma.minimalOrbitTwistConductor}
+\lean{LanglandsFirstMainLemma.ramifiedNormCharacterOrbitTwistData_conductor_eq_ite}
+\lean{LanglandsFirstMainLemma.minimalOrbit_twist_conductor_eq_of_lt}
+\lean{LanglandsFirstMainLemma.minimalOrbit_twist_conductor_eq_of_critical}
+\lean{LanglandsFirstMainLemma.minimalOrbit_twist_conductor_eq_of_gt}
+\lean{LanglandsFirstMainLemma.minimalOrbit_nontrivialPower_isConductor}
+\lean{LanglandsFirstMainLemma.minimalOrbit_compNorm_conductor_eq_of_leCritical}
+\lean{LanglandsFirstMainLemma.minimalOrbit_compNorm_conductor_eq_atOrAboveCritical}
+\lean{LanglandsFirstMainLemma.minimalOrbit_compNorm_add_compTrace_conductor_eq}
+\lean{LanglandsFirstMainLemma.minimalOrbitNormCharacterFinset}
+\lean{LanglandsFirstMainLemma.one_mem_minimalOrbitNormCharacterFinset}
+\lean{LanglandsFirstMainLemma.minimalOrbitZMod_zero_eq_one}
+\lean{LanglandsFirstMainLemma.minimalOrbitZMod_twist_conductor_eq}
+\lean{LanglandsFirstMainLemma.minimalOrbit_fullProduct_eq_zmodProduct}
+\lean{LanglandsFirstMainLemma.minimalOrbit_stationary}
+\lean{LanglandsFirstMainLemma.normCharacterPower_stationaryClass_eq_nsmul}
+\lean{LanglandsFirstMainLemma.minimalOrbit_power_stationary}
+\lean{LanglandsFirstMainLemma.minimalOrbit_stationary_representatives}
+\lean{LanglandsFirstMainLemma.criticalNormCharacterTwist_conductor_eq_or_drop}
+\lean{LanglandsFirstMainLemma.criticalNormCharacterTwist_stationaryClass_afterDrop}
+\lean{LanglandsFirstMainLemma.normCharacterTwist_noStationaryClass_of_endpoint}
+\leanok
+\SourceText{Lemma lem:minimal-orbit-stationary.}
+\uses{mod:delta-errorterm,mod:lamprecht-stationaryclasscalculus,
+mod:ramification-normcharacters,mod:ramification-pullbackconductors}
+\FormalizationContract
+Minimality quantifies over the complete norm-character orbit.  All stored
+twist conductors are actual least conductors.  The trivial character remains
+in every finite enumeration and is handled separately.  The critical
+noncancellation theorem is a nonzero statement in the leading lattice
+quotient; its representative corollary quantifies over supplied
+representatives and chooses no canonical field element.  A dropped product
+class is constructed at its actual conductor and half-depth before any
+comparison with the old layer, while conductors zero and one have no
+stationary object.  Only the proved direction of error-term twist invariance
+is used, and no downstream high-, low-, phase-, or wild-case theorem is an
+input.
+\end{lemma}

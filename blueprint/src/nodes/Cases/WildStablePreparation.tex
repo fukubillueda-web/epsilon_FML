@@ -1,0 +1,97 @@
+\begin{theorem}[Wild stable preparation]
+\label{mod:cases-wildstablepreparation}
+Let $K/F$ be a ramified prime-cyclic extension of nonarchimedean local
+fields, and let
+\[
+ P:\texttt{PrimeCyclicPreparation}(F,K)
+\]
+be its prepared lower break, residue-degree-one proof, and integral
+monogenic upper uniformizer.  Assume that $K/F$ is wildly ramified and that
+$[K:F]$ is odd.  Let $\Delta_F$ and $\Delta_K$ be local-constant functions
+satisfying \texttt{IsDeltaFiniteLocalConstant}, and let $\chi_F$ and
+$\psi_F$ be arbitrary exact multiplicative- and additive-conductor data.
+
+Write $\chi_{\min}$ for the least-conductor member selected from the complete
+norm-character orbit of $\chi_F$.  If
+\[
+  P.t+1\le
+  \left\lfloor\frac{m_F(\chi_{\min})}{2}\right\rfloor,
+\]
+then Lean proves the fixed-character First Main identity
+\[
+ \Delta_K(\chi_F\circ N_{K/F},
+          \psi_F\circ\operatorname{Tr}_{K/F})
+ \prod_{\mu\in S(K/F)}\Delta_F(\mu,\psi_F)
+ =
+ \prod_{\mu\in S(K/F)}\Delta_F(\mu\chi_F,\psi_F),
+\]
+where $S(K/F)=\texttt{NormCharacter}(F,K)$ is made finite from $P$ and the
+products include its identity element.  Equivalently, the conclusion is
+exactly
+\[
+ \texttt{FirstMainIdentity}\ F\ K\ \Delta_F\ \Delta_K\
+   \chi_F.\texttt{character}\ \psi_F.\texttt{character}.
+\]
+
+The proof sets
+\[
+ d=m_F(\chi_{\min})/2,
+ \qquad \varepsilon=m_F(\chi_{\min})\bmod 2,
+\]
+and constructs the genuine division-with-remainder stationary conductor
+decomposition.  Wildness and the displayed stable inequality imply both
+$m_F(\chi_{\min})>1$ and the strict high-conductor bound.  The literal norm
+pullback is packaged at conductor
+\[
+ \psi_{P.t,[K:F]}(m_F(\chi_{\min})-1)+1,
+\]
+using the current Herbrand high-conductor theorem.  The literal trace
+pullback is packaged at additive conductor
+\[
+ [K:F]n_F(\psi_F)+([K:F]-1)(P.t+1).
+\]
+Its actual conductor is again divided by two to obtain $d_K$ and
+$\varepsilon_K$.
+
+Lean chooses an actual admissible downstairs denominator and an admissible
+denominator for every norm character.  It then takes a literal preimage of
+the downstairs stationary coefficient quotient and keeps its quotient
+equality attached to the resulting
+\texttt{StationaryClassRepresentative}.  In each parity branch this same
+representative is passed through \texttt{highConductorParameter\_stableOdd},
+the compatible phases, and the final wild-stable consumer.  Odd degree and
+the exact conductor relation give
+$\varepsilon_K=\varepsilon$.
+
+For $\varepsilon=0$, both critical coordinates are \texttt{even} and the
+residual comparison is literally true.  For $\varepsilon=1$, the lower and
+upper critical coordinates are the actual powers of
+\texttt{ramifiedHasseLowerUniformizer} and
+\texttt{ramifiedHasseUpperUniformizer}.  The complete certificate is exactly
+\texttt{ramifiedHassePreparation} applied to the same ordered denominator
+pair, high parameter row, and quotient representative.  Thus its
+second-order norm precision remains $2d+1$, and the elementary stationary
+translation stays coupled to the Hasse phase.
+
+The mapped upstairs denominator and the stable twist denominator are then
+passed to \texttt{firstMain\_wildStable}.  In particular the twist direction
+is the manuscript's $\mu(\Gamma_F/\beta)$, never its inverse.  The generic
+\texttt{firstMainIdentity\_of\_deltaFinite\_product} bridge converts the
+completed product to \texttt{FirstMainIdentity} for $\chi_{\min}$.  Finally,
+membership of $\chi_{\min}$ in the original complete norm-character orbit
+and invariance of both sides under left norm-character multiplication
+transport the identity back to $\chi_F$.
+\LeanFile{LanglandsFirstMainLemma/Cases/WildStablePreparation.lean}
+\lean{LanglandsFirstMainLemma.firstMain_wildStable_of_isDeltaFinite}
+\leanok
+\SourceText{Proposition prop:wild-stable-new and Section sec:first-main-completion.}
+\uses{mod:ramification-primecyclicpreparation,mod:parameters-minimalorbitstationary,mod:parameters-ramifiedhassepreparation,mod:cases-wildstable,mod:delta-errorterm}
+\FormalizationContract
+The public theorem takes the prepared ramified package and an arbitrary
+downstairs character.  It retains actual div/mod conductors, the identity in
+the full norm-character group, literal norm and trace pullbacks, the quotient
+preimage equality, the mapped upstairs representative and denominator, and
+the stable factor $\mu(\Gamma_F/\beta)$.  No stationary, trace, norm-polynomial,
+or Hasse calculation is reconstructed in this node.  Expected implementation
+size: 420--600 Lean lines.
+\end{theorem}

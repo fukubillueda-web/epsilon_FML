@@ -1,0 +1,33 @@
+\begin{definition}[Characteristic convention]\label{mod:basic-characteristicconvention}
+Let \(E\) be an additive monoid with one and let \(p\in\mathbf N\).
+If \(E\) has characteristic \(p\), then the canonical image of \(p\)
+in \(E\) is zero:
+\[
+ (p:E)=0.
+\]
+In particular, in characteristic two,
+\[
+ (2:E)=0.
+\]
+If \(E\) has characteristic zero, every nonzero natural number has
+nonzero canonical image:
+\[
+ n\ne0\quad\Longrightarrow\quad(n:E)\ne0.
+\]
+When \(E\) is an additive group with one, the analogous assertion holds
+for the canonical integer map \(\mathbf Z\to E\):
+\[
+ z\ne0\quad\Longrightarrow\quad(z:E)\ne0.
+\]
+These statements concern only canonical casts.  They do not identify
+\(p\) with the characteristic of the residue field of a local field.
+Later equal-characteristic branches supply \texttt{CharP E p}, while
+mixed-characteristic branches supply \texttt{CharZero E} together with
+their local-field hypotheses.
+\LeanFile{LanglandsFirstMainLemma/Basic/CharacteristicConvention.lean}
+\lean{LanglandsFirstMainLemma.characteristicConvention}
+\leanok
+\SourceText{Remark rem:characteristic-convention and Introduction, subsection Equal characteristic.}
+\uses{mod:prelude}
+\FormalizationContract
+\end{definition}

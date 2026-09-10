@@ -1,0 +1,253 @@
+\begin{definition}[Lower ramification groups]\label{mod:ramification-lowergroups}
+Let $K/F$ be a finite Galois valuative extension of nonarchimedean local fields
+and write $G=\operatorname{Gal}(K/F)$ for its Galois group.  Every
+$\sigma\in G$ preserves depth congruence:
+\[
+ \sigma(x)\equiv\sigma(y)\pmod{\mathfrak p_K^n}
+ \quad\Longleftrightarrow\quad
+ x\equiv y\pmod{\mathfrak p_K^n}.
+\]
+Consequently
+\[
+ C_n(a)=\{\sigma\in G:\sigma(a)\equiv a\pmod{\mathfrak p_K^n}\}
+\]
+is a subgroup of $G$.  Restriction to $\mathcal O_K$ and reduction give
+homomorphisms
+\[
+ G\longrightarrow\operatorname{RingAut}(\mathcal O_K)
+ \longrightarrow\operatorname{RingAut}(k_K),
+\]
+and the residue action sends $\overline{x}$ to $\overline{\sigma(x)}$.
+
+For every $i\in\mathbf Z$, define
+\[
+ G_i=\bigcap_{x\in\mathcal O_K}C_{i+1}(x).
+\]
+This extends the manuscript's $i\geq-1$ convention to all integers.  The
+following three membership descriptions are exactly equivalent:
+\[
+ \begin{aligned}
+ \sigma\in G_i
+ &\Longleftrightarrow
+   \forall x\in\mathcal O_K,\quad
+   \sigma(x)\equiv x\pmod{\mathfrak p_K^{i+1}}\\
+ &\Longleftrightarrow
+   \forall x\in\mathcal O_K,\quad
+   i+1\leq\operatorname{ord}_K(\sigma(x)-x)\\
+ &\Longleftrightarrow
+   \forall x\in\mathcal O_K,\quad
+   \sigma(x)-x\in\mathfrak p_K^{i+1}.
+ \end{aligned}
+\]
+The zeroth group is the kernel of the residue action.  The filtration is
+decreasing, every $G_i$ is normal in $G$, and
+\[
+ i\leq j\Longrightarrow G_j\leq G_i,
+ \qquad i\leq-1\Longrightarrow G_i=G,
+ \qquad G_{-1}=G.
+\]
+There is an integer $N\geq0$ such that $G_N=\{1\}$, and every $G_j$ with
+$j\geq N$ is also trivial.  This is proved directly from finiteness of the
+automorphism group and the fact that every nonidentity automorphism moves an
+integral element; no higher ramification theory is assumed.
+
+For every integral test element $x$, membership in $G_i$ implies the
+corresponding depth-$(i+1)$ congruence on $x$.  Thus, for an arbitrary
+uniformizer $\pi$,
+\[
+ \sigma\in G_i\Longrightarrow
+ \operatorname{ord}_K(\sigma(\pi)-\pi)\geq i+1.
+\]
+Only this implication is asserted in general.  If an integral element $\pi$
+is supplied together with the explicit generator hypothesis
+\[
+ \operatorname{Algebra.adjoin}_{\mathcal O_F}\{\pi\}=\mathcal O_K,
+\]
+then testing $\pi$ is sufficient:
+\[
+ \begin{aligned}
+ \sigma\in G_i
+ &\Longleftrightarrow
+ \sigma(\pi)\equiv\pi\pmod{\mathfrak p_K^{i+1}}\\
+ &\Longleftrightarrow
+ \operatorname{ord}_K(\sigma(\pi)-\pi)\geq i+1,
+ \end{aligned}
+\]
+and the exact-shell criterion is
+\[
+ \sigma\in G_i\setminus G_{i+1}
+ \Longleftrightarrow
+ \operatorname{ord}_K(\sigma(\pi)-\pi)=i+1.
+\]
+This is the interface used when a totally ramified extension supplies a
+uniformizer satisfying the generator hypothesis.  No converse is claimed for
+a general uniformizer: without such a hypothesis it is false, for example for
+a nontrivial unramified automorphism fixing a base uniformizer.
+
+For $\sigma\in G_i$ and a chosen uniformizer $\pi$, the displacement and its
+normalization are retained as actual lattice elements
+\[
+ d_{i,\pi}(\sigma)=\sigma(\pi)-\pi\in\mathfrak p_K^{i+1},
+ \qquad
+ z_{i,\pi}(\sigma)=
+ \frac{\sigma(\pi)-\pi}{\pi^{i+1}}\in\mathfrak p_K^0.
+\]
+Their coercions to $K$ are the displayed elements.  The positive-depth
+residual coordinate is the quotient class
+\[
+ \overline d_{i,\pi}(\sigma)
+ =\overline{z_{i,\pi}(\sigma)}\in k_K.
+\]
+Under the generator hypothesis its kernel set is exactly the next group:
+\[
+ \overline d_{i,\pi}(\sigma)=0
+ \Longleftrightarrow \sigma\in G_{i+1}.
+\]
+In particular, an exact-shell element has normalized order zero and nonzero
+residual displacement.
+
+The distinct tame coordinate is also exposed.  For $\sigma\in G_0$,
+\[
+ r_\pi(\sigma)=\frac{\sigma(\pi)}{\pi}\in\mathfrak p_K^0,
+ \qquad \operatorname{ord}_K(r_\pi(\sigma))=0,
+\]
+so its residue is nonzero and is bundled as
+\[
+ \overline r_\pi(\sigma)\in k_K^\times.
+\]
+Under the same generator hypothesis,
+\[
+ \overline r_\pi(\sigma)=1\Longleftrightarrow\sigma\in G_1
+\]
+both in $k_K$ and in $k_K^\times$.  These value and kernel-set declarations
+are the interfaces from which the later graded-norm node bundles the tame
+multiplicative and wild additive ramification maps.  The chosen uniformizer is
+part of both coordinates; no coordinate-independence claim or representative
+choice in $K$ is made.
+
+For $i\leq j$, let $G_j^{(i)}$ be the range of the certified inclusion
+$G_j\hookrightarrow G_i$.  Membership in $G_j^{(i)}$ is exactly membership of
+the underlying automorphism in $G_j$, its image back in $G$ is $G_j$, and it
+is normal in $G_i$.  Hence
+\[
+ \operatorname{LowerRamificationQuotient}(i,j)=G_i/G_j^{(i)}
+\]
+is an honest finite quotient group.  It has a specified noncomputable finite
+enumeration and
+\[
+ \operatorname{Nat.card}(G_i/G_j^{(i)})=[G_i:G_j^{(i)}].
+\]
+For its canonical surjection $q_{ij}$,
+\[
+ \ker(q_{ij})=G_j^{(i)},\qquad
+ q_{ij}(\sigma)=1\Longleftrightarrow\sigma\in G_j,
+\]
+and
+\[
+ q_{ij}(\sigma)=q_{ij}(\tau)
+ \Longleftrightarrow \sigma\tau^{-1}\in G_j.
+\]
+The successive quotient $G_i/G_{i+1}$ and its canonical projection are
+provided with the corresponding kernel-membership characterization.  No
+quotient representative is selected.
+
+Finally, for every real $u$, define lower numbering by the manuscript's
+ceiling convention
+\[
+ G_u^{\mathbf R}=G_{\lceil u\rceil}.
+\]
+The real filtration is decreasing, agrees with integer lower numbering on
+integer inputs, has the same exact membership criterion at depth
+$\lceil u\rceil+1$, and satisfies $G_{-1}^{\mathbf R}=G$.  The definition is
+available for all real $u$, although the manuscript uses it for $u\geq-1$.
+
+The auxiliary order interfaces include
+\[
+ (n\leq a\ \wedge\ \neg(n+1\leq a))\Longleftrightarrow a=n
+ \quad(a\in\operatorname{WithTop}(\mathbf Z))
+\]
+and $\operatorname{ord}_K(\pi^m)=m$ for every integer $m$ and every
+uniformizer $\pi$.
+
+\LeanFile{LanglandsFirstMainLemma/Ramification/LowerGroups.lean}
+\lean{LanglandsFirstMainLemma.withTopInt_le_and_not_succ_le_iff_eq}
+\lean{LanglandsFirstMainLemma.galois_congruentAtDepth_iff}
+\lean{LanglandsFirstMainLemma.galoisCongruenceSubgroup}
+\lean{LanglandsFirstMainLemma.mem_galoisCongruenceSubgroup}
+\lean{LanglandsFirstMainLemma.galoisIntegerAut}
+\lean{LanglandsFirstMainLemma.galoisResidueAction}
+\lean{LanglandsFirstMainLemma.galoisResidueAction_residue}
+\lean{LanglandsFirstMainLemma.lowerRamificationGroup}
+\lean{LanglandsFirstMainLemma.mem_lowerRamificationGroup}
+\lean{LanglandsFirstMainLemma.mem_lowerRamificationGroup_iff_ord}
+\lean{LanglandsFirstMainLemma.mem_lowerRamificationGroup_iff_lattice}
+\lean{LanglandsFirstMainLemma.lowerRamificationGroup_zero_eq_ker_galoisResidueAction}
+\lean{LanglandsFirstMainLemma.lowerRamificationGroup_antitone}
+\lean{LanglandsFirstMainLemma.lowerRamificationGroup_mono}
+\lean{LanglandsFirstMainLemma.lowerRamificationGroup_succ_le}
+\lean{LanglandsFirstMainLemma.lowerRamificationGroup_eq_top_of_le_neg_one}
+\lean{LanglandsFirstMainLemma.lowerRamificationGroup_neg_one}
+\lean{LanglandsFirstMainLemma.exists_nonnegative_lowerRamificationGroup_eq_bot}
+\lean{LanglandsFirstMainLemma.lowerRamificationGroup_eq_bot_of_ge}
+\lean{LanglandsFirstMainLemma.lowerRamificationGroup_eventually_bot}
+\lean{LanglandsFirstMainLemma.lowerRamificationGroup_normal}
+\lean{LanglandsFirstMainLemma.lowerRamificationGroup.instNormal}
+\lean{LanglandsFirstMainLemma.lowerRamificationGroup_le_galoisCongruenceSubgroup}
+\lean{LanglandsFirstMainLemma.lowerRamificationGroup_uniformizer}
+\lean{LanglandsFirstMainLemma.lowerRamificationGroup_uniformizer_ord}
+\lean{LanglandsFirstMainLemma.lowerRamificationDisplacement}
+\lean{LanglandsFirstMainLemma.coe_lowerRamificationDisplacement}
+\lean{LanglandsFirstMainLemma.lowerRamificationNormalizedDisplacement}
+\lean{LanglandsFirstMainLemma.coe_lowerRamificationNormalizedDisplacement}
+\lean{LanglandsFirstMainLemma.lowerRamificationTameRatio}
+\lean{LanglandsFirstMainLemma.coe_lowerRamificationTameRatio}
+\lean{LanglandsFirstMainLemma.ord_lowerRamificationTameRatio_eq_zero}
+\lean{LanglandsFirstMainLemma.lowerRamificationTameResidue}
+\lean{LanglandsFirstMainLemma.lowerRamificationTameResidue_ne_zero}
+\lean{LanglandsFirstMainLemma.lowerRamificationTameResidueUnit}
+\lean{LanglandsFirstMainLemma.coe_lowerRamificationTameResidueUnit}
+\lean{LanglandsFirstMainLemma.ord_uniformizer_zpow}
+\lean{LanglandsFirstMainLemma.mem_lowerRamificationGroup_iff_of_adjoin_eq_top}
+\lean{LanglandsFirstMainLemma.mem_lowerRamificationGroup_iff_ord_of_adjoin_eq_top}
+\lean{LanglandsFirstMainLemma.lowerRamificationGroup_mem_and_not_mem_succ_iff_ord_sub_eq}
+\lean{LanglandsFirstMainLemma.ord_lowerRamificationNormalizedDisplacement_eq_zero}
+\lean{LanglandsFirstMainLemma.lowerRamificationResidueDisplacement}
+\lean{LanglandsFirstMainLemma.lowerRamificationResidueDisplacement_ne_zero}
+\lean{LanglandsFirstMainLemma.lowerRamificationResidueDisplacement_eq_zero_iff}
+\lean{LanglandsFirstMainLemma.lowerRamificationTameResidue_eq_one_iff}
+\lean{LanglandsFirstMainLemma.lowerRamificationTameResidueUnit_eq_one_iff}
+\lean{LanglandsFirstMainLemma.lowerRamificationGroupInside}
+\lean{LanglandsFirstMainLemma.mem_lowerRamificationGroupInside}
+\lean{LanglandsFirstMainLemma.map_lowerRamificationGroupInside_subtype}
+\lean{LanglandsFirstMainLemma.lowerRamificationGroupInside.instNormal}
+\lean{LanglandsFirstMainLemma.LowerRamificationQuotient}
+\lean{LanglandsFirstMainLemma.lowerRamificationQuotientFintype}
+\lean{LanglandsFirstMainLemma.lowerRamificationQuotient_natCard}
+\lean{LanglandsFirstMainLemma.lowerRamificationQuotientMk}
+\lean{LanglandsFirstMainLemma.lowerRamificationQuotientMk_apply}
+\lean{LanglandsFirstMainLemma.lowerRamificationQuotientMk_ker}
+\lean{LanglandsFirstMainLemma.lowerRamificationQuotientMk_eq_one_iff}
+\lean{LanglandsFirstMainLemma.lowerRamificationQuotientMk_surjective}
+\lean{LanglandsFirstMainLemma.lowerRamificationQuotientMk_eq_iff}
+\lean{LanglandsFirstMainLemma.LowerRamificationGraded}
+\lean{LanglandsFirstMainLemma.lowerRamificationGradedMk}
+\lean{LanglandsFirstMainLemma.lowerRamificationGradedMk_eq_one_iff}
+\lean{LanglandsFirstMainLemma.lowerRamificationGroupReal}
+\lean{LanglandsFirstMainLemma.mem_lowerRamificationGroupReal}
+\lean{LanglandsFirstMainLemma.lowerRamificationGroupReal_antitone}
+\lean{LanglandsFirstMainLemma.lowerRamificationGroupReal_intCast}
+\lean{LanglandsFirstMainLemma.lowerRamificationGroupReal_neg_one}
+\leanok
+\SourceText{Section Ramification notation and the cyclic-prime norm theorem.}
+\uses{mod:localfield-extension,mod:localfield-valuation}
+\FormalizationContract The construction uses only valuation congruences,
+the completed extension, valuation, lattice, and residue-field APIs, and
+Mathlib's elementary Galois theory.  It imports no higher-ramification theorem
+or typeclass.  The converse uniformizer criterion always retains the
+explicit $\mathcal O_F$-algebra generation hypothesis.  The tame and
+positive-depth coordinates remain distinct; only their values and exact kernel
+sets are established here, while the downstream graded-norm node bundles and
+analyzes the corresponding homomorphisms.  Certified subgroup inclusions make
+every ramification quotient honest, and residual coordinates remain quotient
+classes attached to the chosen uniformizer.
+\end{definition}

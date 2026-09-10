@@ -1,0 +1,36 @@
+\documentclass[11pt,oneside]{book}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper,margin=28mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{blueprint}
+\input{macros/common}
+\input{macros/web}
+\title{Lean Blueprint for Langlands's First Main Lemma\\\large Mathematical guide to the Lean formalization}
+\author{Fukuhiro Ueda}
+\date{September 2026}
+\emergencystretch=3em
+\begin{document}
+\frontmatter
+\maketitle
+\chapter*{How to use this blueprint}
+\addcontentsline{toc}{chapter}{How to use this blueprint}
+The companion mathematical paper is
+\path{references/epsilon_FML.tex}.  Each node records a mathematical
+statement, its source, and the corresponding Lean declarations.  A node
+may be implemented across several Lean modules, all listed in that node.
+
+The exported result is Theorem~\ref{mod:main}, Langlands's First Main
+Lemma for cyclic extensions of prime degree over nonarchimedean local
+fields in mixed and equal characteristic.
+
+To reproduce the checks, use the committed toolchain and dependency
+manifest and run \texttt{bash scripts/VERIFY\_PUBLICATION.command}.
+The checks cover the Lean build, the dependency graph, the blueprint
+references, the absence of proof placeholders in completed nodes, and the
+axioms and stored proof terms of the exported theorem.
+
+\tableofcontents
+\mainmatter
+\input{content}
+\end{document}

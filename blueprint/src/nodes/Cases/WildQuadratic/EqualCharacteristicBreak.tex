@@ -1,0 +1,83 @@
+\begin{theorem}[Equal-characteristic quadratic break parity]\label{mod:cases-wildquadratic-equalcharacteristicbreak}
+Let $K/F$ be a finite free Galois valuative extension of nonarchimedean
+local fields.  Assume
+\[
+ \operatorname{char}F=2,\qquad [K:F]=2,\qquad f(K/F)=1.
+\]
+Thus $e(K/F)=2$, so the extension is totally ramified.  For $t\in\mathbf N$
+assume, in the project's integer lower-numbering convention,
+\[
+ G_t=\operatorname{Gal}(K/F),\qquad G_{t+1}=\{1\}.
+\]
+Then $t$ is odd.
+\LeanFile{LanglandsFirstMainLemma/Cases/WildQuadratic/EqualCharacteristicBreak.lean}
+\lean{LanglandsFirstMainLemma.quadraticBreak_odd_equalCharacteristic}
+\leanok
+\SourceText{Lemma lem:AS-break-parity.}
+\uses{mod:ramification-lowergroups,mod:finitefield-artinschreier}
+\FormalizationContract
+\end{theorem}
+\begin{proof}
+There is a unique nonidentity $\sigma\in\operatorname{Gal}(K/F)$.  In
+characteristic two, fixed-field descent produces $y\in K$ and $a\in F$ with
+the Artin--Schreier orientation
+\[
+ \sigma(y)=y+1,\qquad y^2-y=a.
+\]
+Since $G_t$ is the full group, $\sigma\in G_0$.  If $y$ were integral, the
+defining $G_0$ congruence applied to $y$ would say that $1=\sigma(y)-y$ has
+positive order.  Hence $\operatorname{ord}_K(y)<0$.  Comparing the two
+unequal orders in $y^2-y=a$, and using $e(K/F)=2$, gives an integer $r>0$
+such that
+\[
+ \operatorname{ord}_K(y)=\operatorname{ord}_F(a)=-r.
+\]
+Choose such an Artin--Schreier presentation with $r$ minimal; this is the
+reduced presentation used below.
+
+Suppose $r=2q$ were even.  Choose a uniformizer $\pi$ of $F$ and put
+$u=a\pi^r$.  Then $u$ has order zero and nonzero leading residue
+$\bar u$.  On the degree $-2q$ graded piece the leading map induced by
+$c\mapsto c^2-c$ is Frobenius.  The finite-field perfectness proved in the
+Artin--Schreier node supplies the unique $\bar d$ with
+$\bar d^2=\bar u$.  Lift $\bar d$ to a unit $d\in\mathcal O_F$ and set
+\[
+ c=d/\pi^q,\qquad y'=y-c,
+ \qquad a'=a-(c^2-c).
+\]
+The equality of leading residues gives
+\[
+ \operatorname{ord}_F(a-c^2)\geq 1-r.
+\]
+Also $\operatorname{ord}_F(c)=-q\geq1-r$, whence
+\[
+ \operatorname{ord}_F(a')\geq1-r>-r.
+\]
+Characteristic two is used again to verify exactly
+$(y')^2-y'=a'$ and $\sigma(y')=y'+1$.  The inertia argument makes the new
+parameter's order a strictly negative integer, so it yields a positive pole
+strictly smaller than $r$, contradicting minimality.  Therefore $r$ is odd.
+
+It remains to identify this pole with the lower break rather than merely
+prove parity of an auxiliary parameter.  The pair $(1,y)$ is an $F$-basis
+of $K$.  For an integral element $x=A+By$, one has
+$\sigma(x)-x=B$.  The two summands have orders $2\operatorname{ord}_F(A)$
+and $2\operatorname{ord}_F(B)-r$; their opposite parities prevent
+cancellation.  Integrality therefore implies
+$r+1\leq\operatorname{ord}_K(B)$, proving $\sigma\in G_r$ directly from the
+definition of the lower groups.
+
+Write $r=2q+1$.  For a base uniformizer $\pi$, the element
+\[
+ \pi_K=\pi^{q+1}y
+\]
+has order one and is a uniformizer of $K$, while
+\[
+ \operatorname{ord}_K\bigl(\sigma(\pi_K)-\pi_K\bigr)=r+1.
+\]
+The necessary uniformizer congruence for lower-group membership then shows
+$\sigma\notin G_{r+1}$.  Comparing
+$\sigma\in G_r\setminus G_{r+1}$ with
+$G_t=\operatorname{Gal}(K/F)$ and $G_{t+1}=\{1\}$ through the decreasing
+filtration gives $t=r$.  Hence the project's lower break $t$ is odd.
+\end{proof}

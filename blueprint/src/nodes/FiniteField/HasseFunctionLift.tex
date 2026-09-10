@@ -1,0 +1,172 @@
+\begin{theorem}[Hasse-function lift]\label{mod:finitefield-hassefunctionlift}
+Let $K/k$ be a finite extension of finite fields, let
+$\psi\in\operatorname{FiniteAddChar}(k)$ be nontrivial, and let
+$\phi\in\operatorname{HasseFunction}(k,\psi)$ as in
+Definition~\ref{mod:finitefield-hassefunction}.  For $x\in K$, put
+\[
+ p_x=\operatorname{minpoly}_k(x),\qquad
+ h_x=[K:k(x)],\qquad
+ s_x=-\operatorname{nextCoeff}(p_x),\qquad
+ e_x=\operatorname{secondCoeff}(p_x),
+\]
+and define the unordered-pair correction
+\[
+ \omega_{K/k}(x)=h_xe_x+\binom{h_x}{2}s_x^2.
+\]
+This is the second coefficient of the repeated minimal polynomial
+$p_x^{h_x}$.  Equivalently, it is the elementary symmetric sum
+\[
+ \sum_{\{\sigma,\tau\}}\sigma(x)\tau(x)
+\]
+over unordered pairs of distinct $k$-embeddings of $K$ into an
+algebraic closure, with every pair occurring once.  In particular, it
+is not the ordered off-diagonal sum.
+
+Define
+\[
+ \phi_{K/k}(x)
+ =\phi\!\left(\Tr_{K/k}x\right)
+   \psi\!\left(-\omega_{K/k}(x)\right).
+\]
+Writing
+\(\psi_{K/k}(z)=\psi(\Tr_{K/k}z)\), the correction satisfies
+\[
+ \omega_{K/k}(x+y)
+ =\omega_{K/k}(x)+\omega_{K/k}(y)
+   +\Tr_{K/k}(x)\Tr_{K/k}(y)-\Tr_{K/k}(xy),
+\]
+and hence the lifted function is nowhere zero and satisfies the Hasse
+functional equation
+\[
+ \phi_{K/k}(x+y)
+ =\phi_{K/k}(x)\phi_{K/k}(y)\psi_{K/k}(xy).
+\]
+Thus \(\phi_{K/k}\in\operatorname{HasseFunction}(K,\psi_{K/k})\).
+Moreover, the exact lift identity is
+\[
+ \boxed{
+ -\sum_{x\in K}\phi_{K/k}(x)
+ =\left(-\sum_{x\in k}\phi(x)\right)^{[K:k]} .}
+\]
+The trace is directed from $K$ down to $k$, the correction has the
+displayed negative sign inside $\psi$, and the exponent is the extension
+degree $[K:k]$.
+
+More explicitly, if $p=X^d+a_1X^{d-1}+a_2X^{d-2}+\cdots$ is monic and
+$h\geq0$, then
+\[
+ \operatorname{nextCoeff}(p^h)=h a_1,
+ \qquad
+ \operatorname{secondCoeff}(p^h)
+ =h a_2+\binom h2a_1^2.
+\]
+The second formula is integral and characteristic-independent.  Indeed,
+if the $d$ conjugates are each repeated $h$ times, pairs with different
+conjugate values contribute $h^2e$, while equal-value pairs contribute
+$\binom h2\sum_i\xi_i^2$.  Using $\sum_i\xi_i^2=s^2-2e$ gives
+$he+\binom h2s^2$ without dividing by two.
+
+For the polynomial weight
+\[
+ w(P)=\phi\!\left(-\operatorname{nextCoeff}(P)\right)
+       \psi\!\left(-\operatorname{secondCoeff}(P)\right)
+\]
+from Definition~\ref{mod:finitefield-polynomialweights}, its exact-degree
+sums satisfy
+\[
+ A_1(w)=\sum_{x\in k}\phi(x),
+ \qquad
+ A_n(w)=0\quad(n\geq2).
+\]
+The first equality includes the convention that the second coefficient
+of a linear polynomial is zero.  The second uses the explicit hypothesis
+$\psi\ne1$: translation of the freely varying second coefficient
+multiplies the sum by a nontrivial value of $\psi$.
+
+For $r=[K:k]$, partitioning $K$ by minimal polynomial identifies the
+closed-point power sum of Theorem~\ref{mod:finitefield-eulerproduct} with
+the lifted sum:
+\[
+ B_r(w)=\sum_{x\in K}\phi_{K/k}(x).
+\]
+A monic irreducible polynomial of degree $d\mid r$ has exactly $d$ roots
+in $K$, and for each such root $x$ one has $h_x=r/d$ and
+\[
+ \phi_{K/k}(x)=w(p_x)^{h_x}.
+\]
+Thus the factor $d$ and the power $r/d$ in $B_r$ are both retained.
+Applying the reusable identity $-B_r(w)=(-A_1(w))^r$ gives the boxed
+formula.  Its proof uses $A_0(w)=1$ but does not divide by a weight or by
+the Hasse sum, and it assumes no nonvanishing beyond the nowhere-zero
+values built into $\operatorname{HasseFunction}$ and the stated
+nontriviality of $\psi$.
+\LeanFile{LanglandsFirstMainLemma/FiniteField/HasseFunctionLift.lean}
+\lean{LanglandsFirstMainLemma.hasseEmbeddingMultiplicity}
+\lean{LanglandsFirstMainLemma.hassePairCorrection}
+\lean{LanglandsFirstMainLemma.hasseFunctionLiftValue}
+\lean{LanglandsFirstMainLemma.monic_nextCoeff_pow}
+\lean{LanglandsFirstMainLemma.monic_secondCoeff_pow}
+\lean{LanglandsFirstMainLemma.lmul_charpoly_eq_minpoly_pow}
+\lean{LanglandsFirstMainLemma.hassePairCorrection_eq_secondCoeff_minpoly_pow}
+\lean{LanglandsFirstMainLemma.hassePairCorrection_eq_secondCoeff_charpoly}
+\lean{LanglandsFirstMainLemma.hassePairCorrection_eq_elementarySymmetric_two}
+\lean{LanglandsFirstMainLemma.Finset.esymm_two_map_add}
+\lean{LanglandsFirstMainLemma.hasseGaloisPairSum}
+\lean{LanglandsFirstMainLemma.hasseGaloisPairSum_add}
+\lean{LanglandsFirstMainLemma.hasseGaloisLinearFactorProduct_eq_minpoly_pow}
+\lean{LanglandsFirstMainLemma.algebraMap_hassePairCorrection_eq_hasseGaloisPairSum}
+\lean{LanglandsFirstMainLemma.hassePairCorrection_add}
+\lean{LanglandsFirstMainLemma.hasseFunctionLiftValue_map_add}
+\lean{LanglandsFirstMainLemma.hasseFunctionTraceLift}
+\lean{LanglandsFirstMainLemma.hasseFunctionTraceLift_apply}
+\lean{LanglandsFirstMainLemma.residueTrace_eq_neg_nextCoeff_minpoly_pow}
+\lean{LanglandsFirstMainLemma.hassePolynomialWeight_pow}
+\lean{LanglandsFirstMainLemma.hasse_chooseTwo_correction}
+\lean{LanglandsFirstMainLemma.hasseFunctionLiftValue_eq_minpolyWeight_pow}
+\lean{LanglandsFirstMainLemma.degreeSum_hassePolynomialWeight_one}
+\lean{LanglandsFirstMainLemma.degreeSum_hassePolynomialWeight_eq_zero}
+\lean{LanglandsFirstMainLemma.hasseMinpolyFiberEquivAlgHom}
+\lean{LanglandsFirstMainLemma.hasseMinpolyFiber_card}
+\lean{LanglandsFirstMainLemma.hasseClosedPointIndexEquiv}
+\lean{LanglandsFirstMainLemma.hasse_degree_div_eq_embeddingMultiplicity}
+\lean{LanglandsFirstMainLemma.hasseClosedPointPowerSum_eq_liftSum}
+\lean{LanglandsFirstMainLemma.hasseFunctionLift}
+\leanok
+\SourceText{Theorem thm:Hasse-lift, with the unordered-pair convention for distinct embeddings.}
+\uses{mod:finitefield-hassefunction,mod:finitefield-eulerproduct,mod:localfield-extension}
+\FormalizationContract
+\end{theorem}
+\begin{proof}
+The coefficient formulas follow by induction from the first- and
+second-coefficient product identities.  Multiplicativity of $w$ then
+shows directly that the Hasse value of a repeated closed point is
+$w(p)^h$; equivalently, the factor
+$\psi(\binom h2s^2)$ supplied by the Hasse functional equation cancels
+the same term in $\psi(-\omega)$.
+
+To verify the functional equation of the lift itself, identify
+$\omega_{K/k}$ with the second elementary symmetric function of the
+multiset of Galois conjugates.  This is the unordered-pair sum: its
+polarization has cross term
+$\Tr(x)\Tr(y)-\Tr(xy)$, with no factor of two.  Substitution into
+$\psi(-\omega(x+y))$ cancels the factor
+$\psi(\Tr(x)\Tr(y))$ contributed by the Hasse equation for $\phi$ and
+leaves exactly $\psi(\Tr(xy))=\psi_{K/k}(xy)$.  The product defining the
+lift is nowhere zero because both character values and all values of
+$\phi$ are nonzero.
+
+Linear monic polynomials are parametrized by $X+a$, and negation
+reindexes their weights to the Hasse sum.  In degrees at least two,
+adding $cX^{n-2}$ permutes monic polynomials of degree $n$, fixes the
+first coefficient, and adds $c$ to the second coefficient.  Choosing
+$c$ with $\psi(-c)\ne1$ forces the degree-$n$ sum to vanish.
+
+For the closed-point comparison, roots with fixed minimal polynomial
+$p$ are identified with $k$-algebra homomorphisms $k[X]/(p)\to K$.
+Finite-field embedding counts give exactly $d$ such roots when
+$d=\deg p$ divides $[K:k]$.  The tower degree formula gives
+$h=[K:k]/d$.  Reindexing the sum over $K$ by these fibers therefore
+gives $B_{[K:k]}(w)$, and
+Theorem~\ref{mod:finitefield-eulerproduct} supplies the final signs and
+extension-degree power.
+\end{proof}

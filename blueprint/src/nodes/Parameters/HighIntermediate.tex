@@ -1,0 +1,263 @@
+\begin{theorem}[High stationary classes: odd non-stable range]
+\label{mod:parameters-highintermediate}
+Let $K/F$ be a totally ramified cyclic extension of odd prime degree
+$p$, with positive lower break $t$, and put
+\[
+ T=t+1,\qquad r_0=\left\lfloor\frac T2\right\rfloor,
+ \qquad s_0=\left\lceil\frac T2\right\rceil.
+\]
+Retain the explicit residue-degree-one, integral-uniformizer, and
+monogenicity hypotheses used by the norm-filtration modules.  Let
+$\chi_F$ be minimal in its complete norm-character orbit, let
+$\chi_K=\chi_F\circ N_{K/F}$, and suppose that their actual conductors have
+stationary decompositions
+\[
+ m=m_F(\chi_F)=2d+\varepsilon,
+ \qquad m_K=m_K(\chi_K)=2d_K+\varepsilon_K.
+\]
+Assume the inclusive intermediate inequalities
+\[
+ T\le m<2T.
+\]
+Writing $v=m-T$, Lean proves the exact identities
+\[
+ m_K+(p-1)T=pm,
+ \qquad m_K=T+pv,
+ \qquad \varepsilon_K=\varepsilon,
+\]
+and, for every $\mu\in S(K/F)$ including the identity,
+\[
+ m_F(\mu\chi_F)=m.
+\]
+Thus the lower boundary $m=T$ is included, rather than silently replaced
+by the strict inequality $T<m$.  The same conductor is also recorded as
+the exact Herbrand successor.
+
+Let $\psi_K=\psi_F\circ\operatorname{Tr}_{K/F}$ and choose
+$\gamma_F\in F^\times$ with
+\[
+ v_F(\gamma_F)=m+n_F(\psi_F).
+\]
+Put $\gamma_K=\iota_{F,K}(\gamma_F)$.  Total ramification is retained in
+the proof as the two separate facts
+\[
+ e(K/F)=p,\qquad f(K/F)=1.
+\]
+Using the multiplicative correction $-(p-1)T$ and the additive correction
+$+(p-1)T$, Lean proves
+\[
+ v_K(\gamma_K)=m_K+n_K(\psi_K)
+              =p\bigl(m+n_F(\psi_F)\bigr).
+\]
+Hence every adjoint below is the denominator-sensitive adjoint for the
+ordered pair $(\gamma_F,\gamma_K)$.
+
+The exact depth arithmetic gives
+\[
+ d\le t,\qquad r_0\le t,
+ \qquad v+s_0\le d_K+\varepsilon_K,
+ \qquad p m\le2(d_K+\varepsilon_K)+(p-1)T.
+\]
+It constructs the complete \texttt{NormPolynomialPrecision} certificate
+at the actual conductors and proves that every nonterminal symmetric term
+vanishes at conductor precision.  Norm representatives are selected only
+at the two permitted subcritical precisions
+\[
+ r_0\le t\quad\hbox{and}\quad d\le t;
+\]
+neither $s_0$ nor $T=t+1$ is passed to the norm-representative theorem.
+
+More precisely, let $\tau$ be the index-one generator in the proved cyclic
+enumeration of $S(K/F)$.  Lean existentially and independently chooses
+supplied representatives $a,b$ of the quotient classes
+\[
+ \operatorname{St}_{\gamma_F,s_0}(\tau)
+   \in\mathfrak p_F^v/\mathfrak p_F^{v+r_0},
+ \qquad
+ \beta_F=\operatorname{St}_{\gamma_F,d+\varepsilon}(\chi_F)
+   \in\mathcal O_F/\mathfrak p_F^d,
+\]
+together with $\alpha_1,\beta_1\in K^\times$.  If
+\[
+ \alpha_N=N_{K/F}(\alpha_1),\qquad
+ \beta_N=N_{K/F}(\beta_1),
+\]
+then
+\[
+ [a]=[\alpha_N]
+   \text{ in }\mathfrak p_F^v/\mathfrak p_F^{v+r_0},
+ \qquad
+ [b]=[\beta_N]
+   \text{ in }\mathcal O_F/\mathfrak p_F^d,
+\]
+and
+\[
+ v_K(\alpha_1)=v_F(\alpha_N)=v,
+ \qquad v_K(\beta_1)=v_F(\beta_N)=0.
+\]
+The returned witnesses are predicates on existential choices.  The
+imported source-ambiguity theorem shows that any two valid choices differ
+by $U_K^{r_0}$ and $U_K^d$, respectively; no choice is promoted to a
+canonical field-valued stationary parameter.
+
+The selected exact norm $\alpha_N$ gives the same linearization as $a$ on
+$\mathfrak p_F^{s_0}$.  For every $y\in\mathfrak p_K^{s_0}$ Lean then
+proves the manuscript's conversion in the direction $K\to F$,
+\[
+ \psi_F\!\left(\frac{\alpha_NN_{K/F}(y)}{\gamma_F}\right)
+ =
+ \psi_F\!\left(\frac{-\alpha_N\operatorname{Tr}_{K/F}(y)}
+                         {\gamma_F}\right).
+\]
+The proof uses
+\[
+ v_F(N(y))=v_K(y),\qquad
+ v_F(\operatorname{Tr}(y))
+ \ge\left\lfloor\frac{s_0+(p-1)T}{p}\right\rfloor\ge s_0,
+\]
+the exact denominator $m+n_F(\psi_F)=T+v+n_F(\psi_F)$, and the critical
+truncation $N(1+y)-1\equiv\operatorname{Tr}(y)+N(y)\pmod{\mathfrak p_F^T}$.
+
+The literal integral candidate
+\[
+ c_K=\iota_{F,K}(\beta_N)
+       -\beta_1\frac{\iota_{F,K}(\alpha_N)}{\alpha_1}
+ \in\mathcal O_K
+\]
+satisfies the two quotient equalities
+\[
+ [c_K]
+ =P^*_{K/F;\gamma_F,\gamma_K}([\beta_N])
+ =\operatorname{St}_{\gamma_K,d_K+\varepsilon_K}(\chi_K)
+ \quad\text{in }\mathcal O_K/\mathfrak p_K^{d_K}.
+\]
+The first equality is proved directly from the norm--trace conversion; the
+second invokes stationary-class transport under norm at the actual upstairs
+conductor.  In particular, the adjoint points from the downstairs
+coefficient quotient to the upstairs coefficient quotient and retains both
+denominators.
+
+For $j\in\mathbf F_p$, let $[j]$ denote the Teichmuller lift used in the
+manuscript.  Lean proves both $[j]^p=[j]$ and the exact quotient bridge from
+this lift to the natural multiple of the index-one class.  With the actual
+twist datum for $\tau^j\chi_F$, it proves
+\[
+ \bigl[N_{K/F}(\beta_1+[j]\alpha_1)\bigr]
+ = [\beta_N+[j]\alpha_N]
+ = \operatorname{St}_{\gamma_F,d+\varepsilon}(\tau^j\chi_F)
+ \quad\text{in }\mathcal O_F/\mathfrak p_F^d.
+\]
+The identity index $j=0$ remains in the table; its power-zero evaluation
+reduces to the original $\beta_N$ class without constructing a stationary
+class for the trivial norm character.
+At the upper endpoint, where the comparison depth can be $T$, Lean uses
+the restriction of the already constructed $s_0$-class and does not
+manufacture a stationary class for $\tau$ at depth $T$.
+
+The Teichmuller congruence itself is also exposed one layer more sharply
+when $p$ and $T$ are odd and $T>1$.  Under the same trace-ideal lower-bound
+hypothesis used above, for every $j\in\mathbf F_p$ Lean proves
+\[
+ [j]-j_{\mathbf Z}\in\mathfrak p_F^{\lfloor T/2\rfloor+1}.
+\]
+Indeed, writing $T=2r+1$, primality and oddness give $p\ge3$, while $T>1$
+gives $r\ge1$, and hence
+\[
+ p(r+1)\le(p-1)(2r+1).
+\]
+The trace bound therefore gives $v_F(p)\ge r+1$, after which the existing
+arbitrary-depth Teichmuller congruence applies directly.  The original
+half-depth theorem remains available unchanged.
+
+For the later product and phase reductions, Lean also exposes the literal
+normalization
+\[
+ u=\frac{\beta_1}{\alpha_1},\qquad n=N_{K/F}(u),\qquad
+ v_K(u)=v_F(n)=-v,
+\]
+together with the field identities
+\[
+ c_K=\iota_{F,K}(\alpha_N)(\iota_{F,K}(n)-u),\qquad
+ \beta_N+[j]\alpha_N=\alpha_N(n+[j]).
+\]
+These are identities for the already supplied existential witnesses, not
+definitions of preferred stationary representatives.
+
+At the inclusive critical boundary $m=T$, whole-orbit minimality proves
+for every nonidentity norm character that the projection of the sum of the
+two stationary quotient classes to the leading quotient is nonzero.  This
+excludes the only possible hidden conductor cancellation.  The more general
+pre-minimality interface treats a genuine drop to an actual conductor
+$q'<T$ as follows: if $q'>1$, it first constructs the new stationary class
+at the stationary depth belonging to $q'$ and only then compares its
+restriction with the old-layer sum; if $q'\le1$, it proves that no
+stationary depth exists and constructs no stationary object.
+
+The principal theorem packages the conductor formulas, the complete
+precision certificate, the independent existential choices with their
+filtration ambiguity, the norm--trace identity, the upstairs adjoint and
+stationary quotient identities, and all lower twist quotient identities.
+Every stationary parameter in its conclusion is a lattice-quotient class.
+
+\LeanFile{LanglandsFirstMainLemma/Parameters/HighIntermediate.lean}
+\lean{LanglandsFirstMainLemma.highParameter_intermediate_conductor_relation}
+\lean{LanglandsFirstMainLemma.highParameter_intermediate_twist_conductor_eq}
+\lean{LanglandsFirstMainLemma.highParameter_intermediate_ramificationIndex_eq_degree}
+\lean{LanglandsFirstMainLemma.highParameter_intermediate_commonDenominator}
+\lean{LanglandsFirstMainLemma.highParameter_intermediate_conductor_eq}
+\lean{LanglandsFirstMainLemma.highParameter_intermediate_conductor_eq_herbrand}
+\lean{LanglandsFirstMainLemma.HighIntermediateDepthArithmetic}
+\lean{LanglandsFirstMainLemma.highParameter_intermediate_depthArithmetic}
+\lean{LanglandsFirstMainLemma.highParameter_intermediate_variableSource_le}
+\lean{LanglandsFirstMainLemma.highParameter_intermediate_precision}
+\lean{LanglandsFirstMainLemma.highParameter_intermediate_intermediateTerms}
+\lean{LanglandsFirstMainLemma.highParameter_intermediate_twistCrossTermBound}
+\lean{LanglandsFirstMainLemma.highParameter_intermediate_normCharacterConversion}
+\lean{LanglandsFirstMainLemma.highParameter_intermediate_selectedAlpha_linearization}
+\lean{LanglandsFirstMainLemma.highParameter_intermediate_selectedBeta_linearization}
+\lean{LanglandsFirstMainLemma.highParameter_intermediate_upstairsClass_core}
+\lean{LanglandsFirstMainLemma.highParameter_intermediate_normCharacterDepth}
+\lean{LanglandsFirstMainLemma.highParameter_intermediate_normRepresentatives}
+\lean{LanglandsFirstMainLemma.highIntermediateTeichmullerScalar}
+\lean{LanglandsFirstMainLemma.highParameter_intermediate_teichmuller_mem_integer}
+\lean{LanglandsFirstMainLemma.highParameter_intermediate_teichmuller_eq_zero_iff}
+\lean{LanglandsFirstMainLemma.highParameter_intermediate_teichmuller_ord_eq_zero}
+\lean{LanglandsFirstMainLemma.highParameter_intermediate_teichmuller_pow}
+\lean{LanglandsFirstMainLemma.highParameter_intermediate_teichmuller_congruent}
+\lean{LanglandsFirstMainLemma.highParameter_intermediate_teichmuller_congruent_succ_of_odd}
+\lean{LanglandsFirstMainLemma.highParameter_intermediate_teichmuller_mul_class}
+\lean{LanglandsFirstMainLemma.highParameter_intermediate_norm_add_teichmuller_congruent}
+\lean{LanglandsFirstMainLemma.highParameter_intermediate_index_eq_power}
+\lean{LanglandsFirstMainLemma.highParameter_intermediate_indexOne_ne_one}
+\lean{LanglandsFirstMainLemma.highParameter_intermediate_normCharacterClass_eq_nsmul}
+\lean{LanglandsFirstMainLemma.highParameter_intermediate_twistLinearClass}
+\lean{LanglandsFirstMainLemma.highParameter_intermediate_twistClass}
+\lean{LanglandsFirstMainLemma.highParameter_intermediate_ratioData}
+\lean{LanglandsFirstMainLemma.highParameter_intermediate_critical_noCancellation}
+\lean{LanglandsFirstMainLemma.highParameter_intermediate_stationaryClass_afterDrop}
+\lean{LanglandsFirstMainLemma.highParameter_intermediate_noStationaryClass_of_endpoint}
+\lean{LanglandsFirstMainLemma.highParameter_intermediate}
+\leanok
+\SourceText{Proposition prop:high-parameter-table, part (c).}
+\uses{mod:parameters-stationaryclassundernorm,
+mod:parameters-minimalorbitstationary,
+mod:ramification-normrepresentatives,
+mod:ramification-normcharacters}
+\FormalizationContract
+The range is exactly $t+1\le m<2(t+1)$ and includes $m=t+1$.
+The only norm-representative precisions are
+$r_0=(t+1)/2\le t$ and $d\le t$; no representative is selected at
+$s_0$, $t+1$, or any larger depth.  Conductors are actual least conductors,
+and every twist, including the identity twist, retains its exact datum.
+The norm points from $K$ to $F$, the trace in the conversion points from
+$K$ to $F$, and the adjoint points from the downstairs coefficient quotient
+to the upstairs coefficient quotient.  Its ordered denominator pair is
+$(\gamma_F,\iota_{F,K}\gamma_F)$, and the proof retains $e=p$, $f=1$, the
+different depth $(p-1)(t+1)$, and both additive and multiplicative conductor
+corrections.  If a product conductor drops above one, its stationary class
+is reconstructed at the new actual conductor and depth before comparison;
+at conductor zero or one no stationary class is formed.  All displayed
+stationary equalities are quotient equalities.  Every field element is a
+supplied or existential witness with explicit filtration ambiguity, never a
+canonical stationary representative.
+\end{theorem}

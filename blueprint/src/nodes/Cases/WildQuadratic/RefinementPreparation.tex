@@ -1,0 +1,41 @@
+\begin{theorem}[Wild quadratic refinement preparation]
+\label{mod:cases-wildquadratic-refinementpreparation}
+Consume the exact dichotomy produced by phase preparation.  The three
+all-even rows are passed literally to
+\texttt{WildQuadraticHigherData.allEven}; no refinement is chosen and no
+Hasse source is introduced.  In each of the seven positive-polar rows,
+normalize the actual retained \texttt{PositivePolarSource}, retaining its
+translation class and the equality between the chosen refinement's Hasse
+function and the translated source.  Use the retained continuation to
+construct the lower product source, upper coordinate certificate, refined
+coefficient view, and all four phase rows without changing their actual
+orientation or coordinates.
+
+In the four class-free positive rows, the trace bounds put both lower
+corrections beyond their critical lines.  In the two strict-high odd rows,
+the actual retained \(\chi_F\)-source is normalized at
+\(c_\chi=-\operatorname{Tr}(u^{-1})\), giving correction class \(1\), while
+the \(\tau\)-correction is absent.  At the odd boundary in mixed
+characteristic, the retained boundary coordinate gives the two exact
+classes
+\(\rho^2/(1+\rho^2)\) and \(\rho/(1+\rho^2)\), the corresponding actual
+selected correction records, and the exact elementary phase required by
+\texttt{WildQuadraticBoundaryCompatibility}.  In equal characteristic two
+the boundary row is eliminated by the lower-break parity theorem.  These
+packages produce \texttt{WildQuadraticHigherData.refined}, the object
+consumed directly by the wild-quadratic main theorem.
+\LeanFile{LanglandsFirstMainLemma/Cases/WildQuadratic/RefinementPreparation.lean}
+\lean{LanglandsFirstMainLemma.wildQuadraticHigherData}
+\leanok
+\SourceText{Lemmas lem:normalized-refinement and lem:quadratic-correction-rule; Proposition prop:wild-quadratic-cancellation and the final wild quadratic corollary.}
+\uses{mod:cases-wildquadratic-phasepreparation,mod:cases-wildquadratic-quadraticrefinement,mod:cases-wildquadratic-boundary,mod:cases-wildquadratic-equalcharacteristicbreak,mod:cases-wildquadratic-errorformula}
+\FormalizationContract
+Never manufacture a refinement or Hasse function.  The all-even branch is
+passed through q-free.  In the positive-polar branch the chosen
+\(\mathfrak q\) must be tied to the actual retained source, and the
+elementary stationary value and residual refinement phase must be
+transported together; no translation may be discarded.  Construct the
+mixed-boundary continuation only in that refined branch.  Keep the
+strict-high and boundary correction proofs in this cohesive node; no new
+continuation package is introduced.
+\end{theorem}

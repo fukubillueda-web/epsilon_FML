@@ -1,0 +1,105 @@
+\begin{definition}[Exact conductor data]\label{mod:basic-characterconductors}
+Let $F$ be a nonarchimedean local field.  For a continuous additive
+character $\psi:F\to\C^\times$ and $r\in\mathbf Z$, define
+\[
+ \operatorname{AddTriv}(\psi,r)
+ \quad\Longleftrightarrow\quad
+ \psi(x)=1\quad\hbox{for every }x\in\mathfrak p_F^r.
+\]
+For a continuous quasi-character $\chi:F^\times\to\C^\times$ and
+$r\in\mathbf N$, define
+\[
+ \operatorname{MulTriv}(\chi,r)
+ \quad\Longleftrightarrow\quad
+ \chi(u)=1\quad\hbox{for every }u\in U_F^r.
+\]
+Both predicates are monotone in the depth: triviality at $r$ implies
+triviality at every $s\ge r$.  They are invariant under inversion, and the
+product of two characters trivial at the same depth is again trivial there.
+
+The proposition
+$\texttt{IsAdditiveConductor}(F,\psi,n)$ stores both
+\[
+ \operatorname{AddTriv}(\psi,-n)
+ \quad\hbox{and}\quad
+ \forall r,\ \operatorname{AddTriv}(\psi,r)\Longrightarrow -n\le r.
+\]
+Thus it says exactly that $\mathfrak p_F^{-n}$ is the largest fractional
+ideal on which $\psi$ is trivial.  It proves the equivalent threshold
+formulas
+\[
+ \operatorname{AddTriv}(\psi,r)\Longleftrightarrow -n\le r,
+ \qquad
+ \operatorname{AddTriv}(\psi,-k)\Longleftrightarrow k\le n,
+\]
+and the equivalent adjacent-boundary conditions
+\[
+ \operatorname{AddTriv}(\psi,-n),
+ \qquad
+ \neg\operatorname{AddTriv}(\psi,-n-1).
+\]
+In particular there is an $x\in F$ with
+\[
+ \operatorname{ord}_F(x)=-n-1,
+ \qquad \psi(x)\ne1.
+\]
+Consequently $\psi$ is nontrivial.  The exponent $n$ is unique, and
+inversion preserves it.
+
+The proposition
+$\texttt{IsMultiplicativeConductor}(F,\chi,m)$ stores both
+\[
+ \operatorname{MulTriv}(\chi,m)
+ \quad\hbox{and}\quad
+ \forall r,\ \operatorname{MulTriv}(\chi,r)\Longrightarrow m\le r.
+\]
+It follows that
+\[
+ \operatorname{MulTriv}(\chi,r)\Longleftrightarrow m\le r.
+\]
+At the endpoint $m=0$ this is equivalent simply to triviality on
+$U_F^0=\mathcal O_F^\times$, which is the manuscript's unramified condition;
+it does not assert that $\chi$ is globally trivial.  At positive conductor
+$m=k+1$, exactness is equivalently
+\[
+ \operatorname{MulTriv}(\chi,k+1)
+ \quad\hbox{and}\quad
+ \neg\operatorname{MulTriv}(\chi,k),
+\]
+and there is a witness
+$u\in U_F^k\setminus U_F^{k+1}$ with $\chi(u)\ne1$.
+The exponent is unique, and inversion preserves it.
+
+If $\chi$ and $\omega$ have exact conductors $m$ and $n$, while
+$\chi\omega$ has exact conductor $q$, then
+$q\le\max(m,n)$.  If $m<n$, respectively $n<m$, the product has exact
+conductor $n$, respectively $m$.  No equality is asserted when $m=n$:
+the last layer can cancel and lower the product conductor.
+
+Finally, $\texttt{LocalAddCharData}(F)$ and
+$\texttt{LocalQuasiCharData}(F)$ store a character, its integer or natural
+conductor, and the corresponding exact-conductor proof.  Constructors from
+the adjacent boundary conditions are provided, together with the threshold,
+nontrivial-witness, nontrivial-additive-character, uniqueness, and
+conductor-zero interfaces above.  Thus neither package stores a bare
+conductor exponent without its exactness witnesses.
+\LeanFile{LanglandsFirstMainLemma/Basic/CharacterConductors.lean}
+\lean{LanglandsFirstMainLemma.AddCharTrivialOnLattice}
+\lean{LanglandsFirstMainLemma.QuasiCharTrivialOnUnitFiltration}
+\lean{LanglandsFirstMainLemma.IsAdditiveConductor}
+\lean{LanglandsFirstMainLemma.IsAdditiveConductor.trivialOnLattice_iff}
+\lean{LanglandsFirstMainLemma.IsAdditiveConductor.iff_boundary}
+\lean{LanglandsFirstMainLemma.IsAdditiveConductor.exists_ord_eq_predecessor}
+\lean{LanglandsFirstMainLemma.IsMultiplicativeConductor}
+\lean{LanglandsFirstMainLemma.IsMultiplicativeConductor.trivialOnUnitFiltration_iff}
+\lean{LanglandsFirstMainLemma.IsMultiplicativeConductor.succ_iff_boundary}
+\lean{LanglandsFirstMainLemma.IsMultiplicativeConductor.mul_conductor_le_max}
+\lean{LanglandsFirstMainLemma.IsMultiplicativeConductor.mul_of_lt}
+\lean{LanglandsFirstMainLemma.LocalAddCharData}
+\lean{LanglandsFirstMainLemma.LocalQuasiCharData}
+\lean{LanglandsFirstMainLemma.LocalQuasiCharData.conductor_eq_zero_iff_trivialOnUnitGroup}
+\leanok
+\SourceText{Definitions Multiplicative conductor and Additive conductor; Corollary cor:additive-conductor; Proposition prop:pullback-conductor.}
+\uses{mod:basic-charactertypes,mod:localfield-unitfiltration}
+\FormalizationContract
+\end{definition}

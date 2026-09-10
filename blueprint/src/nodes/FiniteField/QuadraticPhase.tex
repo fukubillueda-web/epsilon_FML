@@ -1,0 +1,78 @@
+\begin{definition}[Quadratic phase]\label{mod:finitefield-quadraticphase}
+Let $k$ be a finite field.  Write
+$\nu:k\to\mathbf C$ for the quadratic character, extended by zero at
+zero, and for an additive character $\psi:k\to\mathbf C^\times$ put
+\[
+ S_\psi(a,b)=\sum_{x\in k}
+   \psi\!\left(\frac a2x^2+bx\right),
+ \qquad
+ Q_\psi(a,b)=\Aphase\bigl(S_\psi(a,b)\bigr).
+\]
+These are the Lean definitions \texttt{quadraticSum} and
+\texttt{quadraticPhase}; the quadratic character with values in
+$\mathbf C$ is \texttt{finiteQuadraticChar}.
+
+Assume $\operatorname{char}k\ne2$, $\psi\ne1$, and $a\ne0$.  Then the
+raw sum satisfies the exact completing-square and translation formulas
+\begin{align*}
+ S_\psi(a,b)
+  &=\psi(-b^2/2a)S_\psi(a,0),\\
+ S_\psi(a,b+ac)
+  &=\psi\!\left(-\left(\frac a2c^2+bc\right)\right)S_\psi(a,b).
+\end{align*}
+The quadratic-character fiber count and the ordinary Gauss sum give
+\[
+ \sum_{x\in k}\psi(cx^2)=\nu(c)G_k(\nu,\psi)
+ \quad(c\ne0)
+\]
+and hence
+\[
+ S_\psi(a,b)
+ =\psi(-b^2/2a)\nu(a/2)G_k(\nu,\psi)
+ =\nu(a)\psi(-b^2/2a)S_\psi(1,0).
+\]
+In particular, the precise magnitude and raw square identities are
+\[
+ \lVert S_\psi(a,b)\rVert^2=|k|,
+ \qquad
+ \lVert S_\psi(a,b)\rVert=\sqrt{|k|},
+\]
+\[
+ S_\psi(a,b)^2
+ =\nu(-1)\psi(-b^2/a)|k|.
+\]
+Thus every such sum is nonzero.
+
+Transporting the elementary factors through the completed total phase
+API gives
+\begin{align*}
+ Q_\psi(a,b)
+  &=\nu(a)\psi(-b^2/2a)Q_\psi(1,0),\\
+ Q_\psi(a,b+ac)
+  &=\psi\!\left(-\left(\frac a2c^2+bc\right)\right)Q_\psi(a,b),\\
+ Q_\psi(a,b)^2
+  &=\nu(-1)\psi(-b^2/a).
+\end{align*}
+The manuscript's basic exact sign is the specialization
+\[
+ Q_\psi(1,0)^2=\nu(-1).
+\]
+\LeanFile{LanglandsFirstMainLemma/FiniteField/QuadraticPhase.lean}
+\lean{LanglandsFirstMainLemma.quadraticPhase}
+\leanok
+\SourceText{Lemma lem:quadratic-phase-new and Lemma lem:finite-quadratic-magnitude.}
+\uses{mod:finitefield-characterapi,mod:basic-phase}
+\FormalizationContract
+\end{definition}
+\begin{proof}
+The squaring map is treated fiberwise.  In odd characteristic the fiber
+above $y$ has cardinality $1+\nu(y)$, so additive orthogonality removes
+the constant part and multiplicative scaling identifies the remaining
+sum with $\nu(c)G_k(\nu,\psi)$.  The character API supplies both
+$G_k(\nu,\psi)^2=\nu(-1)|k|$ and
+$\lVert G_k(\nu,\psi)\rVert^2=|k|$.  Completing the square and finite-sum
+reindexing give the displayed two-variable and translation formulas.
+Finally, nonvanishing and the norm-one character values allow the phase
+API to transport every elementary factor without invoking the total
+phase's zero branch.
+\end{proof}

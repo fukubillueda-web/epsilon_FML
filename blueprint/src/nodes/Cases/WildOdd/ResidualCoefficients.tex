@@ -1,0 +1,72 @@
+\begin{theorem}[Wild odd residual coefficient table assembly]\label{mod:cases-wildodd-residualcoefficients}
+Lean packages the completed lower and upper residual coefficient APIs as the
+two table fields of a single public
+\texttt{WildOddResidualCoefficientTable}.  It also exposes, by direct
+reference to the already-proved theorems, the lower and upper
+source-to-selected representative translations.  In particular, the polar
+coefficient is unchanged, the affine translation has the positive
+source-to-selected orientation, and the elementary stationary value is
+transported together with the residual critical factor.
+
+The same package keeps the two raw representative-ratio theorems separate
+from the two indexed-character theorems.  Thus the low raw identity remains
+\[
+ \frac{r^{N,\mathrm{low}}_j}{r^{\mathrm{tw},\mathrm{low}}_j}
+ =N_{K/F}\!\left(\frac{u+[j]}{[j]}\right)^{-1}z_j,
+\]
+and the corresponding high raw identity retains the inverse norm containing
+the high source factor.  The manuscript $\mu_j(z_j)$ equality is exported
+only after applying the indexed norm character and using its triviality on
+that norm.
+
+For the boundary, let $(\eta_0,\eta_0\gamma_0)$ be the named generator row,
+let $(\eta,\eta\gamma)$ be the named base row, and put
+\[
+ d_0=\eta/\eta_0,
+ \qquad \rho=d_0^{-1},\qquad
+ \sigma=\gamma,\qquad \tau=\rho\gamma_0.
+\]
+Both named polar coefficients are nonzero, so Lean proves $d_0\ne0$.
+The nonzero-index facts $[j]+d_0\ne0$ are exactly the boundary numerator
+nonvanishing facts imported from the lower table; Lean adds the zero index
+using $d_0\ne0$.  Define
+\[
+ a_0=\operatorname{Frob}^{-1}(1-d_0^{p-1}),
+ \qquad
+ b_0=\operatorname{Frob}^{-1}(\gamma-\gamma_0).
+\]
+The public \texttt{WildOddBoundaryAffinePencilCertificate} has exactly the
+four proof fields consumed by \texttt{FiniteField.affinePencil}:
+\[
+ \rho\ne0,\qquad 1+[j]\rho\ne0
+ \quad\text{for every prime-field index }j,
+\]
+and the exact identities
+\[
+ a_0^p=1-(\rho^{p-1})^{-1},
+ \qquad b_0^p=\sigma-\rho^{-1}\tau.
+\]
+The principal assembly theorem simply installs the completed lower and upper
+APIs, their representative transports, the raw and character-level ratio
+statements, and this boundary constructor.  It does not construct a common
+coordinate, reprove either coefficient table, invoke higher-symmetric
+vanishing, apply the affine-pencil theorem, choose a stationary
+representative, or perform phase cancellation.
+\LeanFile{LanglandsFirstMainLemma/Cases/WildOdd/ResidualCoefficients.lean}
+\lean{LanglandsFirstMainLemma.WildOddBoundaryAffinePencilCertificate}
+\lean{LanglandsFirstMainLemma.wildOddBoundaryDZero_ne_zero}
+\lean{LanglandsFirstMainLemma.wildOddBoundaryPrimeFieldShift_ne_zero}
+\lean{LanglandsFirstMainLemma.wildOdd_boundaryAffinePencilCertificate}
+\lean{LanglandsFirstMainLemma.WildOddResidualCoefficientTable}
+\lean{LanglandsFirstMainLemma.wildOdd_twistCoefficients}
+\leanok
+\SourceText{Proposition prop:odd-coefficient-table, complete assembly and boundary certificate.}
+\uses{mod:cases-wildodd-lowerresidualcoefficients,mod:cases-wildodd-upperresidualcoefficients}
+\FormalizationContract
+This assembly occupies fewer than 300 Lean lines and exports only the
+completed tables, their translation and representative-ratio data, and the
+four stated boundary facts.  The boundary proof is limited to prime-field
+index packaging, nonzero division, and the defining inverse-Frobenius
+equalities.  Any coefficient proof belongs in one of the two helper nodes,
+and boundary phase cancellation belongs in BoundaryPencil.
+\end{theorem}

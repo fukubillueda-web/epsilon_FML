@@ -1,0 +1,164 @@
+\begin{definition}[Normalized characteristic-two refinement]
+\label{mod:finitefield-chartworefinement}
+Let $k$ be a finite field of characteristic two and put
+\[
+ \psi_0(x)=(-1)^{\operatorname{Tr}_{k/\mathbf F_2}(x)}.
+\]
+A normalized characteristic-two refinement is a Hasse function
+$\mathfrak q:k\to\mathbf C^\times$ for the positive polar character
+$\psi_0(xy)$ which is fixed by Frobenius.  Thus
+\[
+ \mathfrak q(x+y)=\mathfrak q(x)\mathfrak q(y)\psi_0(xy),
+ \qquad
+ \mathfrak q(x^2)=\mathfrak q(x).
+\]
+This is the Lean structure \texttt{CharTwoRefinement}.  Its values are
+nonzero and unimodular, and Lean proves the exact identities
+\[
+ \mathfrak q(x)^2=\psi_0(x),
+ \qquad
+ \overline{\mathfrak q(x)}
+   =\mathfrak q(x)\psi_0(x).
+\]
+
+Every Hasse function $h$ with this polar character can be normalized
+by an affine twist.  More precisely, its Frobenius defect
+$h(x^2)/h(x)$ is $\psi_0(cx)$ for a unique $c$.  One has
+$\operatorname{Tr}(c)=0$, so
+\[
+ c=d+\operatorname{Frob}^{-1}(d)
+\]
+for some $d$, and $h(x)\psi_0(dx)$ is normalized.  Relative to any
+fixed normalized $\mathfrak q$, every same-polar Hasse function is
+uniquely
+\[
+ h_\lambda(x)=\mathfrak q(x)\psi_0(\lambda x).
+\]
+The affine member $h_\lambda$ is itself Frobenius-normalized exactly
+when $\lambda=0$ or $\lambda=1$.  Hence the normalized refinements are
+exactly $\mathfrak q$ and $\mathfrak q\psi_0$, and these two choices
+are distinct.  Precomposition by Frobenius sends the affine coefficient
+$\lambda$ to $\operatorname{Frob}^{-1}(\lambda)$.
+
+The complete finite residual correction value on an odd critical line is
+\[
+ C_{\mathfrak q}(\lambda,c)
+ =h_\lambda(c)
+ =\mathfrak q(c)\psi_0(\lambda c)
+ =\mathfrak q(\lambda)^{-1}\mathfrak q(c+\lambda).
+\]
+In particular it is $h_\lambda(c)$, not its inverse or conjugate.  If
+\[
+ S(\lambda)=\sum_{x\in k}h_\lambda(x),
+ \qquad
+ H(\lambda)=\Aphase(S(\lambda)),
+ \qquad H_0=H(0),
+\]
+then $S(\lambda)\ne0$ and
+$|S(\lambda)|=\sqrt{|k|}$.  Translation gives the correction rule
+\[
+ H(\lambda+c)=h_\lambda(c)^{-1}H(\lambda),
+ \qquad
+ h_\lambda(c)H(\lambda+c)=H(\lambda).
+\]
+Thus a later local linear phase must be transported together with this
+complete positively oriented correction value, as required by
+Lemma~\ref{lem:quadratic-correction-rule}; no local-field hypothesis is
+assumed in this node.
+
+The normalized phases satisfy
+\[
+ H(\lambda)=H_0\overline{\mathfrak q(\lambda)},
+ \qquad
+ H_0^2=\mathfrak q(1),
+ \qquad
+ H(\lambda)^2=\mathfrak q(1)\psi_0(\lambda),
+\]
+together with
+\[
+ H(\lambda^2)=H(\lambda),
+ \qquad
+ H(1+\lambda)H(\lambda)=1.
+\]
+Finally, Lean records the exact signed four-phase identity.  If
+$c+d=a+b+A$, then
+\[
+ \frac{H(a)H(b)}{H(c)H(d)}
+ =\mathfrak q(A)
+  \psi_0\bigl((a+b)A+cd+ab\bigr).
+\]
+The numerator signs are $a,b$ and the denominator signs are $c,d$.
+If also $B+C=A$, multiplication by the two positively oriented
+refinement factors $\mathfrak q(B)\mathfrak q(C)$ leaves the phase
+\[
+ \psi_0\bigl((a+b)A+cd+ab+A+BC\bigr).
+\]
+Consequently, whenever
+\[
+ (a+b)A+cd+ab+A+BC+t=z+z^2,
+\]
+the Artin--Schreier identity gives the denominator-free cancellation
+\[
+ H(a)H(b)\mathfrak q(B)\mathfrak q(C)\psi_0(t)=H(c)H(d).
+\]
+This is purely finite-field algebra and assumes neither local break parity
+nor the wild-quadratic conclusion.
+\LeanFile{LanglandsFirstMainLemma/FiniteField/CharTwoRefinement.lean}
+\lean{LanglandsFirstMainLemma.CharTwoRefinement}
+\lean{LanglandsFirstMainLemma.CharTwoRefinement.map_add}
+\lean{LanglandsFirstMainLemma.CharTwoRefinement.map_sq}
+\lean{LanglandsFirstMainLemma.CharTwoRefinement.exists_charTwoRefinement_translate}
+\lean{LanglandsFirstMainLemma.CharTwoRefinement.existsUnique_affine}
+\lean{LanglandsFirstMainLemma.CharTwoRefinement.affine_frobenius}
+\lean{LanglandsFirstMainLemma.CharTwoRefinement.affine_normalized_iff}
+\lean{LanglandsFirstMainLemma.CharTwoRefinement.eq_or_eq_translateOne}
+\lean{LanglandsFirstMainLemma.CharTwoRefinement.translateOne_ne}
+\lean{LanglandsFirstMainLemma.CharTwoRefinement.correction_rule}
+\lean{LanglandsFirstMainLemma.CharTwoRefinement.affineSum_ne_zero}
+\lean{LanglandsFirstMainLemma.CharTwoRefinement.affineSum_norm}
+\lean{LanglandsFirstMainLemma.CharTwoRefinement.correction_phase_rule}
+\lean{LanglandsFirstMainLemma.CharTwoRefinement.value_sq}
+\lean{LanglandsFirstMainLemma.CharTwoRefinement.value_conj}
+\lean{LanglandsFirstMainLemma.CharTwoRefinement.affinePhase_eq}
+\lean{LanglandsFirstMainLemma.CharTwoRefinement.affinePhase_zero_sq}
+\lean{LanglandsFirstMainLemma.CharTwoRefinement.affinePhase_sq}
+\lean{LanglandsFirstMainLemma.CharTwoRefinement.affinePhase_sq_arg}
+\lean{LanglandsFirstMainLemma.CharTwoRefinement.affinePhase_pair}
+\lean{LanglandsFirstMainLemma.CharTwoRefinement.affinePhase_four}
+\lean{LanglandsFirstMainLemma.CharTwoRefinement.affinePhase_four_correction}
+\lean{LanglandsFirstMainLemma.CharTwoRefinement.affinePhase_four_cancel}
+\leanok
+\SourceText{Lemmas~\ref{lem:normalized-refinement} and
+\ref{lem:quadratic-correction-rule}.}
+\uses{mod:finitefield-hassefunction,mod:finitefield-artinschreier}
+\FormalizationContract
+\end{definition}
+\begin{proof}
+For two same-polar Hasse functions, division cancels the polar factor
+and produces an additive character.  Applying this to $h(x^2)$ and
+$h(x)$ gives the Frobenius defect.  Its value at $1$ is one, hence its
+coefficient has absolute trace zero.  Artin--Schreier exactness writes
+that coefficient as $d+\operatorname{Frob}^{-1}(d)$; the adjoint
+Frobenius identity then proves that twisting by $d$ is normalized.
+Perfectness of the absolute-trace pairing proves uniqueness of every
+affine coefficient.  Applying that uniqueness after Frobenius shows
+that a normalized affine coefficient satisfies $\lambda^2=\lambda$,
+so it is $0$ or $1$.
+
+The affine translation and correction formulas are the Hasse functional
+equation followed by finite-sum reindexing.  Nontriviality of $\psi_0$
+and Hasse-sum orthogonality prove the asserted magnitude and nonvanishing
+before any phase is simplified.  Setting the two arguments of the
+functional equation equal gives $\mathfrak q(x)^2=\psi_0(x)$.
+Conjugating the base sum identifies $H(1)$ with $\overline{H_0}$;
+combining this with translation by $1$ gives
+$H_0^2=\mathfrak q(1)$ and the remaining phase identities.
+
+For the four-phase formula, first cancel the common factor $H_0^2$ in
+the numerator and denominator.  The refinement law combines the four
+remaining values.  Writing $Y=a+b$ and using $c+d=Y+A$, the apparent
+extra exponent is $Y^2+Y$, whose normalized phase is one by the
+Artin--Schreier identity.  A second use of the refinement law with
+$B+C=A$ inserts the two refinement factors.  The final displayed
+Artin--Schreier hypothesis then makes the residual phase exactly one.
+\end{proof}

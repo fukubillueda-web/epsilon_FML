@@ -1,0 +1,370 @@
+\begin{definition}[Wild quadratic coefficient table]\label{mod:cases-wildquadratic-coefficienttable}
+Put \(m=b+1\) and \(T=t+1\).  Lean represents the coefficient table by ten
+pairwise distinct constructors:
+\[
+\begin{array}{c|c}
+b<t&(m,T)=(\mathrm E,\mathrm E),(\mathrm E,\mathrm O),
+       (\mathrm O,\mathrm E),(\mathrm O,\mathrm O),\\
+b=t&T=\mathrm E,T=\mathrm O,\\
+b>t&(m,T)=(\mathrm E,\mathrm E),(\mathrm E,\mathrm O),
+       (\mathrm O,\mathrm E),(\mathrm O,\mathrm O).
+\end{array}
+\]
+The classifier first compares \(b\) and \(t\), then dispatches on the
+conductor parities.  It is exhaustive, and injectivity of a numeric code
+proves that its constructors are disjoint.  Its character-parity function is
+exactly
+\[
+\begin{array}{c|cccc}
+ &e_K&e_\tau&e_\chi&e_{\tau\chi}\\ \hline
+b<t&\epsilon(m)&\epsilon(T)&\epsilon(m)&\epsilon(T)\\
+b=t&\epsilon(T)&\epsilon(T)&\epsilon(T)&\epsilon(T)\\
+b>t&\epsilon(T)&\epsilon(T)&\epsilon(m)&\epsilon(m).
+\end{array}
+\]
+
+The exact all-even predicate has precisely three constructors,
+\[
+ \texttt{belowMEvenTEven},\qquad
+ \texttt{boundaryEven},\qquad
+ \texttt{aboveMEvenTEven}.
+\]
+These, and only these, have parity vector
+\((e_K,e_\tau,e_\chi,e_{\tau\chi})=(0,0,0,0)\).  The complementary seven
+rows carry an actual positive-polar source:
+\[
+\begin{array}{c|c|c}
+\text{row}&(e_K,e_\tau,e_\chi,e_{\tau\chi})&
+  \text{retained lower source}\ \\ \hline
+\texttt{belowMEvenTOdd}&(0,1,0,1)&\tau\\
+\texttt{belowMOddTEven}&(1,0,1,0)&\chi_F\\
+\texttt{belowMOddTOdd}&(1,1,1,1)&\tau,\chi_F\\
+\texttt{boundaryOdd}&(1,1,1,1)&\tau,\chi_F\\
+\texttt{aboveMEvenTOdd}&(1,1,0,0)&\tau\\
+\texttt{aboveMOddTEven}&(0,0,1,1)&\chi_F\\
+\texttt{aboveMOddTOdd}&(1,1,1,1)&\tau,\chi_F.
+\end{array}
+\]
+Here ``source'' means one of the actual quotient-derived lower critical
+functions already retained by \texttt{WildQuadraticCoefficientInputs}, not
+an arbitrary Hasse function.  Lean proves the all-even/positive-polar
+dichotomy, its disjointness, and the equivalence between positive-polar
+provenance and failure of the exact all-even predicate.
+
+The genuinely common coefficient data are factored into
+\texttt{WildQuadraticCommonCoefficientView}.  This record is independent of
+any characteristic-two refinement and retains the actual conductor row,
+common correction, selected stationary pairs and their exact ratios, local
+character identifications, and the common correction coordinate.  Its
+\(z_0\)-unit, \(z_1\)-unit, and residue-field equivalence are the same
+objects exposed by the refined view.  The old
+\texttt{WildQuadraticCoefficientView} keeps its public signature and
+forwards these fields through \texttt{toCommon}.
+
+An exact \texttt{WildQuadraticAllEvenCoefficientView} consists of this
+q-free common view together with an \texttt{IsAllEven} witness.  Its three
+constructors correspond exactly to the three displayed manuscript rows and
+none accepts a refinement.  Its coefficient data are the literal constant
+rows, and \texttt{WildQuadraticAllEvenCoefficientTable} exposes the row,
+stationary-pair, character, correction, unit, and residue-coordinate
+provenance without introducing \(\mathfrak q\).
+
+On the complementary branch,
+\texttt{WildQuadraticCoefficientInputs.PositivePolarSource} retains the
+actual lower quotient-derived Hasse function from which normalization is
+allowed.  A \texttt{WildQuadraticNormalizedRefinementSource} contains a
+normalized refinement together with its proof of provenance from that
+specific source.  Thus every refined row has a source-tied \(\mathfrak q\),
+whereas no refinement or Hasse source can occur in an all-even view.
+
+An even entry has a separate constant constructor whose residual function is
+literally \(1\).  An odd entry is
+\[
+ h_\lambda(z)=\mathfrak q(z)\psi _0(\lambda z),
+\]
+where \(\mathfrak q\) is the chosen normalized characteristic-two
+refinement.  Thus no affine or polar coefficient is assigned to an even
+entry.  For an odd entry the intrinsic polar coefficient is the positive
+coefficient \(1\).  The intrinsic affine coefficients of
+\((\chi_K,\tau,\chi_F,\tau\chi_F)\) in the ten rows are
+\[
+\begin{array}{c|c}
+b<t,\ (\mathrm E,\mathrm E)&(-,-,-,-)\\
+b<t,\ (\mathrm E,\mathrm O)&(-,\gamma _0,-,\gamma _0)\\
+b<t,\ (\mathrm O,\mathrm E)&(\gamma',-,\gamma,-)\\
+b<t,\ (\mathrm O,\mathrm O)&(\gamma',\gamma _0,\gamma,\gamma _0)\\
+b=t,\ \mathrm E&(-,-,-,-)\\
+b=t,\ \mathrm O&(\gamma',\gamma _0,\gamma,\gamma _1)\\
+b>t,\ (\mathrm E,\mathrm E)&(-,-,-,-)\\
+b>t,\ (\mathrm E,\mathrm O)&(\gamma',\gamma _0,-,-)\\
+b>t,\ (\mathrm O,\mathrm E)&(-,-,\gamma,\gamma)\\
+b>t,\ (\mathrm O,\mathrm O)&(\gamma',\gamma _0,\gamma,\gamma).
+\end{array}
+\]
+Here a dash means the literal constant factor.  The exact gamma table is
+\[
+\begin{array}{c|c}
+b<t&(\gamma')^2=\gamma,\qquad\gamma _1=\gamma _0,\\
+b>t&(\gamma')^2=1+\gamma _0,\qquad\gamma _1=\gamma,\\
+b=t&\displaystyle
+ \gamma _1=\frac{\gamma _0+\rho\gamma+r}{1+\rho},\qquad
+ (\gamma')^2=\frac{\gamma+\rho\gamma _0+\rho+r}{1+\rho}.
+\end{array}
+\]
+At the odd boundary Lean retains
+\(\rho\ne0\), \(r^2=\rho\), and \(1+\rho\ne0\); no denominator is
+suppressed.  In the constructed table \(r\) and every \(\gamma'\) are the
+unique characteristic-two square roots supplied by
+\texttt{QuadraticRefinement}, rather than additional choices.
+
+In the formula-facing constructed table, the lower odd coefficients are not
+independently supplied parameters.  A quotient-derived critical witness
+retains the exact local characters
+\(\chi,\psi\), the equality \(a(\chi)=2d+1\), the hypothesis
+\(1<a(\chi)\), an admissible denominator \(\Gamma\), the critical coordinate
+\(\delta\) with its exact order, an actual stationary numerator
+representative \(\beta\), and the proof that \(\beta\) represents the required
+stationary quotient class.  It also retains the exact
+\texttt{CriticalPolarCoordinate} equality saying that the polar coefficient
+in this coordinate is \(+1\).  Lean then uses uniqueness in
+\texttt{QuadraticRefinement} to extract the affine coefficient of this actual
+function.  A ten-constructor input type includes precisely the \(\tau\) and
+\(\chi_F\) witnesses that occur in each odd row and constructs all other
+coefficients from them.  Matching predicates identify their denominators and
+numerators with the selected stationary pairs and identify their characters
+with the actual local data.  At the odd boundary they additionally retain an
+explicit unit lift \(\widetilde\rho\), its residue equality
+\(\overline{\widetilde\rho}=\rho\), and the exact relation
+\(c_\chi=c_\tau/\widetilde\rho\).  Thus the common coordinate is
+choice-relative and no lift is made canonical.
+
+The common residue coordinate uses the scales
+\[
+ (s_K,s_\tau,s_\chi,s_{\tau\chi})=
+ \begin{cases}
+ (1,1,1,1),&b\ne t,\\
+ (1+r,1,\rho,1+\rho),&b=t\text{ and }T\text{ is odd}.
+ \end{cases}
+\]
+For every odd factor, \texttt{CriticalPolarCoordinate.scale} computes the
+transported polar and affine coefficients as
+\[
+ (A_\theta,B_\theta)=(s_\theta^2,s_\theta\lambda_\theta),
+\]
+with the positive polar sign.  In particular, at the odd boundary these are
+\[
+\begin{array}{c|c}
+\chi_K&((1+r)^2,(1+r)\gamma'),\\
+\tau&(1,\gamma _0),\\
+\chi_F&(\rho^2,\rho\gamma),\\
+\tau\chi_F&((1+\rho)^2,\gamma _0+\rho\gamma+r).
+\end{array}
+\]
+The raw upper affine coefficient, before Frobenius normalization, is
+\(\gamma\) below the break, \(1+\gamma _0\) above the break, and
+\[
+ L=\frac{\gamma+\rho\gamma _0+\rho+r}{1+\rho}
+\]
+at the odd boundary.  The raw boundary scale is \(1+\rho\), while the
+normalized upper scale is \(1+r\).  Hence the raw common polar and affine
+coefficients are \(((1+\rho)^2,
+\gamma+\rho\gamma _0+\rho+r)\), and Frobenius transport proves
+\[
+ h_L((1+\rho)z^2)=h_{\gamma'}((1+r)z).
+\]
+
+The finite coefficient data define and prove the exact residue transport
+\[
+ (p(z),q(z))=
+ \begin{cases}
+ (z,0),&b<t,\\
+ (z,\rho z),&b=t\text{ in the odd row},\\
+ (0,z),&b>t,
+ \end{cases}
+\]
+with the boundary-even second coordinate immaterial.  In these coordinates
+the raw upper function is
+\[
+ \Phi_{\chi_K}^{\rm raw}(z)=
+ \Phi_{\chi_F}(p(z))\Phi_\tau(q(z))
+ \psi _0(q(z))^{e_\tau}.
+\]
+The boundary lower product and raw upper product are identified with the
+normalized refinements from \texttt{QuadraticRefinement}, and every one of the
+ten finite constructors satisfies
+\(\Phi_{\chi_K}^{\rm raw}(z^2)=\Phi_{\chi_K}(z)\).
+
+The corresponding whole-function identities for the actual quotient-derived
+functions are not stored as hypotheses.  Instead Lean retains primitive,
+phase-preserving coordinate certificates.  For the lower product these
+certificates split exhaustively into the below, boundary, and above ranges.
+Off the boundary
+they record the dominant quotient witness together with one exact statement
+that the complete field-level stationary factor of the stable factor is
+\(1\), at the same retained unit.  At the boundary they retain three integral
+lifts, their exact reductions to the displayed arguments, and equality of
+the resulting local critical units.  Multiplication of the selected
+field-level stationary factors then proves the complete lower-product
+function.
+
+Residue degree one makes the extension residue map into the canonical
+residue-field equivalence used upstairs; Lean proves pointwise that this
+equivalence is the extension residue map.  For the upper function the
+primitive certificate is supplied with one coordinate point for every
+\(z\).  Writing \(w=s_K^{-1}z\), that point retains an integral upper lift
+reducing to the canonical image of \(z\), the unit \(1+ux\), its two norm
+coordinates, and lower integral lifts reducing exactly to \(p(w^2)\) and
+\(q(w^2)\).  In an odd lower row those lifts are tied to the corresponding
+quotient witnesses and local units; in an even row the complete field-level
+stationary factor at the retained unit is proved to be \(1\).  The exact norm
+polynomial identity, the selected stationary ratios, and triviality of the
+norm character prove the upper stationary factor as the lower \(\chi_F\)
+factor times the inverse \(\tau\) factor.  Positive polar form then proves
+\(\Phi_\tau(q)^{-1}=\Phi_\tau(q)\psi_0(q)^{e_\tau}\), yielding the displayed
+upper transport.  The coefficient table does not construct the primitive
+coordinate points, and neither primitive certificate assumes an equality
+between an actual critical function and a table function.
+
+Representative dependence is explicit.  For two actual numerators
+\(\beta,\beta'\) proved to represent the same stationary quotient class,
+\texttt{CriticalPolarCoordinate} supplies their intrinsic translation
+parameter \(a\).  Lean proves both the function identity and, after extracting
+the normalized affine coordinates, the exact intrinsic direction
+\[
+ B'=B+a;
+\]
+this is \(B'=B+Aa\) with the retained positive normalization \(A=1\).
+No canonical stationary representative is introduced.  For a nonzero common
+scale \(s\), Lean separately proves
+\[
+ sB'=sB+s^2(a/s).
+\]
+Thus \(B_{\rm com}=sB\), \(A_{\rm com}=s^2\), and the common-coordinate
+translation parameter is \(a_{\rm com}=a/s\).  Changing to the second
+normalized refinement replaces every existing \(\lambda\) by \(\lambda+1\)
+without changing its critical function.  Constants remain constants.
+
+The phase quotient preserves the manuscript's numerator and denominator
+orientation:
+\[
+ \frac{H(\gamma')^{e_K}H(\gamma _0)^{e_\tau}}
+      {H(\gamma)^{e_\chi}H(\gamma _1)^{e_{\tau\chi}}}.
+\]
+For the actual phase assembly, the \(\tau\)- and \(\chi_F\)-phases are taken
+directly from the retained quotient witnesses and are literally \(1\) when
+the corresponding source is absent.  When a derived \(\chi_K\)- or
+\(\tau\chi_F\)-entry is odd, its phase has existential quotient-derived
+provenance matching the exact selected stationary pair and local characters;
+when that entry is even, its value is \(1\).  Lean proves that the product of
+the actual \(\chi_K\)- and \(\tau\)-phases divided by the product of the actual
+\(\chi_F\)- and \(\tau\chi_F\)-phases is exactly the finite coefficient data's
+phase ratio.
+
+The four selected Lamprecht numerator/denominator pairs are also retained
+without changing the choices made by the parameter theorems.  In the high
+range, with \(c=\alpha\delta_h\), they are
+\[
+ (\gamma_F,c(n-u)),\quad(\gamma_F/c,1),\quad
+ (\gamma_F,cn),\quad(\gamma_F,c(n+1));
+\]
+the essential quadratic correction unit \(\delta_h\) remains in the
+denominator.  In the low range they are
+\[
+ (\delta/\varepsilon _1,(\alpha/\varepsilon _1)(n-u)),\quad
+ (\delta/\alpha,1),\quad
+ (\delta/\varepsilon,(\alpha/\varepsilon)n),\quad
+ (\delta,\alpha(n+1)).
+\]
+
+The low and high packages retain those exact selected representatives, the
+actual local data, the quotient-derived odd inputs, the primitive coordinate
+certificates just described, and the common-correction record built from the
+same data.  These packages take the choice-relative lift, reduction, and
+stable-cancellation certificates as explicit proof data.  The transport
+theorems on the retained source certificates derive the residual-function
+identities.  At the boundary, a linked record keeps the very same
+choice-relative lift \(\widetilde\rho\) used by the two lower functions and
+proves that its residue, after the canonical extension residue transport,
+equals the residue of \texttt{CommonCorrection}'s selected boundary unit.  It
+also proves that the residue of the selected \(n\) is \(\rho^2\).  This is an
+equality of transported residue classes, not a field-level equality or a
+canonical choice of lift.  The formula-facing view assumes \(1<m\), fixes its
+row from the actual indices \((m-1,t)\), constructs rather than accepts its
+coefficient data, retains the exact three nontrivial stationary-ratio
+identities and the opposite-noncancellation proof, and exposes the resulting
+units \(z_0,z_1\).
+The principal theorem returns this view-level provenance, the primitive
+source certificates, the actual phase assembly, the linked boundary
+coordinate, and the complete finite coefficient certificate.  Separate low-
+and high-package specializations remain indexed by the full original package,
+so the selected low record and the full high record containing \(\delta_h\)
+are not erased.
+No later error, boundary, nonboundary, main, or phase-reduction theorem is
+imported or assumed.
+
+\LeanFile{LanglandsFirstMainLemma/Cases/WildQuadratic/CoefficientTable.lean}
+\lean{LanglandsFirstMainLemma.WildQuadraticCoefficientRow}
+\lean{LanglandsFirstMainLemma.WildQuadraticCoefficientRow.code_injective}
+\lean{LanglandsFirstMainLemma.WildQuadraticCoefficientRow.exhaustive}
+\lean{LanglandsFirstMainLemma.WildQuadraticCoefficientRow.ofConductors_mParity}
+\lean{LanglandsFirstMainLemma.WildQuadraticCoefficientRow.ofConductors_TParity}
+\lean{LanglandsFirstMainLemma.WildQuadraticCoefficientRow.IsAllEven}
+\lean{LanglandsFirstMainLemma.WildQuadraticCoefficientRow.IsPositivePolar}
+\lean{LanglandsFirstMainLemma.WildQuadraticCoefficientRow.isAllEven_or_isPositivePolar}
+\lean{LanglandsFirstMainLemma.WildQuadraticCoefficientRow.isAllEven_isPositivePolar_disjoint}
+\lean{LanglandsFirstMainLemma.WildQuadraticCoefficientData}
+\lean{LanglandsFirstMainLemma.WildQuadraticCoefficientData.coefficient_exists_iff_odd}
+\lean{LanglandsFirstMainLemma.WildQuadraticCoefficientData.boundaryOdd_coefficient_table}
+\lean{LanglandsFirstMainLemma.WildQuadraticCoefficientData.commonFunction_positivePolar}
+\lean{LanglandsFirstMainLemma.WildQuadraticCoefficientData.rawUpper_exact_transport}
+\lean{LanglandsFirstMainLemma.WildQuadraticCoefficientData.rawUpper_frobenius}
+\lean{LanglandsFirstMainLemma.QuotientDerivedNormalizedCriticalFunction}
+\lean{LanglandsFirstMainLemma.QuotientDerivedNormalizedCriticalFunction.function_eq_critical}
+\lean{LanglandsFirstMainLemma.QuotientDerivedNormalizedCriticalFunction.toCriticalPolarFunction_inv}
+\lean{LanglandsFirstMainLemma.QuotientDerivedNormalizedCriticalFunction.affineCoefficient_replaceRepresentative}
+\lean{LanglandsFirstMainLemma.QuotientDerivedNormalizedCriticalFunction.commonAffineCoefficient_replaceRepresentative}
+\lean{LanglandsFirstMainLemma.WildQuadraticCoefficientInputs}
+\lean{LanglandsFirstMainLemma.WildQuadraticCoefficientInputs.PositivePolarSource}
+\lean{LanglandsFirstMainLemma.WildQuadraticCoefficientInputs.PositivePolarSource.toHasse}
+\lean{LanglandsFirstMainLemma.WildQuadraticCoefficientInputs.isAllEven_or_positivePolarSource}
+\lean{LanglandsFirstMainLemma.WildQuadraticCoefficientInputs.isAllEven_positivePolarSource_disjoint}
+\lean{LanglandsFirstMainLemma.WildQuadraticCoefficientInputs.positivePolarSource_iff_not_isAllEven}
+\lean{LanglandsFirstMainLemma.WildQuadraticNormalizedRefinementSource}
+\lean{LanglandsFirstMainLemma.WildQuadraticNormalizedRefinementSource.ofPositivePolarSource}
+\lean{LanglandsFirstMainLemma.WildQuadraticNormalizedRefinementSource.exists_of_positivePolarSource}
+\lean{LanglandsFirstMainLemma.WildQuadraticCoefficientInputs.toCoefficientData}
+\lean{LanglandsFirstMainLemma.WildQuadraticCoefficientInputs.WildQuadraticBoundaryCommonCoordinate}
+\lean{LanglandsFirstMainLemma.WildQuadraticCoefficientInputs.WildQuadraticBoundaryCommonCoordinate.chiF_common_polarCoefficient}
+\lean{LanglandsFirstMainLemma.ActualProductCoordinateCertificate.transport}
+\lean{LanglandsFirstMainLemma.ActualUpperCoordinateCertificate.transport}
+\lean{LanglandsFirstMainLemma.wildQuadraticResidueEquiv_apply}
+\lean{LanglandsFirstMainLemma.WildQuadraticBoundaryCorrectionCoordinate}
+\lean{LanglandsFirstMainLemma.WildQuadraticCoefficientInputs.MatchesBoundaryCorrectionCoordinate}
+\lean{LanglandsFirstMainLemma.WildQuadraticActualPhaseAssembly}
+\lean{LanglandsFirstMainLemma.wildQuadraticActualPhaseRatio_exact}
+\lean{LanglandsFirstMainLemma.lowWildQuadraticSelectedStationaryPairs_exact}
+\lean{LanglandsFirstMainLemma.highWildQuadraticSelectedStationaryPairs_exact}
+\lean{LanglandsFirstMainLemma.WildQuadraticCommonCoefficientView}
+\lean{LanglandsFirstMainLemma.WildQuadraticCommonCoefficientView.z0Unit}
+\lean{LanglandsFirstMainLemma.WildQuadraticCommonCoefficientView.z1Unit}
+\lean{LanglandsFirstMainLemma.WildQuadraticCommonCoefficientView.residueEquiv}
+\lean{LanglandsFirstMainLemma.WildQuadraticAllEvenCoefficientView}
+\lean{LanglandsFirstMainLemma.WildQuadraticAllEvenCoefficientView.ofBelowMEvenTEven}
+\lean{LanglandsFirstMainLemma.WildQuadraticAllEvenCoefficientView.ofBoundaryEven}
+\lean{LanglandsFirstMainLemma.WildQuadraticAllEvenCoefficientView.ofAboveMEvenTEven}
+\lean{LanglandsFirstMainLemma.WildQuadraticCoefficientView}
+\lean{LanglandsFirstMainLemma.WildQuadraticCoefficientView.toCommon}
+\lean{LanglandsFirstMainLemma.WildQuadraticCoefficientView.toAllEven}
+\lean{LanglandsFirstMainLemma.WildQuadraticLowCoefficientPackage}
+\lean{LanglandsFirstMainLemma.WildQuadraticHighCoefficientPackage}
+\lean{LanglandsFirstMainLemma.WildQuadraticAllEvenCoefficientCertificate}
+\lean{LanglandsFirstMainLemma.wildQuadraticAllEvenCoefficientCertificate}
+\lean{LanglandsFirstMainLemma.WildQuadraticAllEvenCoefficientTable}
+\lean{LanglandsFirstMainLemma.WildQuadraticCoefficientTable}
+\lean{LanglandsFirstMainLemma.WildQuadraticLowCoefficientTable}
+\lean{LanglandsFirstMainLemma.WildQuadraticHighCoefficientTable}
+\leanok
+\SourceText{Lemma lem:critical-polar-coordinate; Propositions prop:quadratic-critical-functions and prop:quadratic-gamma-table; the surrounding wild-quadratic coefficient and parity tables.}
+\uses{mod:cases-wildquadratic-commoncorrection,mod:cases-wildquadratic-quadraticrefinement,mod:lamprecht-criticalpolarcoordinate,mod:parameters-minimalorbitstationary}
+\FormalizationContract
+\end{definition}

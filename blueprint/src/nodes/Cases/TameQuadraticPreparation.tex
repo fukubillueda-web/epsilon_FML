@@ -1,0 +1,74 @@
+\begin{theorem}[Tame quadratic preparation]
+\label{mod:cases-tamequadraticpreparation}
+Let (K/F) be a prime-cyclic extension of nonarchimedean local fields, and
+let (P:\texttt{PrimeCyclicPreparation}(F,K)) be the data supplied by the
+ramified branch: its lower break, residue degree one, and an integral
+monogenic uniformizer.  Assume that (K/F) is tamely ramified and that
+
+\[
+ [K:F]=2.
+\]
+
+Let \(Delta_F\) and \(Delta_K\) be local-constant functions satisfying
+\texttt{IsDeltaFiniteLocalConstant}, and let \(chi_F\) and \(psi_F\) be
+arbitrary exact multiplicative- and additive-conductor packages.  Then Lean
+proves the literal fixed-character First Main identity
+
+\[
+ \Delta_K(\chi_F\circ N_{K/F},
+          \psi_F\circ\operatorname{Tr}_{K/F})
+ \prod_{\mu\in S(K/F)}\Delta_F(\mu,\psi_F)
+ =
+ \prod_{\mu\in S(K/F)}\Delta_F(\mu\chi_F,\psi_F),
+\]
+
+where (S(K/F)=\texttt{NormCharacter}(F,K)) is made finite from (P), and
+both products include its identity character.  Equivalently, the conclusion
+is exactly
+
+\[
+ \texttt{FirstMainIdentity}\ F\ K\ \Delta_F\ \Delta_K\
+   \chi_F.\texttt{character}\ \psi_F.\texttt{character}.
+\]
+
+The proof first specializes the prepared break to zero using tameness.
+Tameness, the prepared equality (e(K/F)=[K:F]), and degree two imply that
+the residue characteristic is not two.  It then selects the
+least-conductor member \(chi_{\min}\) of the complete norm-character orbit
+of the arbitrary input \(chi_F\).  Lean constructs the exact norm pullback
+of \(chi_{\min}\) using the canonical least multiplicative conductor, and
+constructs the exact trace pullback of \(psi_F\) with conductor
+
+\[
+ n_K=[K:F]n_F+([K:F]-1).
+\]
+
+These data, together with the actual-conductor packages for every
+\(mu\in S(K/F)\) and \(mu\chi_{\min}\), form
+\texttt{FirstMainComputationalData}.  The already-completed theorem
+\texttt{firstMain\_tameQuadratic} supplies its exact upper, norm-character,
+and twist denominators and proves the full \texttt{deltaFinite} product.
+The generic bridge
+\texttt{firstMainIdentity\_of\_deltaFinite\_product} converts that product
+to \texttt{FirstMainIdentity} for \(chi_{\min}\).
+
+Finally, membership of \(chi_{\min}\) in the original norm-character orbit
+and the proved invariance of both complete First Main sides under a fixed
+norm-character twist transport the identity back to \(chi_F\).  All
+conductor-zero, conductor-one, higher even, and higher odd calculations---in
+particular every residual Hasse and quadratic phase---remain internal to
+\texttt{Cases/TameQuadratic.lean} and are not reconstructed here.
+\LeanFile{LanglandsFirstMainLemma/Cases/TameQuadraticPreparation.lean}
+\lean{LanglandsFirstMainLemma.firstMain_tameQuadratic_of_isDeltaFinite}
+\leanok
+\SourceText{Propositions prop:tame-conductor-one-comparison and prop:tame-two-new; Section sec:first-main-completion.}
+\uses{mod:ramification-primecyclicpreparation,mod:parameters-minimalorbitstationary,mod:cases-tamequadratic,mod:delta-errorterm}
+\FormalizationContract
+The public theorem takes the prepared ramified branch package directly; it
+does not ask the caller for an already-minimal character or for norm/trace
+pullback packages.  Its conclusion is the literal \texttt{FirstMainIdentity}
+for the arbitrary original character.  Exact conductor packages and the
+identity factor in the full norm-character products are retained.  This is
+dependent routing around the completed case theorem, not a second quadratic
+calculation.  Expected implementation size: 250--600 Lean lines.
+\end{theorem}

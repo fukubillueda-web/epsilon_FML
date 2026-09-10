@@ -1,0 +1,207 @@
+\begin{theorem}[Low-conductor stationary-class table]
+\label{mod:parameters-low}
+Let $K/F$ be a ramified cyclic extension of prime degree $p$ with lower
+break $t$, residue degree one, and the supplied integral uniformizer and
+monogenicity data used to enumerate all norm characters.  Put
+\[
+ T=t+1,
+ \qquad r_0=\left\lfloor\frac T2\right\rfloor,
+ \qquad s_0=\left\lceil\frac T2\right\rceil .
+\]
+Let $\chi_F$ be minimal in its complete norm-character orbit and assume
+the exact low-conductor decomposition
+\[
+ 2\leq m=m_F(\chi_F)=2d+e\leq T,
+ \qquad e\leq1,
+ \qquad q=d+e.
+\]
+For exact pullback data
+\[
+ \chi_K=\chi_F\circ N_{K/F},
+ \qquad
+ \psi_K=\psi_F\circ\operatorname{Tr}_{K/F},
+\]
+Lean first proves the actual conductor identity
+\[
+ m_K(\chi_K)=m.
+\]
+For every norm character $\mu$, not merely for a chosen enumeration, it
+also proves
+\[
+ m_F(\mu\chi_F)=
+ \begin{cases}
+ m,&\mu=1,\\
+ T,&\mu\ne1.
+ \end{cases}
+\]
+Thus the identity row is never assigned conductor $T$ when $m<T$, while
+minimality excludes all cancellation in the nonidentity rows, including
+the boundary $m=T$.
+
+Choose denominators
+\[
+ \operatorname{ord}_F(\delta)=T+n_F(\psi_F),
+ \qquad
+ \operatorname{ord}_K(\epsilon_1)=v:=T-m,
+\]
+and define the exact norm and the two ordered stationary denominators by
+\[
+ \eta=N_{K/F}(\epsilon_1),
+ \qquad
+ \gamma_F=\delta/\eta,
+ \qquad
+ \gamma_K=\delta/\epsilon_1.
+\]
+Their required valuations are derived in Lean.  Fix the generator $\tau$
+of the complete cyclic norm-character enumeration.  Its stationary class
+relative to $\delta$ belongs to
+$\mathcal O_F/\mathfrak p_F^{r_0}$, whereas the native class of $\chi_F$
+relative to $\gamma_F$ belongs to
+$\mathcal O_F/\mathfrak p_F^d$.  Lean proves exactly
+\[
+ r_0\leq t,
+ \qquad d\leq t,
+\]
+and constructs, in one simultaneous existential package, independent
+subcritical representatives
+\[
+ \alpha_1,\beta_1\in K^\times,
+ \qquad
+ \alpha=N_{K/F}(\alpha_1),
+ \qquad
+ \beta=N_{K/F}(\beta_1),
+\]
+whose norm congruences have precisely the two allowed depths $r_0$ and
+$d$.  The package records the two supplied quotient classes and does not
+choose a canonical field representative.  For two such packages, the
+choice-independence theorem asserts only
+\[
+ \alpha\equiv\alpha'\pmod{\mathfrak p_F^{r_0}},
+ \qquad
+ \beta\equiv\beta'\pmod{\mathfrak p_F^d},
+\]
+together with the corresponding target congruences and source-ratio
+memberships
+\[
+ \alpha_1/\alpha_1'\in U_K^{r_0},
+ \qquad
+ \beta_1/\beta_1'\in U_K^d.
+\]
+No equality of the field representatives is asserted.
+
+For every simultaneous package, the upstairs stationary numerator class
+relative to $\gamma_K$ is the quotient equality
+\[
+ \boxed{\quad
+ \beta_K=
+ \left[
+   \frac{\beta\eta}{\epsilon_1}
+   -\frac{\beta_1\alpha}{\alpha_1}
+ \right]
+ \quad}
+ \qquad\text{in }\mathcal O_K/\mathfrak p_K^d.
+\]
+This is proved from the exact truncated norm and
+\texttt{stationaryClass\_compNorm}; it is not promoted to an equality in
+$K$.  Norms of two supplied representatives of this same upstairs class
+are congruent modulo $\mathfrak p_F^d$, using the ambiguity inclusion of
+the same low norm-polynomial precision certificate.
+
+For $j\in\mathbf F_p$, write $[j]$ for the prime Teichmuller lift and let
+$\widetilde\beta_j$ be the common-denominator class.  The table is
+heterogeneous at $j=0$:
+\begin{itemize}
+\item $j=0$ retains actual conductor $m$ and its native class in
+  $\mathcal O_F/\mathfrak p_F^d$ is transported by multiplication by
+  $\eta$ to the common layer;
+\item $j\ne0$ has actual conductor $T$ and hence an ordinary stationary
+  class relative to $\delta$ in
+  $\mathcal O_F/\mathfrak p_F^{r_0}$.
+\end{itemize}
+In that common quotient Lean proves every row of
+\[
+ \boxed{\quad
+ \widetilde\beta_j
+ \equiv N_{K/F}([j]\alpha_1+\epsilon_1\beta_1)
+ \equiv [j]\alpha+\eta\beta
+ \pmod{\mathfrak p_F^{r_0}}.
+ \quad}
+\]
+The mixed-characteristic proof uses the Teichmuller lift itself.  Its
+comparison with the cyclic natural-number power occurs only in the
+stationary quotient at the justified half-break precision; no equality
+between $[j]$ and the integer $j$ in $F$ is assumed.
+
+Put
+\[
+ u=\frac{\epsilon_1\beta_1}{\alpha_1},
+ \qquad
+ n=N_{K/F}(u)=\frac{\eta\beta}{\alpha},
+ \qquad
+ \beta_K^0=\frac{\alpha}{\epsilon_1}(n-u).
+\]
+Lean retains the exact identities for $\operatorname{ord}_K(u)$ and
+$N_{K/F}(u)$ and proves, with no stronger target, the product congruence
+\[
+ \boxed{\quad
+ N_{K/F}(\beta_K^0)
+ \equiv
+ \beta\prod_{j\in\mathbf F_p^\times}
+   (\eta\beta+[j]\alpha)
+ \pmod{\mathfrak p_F^d}.
+ \quad}
+\]
+The proof controls every nonterminal elementary-symmetric term and then
+uses the exact Teichmuller polynomial identity.  The denominator is
+exactly the common denominator $\delta$, and the target ambiguity is
+exactly $d$; neither is weakened.
+
+Finally, Lean exposes the pre-minimal critical cancellation trichotomy
+needed to prevent misuse of an old-layer sum.  For an arbitrary critical
+product, either its actual conductor remains $T$ and its leading quotient
+class is nonzero, or its conductor drops to some $m'$ with
+$1<m'<T$ and a new stationary class is constructed at the actual
+conductor and minimal half-depth before restriction to the old layer, or
+$m'\leq1$ and no stationary class exists.  Conductors zero and one are
+also exported as a separate endpoint theorem.
+
+\LeanFile{LanglandsFirstMainLemma/Parameters/Low.lean}
+\lean{LanglandsFirstMainLemma.lowTwistConductor}
+\lean{LanglandsFirstMainLemma.lowTwist_conductor_eq}
+\lean{LanglandsFirstMainLemma.lowZModTwist_conductor_eq}
+\lean{LanglandsFirstMainLemma.lowCompNorm_conductor_eq}
+\lean{LanglandsFirstMainLemma.lowCriticalMinimalTwist_noncancellation}
+\lean{LanglandsFirstMainLemma.lowCriticalCancellation_classification}
+\lean{LanglandsFirstMainLemma.lowEndpoint_noStationaryClass}
+\lean{LanglandsFirstMainLemma.LowStationaryNormRepresentativePair}
+\lean{LanglandsFirstMainLemma.lowSimultaneousStationaryNormRepresentatives}
+\lean{LanglandsFirstMainLemma.LowStationaryNormRepresentativePairIndependence}
+\lean{LanglandsFirstMainLemma.lowStationaryNormRepresentativePairs_independent}
+\lean{LanglandsFirstMainLemma.lowIdentityCommonClass}
+\lean{LanglandsFirstMainLemma.lowUpstairsStationaryClass}
+\lean{LanglandsFirstMainLemma.lowUpstairsStationaryClass_ofPair}
+\lean{LanglandsFirstMainLemma.lowUpstairsStationaryNorm_representatives_independent}
+\lean{LanglandsFirstMainLemma.lowIdentityCommonClass_isRestriction}
+\lean{LanglandsFirstMainLemma.lowNonzeroTwistCommonClass}
+\lean{LanglandsFirstMainLemma.lowTeichmuller_nsmul_class}
+\lean{LanglandsFirstMainLemma.lowTwistNorm_congruent_primeTeichmuller}
+\lean{LanglandsFirstMainLemma.lowPrimeTeichmullerNormalizedNorm_product_congruent}
+\lean{LanglandsFirstMainLemma.LowConductorParameterTableData}
+\lean{LanglandsFirstMainLemma.lowConductorParameterTable}
+\leanok
+\SourceText{Proposition prop:low-parameter-table.}
+\uses{mod:parameters-stationaryclassundernorm,mod:parameters-minimalorbitstationary,mod:ramification-normrepresentatives,mod:ramification-normcharacters}
+\FormalizationContract
+The principal declaration returns the simultaneous representative package
+existentially together with quotient equalities for the native classes,
+the common twist layer, and the upstairs class.  The identity twist keeps
+conductor $m$; only nonidentity twists have conductor $T$.  Conductor drops
+are handled only by reconstructing the class at the new actual depth, and
+the zero/one endpoints create no class.  All occurrences of
+$\alpha_1,\beta_1,\alpha,\beta,$ and $\beta_K^0$ are supplied witnesses;
+none is canonical.  Choice independence and every displayed stationary
+identity are stated only as lattice-quotient equalities, filtration
+membership, or congruences at the manuscript's exact depths.  The file
+imports none of the high-parameter, phase-reduction, or later case
+theorems.
+\end{theorem}

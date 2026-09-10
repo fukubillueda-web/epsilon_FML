@@ -1,0 +1,14 @@
+\begin{theorem}[Exported First Main Lemma]\label{mod:main}
+Let $K/F$ be a cyclic extension of prime degree.  For every continuous
+quasi-character $\chi_F$ of $F^\times$ and every nontrivial continuous
+additive character $\psi_F$ of $F$, the canonical local constants satisfy
+the First Main identity, with $\chi_K=\chi_F\circ N_{K/F}$,
+$\psi_K=\psi_F\circ\operatorname{Tr}_{K/F}$, and the product over the full
+group $S(K/F)$ of norm characters.
+\LeanFile{LanglandsFirstMainLemma/Main.lean}
+\lean{LanglandsFirstMainLemma.firstMainLemma}
+\leanok
+\SourceText{Theorem thm:first-main and Section sec:first-main-completion.}
+\uses{mod:dispatch,mod:basic-standardcharacterbridge,mod:delta-localconstantrealization}
+\FormalizationContract
+\end{theorem}

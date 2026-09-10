@@ -1,0 +1,170 @@
+\begin{theorem}[Wild quadratic nonboundary cancellation]\label{mod:cases-wildquadratic-nonboundary}
+Let \(K/F\) be the prime-cyclic quadratic local extension in residue
+characteristic \(2\), with lower break \(t\), residue degree one, and a
+chosen integral uniformizer \(\pi_K\) which generates
+\(\mathcal O_K\) over \(\mathcal O_F\).  Put
+
+\[
+  T=t+1,
+\]
+
+and let \(m>1\) be the conductor indexing a coherent
+wild-quadratic common coefficient view.  The theorem has two entry points.
+
+For an exact \texttt{WildQuadraticAllEvenCoefficientView}, supply the
+computational data, phase data, real
+\texttt{ExactQuadraticPhaseAssembly}, the four actual even Lamprecht rows,
+the q-free common coordinate compatibility, the existing
+\texttt{CompleteCorrectionData}, the finite Delta hypotheses, and
+whole-orbit minimality of the base character.  The theorem
+\texttt{wildQuadratic\_allEven\_elementary} reuses the actual
+\(\tau\)-, base-, and twist-row conductor equalities, the order of \(A\),
+the trace-pullback additive conductor, and the correction-depth argument.
+At the even boundary it derives the order of \(1+n\) from the same actual
+selected \(\tau\)- and \(\tau\chi_F\)-pairs and minimality; no new
+denominator-order hypothesis is introduced.  Combining this elementary
+result with \texttt{wildQuadratic\_allEvenErrorFormula} gives
+\texttt{wildQuadratic\_nonboundary\_allEven}:
+\[
+ \operatorname{Err}_{K/F}(\chi_F)=1.
+\]
+This entry point contains no normalized refinement and applies exactly to
+\[
+ \texttt{belowMEvenTEven},\qquad
+ \texttt{boundaryEven},\qquad
+ \texttt{aboveMEvenTEven}.
+\]
+
+For the complementary compatibility interface, let
+\texttt{WildQuadraticCoefficientView} \(V\) be the existing refined view.
+Supply its literal phase-row and coordinate compatibilities, refinement
+assembly, finite Delta hypotheses, and whole-orbit minimality.  Assume that
+its row is not the exceptional odd boundary row.  The existing public
+\texttt{wildQuadratic\_nonboundary} theorem and signature are unchanged.
+In either entry point,
+
+\[
+ \operatorname{Err}_{K/F}(\chi_F)=1.
+\]
+
+For the refined entry point, the nonboundary condition is proved to mean
+exactly one of the following nine rows, with no endpoint absorbed into a
+strict range:
+
+\[
+\begin{array}{llll}
+ \texttt{belowMEvenTEven},&\texttt{belowMEvenTOdd},&
+ \texttt{belowMOddTEven},&\texttt{belowMOddTOdd},\\
+ \texttt{boundaryEven},\\
+ \texttt{aboveMEvenTEven},&\texttt{aboveMEvenTOdd},&
+ \texttt{aboveMOddTEven},&\texttt{aboveMOddTOdd}.
+\end{array}
+\]
+
+Equivalently, their signed-depth alternatives are \(m<T\), \(m=T\) with
+\(T\) even, and \(T<m\).  The row \(m=T\) with \(T\) odd is excluded and no
+theorem about that boundary is used.
+
+For the depth calculation put \(a=T-m\).  The common correction is retained
+literally as
+
+\[
+  X=\frac{2s}{1+n},\qquad s=\operatorname{Tr}_{K/F}(u),
+  \qquad v_K(u)=v_F(n)=a.
+\]
+
+In equal characteristic \(2\), \(X=0\).  Otherwise the trace-ideal theorem
+gives the exact bounds
+
+\[
+  2\in\mathfrak p_F^{\lfloor T/2\rfloor},\qquad
+  s\in\mathfrak p_F^{\lfloor(a+T)/2\rfloor}.
+\]
+
+The proof keeps the denominator \(1+n\) until its order is justified.  Its
+order is \(0\) when \(m<T\), is \(a\) when \(T<m\), and is \(0\) at the even
+boundary.  The last assertion is not assumed: it is derived from the two
+actual selected stationary ratios for the \(\tau\)- and
+\(\tau\chi_F\)-rows, the exact conductor formula
+\(m(\tau\chi_F)=\max(m,T)\), and whole-orbit minimality.  The corresponding
+floor inequalities, including the parity equality at the even boundary,
+then prove
+
+\[
+  X\in\mathfrak p_F^T.
+\]
+
+The selected numerator in every supplied Lamprecht row has order zero, so
+its actual selected ratio has order \(-(m(\theta)+n(\psi_F))\).  Applied to
+the real \(\tau\)-row this gives, with the same literal representative used
+by the exact error formula,
+
+\[
+  v_F(A)=-(T+n_F(\psi_F)).
+\]
+
+No canonical stationary representative is chosen.  The pullback-conductor
+theorem is also instantiated at this exact depth and records
+
+\[
+ n_K(\psi_F\circ\operatorname{Tr}_{K/F})
+   =2n_F(\psi_F)+T.
+\]
+
+Consequently the conductor triviality lattice kills the retained elementary
+phase in its actual orientation:
+
+\[
+  \psi_F(-AX)=1.
+\]
+
+Finally, the exact error formula evaluates all nine finite nonboundary
+coefficient rows.  With the positive refinement/Hasse orientation used
+there, it proves
+
+\[
+  \Phi_{\mathrm{table}}R_\chi R_\tau=1,
+  \qquad
+  \operatorname{Err}_{K/F}(\chi_F)=\psi_F(-AX).
+\]
+
+Thus the table phases and the two refinement/Hasse corrections cancel
+together, while the separately retained elementary phase is one, and the
+error term is exactly one.  Neither the boundary theorem nor the assembled
+wild-quadratic main theorem is assumed.
+\LeanFile{LanglandsFirstMainLemma/Cases/WildQuadratic/NonBoundary.lean}
+\lean{LanglandsFirstMainLemma.wildQuadratic_nonboundary_rows}
+\lean{LanglandsFirstMainLemma.wildQuadratic_nonboundary_depthCase}
+\lean{LanglandsFirstMainLemma.LocalLamprechtPhaseData.selectedStationaryPair_beta_order}
+\lean{LanglandsFirstMainLemma.LocalLamprechtPhaseData.selectedStationaryPair_ratio_order}
+\lean{LanglandsFirstMainLemma.wildQuadratic_correction_mem}
+\lean{LanglandsFirstMainLemma.wildQuadratic_boundary_denominator_order}
+\lean{LanglandsFirstMainLemma.wildQuadratic_A_order}
+\lean{LanglandsFirstMainLemma.wildQuadratic_additiveConductor_compTrace}
+\lean{LanglandsFirstMainLemma.wildQuadratic_allEven_elementary}
+\lean{LanglandsFirstMainLemma.wildQuadratic_nonboundary_elementary}
+\lean{LanglandsFirstMainLemma.wildQuadratic_nonboundary_allEven}
+\lean{LanglandsFirstMainLemma.wildQuadratic_nonboundary}
+\leanok
+\SourceText{Lemma lem:quadratic-depth and Proposition prop:wild-quadratic-cancellation, nonboundary cases.}
+\uses{mod:cases-wildquadratic-errorformula,mod:ramification-pullbackconductors}
+\FormalizationContract
+The q-free theorem is restricted to the exact three all-even rows, and the
+existing refined theorem remains restricted to the exact nine rows listed
+above.  The inequalities \(m<T\) and \(T<m\) remain strict, while equality
+is admitted only with an explicit proof that \(T\) is even.  Both paths
+derive the orders of \(2\), the trace \(s\), the denominator \(1+n\), and
+the actual stationary ratio at the depths shown; neither replaces them by
+weaker conductor bounds.
+
+The quadratic unit correction is preserved through the denominator-order
+argument.  The exact additive trace-pullback conductor is obtained from
+module~\ref{mod:ramification-pullbackconductors}.  The final phase has the
+minus orientation \(\psi_F(-AX)\).  Stationary pairs are the supplied
+representatives of quotient classes and are compared literally; no
+canonical representative or representative-independent isolated phase is
+introduced.  The final equality is obtained by combining the exact
+nonboundary contract of module~\ref{mod:cases-wildquadratic-errorformula}
+with the proved conductor triviality, without importing or invoking the
+odd-boundary or wild-quadratic main theorem.
+\end{theorem}

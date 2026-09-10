@@ -1,0 +1,209 @@
+\begin{definition}[Trace, norm, and conjugates]\label{mod:localfield-extension}
+For commutative rings $F$ and $K$ with an $F$-algebra structure, define
+\[
+ \texttt{trace}_{K/F}=\operatorname{Tr}_{K/F}:K\to_F F.
+\]
+For a commutative ring $F$ and an $F$-algebra ring $K$, define
+\[
+ \texttt{norm}_{K/F}=N_{K/F}:K\to_{\mathrm{mon}}F,\qquad
+ \texttt{normUnits}_{K/F}:K^\times\to F^\times
+\]
+using Mathlib's norm and its induced homomorphism on units.  The evaluation
+lemmas identify these maps definitionally with Mathlib's trace and norm.  If
+$K/F$ is a free field extension and $d=\operatorname{finrank}_F K$, then, for
+$a\in F$,
+\[
+ \operatorname{Tr}_{K/F}(a)=d\,a,\qquad N_{K/F}(a)=a^d.
+\]
+For a tower of fields $F\subseteq K\subseteq L$, trace is transitive when
+$K/F$ and $L/K$ are finite free, while norm is transitive when both are free:
+\[
+ \operatorname{Tr}_{F}^{K}\!\left(\operatorname{Tr}_{K}^{L}(x)\right)
+   =\operatorname{Tr}_{F}^{L}(x),\qquad
+ N_{F}^{K}\!\left(N_{K}^{L}(x)\right)=N_{F}^{L}(x).
+\]
+
+For an $F$-embedding $\sigma:K\to_F E$, define the conjugate of $x$ selected
+by $\sigma$ to be $\sigma(x)$.  When $K/F$ is finite-dimensional, define
+\texttt{embeddingConjugates} to be the multiset indexed by all such
+embeddings.  If moreover $K/F$ is separable and $E$ is algebraically closed,
+this multiset has cardinality $[K:F]$ and
+\[
+ \sum_\sigma\sigma(x)=\iota_{F,E}\!\left(\operatorname{Tr}_{K/F}(x)\right),
+ \qquad
+ \prod_\sigma\sigma(x)=\iota_{F,E}\!\left(N_{K/F}(x)\right).
+\]
+For a finite Galois extension, \texttt{galoisConjugates} is the corresponding
+multiset indexed by $\operatorname{Gal}(K/F)$; it has cardinality $[K:F]$,
+and its sum and product are the images in $K$ of trace and norm.  For any
+$F$-automorphism of a field extension, without finite-dimensionality or a
+Galois hypothesis, trace and norm are invariant.  If moreover the base field
+$F$ is infinite, the characteristic polynomial of
+multiplication by $x$, after mapping its coefficients to $K$, splits as
+\[
+ \prod_{\sigma\in\operatorname{Gal}(K/F)}(X-\sigma(x)).
+\]
+
+For a finite free field extension of degree $d$, define the $j$th elementary
+symmetric coefficient by
+\[
+ s_j(x)=
+ \begin{cases}
+ (-1)^j\,[X^{d-j}]
+   \operatorname{charpoly}(\operatorname{mul}_x),&j\le d,\\
+ 0,&j>d.
+ \end{cases}
+\]
+Then
+\[
+ s_0(x)=1,\qquad s_1(x)=\operatorname{Tr}_{K/F}(x),\qquad
+ s_d(x)=N_{K/F}(x),
+\]
+every $s_j$ is invariant under $F$-automorphisms, and the exact norm
+expansions are
+\[
+ N_{K/F}(1+x)=\sum_{j=0}^{d}s_j(x)
+ =1+\sum_{j=1}^{d}s_j(x).
+\]
+For a finite Galois extension over an infinite field, these are exactly the
+elementary symmetric functions of the Galois-conjugate multiset: for every
+$j\in\mathbf N$,
+\[
+ \iota_{F,K}(s_j(x))=
+ \operatorname{esymm}_j\bigl(\{\!\{\sigma(x):
+   \sigma\in\operatorname{Gal}(K/F)\}\!\}\bigr).
+\]
+
+Let $S/R$ be a finite free commutative algebra, where $R$ is a topological
+ring and the topology on $S$ is its $R$-module topology.  The declarations
+\texttt{continuousTrace}, \texttt{continuousNorm}, and
+\texttt{continuousNormUnits} bundle trace, norm, and norm on units as
+continuous homomorphisms; in particular \texttt{continuous\_norm} proves
+that $N_{S/R}:S\to R$ is continuous.
+
+Now let $K/F$ be a valuative extension of nonarchimedean local fields.
+The canonical valuation on $K$ is an extension of the canonical valuation
+on $F$, and the field algebra map $F\to K$ is continuous.  If $K/F$ is
+finite-dimensional, \texttt{localFieldExtensionIsModuleTopology} proves that
+the already-given local-field topology on $K$ is its $F$-module topology and
+registers this fact as an \texttt{IsModuleTopology} instance, so the preceding
+continuous trace and norm declarations apply without an additional topology
+hypothesis.
+The theorem \texttt{ringOfIntegers\_moduleFinite} proves
+\[
+ \operatorname{Module.Finite}_{\mathcal O_F}(\mathcal O_K).
+\]
+Its proof takes the $\mathcal O_F$-span $L$ of an $F$-basis of $K$, proves
+that $L$ is open by continuity of the finitely many basis coordinates,
+intersects $L$ with the compact ring $\mathcal O_K$, and uses the resulting
+finite quotient to prove finite generation.  Consequently
+\texttt{ringOfIntegers\_isIntegralClosure} proves that $\mathcal O_K$ is
+the integral closure of $\mathcal O_F$ in $K$.
+
+Mathlib's canonical residue-field algebra instance supplies the map
+\[
+ \texttt{extensionResidueMap}:k_F\to k_K.
+\]
+The declaration \texttt{residueFieldAlgebraOfValuativeExtension} is a named
+alias for that canonical $k_F$-algebra structure.  Define the
+ideal-theoretic ramification index $e(K/F)$ and residue degree $f(K/F)$
+using the maximal ideals of the canonical valuation rings.  Then
+\[
+ f(K/F)=[k_K:k_F]>0,\qquad e(K/F)>0.
+\]
+For finite-dimensional $K/F$, Mathlib's local-ring ramification--inertia theorem,
+applied using the proved finiteness over $\mathcal O_F$, gives
+\[
+ [K:F]=e(K/F)f(K/F).
+\]
+The algebra map preserves both weak and strict comparisons of normalized
+orders.  A direct DVR factorization argument proves the normalized
+base-order formula
+\[
+ \operatorname{ord}_K(a)=e(K/F)\operatorname{ord}_F(a)
+ \qquad(a\in F).
+\]
+Every $F$-automorphism $\sigma$ of $K$ preserves $\mathcal O_K$ in both
+directions, restricts to the ring equivalence
+\texttt{galoisIntegerEquiv}, and preserves normalized order:
+\[
+ \sigma(x)\in\mathcal O_K\Longleftrightarrow x\in\mathcal O_K,
+ \qquad \operatorname{ord}_K(\sigma x)=\operatorname{ord}_K(x).
+\]
+This follows by identifying $\mathcal O_K$ with the integral closure and then
+using unit--uniformizer factorization in the discrete valuation ring.
+Finally, for every finite-dimensional $K/F$, the proof first shows that the field
+norm of an upper valuation-ring unit has normalized order zero downstairs.
+Factoring a lower uniformizer in the upper DVR and combining the degree and
+ramification formulas then proves the normalized norm formula
+\[
+ \operatorname{ord}_F(N_{K/F}(x))
+   =f(K/F)\operatorname{ord}_K(x)\qquad(x\in K).
+\]
+\LeanFile{LanglandsFirstMainLemma/LocalField/Extension.lean}
+\lean{LanglandsFirstMainLemma.trace}
+\lean{LanglandsFirstMainLemma.norm}
+\lean{LanglandsFirstMainLemma.normUnits}
+\lean{LanglandsFirstMainLemma.trace_apply}
+\lean{LanglandsFirstMainLemma.norm_apply}
+\lean{LanglandsFirstMainLemma.coe_normUnits}
+\lean{LanglandsFirstMainLemma.trace_algebraMap}
+\lean{LanglandsFirstMainLemma.norm_algebraMap}
+\lean{LanglandsFirstMainLemma.trace_trans}
+\lean{LanglandsFirstMainLemma.norm_trans}
+\lean{LanglandsFirstMainLemma.conjugate}
+\lean{LanglandsFirstMainLemma.embeddingConjugates}
+\lean{LanglandsFirstMainLemma.embeddingConjugates_card}
+\lean{LanglandsFirstMainLemma.embeddingConjugates_sum}
+\lean{LanglandsFirstMainLemma.embeddingConjugates_prod}
+\lean{LanglandsFirstMainLemma.galoisConjugate}
+\lean{LanglandsFirstMainLemma.galoisConjugates}
+\lean{LanglandsFirstMainLemma.galoisConjugates_card}
+\lean{LanglandsFirstMainLemma.galoisConjugates_sum}
+\lean{LanglandsFirstMainLemma.galoisConjugates_prod}
+\lean{LanglandsFirstMainLemma.map_lmul_charpoly_eq_prod_galois}
+\lean{LanglandsFirstMainLemma.trace_galoisConjugate}
+\lean{LanglandsFirstMainLemma.norm_galoisConjugate}
+\lean{LanglandsFirstMainLemma.elementarySymmetric}
+\lean{LanglandsFirstMainLemma.elementarySymmetric_of_finrank_lt}
+\lean{LanglandsFirstMainLemma.elementarySymmetric_zero}
+\lean{LanglandsFirstMainLemma.elementarySymmetric_one}
+\lean{LanglandsFirstMainLemma.elementarySymmetric_finrank}
+\lean{LanglandsFirstMainLemma.norm_one_add_eq_sum_elementarySymmetric}
+\lean{LanglandsFirstMainLemma.norm_one_add_eq_one_add_sum_elementarySymmetric}
+\lean{LanglandsFirstMainLemma.elementarySymmetric_galoisConjugate}
+\lean{LanglandsFirstMainLemma.algebraMap_elementarySymmetric_eq_esymm_galois}
+\lean{LanglandsFirstMainLemma.continuousTrace}
+\lean{LanglandsFirstMainLemma.continuous_norm}
+\lean{LanglandsFirstMainLemma.continuousNorm}
+\lean{LanglandsFirstMainLemma.continuousNormUnits}
+\lean{LanglandsFirstMainLemma.continuousTrace_apply}
+\lean{LanglandsFirstMainLemma.continuousNorm_apply}
+\lean{LanglandsFirstMainLemma.coe_continuousNormUnits}
+\lean{LanglandsFirstMainLemma.valuativeExtensionHasExtension}
+\lean{LanglandsFirstMainLemma.continuous_algebraMap}
+\lean{LanglandsFirstMainLemma.localFieldExtensionIsModuleTopology}
+\lean{LanglandsFirstMainLemma.ringOfIntegers_moduleFinite}
+\lean{LanglandsFirstMainLemma.ringOfIntegers_isIntegralClosure}
+\lean{LanglandsFirstMainLemma.galoisConjugate_mem_ringOfIntegers_iff}
+\lean{LanglandsFirstMainLemma.galoisIntegerEquiv}
+\lean{LanglandsFirstMainLemma.coe_galoisIntegerEquiv}
+\lean{LanglandsFirstMainLemma.ord_galoisConjugate}
+\lean{LanglandsFirstMainLemma.extensionResidueMap}
+\lean{LanglandsFirstMainLemma.residueFieldAlgebraOfValuativeExtension}
+\lean{LanglandsFirstMainLemma.ramificationIndex}
+\lean{LanglandsFirstMainLemma.residueDegree}
+\lean{LanglandsFirstMainLemma.residueDegree_eq_finrank_residueField}
+\lean{LanglandsFirstMainLemma.residueDegree_pos}
+\lean{LanglandsFirstMainLemma.ord_algebraMap_le_iff}
+\lean{LanglandsFirstMainLemma.ord_algebraMap_lt_iff}
+\lean{LanglandsFirstMainLemma.ramificationIndex_pos}
+\lean{LanglandsFirstMainLemma.finrank_eq_ramificationIndex_mul_residueDegree}
+\lean{LanglandsFirstMainLemma.ord_algebraMap}
+\lean{LanglandsFirstMainLemma.ord_norm}
+\leanok
+\SourceText{Local notation, subsection Norm and trace notation; Lemmas
+lem:wild-symmetric-bound and lem:truncated-norm-adjoint.}
+\uses{mod:localfield-residuefield}
+\FormalizationContract
+\end{definition}

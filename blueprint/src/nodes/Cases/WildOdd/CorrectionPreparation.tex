@@ -1,0 +1,25 @@
+\begin{theorem}[Wild odd correction preparation]
+\label{mod:cases-wildodd-correctionpreparation}
+Starting from the source-retaining phase package, construct the actual
+\texttt{WildOddCorrectionData} and bridge its correction units to the indexed
+presentation required by the High and Low table wrappers.  Prove the
+correction-depth memberships and the pointwise character linearizations, then
+construct the actual-row \texttt{ExactOddPhaseAssembly}.  Transport the raw
+critical quotient to its exact \texttt{residualPhase\_eq}.
+
+After the assembly is fixed, construct its correction coordinate and
+valuation depth, choose the canonical nonidentity norm character $\tau$, prove
+the general stationary-class \texttt{tauLinearization}, and return the complete
+\texttt{WildOddNonstableHigherData} consumed by the existing main theorem.
+\LeanFile{LanglandsFirstMainLemma/Cases/WildOdd/CorrectionPreparation.lean}
+\lean{LanglandsFirstMainLemma.wildOddNonstableHigherData}
+\leanok
+\SourceText{Lemmas lem:parameter-ratios, lem:correction-depth, and lem:p-valuation; Corollary cor:wild-odd.}
+\uses{mod:cases-wildodd-phasepreparation,mod:cases-wildodd-correctionvaluation,mod:ramification-normcharacters,mod:ramification-traceideals,mod:cases-wildodd-main}
+\FormalizationContract
+The order is correction datum, depth and pointwise linearizations, actual
+table-backed assembly, residual identity, then the correction coordinate and
+general $\tau$-linearization.  The correction element is the source-tied
+assembly coordinate and every stationary linearization is constructed at its
+actual depth.  Expected implementation size: 1200--1800 Lean lines.
+\end{theorem}

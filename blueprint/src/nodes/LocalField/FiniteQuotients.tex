@@ -1,0 +1,177 @@
+\begin{definition}[Finite quotients of lattices and units]\label{mod:localfield-finitequotients}
+Let $F$ be a nonarchimedean local field and write
+$q_F=|k_F|$.  For every $m\leq n$ in $\mathbf Z$, the certified lattice
+quotient $\mathfrak p_F^m/\mathfrak p_F^n$ has a
+\texttt{Finite} instance and a specified noncomputable
+\texttt{Fintype.ofFinite} enumeration, and
+\[
+ \left|\mathfrak p_F^m/\mathfrak p_F^n\right|
+   =q_F^{(n-m).\operatorname{toNat}}.
+\]
+Both the \texttt{Nat.card} and the specified \texttt{Fintype.card} forms
+of this equality are proved, as is the nonvanishing of the cardinality.
+Likewise, for $m\leq n$ in $\mathbf N$,
+$U_F^m/U_F^n$ has a \texttt{Finite} instance and a specified
+noncomputable enumeration, with the exact boundary-sensitive formula
+\[
+ |U_F^m/U_F^n|=
+ \begin{cases}
+  1,&m=n=0,\\
+  (q_F-1)q_F^{n-1},&m=0<n,\\
+  q_F^{n-m},&0<m\leq n.
+ \end{cases}
+\]
+The positive-depth formula, both depth-zero cases, the combined
+\texttt{Nat.card} formula, and its specified \texttt{Fintype.card} form
+are separate declarations; the unit-quotient cardinality is also proved
+nonzero.
+
+For $0<m\leq n$, the maps induced without selecting representatives by
+\[
+  [u]\longmapsto[u-1],\qquad [x]\longmapsto[1+x]
+\]
+are inverse equivalences
+\[
+ U_F^m/U_F^n\simeq \mathfrak p_F^m/\mathfrak p_F^n.
+\]
+The declarations constructing $u-1$ and $1+x$ record their exact
+coercions to $F$, and the two quotient maps and the equivalence record
+their values on quotient constructors.  This equivalence commutes with
+denominator projection.  Under the additional linear-range
+hypothesis $n\leq2m$, it is upgraded to a multiplicative equivalence
+from $U_F^m/U_F^n$ to the multiplicative copy of the additive lattice
+quotient; thus multiplication of unit classes is precisely addition of
+their displacement classes.
+
+The canonical quotient constructors compute addition, negation, and
+subtraction on lattice representatives, and multiplication, inversion,
+and division on unit representatives.  Projecting to the same denominator
+is the identity, and successive denominator projections compose, for both
+lattice and unit quotients.
+
+Given a function on a numerator together with a proof that it is invariant
+under depth-$n$ congruence, the declarations
+\texttt{latticeQuotientLift} and \texttt{unitFiltrationQuotientLift}
+descend it to the quotient, and their constructor equations recover the
+original function.  The declaration
+\texttt{latticeQuotientLift2} does the same for a two-variable function
+separately invariant modulo its two denominators and has the corresponding
+two-constructor equation.  Using the specified finite enumerations,
+\texttt{latticeQuotientSum}, \texttt{latticeQuotientSum2}, and
+\texttt{unitFiltrationQuotientSum} sum exactly these descended functions.
+Translation by a lattice class and multiplication by a unit class are
+proved to reindex the respective sums without changing their values.
+
+If $m\leq n_1\leq n_2$, the kernel of
+\[
+ \mathfrak p_F^m/\mathfrak p_F^{n_2}\longrightarrow
+ \mathfrak p_F^m/\mathfrak p_F^{n_1}
+\]
+is canonically equivalent to
+$\mathfrak p_F^{n_1}/\mathfrak p_F^{n_2}$.  Every fiber is proved to have
+$q_F^{(n_2-n_1).\operatorname{toNat}}$ elements.  The analogous unit
+projection has kernel canonically equivalent to $U_F^{n_1}/U_F^{n_2}$;
+every fiber has the cardinality given by exactly the
+three-case unit-cardinality formula above with $(m,n)=(n_1,n_2)$.
+
+Finally, suppose $m_i\leq n_i$ and
+\[
+ m_1+m_2\leq k,\qquad
+ k\leq n_1+m_2,\qquad k\leq m_1+n_2.
+\]
+There is a representative-independent quotient product
+\[
+ (\mathfrak p_F^{m_1}/\mathfrak p_F^{n_1})\times
+ (\mathfrak p_F^{m_2}/\mathfrak p_F^{n_2})
+ \longrightarrow
+ \mathfrak p_F^{m_1+m_2}/\mathfrak p_F^k,
+ \qquad ([x],[y])\longmapsto[xy].
+\]
+The two upper bounds on $k$ ensure independence under changing either
+representative, and the constructor equation is proved.  The product is
+also bundled as an additive homomorphism in each variable, with an
+evaluation theorem identifying it with the displayed product.  If
+$\operatorname{ord}_F(a)=r$, division by $a$ canonically sends
+$\mathfrak p_F^m/\mathfrak p_F^n$ to
+$\mathfrak p_F^{m-r}/\mathfrak p_F^{n-r}$ and has constructor equation
+$[x]\mapsto[x/a]$; it is also bundled as an additive homomorphism with its
+evaluation theorem.  Product formation commutes with projection of either
+input denominator and of its target denominator, and scalar division
+commutes with denominator projection.  These are the quotient-arithmetic interfaces used to form
+$[xy/\Gamma]$ in the finite-duality and stationary-pairing constructions.
+
+\LeanFile{LanglandsFirstMainLemma/LocalField/FiniteQuotients.lean}
+\lean{LanglandsFirstMainLemma.finiteLatticeQuotient}
+\lean{LanglandsFirstMainLemma.instFiniteLatticeQuotient}
+\lean{LanglandsFirstMainLemma.latticeQuotientFintype}
+\lean{LanglandsFirstMainLemma.latticeQuotient_card}
+\lean{LanglandsFirstMainLemma.latticeQuotient_fintype_card}
+\lean{LanglandsFirstMainLemma.latticeQuotient_card_ne_zero}
+\lean{LanglandsFirstMainLemma.positiveUnitDisplacement}
+\lean{LanglandsFirstMainLemma.coe_positiveUnitDisplacement}
+\lean{LanglandsFirstMainLemma.positiveUnitOfLattice}
+\lean{LanglandsFirstMainLemma.coe_positiveUnitOfLattice}
+\lean{LanglandsFirstMainLemma.positiveUnitFiltrationQuotientToLattice}
+\lean{LanglandsFirstMainLemma.positiveUnitFiltrationQuotientToLattice_mk}
+\lean{LanglandsFirstMainLemma.latticeQuotientToPositiveUnitFiltration}
+\lean{LanglandsFirstMainLemma.latticeQuotientToPositiveUnitFiltration_mk}
+\lean{LanglandsFirstMainLemma.positiveUnitFiltrationQuotientEquivLattice}
+\lean{LanglandsFirstMainLemma.positiveUnitFiltrationQuotientEquivLattice_mk}
+\lean{LanglandsFirstMainLemma.positiveUnitFiltrationQuotientMulEquivLattice}
+\lean{LanglandsFirstMainLemma.positiveUnitFiltrationQuotientEquivLattice_projection}
+\lean{LanglandsFirstMainLemma.finiteUnitFiltrationQuotient}
+\lean{LanglandsFirstMainLemma.instFiniteUnitFiltrationQuotient}
+\lean{LanglandsFirstMainLemma.unitFiltrationQuotientFintype}
+\lean{LanglandsFirstMainLemma.positiveUnitFiltrationQuotient_card}
+\lean{LanglandsFirstMainLemma.unitFiltrationQuotient_card_zero_zero}
+\lean{LanglandsFirstMainLemma.unitFiltrationQuotient_card_zero}
+\lean{LanglandsFirstMainLemma.unitFiltrationQuotient_card}
+\lean{LanglandsFirstMainLemma.unitFiltrationQuotient_fintype_card}
+\lean{LanglandsFirstMainLemma.unitFiltrationQuotient_card_ne_zero}
+\lean{LanglandsFirstMainLemma.latticeQuotientMk_add}
+\lean{LanglandsFirstMainLemma.latticeQuotientMk_neg}
+\lean{LanglandsFirstMainLemma.latticeQuotientMk_sub}
+\lean{LanglandsFirstMainLemma.unitFiltrationQuotientMk_mul}
+\lean{LanglandsFirstMainLemma.unitFiltrationQuotientMk_inv}
+\lean{LanglandsFirstMainLemma.unitFiltrationQuotientMk_div}
+\lean{LanglandsFirstMainLemma.latticeQuotientProjection_self}
+\lean{LanglandsFirstMainLemma.latticeQuotientProjection_trans}
+\lean{LanglandsFirstMainLemma.unitFiltrationQuotientProjection_self}
+\lean{LanglandsFirstMainLemma.unitFiltrationQuotientProjection_trans}
+\lean{LanglandsFirstMainLemma.latticeQuotientLift}
+\lean{LanglandsFirstMainLemma.latticeQuotientLift_mk}
+\lean{LanglandsFirstMainLemma.latticeQuotientLift2}
+\lean{LanglandsFirstMainLemma.latticeQuotientLift2_mk_mk}
+\lean{LanglandsFirstMainLemma.unitFiltrationQuotientLift}
+\lean{LanglandsFirstMainLemma.unitFiltrationQuotientLift_mk}
+\lean{LanglandsFirstMainLemma.latticeQuotientSum}
+\lean{LanglandsFirstMainLemma.latticeQuotientSum2}
+\lean{LanglandsFirstMainLemma.unitFiltrationQuotientSum}
+\lean{LanglandsFirstMainLemma.sum_latticeQuotient_add_left}
+\lean{LanglandsFirstMainLemma.sum_unitFiltrationQuotient_mul_left}
+\lean{LanglandsFirstMainLemma.latticeQuotientKernelEquiv}
+\lean{LanglandsFirstMainLemma.latticeQuotientProjection_fiber_card}
+\lean{LanglandsFirstMainLemma.unitFiltrationQuotientKernelEquiv}
+\lean{LanglandsFirstMainLemma.unitFiltrationQuotientProjection_fiber_card}
+\lean{LanglandsFirstMainLemma.latticeQuotientMul}
+\lean{LanglandsFirstMainLemma.latticeQuotientMul_mk_mk}
+\lean{LanglandsFirstMainLemma.latticeQuotientMulAddHom}
+\lean{LanglandsFirstMainLemma.latticeQuotientMulAddHom_apply}
+\lean{LanglandsFirstMainLemma.latticeQuotientDiv}
+\lean{LanglandsFirstMainLemma.latticeQuotientDiv_mk}
+\lean{LanglandsFirstMainLemma.latticeQuotientDivAddHom}
+\lean{LanglandsFirstMainLemma.latticeQuotientDivAddHom_apply}
+\lean{LanglandsFirstMainLemma.latticeQuotientProjection_mul}
+\lean{LanglandsFirstMainLemma.latticeQuotientMul_projection_left}
+\lean{LanglandsFirstMainLemma.latticeQuotientMul_projection_right}
+\lean{LanglandsFirstMainLemma.latticeQuotientDiv_projection}
+\leanok
+\SourceText{Definition of Delta and Lemma lem:finite-duality.}
+\uses{mod:localfield-unitfiltration,mod:localfield-residuefield}
+\FormalizationContract No declaration selects a representative from a quotient.
+Representative-level inputs only construct quotient classes, construct the positive-depth
+displacement equivalence, or specify functions together with complete invariance proofs.
+Character
+perfectness, orthogonality, and the character-specific Delta and Lamprecht sums remain in their
+downstream nodes.
+\end{definition}

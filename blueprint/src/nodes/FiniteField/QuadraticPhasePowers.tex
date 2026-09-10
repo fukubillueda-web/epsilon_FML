@@ -1,0 +1,34 @@
+\begin{lemma}[Powers of the basic quadratic phase]\label{mod:finitefield-q0powers}
+Let $k$ be a finite field of odd characteristic $p$, let
+$\psi:k\to\mathbf C^\times$ be a nontrivial additive character, and
+write $\nu:k\to\mathbf C$ for the quadratic character.  For the basic
+normalized quadratic phase
+\[
+ q_0=Q_\psi(1,0)
+\]
+one has the exact identities
+\[
+ q_0^2=\nu(-1),\qquad
+ q_0^{p-1}=\nu(-1),\qquad
+ q_0^p=q_0\nu(-1).
+\]
+In Lean, $p$ is \texttt{ringChar k} and all three identities are the
+three conjuncts of \texttt{quadraticPhase\_powers}.
+\LeanFile{LanglandsFirstMainLemma/FiniteField/QuadraticPhasePowers.lean}
+\lean{LanglandsFirstMainLemma.quadraticPhase_powers}
+\leanok
+\SourceText{Lemma lem:q0-powers.}
+\uses{mod:finitefield-quadraticphase}
+\FormalizationContract
+\end{lemma}
+\begin{proof}
+The quadratic-phase API gives $q_0^2=\nu(-1)$, while the quadratic
+character has square one at the nonzero element $-1$.  Hence
+$q_0^4=1$.  Since $p$ is an odd prime, either $p\equiv1\pmod4$ or
+$p\equiv3\pmod4$.  In the first case, writing $|k|=p^f$ gives
+$|k|\equiv1\pmod4$, so the finite-field formula for the quadratic
+character at $-1$ gives $\nu(-1)=1$; also $p-1\equiv0\pmod4$, and
+therefore $q_0^{p-1}=1=\nu(-1)$.  In the second case,
+$p-1\equiv2\pmod4$, whence $q_0^{p-1}=q_0^2=\nu(-1)$.  Finally,
+$q_0^p=q_0^{p-1}q_0=q_0\nu(-1)$.
+\end{proof}

@@ -1,0 +1,95 @@
+\begin{theorem}[Ramified prime-cyclic preparation]
+\label{mod:ramification-primecyclicpreparation}
+Let $K/F$ be a finite valuative extension of nonarchimedean local fields
+which is cyclic Galois of prime degree, and suppose that it is ramified:
+\[
+ e(K/F)=\operatorname{ramificationIndex}(F,K)\ne 1.
+\]
+The prime-degree dichotomy gives
+\[
+ f(K/F)=\operatorname{residueDegree}(F,K)=1.
+\]
+
+Residue degree one makes the canonical map $k_F\to k_K$ surjective. Every
+$F$-automorphism acts trivially on the image of this map, hence trivially on
+$k_K$. Since the zeroth lower ramification group is the kernel of the
+residue action, this proves the reusable implication
+\[
+ f(K/F)=1\quad\Longrightarrow\quad G_0=G.
+\]
+
+Apply the existing canonical selector
+\texttt{PrimeCyclicExtension.lowerBreakIndex} to this equality. Its
+boundary theorem supplies a unique $t\in\mathbf N$ satisfying
+\[
+ \operatorname{IsLowerBreak}_{K/F}(t),\qquad
+ G_t=G,\qquad G_{t+1}=1.
+\]
+Independently, the residue-degree-one monogenic-uniformizer theorem supplies
+an integral element $\pi_K\in\mathcal O_K$ with
+\[
+ \operatorname{IsUniformizer}(\pi_K),\qquad
+ \operatorname{Algebra.adjoin}_{\mathcal O_F}\{\pi_K\}
+   =\mathcal O_K.
+\]
+The structure \texttt{PrimeCyclicPreparation} retains exactly the six pieces
+of common data
+\[
+ t,\quad \operatorname{IsLowerBreak}(t),\quad f(K/F)=1,
+ \quad \pi_K,\quad \operatorname{IsUniformizer}(\pi_K),
+ \quad \mathcal O_F[\pi_K]=\mathcal O_K.
+\]
+The definition \texttt{primeCyclicPreparation} constructs this structure
+from ramifiedness; its selected $t$ is proved equal to the existing canonical
+lower-break index.
+
+The tame and wild branches are consequences of the same package. If
+$t>0$, the faithful positive-depth ramification coordinate from the norm
+filtration preparation gives
+\[
+ \operatorname{char}(k_F)=[K:F]=e(K/F),
+\]
+contradicting tame ramification. Thus a tame ramified prime-cyclic
+extension has $t=0$, and the package exposes
+\[
+ \operatorname{IsLowerBreak}_{K/F}(0).
+\]
+
+Conversely, at a zero break the faithful degree-zero ramification coordinate
+embeds the prime-order group $G_0/G_1$ into $k_K^\times$. Consequently
+$[K:F]$ divides $\#k_K-1$, whereas $\operatorname{char}(k_F)$ divides
+$\#k_K$. Coprimality of consecutive integers shows that a zero break is
+tame. Therefore wild ramification forces $0<t$. The structure
+\texttt{WildPrimeCyclicPreparation} extends the common package only by this
+positivity proof, and \texttt{wildPrimeCyclicPreparation} constructs it from
+ramifiedness and wildness.
+
+The package contains no norm-character finiteness, character conductor,
+stationary parameter, Hasse comparison, residual phase, or epsilon-factor
+data.
+\LeanFile{LanglandsFirstMainLemma/Ramification/PrimeCyclicPreparation.lean}
+\lean{LanglandsFirstMainLemma.lowerRamificationGroup_zero_eq_top_of_residueDegree_eq_one}
+\lean{LanglandsFirstMainLemma.PrimeCyclicPreparation}
+\lean{LanglandsFirstMainLemma.PrimeCyclicPreparation.lowerRamificationGroup_zero_eq_top}
+\lean{LanglandsFirstMainLemma.PrimeCyclicPreparation.ramificationIndex_eq_degree}
+\lean{LanglandsFirstMainLemma.PrimeCyclicPreparation.t_eq_lowerBreakIndex}
+\lean{LanglandsFirstMainLemma.primeCyclicPreparation}
+\lean{LanglandsFirstMainLemma.isTamelyRamified_of_isLowerBreak_zero}
+\lean{LanglandsFirstMainLemma.PrimeCyclicPreparation.t_eq_zero_of_isTamelyRamified}
+\lean{LanglandsFirstMainLemma.PrimeCyclicPreparation.isLowerBreak_zero_of_isTamelyRamified}
+\lean{LanglandsFirstMainLemma.PrimeCyclicPreparation.t_pos_of_isWildlyRamified}
+\lean{LanglandsFirstMainLemma.WildPrimeCyclicPreparation}
+\lean{LanglandsFirstMainLemma.wildPrimeCyclicPreparation}
+\leanok
+\SourceText{The one-break paragraph preceding equation eq:one-break-new, the tame/wild split in the proof of Theorem thm:norm-filtration, and Section sec:first-main-completion.}
+\uses{mod:localfield-monogenicuniformizer,mod:ramification-primecyclicextension,mod:ramification-primedegreedichotomy,mod:ramification-lowergroups,mod:ramification-normbelowbreak}
+\FormalizationContract
+This node is expected to occupy roughly 400--900 Lean lines. It derives the
+residue degree from the live prime-degree dichotomy, proves the depth-zero
+lower-group identity from the actual residue action, selects the existing
+canonical lower break, and retains the integral uniformizer and its
+monogenicity proof as explicit data. The tame and wild specializations are
+derived from the canonical break and the live ramification-coordinate API.
+No independent copy of a ramification invariant or lower filtration is
+introduced.
+\end{theorem}

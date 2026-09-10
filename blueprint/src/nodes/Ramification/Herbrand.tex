@@ -1,0 +1,163 @@
+\begin{definition}[One-break Herbrand functions]\label{mod:ramification-herbrand}
+Let $t\in\mathbf N$ be the unique lower break from
+equation~\ref{eq:one-break-new}, and let $\ell>0$ be the degree.  Define
+total real functions
+\[
+ \varphi_{t,\ell}(u)
+ =\min\{u,t\}+\frac{\max\{u-t,0\}}{\ell},
+ \qquad
+ \psi_{t,\ell}(v)
+ =\min\{v,t\}+\ell\max\{v-t,0\}.
+\]
+On the manuscript's domain $[-1,\infty)$, the first is the specialization
+of the integral in equation~\ref{eq:Herbrand-def}: the one-break density is
+$1$ through $t$ and $1/\ell$ strictly after $t$.  The same formulas give a
+harmless total extension below $-1$.
+
+The exact closed forms, with both clauses including the break, are
+\[
+ \varphi_{t,\ell}(u)=
+ \begin{cases}
+  u,&u\le t,\\
+  t+(u-t)/\ell,&t\le u,
+ \end{cases}
+ \qquad
+ \psi_{t,\ell}(v)=
+ \begin{cases}
+  v,&v\le t,\\
+  t+\ell(v-t),&t\le v.
+ \end{cases}
+\]
+Thus the two descriptions agree at the endpoint and
+\[
+ \varphi_{t,\ell}(-1)=\psi_{t,\ell}(-1)=-1,
+ \qquad
+ \varphi_{t,\ell}(t)=\psi_{t,\ell}(t)=t.
+\]
+Both functions are continuous and monotone.  When $\ell>0$, they are
+strictly increasing and mutually inverse in the two separately stated
+directions
+\[
+ \psi_{t,\ell}(\varphi_{t,\ell}(u))=u,
+ \qquad
+ \varphi_{t,\ell}(\psi_{t,\ell}(v))=v.
+\]
+Moreover,
+\(\varphi_{t,\ell}(u)\le u\le\psi_{t,\ell}(u)\).
+For an actual \texttt{PrimeCyclicExtension} and a supplied
+\texttt{IsLowerBreak} witness, the declaration \texttt{herbrand} applies
+these inverse identities with the canonical degree
+$\ell=[K:F]$; primality supplies its positivity.  No formula is stored as
+a structure field.
+
+For the integral unit-filtration depths in Theorems~\ref{thm:graded-norm}
+and~\ref{thm:norm-filtration}, define
+\[
+ \Psi_{t,\ell}(r)=\min\{r,t\}+\ell(r-t)
+ =\begin{cases}
+   r,&r\le t,\\
+   t+\ell(r-t),&t\le r,
+  \end{cases}
+ \qquad(r\in\mathbf N),
+\]
+where the subtraction on the first line is natural-number subtraction.
+Then
+\[
+ (\Psi_{t,\ell}(r):\mathbf R)=\psi_{t,\ell}(r),
+ \qquad
+ \varphi_{t,\ell}(\Psi_{t,\ell}(r))=r.
+\]
+Consequently the real floor and ceiling of $\psi_{t,\ell}(r)$ both recover
+the same integral depth.  The converter is strictly increasing, monotone,
+tends to infinity, and satisfies $r\le\Psi_{t,\ell}(r)$.  At and above the
+break,
+\[
+ \Psi_{t,\ell}(t)=t,
+ \qquad
+ \Psi_{t,\ell}(t+1)=t+\ell,
+ \qquad
+ \Psi_{t,\ell}(r+k)=\Psi_{t,\ell}(r)+\ell k.
+\]
+In particular,
+\(\Psi_{t,\ell}(r+1)=\Psi_{t,\ell}(r)+\ell\).
+The second source exponent in the norm theorem is exactly the natural
+depth $\Psi_{t,\ell}(r)+1$.  When $\ell$ is prime,
+\[
+ \Psi_{t,\ell}(r)+1<\Psi_{t,\ell}(r+1)
+ \qquad(t\le r),
+\]
+so that off-by-one exponent is not confused with the next Herbrand level.
+The remaining integer conversions used by the later stationary-depth
+arguments are
+\[
+ \Psi_{t,\ell}\!\left(\left\lfloor\frac r2\right\rfloor\right)
+ \le
+ \left\lfloor\frac{\Psi_{t,\ell}(r)}2\right\rfloor
+\]
+and, for $t\le s$,
+\[
+ \Psi_{t,\ell}(2s+e)
+ =2\Psi_{t,\ell}(s)+(\ell-1)t+\ell e.
+\]
+The latter is proved for every $e\in\mathbf N$, although the manuscript
+uses only $e\in\{0,1\}$.  Finally, if $t+2\le d$, then the exact
+subtraction-free form of the high stationary-depth calculation is
+\[
+ \Psi_{t,\ell}(2d+\varepsilon-1)+1
+ =2\bigl(\Psi_{t,\ell}(d-1)+1\bigr)
+   +(\ell-1)(t+1)+\ell\varepsilon.
+\]
+Again Lean proves this for every natural $\varepsilon$, hence in particular
+for the two parity values used in the manuscript.
+
+\LeanFile{LanglandsFirstMainLemma/Ramification/Herbrand.lean}
+\lean{LanglandsFirstMainLemma.herbrandPhi}
+\lean{LanglandsFirstMainLemma.herbrandPsi}
+\lean{LanglandsFirstMainLemma.herbrandPsiNat}
+\lean{LanglandsFirstMainLemma.herbrandPhi_of_le_break}
+\lean{LanglandsFirstMainLemma.herbrandPhi_of_break_le}
+\lean{LanglandsFirstMainLemma.herbrandPsi_of_le_break}
+\lean{LanglandsFirstMainLemma.herbrandPsi_of_break_le}
+\lean{LanglandsFirstMainLemma.herbrandPhi_break}
+\lean{LanglandsFirstMainLemma.herbrandPsi_break}
+\lean{LanglandsFirstMainLemma.herbrandPhi_neg_one}
+\lean{LanglandsFirstMainLemma.herbrandPsi_neg_one}
+\lean{LanglandsFirstMainLemma.herbrandPhi_monotone}
+\lean{LanglandsFirstMainLemma.herbrandPsi_monotone}
+\lean{LanglandsFirstMainLemma.continuous_herbrandPhi}
+\lean{LanglandsFirstMainLemma.continuous_herbrandPsi}
+\lean{LanglandsFirstMainLemma.herbrandPsi_herbrandPhi}
+\lean{LanglandsFirstMainLemma.herbrandPhi_herbrandPsi}
+\lean{LanglandsFirstMainLemma.herbrandPsi_leftInverse_herbrandPhi}
+\lean{LanglandsFirstMainLemma.herbrandPsi_rightInverse_herbrandPhi}
+\lean{LanglandsFirstMainLemma.herbrandPhi_strictMono}
+\lean{LanglandsFirstMainLemma.herbrandPsi_strictMono}
+\lean{LanglandsFirstMainLemma.herbrandPhi_le_self}
+\lean{LanglandsFirstMainLemma.self_le_herbrandPsi}
+\lean{LanglandsFirstMainLemma.herbrandPsiNat_of_le_break}
+\lean{LanglandsFirstMainLemma.herbrandPsiNat_of_break_le}
+\lean{LanglandsFirstMainLemma.herbrandPsiNat_break}
+\lean{LanglandsFirstMainLemma.herbrandPsiNat_cast}
+\lean{LanglandsFirstMainLemma.herbrandPhi_herbrandPsiNat_cast}
+\lean{LanglandsFirstMainLemma.ceil_herbrandPsi_natCast}
+\lean{LanglandsFirstMainLemma.floor_herbrandPsi_natCast}
+\lean{LanglandsFirstMainLemma.herbrandPsi_natCast_add_one}
+\lean{LanglandsFirstMainLemma.herbrandPsiNat_add}
+\lean{LanglandsFirstMainLemma.herbrandPsiNat_succ}
+\lean{LanglandsFirstMainLemma.herbrandPsiNat_break_succ}
+\lean{LanglandsFirstMainLemma.herbrandPsiNat_strictMono}
+\lean{LanglandsFirstMainLemma.herbrandPsiNat_monotone}
+\lean{LanglandsFirstMainLemma.tendsto_herbrandPsiNat_atTop}
+\lean{LanglandsFirstMainLemma.self_le_herbrandPsiNat}
+\lean{LanglandsFirstMainLemma.herbrandPsiNat_add_one_lt_succ}
+\lean{LanglandsFirstMainLemma.herbrandPsiNat_two_mul_add}
+\lean{LanglandsFirstMainLemma.herbrandPsiNat_half_le_half}
+\lean{LanglandsFirstMainLemma.herbrandPsiNat_stationary_depth}
+\lean{LanglandsFirstMainLemma.herbrand}
+\leanok
+\SourceText{Equations~\ref{eq:Herbrand-def}, \ref{eq:one-break-new}, and
+\ref{eq:Herbrand-prime-new}; Theorems~\ref{thm:graded-norm} and
+\ref{thm:norm-filtration}; and Lemma~\ref{lem:stationary-depth-norm}.}
+\uses{mod:ramification-primecyclicextension}
+\FormalizationContract
+\end{definition}

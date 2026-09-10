@@ -1,0 +1,114 @@
+\begin{theorem}[Wild odd scalar phase products]\label{mod:cases-wildodd-scalarphaseproducts}
+Let $p\ne2$ be prime, let $k$ be a finite field of characteristic
+$p$, let $\psi:k\to\mathbf C^\times$ be a nontrivial additive
+character, and write
+\[
+ \nu=\nu_k,\qquad q_0=Q_\psi(1,0).
+\]
+The basic phase has the three exact powers
+\[
+ q_0^2=\nu(-1),\qquad
+ q_0^{p-1}=\nu(-1),\qquad
+ q_0^p=q_0\nu(-1).
+\]
+
+If $a,c\in k^\times$ and $b\in k$, simultaneous scalar change of the
+two coefficients gives
+\[
+ Q_\psi(ca,cb)
+ =\nu(c)\psi\!\left(-\frac{(c-1)b^2}{2a}\right)Q_\psi(a,b).
+\]
+More generally, for a finite index set $I$, coefficients
+$a_i\in k^\times$, and $b_i\in k$, one has
+\[
+ \prod_{i\in I}Q_\psi(a_i,b_i)
+ =\nu\!\left(\prod_{i\in I}a_i\right)
+  \psi\!\left(\sum_{i\in I}-\frac{b_i^2}{2a_i}\right)
+  q_0^{|I|}.
+\]
+Thus every displayed denominator is protected by the explicit condition
+$a_i\ne0$.
+
+For $a,d\in k^\times$ and $\gamma\in k$, the repeated phase and the
+upper homogeneous scalar phase are
+\[
+ Q_\psi(a,a\gamma)^p=q_0\nu(-a),
+ \qquad
+ Q_\psi(-a d^{p-1},0)=q_0\nu(-a),
+\]
+and hence, with no cancellation of the quadratic-character factor,
+\[
+ Q_\psi(a,a\gamma)^p=Q_\psi(-a d^{p-1},0).
+\]
+Equivalently, with the zero index included, the repeated-phase product
+over the whole prime field is
+\[
+ \prod_{j\in\F_p}Q_\psi(a,a\gamma)
+ =Q_\psi(-a d^{p-1},0).
+\]
+Here $a\ne0$ is the quadratic denominator condition and $d\ne0$
+ensures that the upper quadratic coefficient is nonzero.  The first
+identity uses that every value of $\psi$ has $p$-th power one; the
+second uses the even exponent $p-1$ only to prove
+$\nu(d^{p-1})=1$, while retaining $\nu(-1)$.
+
+Finally let
+$\omega:\F_p^\times\to k^\times$ be an injective homomorphism.  For
+every $a\in k^\times$ and $\gamma\in k$,
+\[
+ \prod_{j\in\F_p^\times}
+ Q_\psi\bigl(a\omega(j),a\omega(j)\gamma\bigr)=1.
+\]
+The index is $\F_p^\times$, so the zero scalar is omitted.  Indeed,
+\[
+ \sum_{j\in\F_p^\times}\omega(j)=0,
+ \qquad
+ \prod_{j\in\F_p^\times}\omega(j)=-1.
+\]
+The additive phase therefore has argument zero, whereas the two
+remaining scalar factors are separately
+\[
+ \nu\!\left(a^{p-1}(-1)\right)=\nu(-1),
+ \qquad q_0^{p-1}=\nu(-1).
+\]
+Their product is $\nu(-1)^2=1$.  This is only the nonboundary scalar
+calculation; no affine-pencil boundary identity is asserted or used.
+\LeanFile{LanglandsFirstMainLemma/Cases/WildOdd/ScalarPhaseProducts.lean}
+\lean{LanglandsFirstMainLemma.wildOdd_basicPhasePowers}
+\lean{LanglandsFirstMainLemma.wildOdd_quadraticPhase_scale}
+\lean{LanglandsFirstMainLemma.wildOdd_quadraticPhase_product}
+\lean{LanglandsFirstMainLemma.wildOdd_repeatedPhase}
+\lean{LanglandsFirstMainLemma.wildOdd_upperScalarPhase}
+\lean{LanglandsFirstMainLemma.wildOdd_repeatedPhase_eq_upperScalar}
+\lean{LanglandsFirstMainLemma.wildOdd_repeatedPhase_primeFieldProduct}
+\lean{LanglandsFirstMainLemma.wildOdd_scalarPencil}
+\leanok
+\SourceText{Lemma lem:q0-powers; Lemma lem:quadratic-phase-new; Proposition prop:odd-phase-cancel.}
+\uses{mod:finitefield-quadraticphase,mod:finitefield-q0powers,mod:basic-finiteproducts}
+\FormalizationContract
+\end{theorem}
+\begin{proof}
+The three powers of $q_0$ are Lemma lem:q0-powers in the explicit
+characteristic-$p$ notation.  The scalar and finite-product identities
+follow by substituting Lemma lem:quadratic-phase-new and multiplying the
+quadratic-character and additive-character factors without changing
+their order or sign.
+
+For the repeated phase, write
+$z=-(a\gamma)^2/(2a)$.  Characteristic $p$ gives
+$\psi(z)^p=\psi(pz)=1$.  Since $p$ is odd,
+$\nu(a)^p=\nu(a)$, while $q_0^p=q_0\nu(-1)$, so
+\[
+ Q_\psi(a,a\gamma)^p
+ =\nu(a)q_0\nu(-1)=q_0\nu(-a).
+\]
+Also $p-1$ is even, hence $\nu(d^{p-1})=1$; the nonzero coefficient
+$-ad^{p-1}$ consequently gives the stated upper phase.
+
+For the prime-field product, the finite-product formula leaves the
+coefficient product $a^{p-1}(-1)$, zero additive argument, and the
+power $q_0^{p-1}$.  Since $p-1$ is even,
+$\nu(a)^{p-1}=1$.  The coefficient character is therefore exactly
+$\nu(-1)$, not $1$; multiplying it by
+$q_0^{p-1}=\nu(-1)$ gives one.  No boundary formula enters the proof.
+\end{proof}

@@ -1,0 +1,91 @@
+\begin{theorem}[Ramified Hasse preparation]
+\label{mod:parameters-ramifiedhassepreparation}
+Let $P$ be the prepared ramified prime-cyclic extension, let $H$ be its
+stable-high odd parameter datum at depths $d,d'$, and fix an actual
+downstairs stationary quotient representative $R$.  Put
+\[
+ \delta_F=\varpi_F^d,\qquad
+ \delta_K=\varpi_K^{d'},\qquad
+ \varpi_F=N_{K/F}(\varpi_K).
+\]
+The constructor \texttt{ramifiedHassePreparation} produces the complete
+\texttt{RamifiedHasseComparisonData} for the actual lower phase
+\texttt{H.downstairsOddStationaryPhase R} and actual upper phase
+\texttt{H.upstairsOddStationaryPhase R}.  The upper denominator is the
+ordered image of the lower denominator and its representative is literally
+the image of $R$; neither is replaced by an abstract finite function.
+
+For an integral lift $\tilde x$ set
+\[
+ Y_x=\varpi_K^{d'}\tilde x,\qquad
+ T(x)=\overline{\operatorname{Tr}(Y_x)/\varpi_F^d},\qquad
+ S(x)=\overline{E_2(Y_x)/\varpi_F^{2d}}.
+\]
+The local-geometry norm truncation, together with stationary
+linearization for the exact quotient representative, proves the pointwise
+transport formula
+\[
+ \phi_K(x)=\phi_F(T(x))\,\psi_0(-S(x)).
+\]
+Here $\phi_F,\phi_K$ are the genuine Lamprecht Hasse functions and
+$\psi_0$ is the residual additive character derived from the same lower
+representative and denominator.  Thus the negative second-symmetric
+translation is retained before any finite normal form is chosen.
+
+If the lower break is zero, the exact tame coordinate
+$c=\overline{\varpi_K^{d'}/\varpi_F^d}$ satisfies
+\[
+ T(x)=\ell cx,\qquad
+ S(x)=\binom{\ell}{2}c^2x^2,\qquad
+ \bar\epsilon=\ell c^2.
+\]
+The first two identities come from reduction of the actual trace and
+second elementary symmetric coefficient of the conjugates.  Hence
+$\phi_K(c^{-1}x)=\phi_F(x)^\ell$.  In odd residue characteristic,
+the lower Hasse function has the coefficient-one normal form
+\[
+ \phi_F(x)=\psi_0\left(\frac12x^2+\alpha x\right),
+\]
+and the upper function has the corresponding exact tame normal form with
+quadratic coefficient $\ell/2$ and affine coefficient $\ell\alpha$.
+The required quadratic-reciprocity sign is deduced from
+$\ell\mid(|k_F|-1)$.  In residue characteristic two, the same actual
+power relation is normalized by an explicit nonzero coordinate scale to a
+\texttt{CharTwoRefinement}; the certificate records $|k_F|=2^f$, the
+absolute-trace value at $1$, the difficult modulo-eight parity, and the
+literal binomial correction.
+
+If the break is positive, LocalGeometry makes $T(x)=0$.  Newton's
+degree-two identity and its exact bilinear trace specialization give
+\[
+ -S(x)=\frac{\bar\epsilon}{2}x^2.
+\]
+The wild finite datum therefore has the exact upper normal form with zero
+affine term.  Its field \texttt{epsilon\_eq} is filled directly by
+\texttt{RamifiedHasseLocalGeometryData.wild\_epsilonResidue\_eq}:
+\[
+ \bar\epsilon=-\lambda^{\ell-1}.
+\]
+No critical-norm polynomial calculation or stable-to-critical trace
+congruence is repeated in this node.
+
+Finally the constructor copies the norm truncation, trace and
+second-symmetric depths, epsilon normalization, tame and wild coordinate
+origins, canonical residue equivalence, and trace specialization directly
+from \texttt{RamifiedHasseLocalGeometryData}.  The resulting
+\texttt{finiteComparison} is one of the three pointwise normal-form
+certificates above, not an assumed phase comparison.
+\LeanFile{LanglandsFirstMainLemma/Parameters/RamifiedHassePreparation.lean}
+\lean{LanglandsFirstMainLemma.ramifiedHassePreparation}
+\leanok
+\SourceText{Theorem thm:ramified-Hasse-comparison.}
+\uses{mod:parameters-ramifiedhasselocalgeometry,mod:parameters-ramifiedhassecomparison,mod:parameters-phasereduction,mod:parameters-high}
+\FormalizationContract
+The exported constructor takes the live \texttt{PrimeCyclicPreparation},
+\texttt{HighStableOddParameterData}, and caller-supplied
+\texttt{StationaryClassRepresentative}.  It fixes the source
+uniformizer-power critical coordinates and returns the complete comparison
+data for those literal phase wrappers.  The finite cases are proved
+pointwise from the transported Lamprecht values; no final phase-power
+identity is used as an input.
+\end{theorem}

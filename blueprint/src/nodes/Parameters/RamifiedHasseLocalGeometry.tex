@@ -1,0 +1,134 @@
+\begin{theorem}[Ramified Hasse local geometry]
+\label{mod:parameters-ramifiedhasselocalgeometry}
+Let $K/F$ be a ramified cyclic extension of odd prime degree $\ell$ with
+prepared lower break $t$ and prepared integral generator-uniformizer
+$\varpi_K$.  Put $\varpi_F=N_{K/F}(\varpi_K)$.  Suppose $d>0$,
+$t=0$ or $t+1\leq d$, and
+\[
+  2d'+(\ell-1)t=2\ell d.
+\]
+For $a\in\mathcal O_F$, set
+$Y_a=\varpi_K^{d'}a$.  There is a certificate with the following data.
+
+First, the exact elementary-symmetric expansion satisfies
+\[
+ N_{K/F}(1+Y_a)-\bigl(1+\operatorname{Tr}_{K/F}(Y_a)+E_2(Y_a)\bigr)
+ \in\mathfrak p_F^{2d+1}.
+\]
+Every term $E_j(Y_a)$ with $3\leq j\leq\ell$ is certified separately:
+the intermediate tame terms use the totally ramified ceiling bound, the
+intermediate wild terms use the strong wild symmetric bound, and the terminal
+term uses the exact norm order.  Thus no higher term is silently discarded.
+
+The certificate retains the exact trace-ideal floor
+\[
+ \operatorname{Tr}_{K/F}(Y_a)\in
+ \mathfrak p_F^{\left\lfloor
+   \frac{d'+(\ell-1)(t+1)}{\ell}\right\rfloor},
+\]
+and its consequences $\operatorname{Tr}(Y_a)\in\mathfrak p_F^d$ and
+$E_2(Y_a)\in\mathfrak p_F^{2d}$.  If $a\in\mathfrak p_F$, the trace and
+$E_2$ statements gain the powers needed for lift independence; at a positive
+break the trace already lies in $\mathfrak p_F^{d+1}$.
+
+Define, with the displayed ordered denominator,
+\[
+ \epsilon=
+ \frac{\operatorname{Tr}_{K/F}(\varpi_K^{2d'})}{\varpi_F^{2d}}.
+\]
+Then $v_F(\epsilon)=0$ exactly.  The proof uses injectivity of the
+above-break graded norm to rule out depth $2d+1$ for the trace numerator.
+Consequently the integral representative and its residue class are
+well-defined, and
+\[
+ \operatorname{Tr}_{K/F}(\varpi_K^{2d'})
+   =\epsilon\varpi_F^{2d}.
+\]
+The corresponding bilinear trace specialization for $Y_aY_b$ is retained.
+
+At a positive break the certificate also supplies the stable-to-critical
+bridge which determines this residue.  For a generator $\sigma$ and
+$j\in\mathbf F_p$, put
+\[
+  a_j=\frac{\sigma^j(\varpi_K)}{\varpi_K}-1.
+\]
+The exact ramification-line calculation gives
+\[
+  a_j\in\mathfrak p_K^t,
+  \qquad
+  \overline{a_j/\varpi_K^t}=j\lambda.
+\]
+Thus the linear term in $\prod_j(1+a_j)$ vanishes because
+$\sum_{j\in\mathbf F_p}j=0$, while every nonlinear term lies in
+$\mathfrak p_K^{2t}\subseteq\mathfrak p_K^{t+1}$ by
+$2t\geq t+1$.  In particular, this is an explicit ramification-line
+argument, and it proves
+\[
+  \frac{\varpi_F}{\varpi_K^p}\equiv1
+  \pmod{\mathfrak p_K^{t+1}}.
+\]
+Together with $2d'=p(2d-t)+t$, it yields the power congruence
+\[
+  \varpi_K^{2d'}\equiv
+  \varpi_F^{2d-t}\varpi_K^t
+  \pmod{\varpi_F^{2d-t}\mathfrak p_K^{t+1}}.
+\]
+The trace-ideal bound then gives the residue congruence
+\[
+  \frac{\operatorname{Tr}_{K/F}(\varpi_K^{2d'})}{\varpi_F^{2d}}
+  \equiv
+  \frac{\operatorname{Tr}_{K/F}(\varpi_K^t)}{\varpi_F^t}
+  \pmod{\mathfrak p_F}.
+\]
+The residue of the right-hand side is the extracted critical-norm linear
+coefficient.  The canonical residue-degree-one equivalence also identifies
+the local-geometry $\lambda$ with
+\texttt{criticalNormRamificationLambda}.  Consequently the generic critical
+norm polynomial gives, directly on the exported certificate,
+\[
+  \bar\epsilon=-\lambda^{[K:F]-1}.
+\]
+
+When $t=0$, the tame coordinate is the residue class of the exact
+uniformizer-power ratio
+\[
+ c=\overline{\varpi_K^{d'}/\varpi_F^d}\in k_F^\times;
+\]
+its lift has exact order zero.  The wild coordinate is kept distinct:
+for the chosen generator $\sigma$ it is
+\[
+ \lambda=\overline{
+   \frac{\sigma(\varpi_K)-\varpi_K}{\varpi_K^{t+1}}}\in k_F^\times.
+\]
+The certificate proves that $\sigma\in G_t\setminus G_{t+1}$, that the
+displayed numerator has exact order $t+1$, and that its normalized lift has
+order zero.  Both residue classes are transported through the canonical
+residue-field equivalence in the lower-to-upper direction.
+
+This is only the local geometry used later by
+\texttt{RamifiedHassePreparation}.  In particular it neither assumes nor
+proves a pointwise finite Hasse-function normal form or its phase comparison;
+the tame and wild finite-case residue-polynomial identities are established
+when that finite comparison is constructed.
+\LeanFile{LanglandsFirstMainLemma/Parameters/RamifiedHasseLocalGeometry.lean}
+\lean{LanglandsFirstMainLemma.ramifiedHasseLocalGeometry}
+\lean{LanglandsFirstMainLemma.ramifiedHasse_normalized_uniformizer_congr}
+\lean{LanglandsFirstMainLemma.ramifiedHasse_uniformizer_power_congr}
+\lean{LanglandsFirstMainLemma.ramifiedHasse_normalizedTrace_congr_critical}
+\lean{LanglandsFirstMainLemma.ramifiedHasseNormalizedTraceResidue_eq_criticalNormLinearCoefficient}
+\lean{LanglandsFirstMainLemma.ramifiedHasseWildLambda_eq_criticalNormRamificationLambda}
+\lean{LanglandsFirstMainLemma.RamifiedHasseLocalGeometryData.wild_epsilonResidue_eq}
+\leanok
+\SourceText{Theorem thm:ramified-Hasse-comparison, especially equation eq:ramified-Hasse-norm-truncation-local, the depth estimates immediately following it, equation eq:ramified-Hasse-epsilon, and the subsequent tame and wild coordinate constructions.}
+\uses{mod:ramification-primecyclicpreparation,mod:ramification-normbelowbreak,mod:parameters-high,mod:parameters-ramifiedhassecomparison,mod:ramification-normabovebreak,mod:ramification-symmetricbounds,mod:ramification-traceideals,mod:ramification-lowergroups}
+\FormalizationContract
+The exported \texttt{RamifiedHasseLocalGeometryData} supplies exactly the
+geometry fields later inserted into \texttt{RamifiedHasseComparisonData}.
+It uses the source-tied norm uniformizer, keeps the trace floor and all
+$j\geq3$ bounds explicit, and contains no \texttt{finiteComparison} field.
+At positive break its exported residue theorem factors through the generic
+critical norm API: the normalized-uniformizer proof retains the actual
+$j\lambda$ ramification residues and their finite-field cancellation, and
+the local wild coordinate is proved compatible with the generic
+ramification coefficient.
+\end{theorem}

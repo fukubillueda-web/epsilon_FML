@@ -1,0 +1,112 @@
+\begin{theorem}[Different exponent]\label{mod:ramification-different}
+Let $K/F$ be a finite Galois valuative extension of nonarchimedean local
+fields, and retain the lower groups $G_i$ of
+\ref{mod:ramification-lowergroups}.  For a nonidentity automorphism
+$\sigma$, eventual triviality of the lower filtration permits the definition
+\[
+ i_G(\sigma)=\min\{n\in\mathbf N:\sigma\notin G_n\}.
+\]
+Lean assigns the identity the auxiliary value zero, but defines the
+manuscript-normalized different exponent by Hilbert's numerical formula
+\[
+ d_{K/F}=\sum_{\substack{\sigma\in\operatorname{Gal}(K/F)\\
+                          \sigma\ne1}}i_G(\sigma).
+\]
+Thus the identity is genuinely omitted from the finite indexing set; it is
+not treated as another summand, since its displacement is zero and has order
+$\top$.  This numerical definition is the normalization
+$d_{K/F}=v_K(\mathfrak D_{K/F})$ used in
+\ref{thm:norm-filtration}, and is derived data rather than a typeclass field.
+
+Suppose that $\pi\in\mathcal O_K$ is supplied with both exact hypotheses
+\[
+ \operatorname{ord}_K(\pi)=1,
+ \qquad
+ \operatorname{Algebra.adjoin}_{\mathcal O_F}\{\pi\}=\mathcal O_K.
+\]
+For $e=i_G(\sigma)$ and $\sigma\ne1$, one has
+$\sigma\in G_{e-1}$, including the boundary case $e=0$ because
+$G_{-1}=G$, and $\sigma\notin G_e$.  The necessary uniformizer inequality
+and the converse criterion justified by the displayed integral-generator
+hypothesis therefore give
+\[
+ \operatorname{ord}_K(\sigma(\pi)-\pi)=i_G(\sigma).
+\]
+Consequently Lean proves the uniformizer-difference formula
+\[
+ d_{K/F}
+ =\sum_{\substack{\sigma\in\operatorname{Gal}(K/F)\\
+                   \sigma\ne1}}
+   \operatorname{ord}_K(\sigma(\pi)-\pi).
+\]
+No converse uniformizer criterion is invoked without this precise generator
+hypothesis.
+
+Now assume the prime-cyclic package of
+\ref{mod:ramification-primecyclicextension}, put
+$\ell=[K:F]=\operatorname{finrank}_F K$, and let $t\in\mathbf N$ satisfy
+the exact lower-break boundary
+\[
+ G_t=G,\qquad G_{t+1}=1.
+\]
+Every $\sigma\ne1$ then lies in the shell $G_t\setminus G_{t+1}$, whence
+\[
+ i_G(\sigma)
+ =\operatorname{ord}_K(\sigma(\pi)-\pi)=t+1.
+\]
+Finite Galois theory gives $\#G=\ell$, so erasing the identity leaves exactly
+$\ell-1$ automorphisms.  It follows that
+\[
+ \boxed{d_{K/F}=(\ell-1)(t+1).}
+\]
+The shift is $t+1$, rather than $t$, because the definition of $G_t$ uses
+congruence modulo $\mathfrak p_K^{t+1}$.
+
+Lean also exposes the branches used downstream.  At the tame break $t=0$,
+\[
+ d_{K/F}=\ell-1.
+\]
+In the wild prime-degree branch the equality
+$\ell=\operatorname{char}k_F$ remains an explicit hypothesis, since the
+prime-degree tame--wild dichotomy is not a dependency of this node, and the
+formula becomes
+\[
+ d_{K/F}=(\operatorname{char}k_F-1)(t+1).
+\]
+For $\ell=2$ this specializes further to $d_{K/F}=t+1$.  Finally, the
+unramified lower-filtration boundary $G_0=1$ gives
+$i_G(\sigma)=0$ for every $\sigma\ne1$, and hence $d_{K/F}=0$.
+
+\LeanFile{LanglandsFirstMainLemma/Ramification/Different.lean}
+\lean{LanglandsFirstMainLemma.nonidentityGaloisAutomorphisms}
+\lean{LanglandsFirstMainLemma.mem_nonidentityGaloisAutomorphisms}
+\lean{LanglandsFirstMainLemma.lowerDifferentSummand}
+\lean{LanglandsFirstMainLemma.lowerDifferentSummand_one}
+\lean{LanglandsFirstMainLemma.lowerDifferentSummand_not_mem}
+\lean{LanglandsFirstMainLemma.lowerDifferentSummand_mem_of_lt}
+\lean{LanglandsFirstMainLemma.differentExponent}
+\lean{LanglandsFirstMainLemma.ord_galois_uniformizer_sub_eq_lowerDifferentSummand}
+\lean{LanglandsFirstMainLemma.differentExponent_eq_uniformizerDifferenceSum}
+\lean{LanglandsFirstMainLemma.lowerDifferentSummand_eq_succ_of_isLowerBreak}
+\lean{LanglandsFirstMainLemma.ord_galois_uniformizer_sub_eq_of_isLowerBreak}
+\lean{LanglandsFirstMainLemma.lowerDifferentSummand_eq_zero_of_lowerRamificationGroup_zero_eq_bot}
+\lean{LanglandsFirstMainLemma.differentExponent_eq_zero_of_lowerRamificationGroup_zero_eq_bot}
+\lean{LanglandsFirstMainLemma.card_nonidentityGaloisAutomorphisms}
+\lean{LanglandsFirstMainLemma.uniformizerDifferenceSum_eq}
+\lean{LanglandsFirstMainLemma.differentExponent_eq}
+\lean{LanglandsFirstMainLemma.differentExponent_tame_eq}
+\lean{LanglandsFirstMainLemma.differentExponent_wild_eq}
+\lean{LanglandsFirstMainLemma.differentExponent_wildQuadratic_eq}
+\leanok
+\SourceText{Theorem~\ref{thm:norm-filtration}, part (a), and
+Corollary~\ref{cor:additive-conductor}.}
+\uses{mod:ramification-primecyclicextension,mod:ramification-lowergroups}
+\FormalizationContract The different exponent is defined by Hilbert's finite
+sum over nonidentity automorphisms in the normalized upper order.  The
+identity is explicitly excluded, the $t+1$ shift and the count $\ell-1$ are
+proved separately, and every uniformizer-difference equality retains both
+the chosen uniformizer and the exact integral-algebra generator hypothesis.
+The tame, explicitly identified wild, quadratic, and unramified branches are
+theorems, and the desired prime-cyclic formula is never stored in a
+typeclass.
+\end{theorem}

@@ -1,0 +1,70 @@
+\begin{definition}[Normalized integer-valued order]\label{mod:localfield-valuation}
+Let $F$ be a nonarchimedean local field, with Mathlib's canonical
+\texttt{ValuativeRel} valuation.  Transport that valuation along the local-field
+value-group equivalence and take the negative logarithm to define
+\[
+  \operatorname{ord}_F:F\longrightarrow \mathbf Z\cup\{\infty\}
+       =\operatorname{WithTop}(\mathbf Z).
+\]
+In Lean this function is bundled as an \texttt{AddValuation}.  It satisfies
+\[
+ \begin{aligned}
+  \operatorname{ord}_F(0)&=\infty,&
+  \operatorname{ord}_F(1)&=0,\\
+  \operatorname{ord}_F(xy)&=\operatorname{ord}_F(x)+\operatorname{ord}_F(y),\\
+  \min\{\operatorname{ord}_F(x),\operatorname{ord}_F(y)\}
+    &\leq \operatorname{ord}_F(x+y).
+ \end{aligned}
+\]
+Moreover, $\operatorname{ord}_F(x)=\infty$ if and only if $x=0$,
+$\operatorname{ord}_F(-x)=\operatorname{ord}_F(x)$, and
+\[
+ \min\{\operatorname{ord}_F(x),\operatorname{ord}_F(y)\}
+   \leq \operatorname{ord}_F(x-y).
+\]
+If the orders of $x$ and $y$ are distinct, then the order of $x+y$ is
+their minimum.  In Lean's totalized field operations and the extended
+operations on $\operatorname{WithTop}(\mathbf Z)$,
+\[
+ \operatorname{ord}_F(x^{-1})=-\operatorname{ord}_F(x),\qquad
+ \operatorname{ord}_F(x/y)=\operatorname{ord}_F(x)-\operatorname{ord}_F(y),
+\]
+and the natural- and integer-power formulas hold.  On nonzero elements these
+are the usual local-field identities; at zero they express Lean's conventions
+$0^{-1}=0$ and $-\infty=\infty$ in \texttt{WithTop}.  The API also gives
+finite-sum lower bounds.
+Comparison by $\operatorname{ord}_F$ is the reverse of the canonical valuative relation.
+The inequality $0\leq\operatorname{ord}_F(x)$ characterizes membership in the valuation
+subring, and, for an element of that subring, $0<\operatorname{ord}_F(x)$ characterizes
+membership in its maximal ideal.  Every integer occurs as the finite order of
+some element.  Finally, for the canonical discrete valuation,
+\[
+  \operatorname{ord}_F(\pi)=1
+  \quad\Longleftrightarrow\quad
+  \pi\text{ is a uniformizer}.
+\]
+
+For $n\in\mathbf Z$, define the elementwise depth congruence
+\[
+  \operatorname{CongruentAtDepth}_n(x,y)
+  \quad\Longleftrightarrow\quad
+  (n:\operatorname{WithTop}(\mathbf Z))\leq\operatorname{ord}_F(x-y).
+\]
+At each fixed depth this is an equivalence relation, and it is monotone when
+the depth is decreased.  It is preserved by addition, subtraction, negation,
+and translation.  If $\operatorname{ord}_F(a)\geq r$, multiplication by $a$ carries depth
+$s$ congruence to depth $r+s$ congruence; in particular integral factors
+preserve depth.  More precisely, if $a\equiv_n b$, $x\equiv_n y$,
+$\operatorname{ord}_F(a)\geq0$, and $\operatorname{ord}_F(y)\geq0$, then
+$ax\equiv_n by$.  Inversion preserves depth when both elements have order
+zero.  This raw inequality is the order-theoretic form of
+the manuscript's congruence modulo $\mathfrak p_F^n$; its identification with
+the later fractional-ideal API belongs to the lattice node.
+\LeanFile{LanglandsFirstMainLemma/LocalField/Valuation.lean}
+\lean{LanglandsFirstMainLemma.ord}
+\lean{LanglandsFirstMainLemma.CongruentAtDepth}
+\leanok
+\SourceText{Local notation, subsection Local fields, ideals, and characters.}
+\uses{mod:prelude}
+\FormalizationContract
+\end{definition}

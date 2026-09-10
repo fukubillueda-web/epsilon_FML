@@ -1,0 +1,225 @@
+\begin{lemma}[Higher symmetric terms on the upper critical line]
+\label{mod:cases-wildodd-highervanishing}
+Let $K/F$ be a wildly ramified cyclic extension of odd prime degree
+\[
+ p=[K:F]=\operatorname{char}k_F,
+\]
+with lower break $t>0$, and put $T=t+1$.  Suppose that the residue degree
+is one and retain the integral generating uniformizer used in the exact
+trace-ideal and norm-pullback conductor theorems.  Write
+\[
+ m_F(\chi_F)=2d+1>1,\qquad b=2d,
+\]
+and define the signed upper shift
+\begin{equation}\label{eq:lean-wildodd-upper-shift}
+ a=\texttt{wildOddUpperShift}(t,d)=(t:\mathbf Z)-2(d:\mathbf Z)=t-b.
+\end{equation}
+The exact last nontrivial upper layer is
+\begin{equation}\label{eq:lean-wildodd-upper-depth}
+ \texttt{wildOddUpperDepth}(p,t,d)=
+ \begin{cases}
+  2d,&2d<t,\\
+  t,&2d=t,\\
+  t+p(2d-t),&t<2d.
+ \end{cases}
+\end{equation}
+The predicate $\texttt{WildOddUpperDepthFormula}(p,t,d,d_K)$ keeps these
+three rows as separate implications:
+\[
+ 2d<t\Longrightarrow d_K=d,\qquad
+ 2d=t\Longrightarrow d_K=d,
+\]
+and
+\[
+ t<2d\Longrightarrow
+ 2d_K=t+p(2d-t)
+\]
+as an equality in $\mathbf Z$.  Its theorem \texttt{eq\_piecewise}
+recovers
+\[
+ 2d_K=\texttt{wildOddUpperDepth}(p,t,d).
+\]
+
+For $u,x\in K$ and $j\in\mathbf N$, put
+\begin{align}
+ C_j(u;x)
+  &=\texttt{wildOddUpperCorrectionTerm}(F,K,u,x,j)\notag\\
+  &=s_j(ux)-N_{K/F}(u)s_j(x),
+ \label{eq:lean-wildodd-correction-term}\\
+ C(u;x)
+  &=\texttt{wildOddUpperCorrection}(F,K,p,u,x)\notag\\
+  &=\sum_{j\in\operatorname{Icc}(2,p)}C_j(u;x),
+ \label{eq:lean-wildodd-correction}\\
+ Q(u;x)
+  &=\texttt{wildOddUpperQuadraticCorrection}(F,K,u,x)=C_2(u;x).
+ \label{eq:lean-wildodd-quadratic}
+\end{align}
+Thus the scalar denoted $n$ in the manuscript is definitionally
+$N_{K/F}(u)$; it is never an unrelated parameter.
+
+The coefficient function is extended by literal zero outside degrees
+$2,\ldots,p$:
+\begin{equation}\label{eq:lean-wildodd-coefficient}
+ \texttt{wildOddUpperCorrectionCoefficient}(F,K,p,u,x,j)=
+ \begin{cases}
+  C_j(u;x),&2\le j\le p,\\
+  0,&\text{otherwise}.
+ \end{cases}
+\end{equation}
+Consequently the degree-$0$ and degree-$1$ coefficients are zero, while
+the degree-$2$ coefficient is exactly $Q(u;x)$.  Lean records these as
+three separate theorems.  In particular, absence of constant and affine
+terms is not inferred from an informal description of the sum.
+
+If $p=[K:F]$, the terminal coefficient cancels by the exact equality
+\begin{equation}\label{eq:lean-wildodd-endpoint-cancellation}
+ C_p(u;x)=s_p(ux)-N_{K/F}(u)s_p(x)
+ =N_{K/F}(ux)-N_{K/F}(u)N_{K/F}(x)=0.
+\end{equation}
+This is \texttt{wildOddUpperCorrectionTerm\_degree}; it is not replaced
+by lattice membership.  When $p=3$, the range $3\le j<p$ is empty, as
+recorded separately by
+\texttt{wildOdd\_intermediate\_range\_empty\_degree\_three}.  For
+$p\ge3$, the exact finite-sum decomposition is
+\begin{equation}\label{eq:lean-wildodd-correction-decomposition}
+ C(u;x)=Q(u;x)+\sum_{3\le j<p}C_j(u;x)+C_p(u;x).
+\end{equation}
+Thus degree two, the intermediate degrees, and degree $p$ remain distinct.
+
+For $c\in F$, Lean proves the elementary-symmetric homogeneity identity
+\begin{equation}\label{eq:lean-wildodd-esymm-homogeneous}
+ s_j\bigl((c\text{ viewed in }K)x\bigr)=c^j s_j(x).
+\end{equation}
+It follows exactly that
+\begin{equation}\label{eq:lean-wildodd-quadratic-homogeneous}
+ Q\bigl(u;(c\text{ viewed in }K)x\bigr)=c^2Q(u;x),
+\end{equation}
+so the surviving term is genuinely homogeneous quadratic.
+
+The representative-indexed wrapper
+$\texttt{wildOddUpperCorrectionAtRepresentative}$ records that
+\eqref{eq:lean-wildodd-correction} contains no stationary representative.
+For every representative $\beta\in K$ and every translation $c_0\in K$,
+\begin{equation}\label{eq:lean-wildodd-representative-translation}
+ C_{\beta+c_0}(u;x)=C_\beta(u;x)=C(u;x).
+\end{equation}
+This is stronger than the restricted translations used later by
+\texttt{ResidualCoefficients}.  It concerns only the norm-correction
+factor and does not discard the simultaneously translated elementary
+stationary factor or the affine translation of the critical function.
+
+The upper depth is derived from exact conductor data rather than assumed.
+Let
+\[
+ \chi_K=\chi_F\circ N_{K/F},\qquad
+ m_F(\chi_F)=2d+1,\qquad m_K(\chi_K)=2d_K+1,
+\]
+and assume that $\chi_F$ has minimal conductor in its norm-character
+orbit.  The exact norm-pullback formulas below the break, at the minimal
+critical endpoint, and strictly above the break give, respectively,
+\begin{equation}\label{eq:lean-wildodd-conductor-depth-cases}
+ 2d_K=
+ \begin{cases}
+  2d,&2d<t,\\
+  t,&2d=t,\\
+  t+p(2d-t),&t<2d.
+ \end{cases}
+\end{equation}
+In the high row Lean uses the explicit identity with the full break factor
+\[
+ m_K=p\,m_F-(p-1)(t+1)=t+p(2d-t)+1.
+\]
+The critical row uses the minimal-orbit theorem, not an unstated
+noncancellation assumption.
+
+For every $3\le j<p$, the numerical lemma proves the exact two inequalities
+\begin{equation}\label{eq:lean-wildodd-two-numerical-inequalities}
+ T\le j(d_K+a),\qquad T\le jd_K+pa.
+\end{equation}
+The $p=3$ case is the empty range above.  For $p\ge5$, Lean treats
+$2d<t$, $2d=t$, and $t<2d$ separately; it does not merge a case boundary
+or replace $T$ by a smaller target depth.
+
+Now let $u\in K^\times$ satisfy $v_K(u)=a$ and let
+$x\in\mathfrak p_K^{d_K}$.  The exact trace-lattice input has
+$D=(p-1)T$, and the wild symmetric-function theorem gives
+\begin{align*}
+ v_F(s_j(ux))
+ &\ge \left\lfloor
+   \frac{j(d_K+a)+(p-1)T}{p}\right\rfloor,\\
+ v_F\bigl(N_{K/F}(u)s_j(x)\bigr)
+ &\ge a+\left\lfloor
+   \frac{jd_K+(p-1)T}{p}\right\rfloor.
+\end{align*}
+Combining the exact floors with
+\eqref{eq:lean-wildodd-two-numerical-inequalities} proves, for precisely
+$3\le j<p$,
+\begin{equation}\label{eq:lean-wildodd-higher-membership}
+ s_j(ux)\in\mathfrak p_F^T,
+ \qquad N_{K/F}(u)s_j(x)\in\mathfrak p_F^T.
+\end{equation}
+Together with the exact endpoint cancellation and
+\eqref{eq:lean-wildodd-correction-decomposition}, this yields the exact
+critical-depth congruence
+\begin{equation}\label{eq:lean-wildodd-quadratic-reduction}
+ C(u;x)\equiv Q(u;x)\pmod{\mathfrak p_F^T}.
+\end{equation}
+
+The structure \texttt{WildOddHigherSymmetricVanishingResult} packages the
+two separate memberships in \eqref{eq:lean-wildodd-higher-membership}, the
+degree-$p$ equality, the exact correction reduction, the zero degree-$0$
+and degree-$1$ coefficients, quadratic homogeneity, and representative
+translation invariance.  The principal theorem
+\texttt{wildOdd\_higherSymmetric\_vanish} derives the residue-characteristic
+identity and exact trace-lattice input from the positive lower break and
+the chosen generating uniformizer, derives
+\eqref{eq:lean-wildodd-conductor-depth-cases} from the pullback-conductor
+formulas, and constructs this package.
+
+\LeanFile{LanglandsFirstMainLemma/Cases/WildOdd/HigherSymmetricVanishing.lean}
+\lean{LanglandsFirstMainLemma.wildOddUpperDepth}
+\lean{LanglandsFirstMainLemma.wildOddUpperShift}
+\lean{LanglandsFirstMainLemma.wildOddUpperCorrectionTerm}
+\lean{LanglandsFirstMainLemma.wildOddUpperCorrection}
+\lean{LanglandsFirstMainLemma.wildOddUpperQuadraticCorrection}
+\lean{LanglandsFirstMainLemma.wildOddUpperCorrectionCoefficient}
+\lean{LanglandsFirstMainLemma.wildOddUpperCorrectionCoefficient_zero}
+\lean{LanglandsFirstMainLemma.wildOddUpperCorrectionCoefficient_one}
+\lean{LanglandsFirstMainLemma.wildOddUpperCorrectionCoefficient_two}
+\lean{LanglandsFirstMainLemma.wildOddUpperCorrectionTerm_degree}
+\lean{LanglandsFirstMainLemma.wildOdd_intermediate_range_empty_degree_three}
+\lean{LanglandsFirstMainLemma.elementarySymmetric_algebraMap_mul}
+\lean{LanglandsFirstMainLemma.wildOddUpperQuadraticCorrection_homogeneous}
+\lean{LanglandsFirstMainLemma.wildOddUpperCorrection_decompose}
+\lean{LanglandsFirstMainLemma.wildOddUpperCorrectionAtRepresentative}
+\lean{LanglandsFirstMainLemma.wildOddUpperCorrectionAtRepresentative_translate}
+\lean{LanglandsFirstMainLemma.WildOddUpperDepthFormula}
+\lean{LanglandsFirstMainLemma.WildOddUpperDepthFormula.eq_piecewise}
+\lean{LanglandsFirstMainLemma.wildOdd_upperDepth_eq_of_conductors}
+\lean{LanglandsFirstMainLemma.wildOdd_upper_numerical_inequalities}
+\lean{LanglandsFirstMainLemma.wildOdd_intermediate_terms_mem}
+\lean{LanglandsFirstMainLemma.WildOddHigherSymmetricVanishingResult}
+\lean{LanglandsFirstMainLemma.wildOdd_higherSymmetric_vanish}
+\leanok
+\SourceText{Lemma lem:odd-upper-higher-vanishing.}
+\uses{mod:ramification-symmetricbounds,mod:ramification-pullbackconductors,mod:localfield-extension}
+\FormalizationContract
+The intermediate range is exactly $3\le j<p$; the endpoint $j=p$ is an
+exact norm cancellation, not merely a term known to lie in the conductor
+lattice.  The target lattice is exactly $\mathfrak p_F^{t+1}$.  The proof
+uses the two displayed floor bounds with the full different contribution
+$(p-1)(t+1)$ and derives the three upper-depth rows from the exact
+norm-pullback conductor formulas, including the critical minimal-orbit
+case and the high break factor.
+
+Degrees $0$, $1$, $2$, $3\le j<p$, and $p$ are represented separately.
+The correction coefficient is literally zero in degrees $0$ and $1$, its
+surviving term is homogeneous of degree $2$, and no affine or constant term
+is introduced during the reduction.  The correction is independent of the
+stationary representative, so the result survives every later permitted
+representative translation; this does not authorize discarding the
+simultaneously translated elementary factor or critical affine phase.
+Every norm multiplier is definitionally $N_{K/F}(u)$, and every positivity,
+residue-degree, generating-uniformizer, conductor, valuation, and
+minimal-orbit hypothesis needed by the exact imported formulas is explicit.
+\end{lemma}

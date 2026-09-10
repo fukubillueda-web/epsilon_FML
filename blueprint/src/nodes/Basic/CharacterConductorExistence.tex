@@ -1,0 +1,80 @@
+\begin{theorem}[Existence of exact character conductors]
+\label{mod:basic-characterconductorexistence}
+Let $F$ be a nonarchimedean local field.
+
+For every continuous quasi-character
+$\chi:F^\times\to\mathbf C^\times$, there is an $m\in\mathbf N$
+such that
+\[
+ \operatorname{IsMultiplicativeConductor}(F,\chi,m).
+\]
+Thus $U_F^m$ is the first unit-filtration layer on which $\chi$ is trivial,
+including the endpoint convention that $m=0$ means triviality on
+$U_F^0=\mathcal O_F^\times$ rather than global triviality.
+
+For every nontrivial continuous additive character
+$\psi:F\to\mathbf C^\times$, there is an $n\in\mathbf Z$ such
+that
+\[
+ \operatorname{IsAdditiveConductor}(F,\psi,n).
+\]
+Equivalently, $\mathfrak p_F^{-n}$ is the largest fractional valuation
+lattice on which $\psi$ is trivial.  The nontriviality hypothesis is essential
+for the lower boundary and must not be weakened or suppressed.
+
+For the multiplicative assertion, first map every nonzero complex value to
+its unit-circle phase.  Continuity and the positive unit-filtration
+neighborhood basis put some $U_F^{k+1}$ inside the centered arc of radius
+$\pi/2$.  Since this subgroup is closed under positive powers, circle
+small-subgroup rigidity makes the phase trivial there.  Compact-unit
+unitarity then makes $\chi$ itself trivial there.  The least such depth,
+chosen by natural-number well-ordering, is the exact conductor.
+
+The additive proof is analogous but uses a compact fractional lattice.
+Boundedness of its character image proves unitarity on that lattice, while
+the lattice neighborhood basis and circle rigidity prove triviality on some
+sufficiently deep lattice $\mathfrak p_F^r$.  If $\psi\ne1$, choose
+$x$ with $\psi(x)\ne1$.  Writing $\operatorname{ord}_F(x)=k$, every trivial
+depth is at least $k+1$; hence the trivial depths are bounded below.  The
+least-integer theorem produces their least member $r$, and the additive
+conductor in the manuscript's convention is $-r$.
+
+Existence and uniqueness define canonical conductor exponents and canonical
+constructors
+\[
+ \chi\longmapsto\texttt{LocalQuasiCharData}(F),\qquad
+ (\psi,\psi\ne1)\longmapsto\texttt{LocalAddCharData}(F),
+\]
+whose character fields are definitionally the original characters.  These
+packages are the unique exact-conductor data having their stated characters.
+In particular, proof-bearing additive or multiplicative character data are
+equal whenever their character fields are equal.  The additive constructor
+retains an explicit proof that the input character is nontrivial.
+
+The continuity arguments use the public neighborhood-basis theorems for the
+fractional lattices and unit filtration.  No private replacement for those
+foundational cofinality statements is introduced in this node.
+\LeanFile{LanglandsFirstMainLemma/Basic/CharacterConductorExistence.lean}
+\lean{LanglandsFirstMainLemma.continuousAddChar_norm_eq_one_of_mem_lattice}
+\lean{LanglandsFirstMainLemma.exists_quasiCharTrivialOnUnitFiltration}
+\lean{LanglandsFirstMainLemma.exists_addCharTrivialOnLattice}
+\lean{LanglandsFirstMainLemma.exists_isMultiplicativeConductor}
+\lean{LanglandsFirstMainLemma.exists_isAdditiveConductor}
+\lean{LanglandsFirstMainLemma.multiplicativeConductorExponent}
+\lean{LanglandsFirstMainLemma.additiveConductorExponent}
+\lean{LanglandsFirstMainLemma.LocalQuasiCharData.eq_of_character_eq}
+\lean{LanglandsFirstMainLemma.LocalAddCharData.eq_of_character_eq}
+\lean{LanglandsFirstMainLemma.canonicalLocalQuasiCharData}
+\lean{LanglandsFirstMainLemma.canonicalLocalQuasiCharData_character}
+\lean{LanglandsFirstMainLemma.canonicalLocalAddCharData}
+\lean{LanglandsFirstMainLemma.canonicalLocalAddCharData_character}
+\lean{LanglandsFirstMainLemma.characterConductorExistence}
+\leanok
+\SourceText{Definitions Multiplicative conductor and Additive conductor; local notation, subsection Local fields, ideals, and characters.}
+\uses{mod:basic-characterconductors,mod:localfield-lattices,mod:localfield-unitfiltration}
+\FormalizationContract
+The Lean theorem \texttt{characterConductorExistence} is the conjunction of
+the two quantified existence assertions above.  The accompanying declarations
+prove eventual triviality from continuity, construct exact exponents, and
+package the canonical data.  No trivial additive character is packaged.
+\end{theorem}

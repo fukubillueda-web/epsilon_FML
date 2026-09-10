@@ -1,0 +1,21 @@
+\begin{theorem}[Successive filtered lifting]\label{mod:localfield-successivelifting}
+Let $E$ and $F$ be nonarchimedean local fields, let
+$\varphi:E\to F$ be a continuous monoid homomorphism, fix
+$r\in\mathbf N$, and let $a:\mathbf N\to\mathbf N$ be monotone with
+$a(n)\to\infty$.  Suppose that for every $n\in\mathbf N$ and every
+$u\in U_F^{r+n}$ there is an $x\in U_E^{a(n)+1}$ such that
+\[
+  u/\varphi(x)\in U_F^{r+n+1}.
+\]
+Then for every $u\in U_F^r$ there is an $x\in U_E^{a(0)+1}$ with
+$\varphi(x)=u$.
+\LeanFile{LanglandsFirstMainLemma/LocalField/SuccessiveLifting.lean}
+\lean{LanglandsFirstMainLemma.successiveLifting_surjective}
+\leanok
+\SourceText{Proof of Theorem thm:norm-filtration, especially the complete lifting above the break.}
+\uses{mod:localfield-lattices,mod:localfield-unitfiltration}
+\FormalizationContract The proof chooses the corrections successively, proves that their
+partial products are Cauchy from the valuation-lattice neighbourhood basis, takes their limit
+using completeness of $E$, proves that the limit remains in $U_E^{a(0)+1}$, and uses continuity
+of $\varphi$ to identify its image with $u$.
+\end{theorem}

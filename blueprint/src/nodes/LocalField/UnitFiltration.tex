@@ -1,0 +1,147 @@
+\begin{definition}[Unit filtration]\label{mod:localfield-unitfiltration}
+Let $F$ be a nonarchimedean local field.  The subgroup
+$\texttt{unitGroup}(F)\subset F^\times$ is Mathlib's canonical unit group of
+the valuation subring, and its membership criterion is
+\[
+  u\in\texttt{unitGroup}(F)
+  \quad\Longleftrightarrow\quad
+  \operatorname{ord}_F(u)=0.
+\]
+It is canonically equivalent to the unit group of $\mathcal O_F$.  Define the
+natural-number-indexed filtration with the manuscript's required case split
+\[
+ U_F^0=\mathcal O_F^\times,
+ \qquad
+ u\in U_F^{n+1}
+ \quad\Longleftrightarrow\quad
+ u\equiv 1\pmod{\mathfrak p_F^{n+1}}.
+\]
+Thus, only at positive depth,
+\[
+ u\in U_F^{n+1}
+ \Longleftrightarrow
+ \operatorname{CongruentAtDepth}_{n+1}(u,1)
+ \Longleftrightarrow
+ u-1\in\mathfrak p_F^{n+1}
+ \Longleftrightarrow
+ n+1\leq\operatorname{ord}_F(u-1).
+\]
+The first positive layer is exactly Mathlib's principal-unit group.
+
+Every $U_F^n$ lies in $U_F^0$, and the filtration is antitone:
+$m\leq n$ implies $U_F^n\subseteq U_F^m$.  It is closed under
+multiplication and inversion; more generally, $u\in U_F^m$ and
+$v\in U_F^n$ imply $uv\in U_F^{\min(m,n)}$.  For $u\in U_F^0$,
+\[
+ \operatorname{ord}_F(u^{-1}-1)=\operatorname{ord}_F(u-1),
+\]
+so inversion preserves every positive layer, while
+$u\in U_F^{n+1}\setminus U_F^{n+2}$ is equivalent to
+$\operatorname{ord}_F(u-1)=n+1$.  If
+$x\in\mathfrak p_F^{n+1}$, the declaration \texttt{principalUnitOf}
+constructs the unit $1+x\in U_F^{n+1}$.
+
+Every unit-filtration layer is open in $F^\times$, and the positive layers
+$\{U_F^{n+1}:n\in\mathbf N\}$ form a neighborhood basis of $1$ in
+$F^\times$.  Thus any filtered family of units that eventually lies in
+positive layers whose depths tend to infinity converges to $1$, both in
+$F^\times$ and after coercion to $F$.
+
+The multiplication error is computed exactly:
+\[
+ (uv-1)-\bigl((u-1)+(v-1)\bigr)=(u-1)(v-1).
+\]
+For $u\in U_F^{m+1}$ and $v\in U_F^{n+1}$ this error belongs to
+$\mathfrak p_F^{m+n+2}$; in particular, for two elements of
+$U_F^{n+1}$ it belongs to $\mathfrak p_F^{n+2}$.  This is the
+multiplicative-to-additive linearization used on positive graded pieces.
+For $u,v\in U_F^0$, division by $v$ gives
+\[
+ \operatorname{ord}_F(u/v-1)=\operatorname{ord}_F(u-v),
+ \qquad
+ u/v\in U_F^n
+ \Longleftrightarrow
+ \operatorname{CongruentAtDepth}_n(u,v).
+\]
+
+For certified indices $m\leq n$, \texttt{unitFiltrationInside} is the
+copy of $U_F^n$ inside $U_F^m$, and its image back in $F^\times$ is exactly
+$U_F^n$.  These internal denominators are nested at increasing depths.
+The type
+\[
+ \texttt{UnitFiltrationQuotient}(F,m,n)=U_F^m/U_F^n
+\]
+is therefore available only with a proof of $m\leq n$.  Its canonical
+representative map is surjective; two representatives have the same class
+exactly when their ratio lies in $U_F^n$, equivalently when they are
+congruent at depth $n$, and a representative has class one exactly when it
+lies in $U_F^n$.  For $m\leq n_1\leq n_2$, there is a surjective canonical
+projection $U_F^m/U_F^{n_2}\to U_F^m/U_F^{n_1}$ preserving representatives.
+
+Finally,
+\[
+ \texttt{UnitGradedPiece}(F,n)=U_F^n/U_F^{n+1}.
+\]
+Its canonical representative map is surjective, with equality of classes
+equivalent to depth-$(n+1)$ congruence and trivial class equivalent to
+membership in $U_F^{n+1}$.  The degree-zero equivalence is the canonical
+Mathlib equivalence
+\[
+ U_F^0/U_F^1\simeq (k_F)^\times.
+\]
+Writing
+$\texttt{LatticeGradedPiece}(F,r)=\mathfrak p_F^r/\mathfrak p_F^{r+1}$,
+the positive-depth map
+\[
+ U_F^{n+1}\longrightarrow
+ \operatorname{Multiplicative}
+   \bigl(\texttt{LatticeGradedPiece}(F,n+1)\bigr),
+ \qquad u\longmapsto [u-1],
+\]
+is a surjective homomorphism with kernel $U_F^{n+2}$.  It induces the
+equivalences
+\[
+ U_F^{n+1}/U_F^{n+2}
+   \simeq_\times
+   \operatorname{Multiplicative}
+     (\mathfrak p_F^{n+1}/\mathfrak p_F^{n+2}),
+ \qquad
+ \operatorname{Additive}(U_F^{n+1}/U_F^{n+2})
+   \simeq_+
+   \mathfrak p_F^{n+1}/\mathfrak p_F^{n+2},
+\]
+and the multiplicative equivalence sends the class of $u$ to the class of
+$u-1$.
+\LeanFile{LanglandsFirstMainLemma/LocalField/UnitFiltration.lean}
+\lean{LanglandsFirstMainLemma.unitGroup}
+\lean{LanglandsFirstMainLemma.mem_unitGroup_iff_ord_eq_zero}
+\lean{LanglandsFirstMainLemma.unitFiltration}
+\lean{LanglandsFirstMainLemma.mem_unitFiltration_succ_iff_sub_mem_lattice}
+\lean{LanglandsFirstMainLemma.unitFiltration_one_eq_principalUnitGroup}
+\lean{LanglandsFirstMainLemma.unitFiltration_antitone}
+\lean{LanglandsFirstMainLemma.unitFiltration_mul_mem_min}
+\lean{LanglandsFirstMainLemma.ord_inv_sub_one_eq}
+\lean{LanglandsFirstMainLemma.mem_unitFiltration_and_not_mem_succ_iff}
+\lean{LanglandsFirstMainLemma.principalUnitOf}
+\lean{LanglandsFirstMainLemma.unitFiltration_isOpen}
+\lean{LanglandsFirstMainLemma.unitFiltration_hasBasis_nhds_one}
+\lean{LanglandsFirstMainLemma.tendsto_one_of_eventually_mem_unitFiltration}
+\lean{LanglandsFirstMainLemma.tendsto_coe_one_of_eventually_mem_unitFiltration}
+\lean{LanglandsFirstMainLemma.unitFiltration_mul_error_mem}
+\lean{LanglandsFirstMainLemma.unitFiltration_mul_error_mem_next}
+\lean{LanglandsFirstMainLemma.div_mem_unitFiltration_iff_congruentAtDepth}
+\lean{LanglandsFirstMainLemma.unitFiltrationInside}
+\lean{LanglandsFirstMainLemma.UnitFiltrationQuotient}
+\lean{LanglandsFirstMainLemma.unitFiltrationQuotientMk_eq_mk_iff_congruentAtDepth}
+\lean{LanglandsFirstMainLemma.unitFiltrationQuotientProjection}
+\lean{LanglandsFirstMainLemma.UnitGradedPiece}
+\lean{LanglandsFirstMainLemma.unitGradedZeroEquivResidueFieldUnits}
+\lean{LanglandsFirstMainLemma.positiveUnitToLatticeGraded}
+\lean{LanglandsFirstMainLemma.positiveUnitToLatticeGraded_ker}
+\lean{LanglandsFirstMainLemma.positiveUnitGradedEquivLattice}
+\lean{LanglandsFirstMainLemma.positiveUnitGradedAddEquivLattice}
+\leanok
+\SourceText{Local notation; Theorem thm:norm-filtration.}
+\uses{mod:localfield-lattices}
+\FormalizationContract
+\end{definition}

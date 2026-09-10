@@ -1,0 +1,76 @@
+name: Lean
+
+"on":
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: lean-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      LEAN_NUM_THREADS: 2
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Build with the committed toolchain
+        uses: leanprover/lean-action@v1
+        with:
+          auto-config: "false"
+          build: "true"
+          test: "false"
+          lint: "false"
+          use-mathlib-cache: "true"
+      - name: Verify the publication source and proof
+        shell: bash
+        run: bash scripts/VERIFY_PUBLICATION.command
+      - name: Archive the checked source
+        shell: bash
+        run: git archive --format=tar.gz --prefix=epsilon_FML-v1.0.0/ HEAD > "$RUNNER_TEMP/checked-source.tar.gz"
+      - name: Save verification output
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: verification
+          path: verification/
+          if-no-files-found: error
+      - name: Save the checked source
+        uses: actions/upload-artifact@v4
+        with:
+          name: checked-source
+          path: ${{ runner.temp }}/checked-source.tar.gz
+          if-no-files-found: error
+
+  manuscript:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Install TeX
+        run: sudo apt-get update -qq && sudo apt-get install -y --no-install-recommends latexmk texlive-latex-extra texlive-fonts-recommended lmodern
+      - name: Compile the mathematical paper
+        shell: bash
+        run: |
+          mkdir -p "$RUNNER_TEMP/epsilon-pdf"
+          latexmk -pdf -interaction=nonstopmode -halt-on-error -outdir="$RUNNER_TEMP/epsilon-pdf" references/epsilon_FML.tex
+      - name: Save the mathematical paper
+        uses: actions/upload-artifact@v4
+        with:
+          name: companion-manuscript
+          path: |
+            references/epsilon_FML.tex
+            ${{ runner.temp }}/epsilon-pdf/epsilon_FML.pdf
+          if-no-files-found: error

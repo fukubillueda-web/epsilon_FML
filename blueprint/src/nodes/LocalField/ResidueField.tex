@@ -1,0 +1,98 @@
+\begin{definition}[Residue-field API]\label{mod:localfield-residuefield}
+Let $F$ be a nonarchimedean local field and let $\mathcal O_F$ be its
+canonical valuation ring.  Define
+\[
+ k_F=\mathcal O_F/\mathfrak p_F
+\]
+using Mathlib's local-ring residue field, and let
+$\operatorname{res}_F:\mathcal O_F\to k_F$ be the canonical quotient map.
+This map is surjective, and for $x,y\in\mathcal O_F$,
+\[
+ \operatorname{res}_F(x)=0\iff x\in\mathfrak p_F^1,
+ \qquad
+ \operatorname{res}_F(x)=\operatorname{res}_F(y)
+   \iff x-y\in\mathfrak p_F^1.
+\]
+The declaration \texttt{reduce} applies this map to an element of $F$
+together with a proof that it lies in $\mathfrak p_F^0$; two such integral
+elements have the same reduction if and only if they are congruent at depth
+one.  Thus the result is independent of the supplied integrality proofs.
+
+Mathlib supplies a \texttt{Finite} instance for $k_F$.
+The declaration \texttt{residueFieldFintype} chooses a
+noncomputable finite enumeration, and
+\[
+ q_F=\texttt{residueCard}(F)=|k_F|>1.
+\]
+Reduction on units is the canonical homomorphism
+\[
+ \mathcal O_F^\times\longrightarrow k_F^\times.
+\]
+It is surjective, its underlying residue class is obtained by
+$\operatorname{res}_F$, and its kernel is exactly $U_F^1$, represented as
+\texttt{unitFiltrationInside} inside $U_F^0$.
+
+The declaration \texttt{teichmuller} specializes Mathlib's adic
+Teichmuller map to $\mathcal O_F$.  It is a monoid-with-zero homomorphism
+\[
+ [\,\cdot\,]_F:k_F\longrightarrow\mathcal O_F
+\]
+which is a section of reduction.  Consequently it is injective, it sends an
+element to zero exactly when that element is zero, and every value satisfies
+\[
+ [x]_F^{q_F}=[x]_F.
+\]
+The restriction to $k_F^\times$ is also provided as a homomorphism into
+$\mathcal O_F^\times$.
+
+For a local homomorphism $A\to B$ of commutative local rings,
+\texttt{residueMapOfLocalHom} is the induced residue-field homomorphism.  It
+commutes with the two quotient maps, sends the identity to the identity, and
+respects composition.
+
+Finally, for a finite field extension $K/k$, define
+\[
+ \texttt{residueTrace}_{K/k}=\operatorname{Tr}_{K/k}:K\to k,
+ \qquad
+ \texttt{residueNorm}_{K/k}=N_{K/k}:K\to k
+\]
+using Mathlib's linear trace and multiplicative norm.  If $d=[K:k]$, then
+for $a\in k$,
+\[
+ \operatorname{Tr}_{K/k}(a)=d\,a,
+ \qquad N_{K/k}(a)=a^d.
+\]
+For $x\in K$ their images under $k\hookrightarrow K$ are the exact
+Frobenius formulas
+\[
+ \operatorname{Tr}_{K/k}(x)=\sum_{i=0}^{d-1}x^{|k|^i},
+ \qquad
+ N_{K/k}(x)=\prod_{i=0}^{d-1}x^{|k|^i},
+\]
+where the displayed equalities are read in $K$.  Both trace and norm compose
+in every tower of finite fields.
+\LeanFile{LanglandsFirstMainLemma/LocalField/ResidueField.lean}
+\lean{LanglandsFirstMainLemma.ResidueField}
+\lean{LanglandsFirstMainLemma.residueMap}
+\lean{LanglandsFirstMainLemma.residueMap_eq_zero_iff}
+\lean{LanglandsFirstMainLemma.residueMap_eq_residueMap_iff}
+\lean{LanglandsFirstMainLemma.reduce}
+\lean{LanglandsFirstMainLemma.reduce_eq_reduce_iff}
+\lean{LanglandsFirstMainLemma.residueFieldFintype}
+\lean{LanglandsFirstMainLemma.residueCard}
+\lean{LanglandsFirstMainLemma.residueUnits}
+\lean{LanglandsFirstMainLemma.residueUnits_ker}
+\lean{LanglandsFirstMainLemma.teichmuller}
+\lean{LanglandsFirstMainLemma.residueMap_teichmuller}
+\lean{LanglandsFirstMainLemma.teichmuller_pow_residueCard}
+\lean{LanglandsFirstMainLemma.teichmullerUnits}
+\lean{LanglandsFirstMainLemma.residueMapOfLocalHom}
+\lean{LanglandsFirstMainLemma.residueTrace}
+\lean{LanglandsFirstMainLemma.residueNorm}
+\lean{LanglandsFirstMainLemma.residueTrace_trans}
+\lean{LanglandsFirstMainLemma.residueNorm_trans}
+\leanok
+\SourceText{Local notation; Sections Finite-field identities and The non-stable wild calculation.}
+\uses{mod:localfield-unitfiltration}
+\FormalizationContract
+\end{definition}

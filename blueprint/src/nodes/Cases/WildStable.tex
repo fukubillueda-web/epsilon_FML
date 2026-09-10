@@ -1,0 +1,99 @@
+\begin{theorem}[Wild odd stable range]\label{mod:cases-wildstable}
+Let $K/F$ be a wildly ramified cyclic extension of odd prime degree
+$p=[K:F]$, with positive lower break $t$, residue degree one, and a chosen
+integral uniformizer $\varpi_K$ generating $\mathcal O_K$ over
+$\mathcal O_F$.  Let $\chi_F,\chi_K$ and $\psi_F,\psi_K$ carry proofs of
+their exact multiplicative and additive conductors, with the pullbacks in
+the literal directions
+\[
+ \chi_K=\chi_F\circ N_{K/F},
+ \qquad
+ \psi_K=\psi_F\circ\operatorname{Tr}_{K/F}.
+\]
+Suppose
+\[
+ m_F(\chi_F)=2d+\varepsilon>1,
+ \qquad
+ m_K(\chi_K)=2d_K+\varepsilon_K>1,
+ \qquad
+ t+1\leq d,
+\]
+where both decompositions contain the exact parity proofs required by
+Lamprecht's formula.  Choose an admissible denominator $\Gamma_F$ and a
+representative $\beta$ of the genuine downstairs stationary coefficient
+quotient.  The stable-high parameter row maps this supplied representative
+to the upstairs quotient, with
+\[
+ \Gamma_K=\operatorname{alg}_{F\to K}(\Gamma_F),
+ \qquad
+ \beta_K=\operatorname{alg}_{F\to K}(\beta),
+\]
+using the ordered, denominator-sensitive pair carried by that row.  No
+additional representative is selected internally from either quotient.
+
+Lean's residual input is
+\texttt{WildStableResidualComparison} for the actual critical coordinates.
+In the even/even branch it is propositionally trivial, because both critical
+factors are definitionally $1$.  In the odd/odd branch it is a nonempty
+\texttt{RamifiedHasseComparisonData} certificate for exactly the downstairs
+phase built from $(\Gamma_F,\beta)$ and the upstairs phase built from
+$(\Gamma_K,\beta_K)$.  The public ramified Hasse comparison then proves
+\[
+ \Delta_{3,K}=\Delta_{3,F}^{\,p}
+\]
+with positive power orientation.  Thus its wild finite normal form retains
+the internal sign $\bar\epsilon=-\bar\lambda^{p-1}$, every residual Hasse
+factor, and every representative translation.  Mixed critical parities are
+excluded; the conductor relation in the stable-high row and oddness of $p$
+give the same parity for the actual conductors.
+
+For every $\mu$ in the complete norm-character group $S(K/F)$, including
+its identity, Lean uses proof-bearing exact conductor data
+\[
+ m_F(1)=0,
+ \qquad
+ m_F(\mu)=t+1\quad(\mu\ne1).
+\]
+Hence every conductor is at most $d$.  Stable twisting is applied with the
+norm character on the left, to $\mu\chi_F$, and with the unchanged
+denominator.  For the supplied stationary representative its orientation is
+exactly
+\[
+ \Delta_F(\mu\chi_F,\psi_F)
+ =\mu(\Gamma_F/\beta)\Delta_F(\chi_F,\psi_F).
+\]
+The inverse involution on the full odd norm-character group proves
+$\prod_\mu\mu(\Gamma_F/\beta)=1$, while the norm-character local-constant
+product, still including the trivial character, is
+$\prod_\mu\Delta_F(\mu,\psi_F)=1$.  Stationary-class transport, the norm and
+trace pullbacks, and the residual comparison give
+\[
+ \Delta_K(\chi_K,\psi_K)
+   =\Delta_F(\chi_F,\psi_F)^p.
+\]
+Combining these identities proves the literal finite-sum First Main Lemma
+\[
+ \Delta_K^{\mathrm{fin}}(\chi_K,\psi_K;\Gamma_K)
+ \prod_{\mu\in S(K/F)}
+   \Delta_F^{\mathrm{fin}}(\mu,\psi_F;\Gamma_\mu)
+ =
+ \prod_{\mu\in S(K/F)}
+   \Delta_F^{\mathrm{fin}}(\mu\chi_F,\psi_F;\Gamma_F).
+\]
+
+\LeanFile{LanglandsFirstMainLemma/Cases/WildStable.lean}
+\lean{LanglandsFirstMainLemma.firstMain_wildStable}
+\leanok
+\SourceText{Proposition prop:wild-stable-new.}
+\uses{mod:parameters-ramifiedhassecomparison,mod:ramification-normcharacters,mod:lamprecht-stabletwist,mod:parameters-stationaryclassundernorm}
+\FormalizationContract
+The principal Lean theorem is the displayed \texttt{deltaFinite} product
+identity for supplied exact conductor data, admissible denominators, a
+downstairs quotient-class representative, parity-critical coordinates, and
+the exact residual certificate described above.  It is not an identity for
+an arbitrary parameter of type \texttt{LocalConstantFunction}; such a result
+requires a separate bridge packaging arbitrary characters with exact
+conductor data.  All products range over the complete finite norm-character
+group.  The identity character is present on both sides, the stable twist is
+left-oriented, and no nonstable case theorem is imported or assumed.
+\end{theorem}

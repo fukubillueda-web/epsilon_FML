@@ -1,0 +1,243 @@
+\begin{theorem}[Public high-conductor stationary-class table]
+\label{mod:parameters-high}
+The public high-conductor interface is a universal record whose five named
+fields are precisely the five mathematical rows below.  Each field quantifies
+its own local fields and hypotheses, so the unramified row is not tied to any
+ramified lower-break or monogenicity data.  Put
+\[
+  T=t+1,
+  \qquad m=a(\chi_F)=2d+\varepsilon,
+  \qquad m_K=a(\chi_K)=2d_K+\varepsilon_K.
+\]
+Lean first records the prime-degree alternatives
+\[
+ e(K/F)=1\quad\hbox{or}\quad f(K/F)=1,
+ \qquad
+ [K:F]=2\quad\hbox{or}\quad [K:F]\text{ is odd}.
+\]
+For every stationary decomposition in the odd ramified high range
+$T\leq m$, Lean proves the disjoint numerical split
+\[
+ d\geq T
+ \quad\hbox{or}\quad
+ t>0\ \hbox{ and }\ T\leq m<2T.
+\]
+Thus the stable and odd non-stable rows have neither a gap nor an overlap.
+For the quadratic rows Lean records the exhaustive split $t=0$ or $t>0$.
+
+The five fields have the following exact contents.
+\begin{enumerate}
+\item In the unramified row, $e(K/F)=1$ is an explicit hypothesis.  Lean
+proves
+\[
+ a(\chi_K)=a(\chi_F),
+ \qquad n_K(\psi_K)=n_F(\psi_F),
+\]
+retains the actual upstairs decomposition $(d,\varepsilon)$, and proves that
+the image of an admissible $\gamma_F$ is admissible for $\chi_K,\psi_K$.
+For the ordered pair
+$(\gamma_F,\operatorname{algebraMap}_{F,K}\gamma_F)$, it packages the
+literal quotient equality
+\[
+ \operatorname{St}_K(\chi_K,\psi_K;\gamma_K)
+ =\operatorname{denominatorScaledAlgebraMap}_{d,d}
+   \bigl(\operatorname{St}_F(\chi_F,\psi_F;\gamma_F)\bigr)
+ \quad\text{in }\mathcal O_K/\mathfrak p_K^d.
+\]
+No equality of field representatives is asserted.
+
+\item In the totally ramified odd-degree stable row, residue degree one is
+an explicit hypothesis and the boundary is exactly $d\geq T$.  Lean exposes
+both forms of the actual upstairs conductor:
+\[
+ m_K=\psi_{t,[K:F]}(m-1)+1,
+ \qquad
+ m_K+([K:F]-1)T=[K:F]m.
+\]
+It proves admissibility of the same ordered common-denominator pair and
+returns the exact depth certificate $d_K\leq e(K/F)d$ together with
+\[
+ \operatorname{St}_K(\chi_K,\psi_K;\gamma_K)
+ =\operatorname{denominatorScaledAlgebraMap}_{d,d_K}
+   \bigl(\operatorname{St}_F(\chi_F,\psi_F;\gamma_F)\bigr)
+ \quad\text{in }\mathcal O_K/\mathfrak p_K^{d_K}.
+\]
+The target and source stationary decompositions are the supplied actual
+decompositions; no alternate depth is substituted.
+
+\item In the tamely ramified quadratic row the exact assumptions are
+$[K:F]=2$, $t=0$, residue degree one, and residue characteristic different
+from two.  Lean proves
+\[
+ m_K+1=2m,
+ \qquad (d_K,\varepsilon_K)=(m-1,1),
+ \qquad d_K+\varepsilon_K=m.
+\]
+It retains the same common denominator and returns
+$m-1\leq e(K/F)d$ and the corresponding quotient-class image in
+$\mathcal O_K/\mathfrak p_K^{m-1}$.  In particular, the upstairs stationary
+source is exactly the layer at depth $m$, not a convenient deeper layer.
+
+\item In the positive-break odd non-stable row, the range is exactly
+\[
+ 0<t,
+ \qquad T\leq m<2T,
+\]
+and $\chi_F$ is minimal in its complete norm-character orbit.  Lean retains
+the actual identities
+\[
+ m_K=T+[K:F](m-T),
+ \qquad
+ a(\mu\chi_F)=m\quad\text{for every norm character }\mu,
+\]
+including the identity character and the endpoint $m=T$.  It returns the
+exact norm-polynomial precision for
+$(m_K,d_K,\varepsilon_K;m,d,\varepsilon)$ and independent existential
+witnesses
+\[
+ a,b,\alpha,\beta,\alpha_1,\beta_1.
+\]
+The two norm-representative certificates have precisely the allowed
+precisions
+\[
+ \left(m-T,\left\lfloor\frac T2\right\rfloor\right)
+ \quad\text{and}\quad (0,d);
+\]
+they are congruence-and-ambiguity certificates, not definitions of canonical
+field lifts.  The package keeps the numerator class of the index-one norm
+character in
+$\mathfrak p_F^{m-T}/\mathfrak p_F^{m-T+\lfloor T/2\rfloor}$ and the
+coefficient class of $\chi_F$ in
+$\mathcal O_F/\mathfrak p_F^d$.
+
+For $y\in\mathfrak p_K^{\lceil T/2\rceil}$, the stored conversion has the
+exact direction and sign
+\[
+ \psi_F\!\left(\frac{N(\alpha_1)N(y)}{\gamma_F}\right)
+ =
+ \psi_F\!\left(\frac{-N(\alpha_1)\operatorname{Tr}(y)}{\gamma_F}\right),
+\]
+where both norm and trace point from $K$ to $F$.  With the displayed ordered
+denominator pair, the supplied integral candidate
+\[
+ \operatorname{algebraMap}_{F,K}N(\beta_1)
+ -\beta_1\frac{\operatorname{algebraMap}_{F,K}N(\alpha_1)}{\alpha_1}
+\]
+represents both the denominator-sensitive adjoint of the downstairs class
+and the actual upstairs stationary class in
+$\mathcal O_K/\mathfrak p_K^{d_K}$.  For every
+$j\in\mathbf F_{[K:F]}$, including $j=0$, the package retains the actual
+twist datum and denominator and proves, only in
+$\mathcal O_F/\mathfrak p_F^d$, that
+\[
+ [N(\beta_1+[j]\alpha_1)]
+ =[N(\beta_1)+[j]N(\alpha_1)]
+ =\operatorname{St}(\tau^j\chi_F,\psi_F;\gamma_F).
+\]
+
+\item In the positive-break wild quadratic row the exact range is
+$t>0$ and $m\geq T$, with degree two, residue degree one, and whole-orbit
+minimality.  Lean returns a nonempty
+\texttt{WildQuadraticHighParameterData} package.  In particular it retains
+\[
+ m_K+T=2m,
+ \qquad d_K=m-T+\left\lfloor\frac T2\right\rfloor,
+ \qquad \varepsilon_K=T\bmod 2,
+\]
+the exact common denominator and norm-polynomial precision, the exact
+conductor $T$ of the nontrivial norm character, and the actual conductor $m$
+of its twist with $\chi_F$.
+
+Its representatives are simultaneous existential choices with
+\[
+ \beta=\delta_hN(\beta_1),
+ \qquad \delta_h\in U_F^t,
+ \qquad \alpha=N(\alpha_1)
+\]
+where $\beta_1$ comes only from the break-level norm theorem and $\alpha_1$
+only from precision $\lfloor T/2\rfloor$.  The factor $\delta_h$ is retained
+in the numerator $c_F=\alpha\delta_h$, the selected upstairs representative
+\[
+ \beta_K^0=\beta-\beta_1c_F/\alpha_1,
+\]
+the twist representative $\beta+c_F$, and all associated quotient-class,
+adjoint, trace, norm, nonvanishing, and boundary-noncancellation statements.
+No representative or characteristic-two refinement is made canonical.
+\end{enumerate}
+
+The table separately exposes the exact critical cancellation API used by the
+odd row.  At $m=T$, whole-orbit minimality gives a nonzero leading quotient
+class for every nonidentity norm character.  Before minimality, if an actual
+product conductor $q'$ satisfies
+\[
+ 1<q'<T,
+\]
+Lean constructs its stationary class at the new conductor $q'$ and its new
+stationary depth before restricting it to the old critical layer.  If the
+actual conductor is zero or one, Lean proves that no stationary depth exists
+and constructs no stationary class.
+
+Finally, the field \texttt{highProduct} is exactly the two-branch
+\texttt{HighProductBranch} theorem of the completed product node.  Norm is
+induced only on the certified unit quotients
+\[
+ U_K^0/U_K^{d_K}\longrightarrow U_F^0/U_F^d,
+\]
+with source denominator $d_K$ and target denominator $d$; it is not applied
+to an arbitrary additive quotient class.  In the odd branch the quotient
+product is indexed by all $j\in\mathbf F_{[K:F]}$ and its field reading is
+only the depth-$d$ congruence
+\[
+ N(\beta_K^0)\equiv
+ N(\beta_1)^{[K:F]}-
+ N(\beta_1)N(\alpha_1)^{[K:F]-1}
+ \pmod{\mathfrak p_F^d}.
+\]
+In the wild quadratic branch the two factors are the original and
+nontrivial-twist classes and the exact stored congruence is
+\[
+ N(\beta_K^0)\equiv
+ \beta\bigl(\beta+N(\alpha_1)\delta_h\bigr)
+ \pmod{\mathfrak p_F^d}.
+\]
+The correction unit $\delta_h$ is never discarded.  Representative
+independence is asserted only at depths $d_K$ upstairs and $d$ downstairs.
+
+\LeanFile{LanglandsFirstMainLemma/Parameters/High.lean}
+\lean{LanglandsFirstMainLemma.highConductor_ramification_cases}
+\lean{LanglandsFirstMainLemma.highConductor_degree_cases}
+\lean{LanglandsFirstMainLemma.highConductor_oddRange_cases}
+\lean{LanglandsFirstMainLemma.highConductor_oddRange_disjoint}
+\lean{LanglandsFirstMainLemma.highConductor_quadraticBreak_cases}
+\lean{LanglandsFirstMainLemma.HighUnramifiedParameterData}
+\lean{LanglandsFirstMainLemma.highConductorParameter_unramified}
+\lean{LanglandsFirstMainLemma.HighStableOddParameterData}
+\lean{LanglandsFirstMainLemma.highConductorParameter_stableOdd}
+\lean{LanglandsFirstMainLemma.HighTameQuadraticParameterData}
+\lean{LanglandsFirstMainLemma.highConductorParameter_tameQuadratic}
+\lean{LanglandsFirstMainLemma.HighOddIntermediateParameterData}
+\lean{LanglandsFirstMainLemma.highConductorParameter_oddIntermediate}
+\lean{LanglandsFirstMainLemma.HighWildQuadraticParameterData}
+\lean{LanglandsFirstMainLemma.highConductorParameter_wildQuadratic}
+\lean{LanglandsFirstMainLemma.HighIntermediateCriticalData}
+\lean{LanglandsFirstMainLemma.highConductorParameter_critical}
+\lean{LanglandsFirstMainLemma.HighConductorParameterTable}
+\lean{LanglandsFirstMainLemma.highConductorParameterTable}
+\leanok
+\SourceText{Propositions prop:high-parameter-table and prop:wild-quadratic-high-parameters.}
+\uses{mod:parameters-highunramifiedstable,mod:parameters-highintermediate,mod:parameters-highquadratic,mod:parameters-highproduct}
+\FormalizationContract
+The principal declaration is a universal proposition-valued record.  Its
+five case fields preserve the component theorems' exact hypotheses,
+conductor boundaries, actual stationary decompositions, ordered denominator
+pairs, quotient types, and norm/trace/adjoint directions.  The odd
+intermediate field contains the literal dependent conclusion of the
+completed component theorem, rather than a simplified field-valued formula.
+The wild quadratic field contains the completed simultaneous existential
+package with its indispensable unit correction.  The critical and product
+fields are auxiliary interfaces, not additional high-conductor cases.
+No quotient equality is promoted to an equality in $F$ or $K$, no canonical
+stationary representative is introduced, no cancelled old-layer sum is
+reused at a dropped conductor, and no low-parameter, phase-reduction,
+Ramified-Hasse-comparison, or later case theorem is imported or used.
+\end{theorem}

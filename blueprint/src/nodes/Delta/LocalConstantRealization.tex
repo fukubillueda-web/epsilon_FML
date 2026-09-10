@@ -1,0 +1,62 @@
+\begin{definition}[Canonical local-constant realization]
+\label{mod:delta-localconstantrealization}
+Let $F$ be a nonarchimedean local field.  Define a total canonical function
+\[
+ \texttt{localConstantFunction}(F):
+ \texttt{LocalConstantFunction}(F)
+ =\bigl(\chi:F^\times\to\mathbf C^\times\bigr)
+  \longmapsto
+ \bigl(\psi:F\to\mathbf C^\times\bigr)
+  \longmapsto\mathbf C.
+\]
+Retain \texttt{localConstant}(F) as the definitionally equal short exported
+name used by the final First Main Lemma.
+If $\psi\ne1$, use Theorem~\ref{mod:basic-characterconductorexistence} to
+form the canonical exact packages for $\chi$ and $\psi$, choose an admissible
+denominator $\gamma$, and set the value equal to
+\[
+ \Delta_F^{\mathrm{fin}}(\chi,\psi;\gamma)
+ =\texttt{deltaFinite}(\chi,\psi,\gamma).
+\]
+Independence of $\gamma$ is the existing theorem from
+Definition~\ref{mod:delta-finitedefinition}; the definition must not retain a
+mathematically observable choice of conductor proof or denominator.
+
+When $\psi=1$, set the value to zero only to make
+\texttt{localConstantFunction} total.  This branch is outside the manuscript's
+nontrivial-additive-character local constant and must not be used to assert a
+finite or integral formula that requires exact additive-conductor data.
+
+Prove the computational specification
+\[
+ \texttt{IsDeltaFiniteLocalConstant}
+   (\texttt{localConstantFunction}(F)).
+\]
+Then prove the finite-value realization for every ordinary continuous
+quasi-character and every nontrivial ordinary continuous additive character,
+with any admissible denominator for their canonical conductor packages.
+Finally, for every positive left Haar measure $du$ on $U_F^0$, prove the
+integral realization
+\[
+ \texttt{localConstantFunction}(F)(\chi)(\psi)
+ =\Delta_F^{\mathrm{int}}(\chi,\psi;\gamma)
+\]
+by applying the existing integral--finite bridge with the same packages and
+denominator.  No integral comparison is reproved in this node.
+\LeanFile{LanglandsFirstMainLemma/Delta/LocalConstantRealization.lean}
+\lean{LanglandsFirstMainLemma.localConstantFunction}
+\lean{LanglandsFirstMainLemma.localConstantFunction_isDeltaFinite}
+\lean{LanglandsFirstMainLemma.localConstantFunction_eq_deltaFinite}
+\lean{LanglandsFirstMainLemma.localConstantFunction_eq_deltaIntegral}
+\lean{LanglandsFirstMainLemma.localConstant}
+\leanok
+\SourceText{Definition of Delta; Lemma lem:gamma-independent; Corollary cor:local-gauss-integral-nonzero; final export contract.}
+\uses{mod:basic-characterconductorexistence,mod:delta-errorterm,mod:delta-integralfinitebridge}
+\FormalizationContract
+This node is expected to occupy roughly 140--300 Lean lines once implemented.
+Its finite branch must use \texttt{deltaFinite}, its computational theorem
+must have the existing \texttt{IsDeltaFiniteLocalConstant} predicate, and its
+integral theorem is obtained from
+\texttt{deltaIntegral\_eq\_deltaFinite}.  The trivial additive-character
+case is only a totalization device.
+\end{definition}

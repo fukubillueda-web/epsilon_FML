@@ -1,0 +1,238 @@
+\begin{theorem}[High stationary-class norm product]
+\label{mod:parameters-highproduct}
+Let $K/F$ be a totally ramified prime-cyclic extension with residue degree
+one, and retain the lower-break, integral-uniformizer, and monogenicity
+hypotheses of the high-parameter modules.  Thus the proofs retain
+$f(K/F)=1$ and $e(K/F)=[K:F]$ in the norm and valuation directions.
+Suppose the actual stationary conductor decompositions are
+\[
+ m_K=2d_K+\varepsilon_K,
+ \qquad m_F=2d+\varepsilon,
+ \qquad \varepsilon_K,\varepsilon\in\{0,1\},
+ \qquad m_K,m_F>1,
+\]
+and let
+\[
+ h:\operatorname{NormPolynomialPrecision}
+   (m_K,d_K,\varepsilon_K;m_F,d,\varepsilon)
+\]
+be the precision certificate supplied by the relevant high-conductor
+branch.  Its ambiguity component is exactly the inclusion
+\[
+ N_{K/F}(U_K^{d_K})\subseteq U_F^d.
+\]
+Consequently it induces the honest multiplicative quotient map
+\begin{equation}
+\label{eq:lean-highproduct-unit-norm}
+ \mathcal N_h:U_K^0/U_K^{d_K}\longrightarrow U_F^0/U_F^d,
+ \qquad [u]\longmapsto[N_{K/F}(u)].
+\end{equation}
+This is the only norm of a stationary class constructed here.  In
+particular, Lean does not define a norm on an arbitrary element or
+representative of the additive quotients
+\[
+ \mathcal O_K/\mathfrak p_K^{d_K}
+ \quad\hbox{and}\quad
+ \mathcal O_F/\mathfrak p_F^d.
+\]
+
+The structure \texttt{HighStationaryNormProduct} consists of a supplied
+upstairs unit $u_K\in U_K^0$, a finite family of supplied downstairs units
+$u_i\in U_F^0$, and the quotient equality
+\begin{equation}
+\label{eq:lean-highproduct-quotient-product}
+ \boxed{\quad
+   \mathcal N_h([u_K])=\prod_i[u_i]
+   \quad\text{in }U_F^0/U_F^d.
+ \quad}
+\end{equation}
+Its field-valued reading is only the congruence
+\[
+ N_{K/F}(u_K)\equiv\prod_i u_i\pmod{\mathfrak p_F^d},
+\]
+not an equality in $F$.  An exact depth-$d$ congruence constructs this
+structure through \texttt{highStationaryNormProduct\_of\_congruence}.
+If $u_K$ is replaced by a unit congruent to it modulo
+$\mathfrak p_K^{d_K}$, the left side of
+\eqref{eq:lean-highproduct-quotient-product} is unchanged.
+Independently replacing any $u_i$ by a unit congruent modulo
+$\mathfrak p_F^d$ leaves the right side unchanged.  These are precisely
+depth-$d_K$ and depth-$d$ assertions; no finer representative-independence
+statement is made.
+
+To connect \eqref{eq:lean-highproduct-quotient-product} with stationary
+coefficients, Lean starts with
+separate, supplied additive representatives and quotient certificates
+\[
+ [u_K]_{\mathrm{add}}
+  =\operatorname{St}_{K}(\chi_K,\psi_K;\gamma_K)
+   \quad\text{in }\mathcal O_K/\mathfrak p_K^{d_K},
+\]
+and
+\[
+ [u_i]_{\mathrm{add}}
+  =\operatorname{St}_{F}(\chi_i,\psi_F;\gamma_i)
+   \quad\text{in }\mathcal O_F/\mathfrak p_F^d.
+\]
+The stationary numerator theorem proves that every such supplied
+representative has order zero, after which it may be wrapped as an element
+of $U^0$.  This extracts a property of a supplied representative; it does
+not select a distinguished lift of either additive quotient.
+
+In the odd wild non-stable branch put
+\[
+ p=[K:F],\qquad T=t+1,
+ \qquad T\le m_F<2T,
+\]
+and assume that $\chi_F$ is minimal in its complete norm-character orbit.
+The completed intermediate theorem supplies independent subcritical norm
+choices $\alpha_1,\beta_1\in K^\times$ only at the permitted precisions
+$\lfloor T/2\rfloor$ and $d$.  Write
+\[
+ \alpha_N=N_{K/F}(\alpha_1),
+ \qquad \beta_N=N_{K/F}(\beta_1).
+\]
+The package also retains the supplied downstairs coefficients $\alpha$ and
+$\beta$ with exactly the certificates
+\[
+ \alpha-\alpha_N\in
+   \mathfrak p_F^{\,m_F-T+\lfloor T/2\rfloor},
+ \qquad
+ \beta-\beta_N\in\mathfrak p_F^d;
+\]
+neither certificate is strengthened to an equality in $F$.
+For the Teichmuller scalar $[j]$ attached to
+$j\in\mathbf F_p$, the package \texttt{OddIntermediateHighProductData}
+uses the supplied representatives
+\[
+ u_K=\iota_{F,K}(\beta_N)
+      -\beta_1\frac{\iota_{F,K}(\alpha_N)}{\alpha_1},
+ \qquad
+ u_j=N_{K/F}(\beta_1+[j]\alpha_1).
+\]
+They satisfy the actual additive stationary-class equalities
+\[
+ [u_K]_{\mathrm{add}}
+  =\operatorname{St}_{\gamma_K,d_K+\varepsilon_K}(\chi_K)
+  \quad\text{in }\mathcal O_K/\mathfrak p_K^{d_K},
+\]
+and, for every $j$ including $j=0$,
+\[
+ [u_j]_{\mathrm{add}}
+  =\operatorname{St}_{\gamma_F,d+\varepsilon}(\tau^j\chi_F)
+  \quad\text{in }\mathcal O_F/\mathfrak p_F^d.
+\]
+The twist datum, its actual conductor decomposition, and the admissibility
+of $\gamma_F$ for that actual conductor are retained for every index.  The
+intermediate theorem proves, at exactly the target depth,
+\[
+ u_j\equiv\beta_N+[j]\alpha_N\pmod{\mathfrak p_F^d}.
+\]
+Thus the stored factor is the exact norm representative, while its linear
+expression is only a congruent representative of the same quotient class.
+
+Lean proves the Teichmuller product identity for
+these supplied scalars and the symmetric-function bound for the normalized
+upstairs representative.  The resulting closed congruence is
+\[
+ N_{K/F}(u_K)
+  \equiv \beta_N^p-\beta_N\alpha_N^{p-1}
+  =\prod_{j\in\mathbf F_p}(\beta_N+[j]\alpha_N)
+  \pmod{\mathfrak p_F^d}
+\]
+and the factorwise congruences identify the last product with
+$\prod_j u_j$ in the same depth-$d$ quotient.  Consequently,
+\[
+ \mathcal N_h([u_K])
+   =\prod_{j\in\mathbf F_p}[u_j]
+   \quad\text{in }U_F^0/U_F^d.
+\]
+The norm points from $K$ to $F$, while the stationary adjoint used to
+certify $u_K$ points from the downstairs coefficient quotient to the
+upstairs one and retains the ordered common-denominator pair
+$(\gamma_F,\iota_{F,K}\gamma_F)$.
+
+In the positive-break wild quadratic branch,
+\texttt{WildQuadraticHighProductData} reuses the simultaneous package of
+the quadratic theorem without changing its choices.  Here
+$\beta_1$ is chosen only through the break-level decomposition below, and
+$\alpha_1$ only at precision $\lfloor(t+1)/2\rfloor$.  Thus
+\[
+ \beta=\delta_hN_{K/F}(\beta_1),
+ \qquad \delta_h\in U_F^t,
+ \qquad \alpha_N=N_{K/F}(\alpha_1),
+\]
+and the essential corrected coefficient is
+\[
+ c_F=\delta_h\alpha_N.
+\]
+For its supplied upstairs and two downstairs representatives,
+\[
+ u_K=\beta-\frac{\beta_1c_F}{\alpha_1},
+ \qquad u_0=\beta,
+ \qquad u_1=\beta+c_F,
+\]
+Lean indexes the factors by \texttt{Bool}, with \texttt{true} storing $u_0$
+and \texttt{false} storing $u_1$; its certified ordered product is
+$u_0u_1=\beta(\beta+c_F)$.  Lean retains the actual additive quotient
+equalities for $\chi_K$,
+$\chi_F$, and $\tau\chi_F$.  The exact quadratic norm calculation gives
+\[
+ N_{K/F}(u_K)\equiv
+   \beta(\beta+c_F)
+   =u_0u_1\pmod{\mathfrak p_F^d},
+\]
+hence
+\[
+ \mathcal N_h([u_K])=[u_0][u_1]
+   \quad\text{in }U_F^0/U_F^d.
+\]
+The factor $\delta_h$ is part of $c_F$ throughout and is never replaced by
+$1$ or discarded.  As in the odd branch, this is a quotient equality for
+simultaneously supplied representatives, together with independence at
+exactly the certified ambiguity depths; it asserts neither a canonical
+stationary representative nor a field equality.
+
+The proposition \texttt{HighProductBranch} retains the two formula-different
+interfaces as separate universally quantified fields: the odd field returns
+the existence of \texttt{OddIntermediateHighProductData}, and the quadratic
+field returns the existence of \texttt{WildQuadraticHighProductData}.  The
+principal theorem
+\texttt{highParameter\_product} fills those fields with
+\texttt{highParameter\_product\_intermediate} and
+\texttt{highParameter\_product\_wildQuadratic}.  It assumes neither the
+public high table, low-parameter table, phase-reduction result, nor any case
+theorem.
+
+\LeanFile{LanglandsFirstMainLemma/Parameters/HighProduct.lean}
+\lean{LanglandsFirstMainLemma.HighStationaryNormProduct}
+\lean{LanglandsFirstMainLemma.HighStationaryNormProduct.congruentAtTarget}
+\lean{LanglandsFirstMainLemma.HighStationaryNormProduct.upstairs_representative_independent}
+\lean{LanglandsFirstMainLemma.HighStationaryNormProduct.factors_representative_independent}
+\lean{LanglandsFirstMainLemma.highStationaryNormProduct_of_congruence}
+\lean{LanglandsFirstMainLemma.stationaryCoefficientClass_suppliedRepresentative_ord}
+\lean{LanglandsFirstMainLemma.OddIntermediateHighProductData}
+\lean{LanglandsFirstMainLemma.highParameter_intermediate_norm_product_congruent}
+\lean{LanglandsFirstMainLemma.highParameter_product_intermediate}
+\lean{LanglandsFirstMainLemma.WildQuadraticHighProductData}
+\lean{LanglandsFirstMainLemma.highParameter_product_wildQuadratic}
+\lean{LanglandsFirstMainLemma.HighProductBranch}
+\lean{LanglandsFirstMainLemma.highParameter_product}
+\leanok
+\SourceText{Proposition prop:high-parameter-table, equation eq:high-product-congruence, and Proposition prop:wild-quadratic-high-parameters, equation eq:high-product-two.}
+\uses{mod:parameters-highintermediate,mod:parameters-highquadratic,mod:parameters-normpolynomial}
+\FormalizationContract
+The source and target additive stationary coefficient quotients are exactly
+$\mathcal O_K/\mathfrak p_K^{d_K}$ and
+$\mathcal O_F/\mathfrak p_F^d$, whereas norm is induced only on
+$U_K^0/U_K^{d_K}\to U_F^0/U_F^d$ from the ambiguity component of the
+actual \texttt{NormPolynomialPrecision} certificate.  The odd branch uses
+the complete $\mathbf F_p$-indexed product in the manuscript's direction;
+the quadratic branch keeps the correction unit $\delta_h\in U_F^t$ in
+both its twist factor and its norm product.  Every stationary equality and
+norm-product assertion is a quotient equality or the corresponding exact
+depth congruence.  Independence is proved only at depths $d_K$ and $d$.
+No additive quotient is arbitrarily normed, no quotient congruence is
+strengthened to an equality in a field, and no canonical stationary
+representative is defined.
+\end{theorem}

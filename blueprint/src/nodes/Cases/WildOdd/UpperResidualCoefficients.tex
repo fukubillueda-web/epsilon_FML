@@ -1,0 +1,55 @@
+\begin{lemma}[Wild odd upper residual coefficients]
+\label{mod:cases-wildodd-upperresidualcoefficients}
+Using the High/Low normalization certificate supplied by
+UpperResidualNormalization and its common/source coordinate data, prove the
+natural upstairs polar coefficient, upper/source and upper/lower coordinate
+transport, inverse-Frobenius display, and every upstairs polar row.  Retain the
+genuine quadratic contribution and use HigherSymmetricVanishing to prove that
+degrees $3,\ldots,p-1$ and the terminal cancellation create no hidden affine
+contribution.  Then prove every upstairs affine row and record all permitted
+representative translations.  At even conductor parity, prove directly from
+the source-tied PhaseReduction functions that the displayed High and Low rows
+are constant one and therefore have coefficient pair $(0,0)$.
+
+For the actual High row, also expose the exact source bridge.  An element of
+exact signed order has nonzero initial residue.  If
+$a=(s+1)-2d$ (with no assumption that $a\geq 0$), transport the norm initial
+residue through the residue-degree-one equivalence and prove
+\[
+ \overline{N(u)/\varpi_F^a}
+   =\left(e^{-1}\!\left(\overline{u/\varpi_K^a}\right)\right)^p
+\]
+without a uniformizer residue scalar.  Construct the canonical displayed
+source unit from the literal displacement $u x$ by
+\texttt{positiveUnitOfLattice} at depth
+$((s+1)+2)/2=(s+3)/2$, and record that its field value is exactly $1+ux$;
+the residue variable in $x$ is the prescribed inverse-Frobenius source
+coordinate.
+
+Finally identify the actual norm-generator polar coefficient with $\eta_0$
+and the zero-index source/base polar coefficient with
+$\eta=\eta_0d_0$.  The latter proof must retain the stationary numerator as
+its quotient-class representative until the exact ratio is rewritten as
+$A\,n$, use the signed initial-residue identity above and the integral
+\texttt{wildOddCompactEta} formula, and introduce no additional scalar.  These
+identifications imply that the named boundary ratio is the same $d_0$ used by
+the actual upper row.
+
+This node does not assemble the final PhasePreparation package, prove the
+lower coefficient table, assemble the final public coefficient table, or
+perform finite-field phase cancellation.
+\LeanFile{LanglandsFirstMainLemma/Cases/WildOdd/UpperResidualCoefficients.lean}
+\lean{LanglandsFirstMainLemma.wildOdd_upperResidualCoefficients}
+\leanok
+\SourceText{Lemmas lem:critical-polar-coordinate, lem:critical-polynomial-coordinate, lem:odd-upper-higher-vanishing, and lem:residual-parameter-transport; Proposition prop:odd-coefficient-table, upper rows.}
+\uses{mod:cases-wildodd-upperresidualnormalization,mod:cases-wildodd-highervanishing}
+\FormalizationContract
+This is one cohesive upper-table responsibility, expected to occupy roughly
+1800--4600 Lean lines.  Upper residual normalization, higher-symmetric
+estimates, and public assembly must remain in their existing separate nodes.
+Do not split the polar and affine rows merely to impose a smaller artificial
+line limit; line count alone does not determine the architecture.  In the
+High source bridge, do not replace the literal $ux$ unit by a compact residue
+surrogate, reuse a cancelled old-layer parameter after a conductor drop, or
+discard a representative translation from the Lamprecht phase.
+\end{lemma}

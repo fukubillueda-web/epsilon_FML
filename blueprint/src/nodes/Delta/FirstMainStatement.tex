@@ -1,0 +1,59 @@
+\begin{definition}[First Main Lemma data and statement]\label{mod:delta-firstmainstatement}
+Let $K/F$ be a finite extension of nonarchimedean local fields.  For a
+continuous quasi-character $\chi_F:F^\times\to\mathbf C^\times$ and a
+continuous additive character $\psi_F:F\to\mathbf C^\times$, define the
+pullbacks
+\[
+ \texttt{normQuasiChar}(\chi_F)=\chi_F\circ N_{K/F},\qquad
+ \texttt{tracePullbackAddChar}(\psi_F)
+ =\psi_F\circ\operatorname{Tr}_{K/F}.
+\]
+Define Langlands's norm-character type exactly as in \eqref{eq:def-S}:
+\[
+ \texttt{NormCharacter}(F,K)=S(K/F)
+ =\{\mu:F^\times\to\mathbf C^\times\text{ continuous homomorphism}:
+      \mu\circ N_{K/F}=1\}.
+\]
+The later norm-character node proves this type finite.  Assuming only that
+finiteness result, and given proposed local-constant functions $\Delta_F$
+and $\Delta_K$, define
+\[
+ \texttt{firstMainLeftSide}
+ =\Delta_K(\chi_F\circ N_{K/F},\psi_F\circ\operatorname{Tr}_{K/F})
+   \prod_{\mu\in S(K/F)}\Delta_F(\mu,\psi_F)
+\]
+and
+\[
+ \texttt{firstMainRightSide}
+ =\prod_{\mu\in S(K/F)}\Delta_F(\mu\chi_F,\psi_F).
+\]
+The predicate \texttt{CyclicPrimeExtension} says that $K/F$ is Galois,
+$\operatorname{Gal}(K/F)$ is cyclic, and $[K:F]$ is prime.
+\texttt{FirstMainIdentity} is equality of the displayed sides, and
+\texttt{FirstMainStatement} says that for a cyclic prime extension this
+identity holds for every $\chi_F$ and every nontrivial $\psi_F$.
+
+The local-constant functions are parameters of these definitions; this node
+does not assert or prove the First Main Lemma.  No characteristic-zero
+hypothesis is imposed; integers in the field and residue characteristic
+follow the uniform convention of
+Remark~\ref{rem:characteristic-convention}.
+\LeanFile{LanglandsFirstMainLemma/Delta/FirstMainStatement.lean}
+\lean{LanglandsFirstMainLemma.NormCharacter}
+\lean{LanglandsFirstMainLemma.NormCharacter.ext}
+\lean{LanglandsFirstMainLemma.NormCharacter.normQuasiChar_eq_one}
+\lean{LanglandsFirstMainLemma.normQuasiChar}
+\lean{LanglandsFirstMainLemma.normQuasiChar_apply}
+\lean{LanglandsFirstMainLemma.tracePullbackAddChar}
+\lean{LanglandsFirstMainLemma.tracePullbackAddChar_apply}
+\lean{LanglandsFirstMainLemma.LocalConstantFunction}
+\lean{LanglandsFirstMainLemma.CyclicPrimeExtension}
+\lean{LanglandsFirstMainLemma.firstMainLeftSide}
+\lean{LanglandsFirstMainLemma.firstMainRightSide}
+\lean{LanglandsFirstMainLemma.FirstMainIdentity}
+\lean{LanglandsFirstMainLemma.FirstMainStatement}
+\leanok
+\SourceText{Theorem thm:first-main and equation eq:def-S.}
+\uses{mod:basic-charactertypes,mod:localfield-extension,mod:basic-characteristicconvention}
+\FormalizationContract
+\end{definition}

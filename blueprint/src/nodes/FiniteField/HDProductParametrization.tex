@@ -1,0 +1,51 @@
+\begin{theorem}[Hasse-Davenport tuple parametrization]\label{mod:finitefield-hdproductparametrization}
+Let $G$ be a commutative group.  For $a\in G$ and $r\geq0$, define the
+prescribed-product fiber
+\[
+ \operatorname{HDProductTupleFiber}(G,r,a)
+ =\left\{x:\operatorname{Fin}(r)\longrightarrow G:
+          \prod_{i:\operatorname{Fin}(r)}x_i=a\right\}.
+\]
+For every $n\geq0$ there is an explicit equivalence
+\[
+ \operatorname{HDProductTupleFiber}(G,n+1,a)
+ \simeq (\operatorname{Fin}(n)\longrightarrow G).
+\]
+It sends a surviving tuple to its first $n$ coordinates.  Its inverse sends
+$y:\operatorname{Fin}(n)\to G$ to
+\[
+ \operatorname{snoc}\!\left(y,
+       a\left(\prod_{i:\operatorname{Fin}(n)}y_i\right)^{-1}\right).
+\]
+Thus the final coordinate is uniquely forced; no representative or
+existence choice is suppressed.
+
+If $G$ is finite and $R$ is an additive commutative monoid, every finite sum
+over the product fiber is reindexed by this equivalence:
+\[
+ \sum_{x\in\operatorname{HDProductTupleFiber}(G,n+1,a)}f(x)
+ =\sum_{y:\operatorname{Fin}(n)\to G}
+   f\!\left(\operatorname{snoc}\!\left(y,
+       a\left(\prod_i y_i\right)^{-1}\right)\right).
+\]
+In particular all fibers of the $(n+1)$-fold product map have the same
+cardinality, explicitly
+\[
+ \left|\operatorname{HDProductTupleFiber}(G,n+1,a)\right|=|G|^n.
+\]
+Taking $G=k^\times$ gives the surviving-tuple parametrization used after
+expanding the Gauss-sum products in the proof of the Hasse--Davenport
+multiplication formula.
+\LeanFile{LanglandsFirstMainLemma/FiniteField/HDProductParametrization.lean}
+\lean{LanglandsFirstMainLemma.HDProductTupleFiber}
+\lean{LanglandsFirstMainLemma.hdProductTupleFiberEquiv}
+\lean{LanglandsFirstMainLemma.hdProductTupleFiberEquiv_apply}
+\lean{LanglandsFirstMainLemma.hdProductTupleFiberEquiv_symm_apply}
+\lean{LanglandsFirstMainLemma.hdProductTupleFiberSuccFintype}
+\lean{LanglandsFirstMainLemma.sum_hdProductTupleFiber}
+\lean{LanglandsFirstMainLemma.hdProduct_survivingTuples}
+\leanok
+\SourceText{Proof of Theorem thm:HD-product.}
+\uses{mod:finitefield-characterapi,mod:basic-finiteproducts}
+\FormalizationContract
+\end{theorem}

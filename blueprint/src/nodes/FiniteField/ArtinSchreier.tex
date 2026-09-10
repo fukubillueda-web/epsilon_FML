@@ -1,0 +1,80 @@
+\begin{theorem}[Artin--Schreier phase]\label{mod:finitefield-artinschreier}
+Let $k$ be a finite field with $\operatorname{char}k=2$, write
+$\F_2=\mathbf Z/2\mathbf Z$, and let
+\[
+ \Tr=\Tr_{k/\F_2}:k\longrightarrow\F_2,
+ \qquad
+ \psi_0(x)=(-1)^{\Tr(x)}.
+\]
+In Lean these are \texttt{absoluteTraceTwo} and
+\texttt{absoluteTraceChar}; the latter is obtained by pulling the exact
+binary character $t\mapsto(-1)^t$ back along the trace.  It is nontrivial,
+and the trace pairing is perfect.  Consequently every complex additive
+character of $k$ is uniquely of the form $x\mapsto\psi_0(ax)$.
+
+Both trace and $\psi_0$ are Frobenius invariant:
+\[
+ \Tr(x^2)=\Tr(x),
+ \qquad
+ \psi_0(x^2)=\psi_0(x).
+\]
+It follows, with the manuscript's exact normalization, that
+\[
+ \Tr(c+c^2)=0,
+ \qquad
+ \psi_0(c+c^2)=1
+ \quad(c\in k).
+\]
+
+The file also proves the finite-field exactness needed later.  The
+$\F_2$-linear Artin--Schreier map
+\[
+ \operatorname{AS}(c)=c+c^2
+\]
+has kernel $\F_2\cdot1=\{0,1\}$ and image the trace-zero hyperplane.  Thus
+\[
+ \Tr(a)=0\quad\Longleftrightarrow\quad
+ \exists c\in k,\ a=c+c^2.
+\]
+If $\sigma(x)=x^2$ is Frobenius, then inverse Frobenius is its trace
+adjoint:
+\[
+ \Tr(ax^2)=\Tr(\sigma^{-1}(a)x),
+ \qquad
+ \psi_0(ax^2)=\psi_0(\sigma^{-1}(a)x).
+\]
+Every trace-zero element is correspondingly of the form
+$d+\sigma^{-1}(d)$.  Moreover, $\psi_0$ is the unique nontrivial additive
+character annihilating every Artin--Schreier value.  For an arbitrary
+nontrivial additive character $\psi$, Lean constructs a nonzero $c_0$ such
+that
+\[
+ \psi(x^2)=\psi(c_0x),
+ \qquad
+ \psi(c_0^2)=\psi_0(1)=(-1)^{[k:\F_2]}.
+\]
+Finally, squaring is bijective on $k$; in particular every residue
+coefficient has a unique square root.  This last finite-field fact is the
+input used by the later reduced Artin--Schreier proof of odd break parity.
+No local-field ramification or break-parity conclusion is assumed or proved
+in this node.
+\LeanFile{LanglandsFirstMainLemma/FiniteField/ArtinSchreier.lean}
+\lean{LanglandsFirstMainLemma.artinSchreier_phase}
+\leanok
+\SourceText{Lemma lem:AS-phase-new and the finite-field perfectness and
+Artin--Schreier input in the proof of Lemma lem:AS-break-parity; not its
+local-field break-parity conclusion.}
+\uses{mod:finitefield-quadraticphase}
+\FormalizationContract
+\end{theorem}
+\begin{proof}
+Frobenius is an $\F_2$-algebra automorphism of $k$, so invariance of
+algebra trace gives the two Frobenius identities and hence the displayed
+Artin--Schreier phase.  The kernel of $c\mapsto c+c^2$ consists of the two
+roots of $c(c+1)$; rank--nullity and surjectivity of the finite-field trace
+then identify its range with $\ker\Tr$.  Perfectness of the trace pairing
+and finite Pontryagin duality give the additive-character parametrization
+and rigidity statements.  Applying the same trace identity to a product
+gives the inverse-Frobenius adjoint formula.  Finite-field perfectness gives
+the unique square-root assertion.
+\end{proof}

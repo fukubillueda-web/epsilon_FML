@@ -1,0 +1,72 @@
+\begin{definition}[Finite-field character and Gauss-sum API]\label{mod:finitefield-characterapi}
+For a field $k$, put
+\[
+ \mathrm{FiniteAddChar}(k)=\operatorname{AddChar}(k,\mathbf C),
+ \qquad
+ \mathrm{FiniteMulChar}(k)=\operatorname{MulChar}(k,\mathbf C).
+\]
+Here Mathlib's multiplicative character is the canonical extension by zero
+of a homomorphism $k^\times\to\mathbf C^\times$.
+
+Suppose now that $k$ is finite.  If $\psi\neq1$ and $\chi\neq1$, the
+exported orthogonality statements are
+\[
+ \sum_{x\in k}\psi(x)=0,
+ \qquad
+ \sum_{x\in k}\chi(x)=0.
+\]
+Mathlib's ordinary Gauss sum is identified with the manuscript's
+$k^\times$-indexed sum:
+\[
+ G_k(\chi,\psi)=\operatorname{gaussSum}(\chi,\psi)
+ =\sum_{x\in k^\times}\chi(x)\psi(x).
+\]
+Langlands's normalized sum is defined, with the manuscript's sign and
+inverse convention, by
+\[
+ \operatorname{langlandsGaussSum}(\chi,\psi)
+ =\tau_k(\chi,\psi)
+ :=-G_k(\chi^{-1},\psi)
+ =-\sum_{x\in k^\times}\chi(x)^{-1}\psi(x).
+\]
+For $\psi\neq1$ the API proves
+\[
+ G_k(1,\psi)=-1,
+ \qquad \tau_k(1,\psi)=1,
+ \qquad G_k(\chi,\psi)\neq0,
+ \qquad \tau_k(\chi,\psi)\neq0
+\]
+for every $\chi$.  If also $\chi\neq1$, it proves both the conjugate
+product and real norm forms of the precise magnitude identity:
+\[
+ G_k(\chi,\psi)\overline{G_k(\chi,\psi)}=|k|,
+ \qquad \lVert G_k(\chi,\psi)\rVert^2=|k|.
+\]
+For $a\in k^\times$ and $\psi_a(x)=\psi(ax)$, the scaling declarations
+are
+\[
+ G_k(\chi,\psi_a)=\chi(a)^{-1}G_k(\chi,\psi),
+ \qquad
+ \tau_k(\chi,\psi_a)=\chi(a)\tau_k(\chi,\psi).
+\]
+
+Finally, for a finite field extension $K/k$, the definitions
+$\operatorname{traceAddChar}_{K/k}(\psi)=\psi\circ\operatorname{Tr}_{K/k}$
+and
+$\operatorname{normMulChar}_{K/k}(\chi)=\chi\circ N_{K/k}$ are accompanied
+by their pointwise evaluation lemmas and by
+\[
+ \operatorname{traceAddChar}_{K/k}(\psi)\neq1\iff\psi\neq1,
+ \qquad
+ \operatorname{normMulChar}_{K/k}(\chi)\neq1\iff\chi\neq1,
+\]
+together with
+$\operatorname{normMulChar}_{K/k}(\chi^{-1})
+ =\operatorname{normMulChar}_{K/k}(\chi)^{-1}$.
+\LeanFile{LanglandsFirstMainLemma/FiniteField/CharacterAPI.lean}
+\lean{LanglandsFirstMainLemma.langlandsGaussSum}
+\leanok
+\SourceText{Lemma lem:finite-gauss-magnitude and Theorem thm:HD-lift.}
+\uses{mod:basic-finiteproducts,mod:localfield-residuefield}
+\FormalizationContract
+\end{definition}

@@ -1,0 +1,190 @@
+\begin{lemma}[Norm representatives at subcritical precision]\label{mod:ramification-normrepresentatives}
+Let $K/F$ be a prime cyclic extension of nonarchimedean local fields, let
+$t\in\mathbf N$ be a supplied lower break, and assume explicitly that
+$f(K/F)=1$.  Fix an integral uniformizer $\pi_K\in\mathcal O_K$ and a
+proof that
+\[
+ \operatorname{Algebra.adjoin}_{\mathcal O_F}\{\pi_K\}=\mathcal O_K.
+\]
+These are the same explicit inputs as in
+module~\ref{mod:ramification-normfiltration}.
+
+For $h\in\mathbf Z$, $s\in\mathbf N$, $c\in F^\times$, and
+$c_1\in K^\times$, write
+\[
+ \operatorname{IsNR}_{h,s}(c,c_1)
+\]
+when all four assertions
+\[
+ \operatorname{ord}_F(c)=h,
+ \qquad \operatorname{ord}_K(c_1)=h,
+ \qquad \operatorname{ord}_F(N_{K/F}(c_1))=h,
+\]
+and
+\begin{equation}\label{eq:blueprint-norm-representative-precision}
+ c-N_{K/F}(c_1)\in\mathfrak p_F^{h+s}
+\end{equation}
+hold.  In Lean this proposition is
+\texttt{IsSubcriticalNormRepresentative}.  Thus it records the exact
+source and target shells, as well as the direction of the congruence; it
+does not select an element of $K^\times$.
+
+If $0\le s\le t$ and $\operatorname{ord}_F(c)=h$, then there exists
+$c_1\in K^\times$ such that
+\[
+ \operatorname{IsNR}_{h,s}(c,c_1).
+\]
+Indeed, the norm-filtration isomorphism of
+module~\ref{mod:ramification-normfiltration} first gives
+\[
+ \frac{c}{N_{K/F}(c_1)}\in U_F^t.
+\]
+Since $f(K/F)=1$, comparison of orders in this equality gives
+\[
+ \operatorname{ord}_K(c_1)
+ =\operatorname{ord}_F(N_{K/F}(c_1))
+ =\operatorname{ord}_F(c)=h.
+\]
+Multiplying the depth-$t$ congruence by the exact norm shifts its depth by
+$h$, and antitonicity of lattices for $s\le t$ gives precisely
+\eqref{eq:blueprint-norm-representative-precision}.  This argument also
+covers $s=0$ and $t=0$ without treating a positive unit layer as though it
+were present.
+
+The exact order equalities are exported in lattice-shell form:
+\[
+ \begin{aligned}
+ c&\in\mathfrak p_F^h\setminus\mathfrak p_F^{h+1},\\
+ c_1&\in\mathfrak p_K^h\setminus\mathfrak p_K^{h+1},\\
+ N_{K/F}(c_1)&\in\mathfrak p_F^h\setminus\mathfrak p_F^{h+1}.
+ \end{aligned}
+\]
+Writing
+\[
+ Q_F(h,s)=\mathfrak p_F^h/\mathfrak p_F^{h+s},
+\]
+the raw lattice congruence is equivalently the honest quotient equality
+\[
+ [c]=[N_{K/F}(c_1)]\qquad\text{in }Q_F(h,s).
+\]
+The quotient constructor is used only after the containments
+$h\le h+s$ and the numerator memberships have been supplied.
+
+The quotient-class existence theorem quantifies over
+$z\in Q_F(h,s)$ together with an explicitly supplied representative
+$c$ satisfying
+\[
+ \operatorname{ord}_F(c)=h,
+ \qquad [c]=z.
+\]
+It returns an exact norm representative of $z$.  This exact-shell
+hypothesis is necessary: an arbitrary element of $Q_F(h,s)$, such as the
+zero class when $s>0$, need not have a representative of order exactly
+$h$.
+
+All permitted ambiguity and precision changes are explicit.  If
+$c\equiv d\pmod{\mathfrak p_F^{h+s}}$ and $c_1,d_1$ are any corresponding
+norm representatives, then
+\[
+ N_{K/F}(c_1)-N_{K/F}(d_1)\in\mathfrak p_F^{h+s}.
+\]
+In particular, two choices for the same coefficient give the same element
+of $Q_F(h,s)$.  The below-break injectivity of norm additionally gives the
+precise source ambiguity
+\[
+ \frac{c_1}{d_1}\in U_K^s.
+\]
+This is uniqueness only in the permitted source quotient; it is neither
+equality in $K^\times$ nor a canonical representative.
+
+If $r\le s$ and $c_1$ is valid at precision $s$, then the same supplied
+$c_1$ is valid at precision $r$.  The canonical projection
+\[
+ Q_F(h,s)\longrightarrow Q_F(h,r)
+\]
+sends the finer norm-class equality to the coarser coefficient-class
+equality.  More strongly, one existential representative obtained at
+precision $t$ works for every $s\le t$ simultaneously.  No independently
+chosen representatives at two precisions are asserted to be equal.
+
+For a finite type $I$, let $h_i\in\mathbf Z$, let $s_i\le t$, and let
+$c_i\in F^\times$ have order $h_i$.  Lean proves the heterogeneous
+pointwise statement
+\[
+ \exists (c_{1,i})_{i\in I},\quad
+ \forall i\in I,\quad
+ \operatorname{IsNR}_{h_i,s_i}(c_i,c_{1,i}).
+\]
+Each existential problem is solved separately, so the choices are genuinely
+independent and hence simultaneous.  A second finite-family theorem chooses
+one $c_{1,i}$ for each $i$ and reuses it at every precision $s\le t$.
+
+Two corollaries expose exactly the forms needed by the stationary-parameter
+modules.  If $\delta\in U_F^0$ and
+$\operatorname{ord}_F(c)=h$, applying the theorem to $c/\delta$ gives
+$c_1$ with
+\[
+ \operatorname{IsNR}_{h,s}(c/\delta,c_1),
+ \qquad
+ c-\delta N_{K/F}(c_1)\in\mathfrak p_F^{h+s}.
+\]
+This is the rescaled representative used in the wild quadratic case.  At
+the break itself, every $c\in U_F^0$ has independent existential data
+\[
+ c_1\in U_K^0,\qquad \delta\in U_F^t,\qquad
+ c=\delta N_{K/F}(c_1).
+\]
+The correction factor $\delta$ is retained.  In particular, when a later
+stationary precision exceeds $t$, this statement does not promote the norm
+congruence to that deeper precision.
+
+All representative statements above are existential or concern already
+supplied representatives.  There is no field-valued choice function and no
+claim of canonicity.
+\LeanFile{LanglandsFirstMainLemma/Ramification/NormRepresentatives.lean}
+\lean{LanglandsFirstMainLemma.div_mem_unitFiltration_of_exactOrder_congruentAtDepth}
+\lean{LanglandsFirstMainLemma.IsSubcriticalNormRepresentative}
+\lean{LanglandsFirstMainLemma.IsSubcriticalNormRepresentative.coefficient_order}
+\lean{LanglandsFirstMainLemma.IsSubcriticalNormRepresentative.source_order}
+\lean{LanglandsFirstMainLemma.IsSubcriticalNormRepresentative.norm_order}
+\lean{LanglandsFirstMainLemma.IsSubcriticalNormRepresentative.norm_congruent}
+\lean{LanglandsFirstMainLemma.IsSubcriticalNormRepresentative.mono}
+\lean{LanglandsFirstMainLemma.IsSubcriticalNormRepresentative.coefficient_exactDepth}
+\lean{LanglandsFirstMainLemma.IsSubcriticalNormRepresentative.source_exactDepth}
+\lean{LanglandsFirstMainLemma.IsSubcriticalNormRepresentative.norm_exactDepth}
+\lean{LanglandsFirstMainLemma.IsSubcriticalNormRepresentative.congruentAtDepth}
+\lean{LanglandsFirstMainLemma.IsSubcriticalNormRepresentative.latticeQuotient_eq}
+\lean{LanglandsFirstMainLemma.IsSubcriticalNormRepresentative.norm_congruent_of_coefficient_congruent}
+\lean{LanglandsFirstMainLemma.IsSubcriticalNormRepresentative.norm_independent}
+\lean{LanglandsFirstMainLemma.IsSubcriticalNormRepresentative.norm_latticeQuotient_independent}
+\lean{LanglandsFirstMainLemma.IsSubcriticalNormRepresentative.latticeQuotient_projection}
+\lean{LanglandsFirstMainLemma.normRepresentative_subcritical}
+\lean{LanglandsFirstMainLemma.subcriticalNormRepresentatives_source_ratio_mem}
+\lean{LanglandsFirstMainLemma.normRepresentative_all_subcriticalPrecisions}
+\lean{LanglandsFirstMainLemma.normRepresentatives_subcritical_finite}
+\lean{LanglandsFirstMainLemma.normRepresentatives_all_subcriticalPrecisions_finite}
+\lean{LanglandsFirstMainLemma.normRepresentative_subcritical_latticeQuotient}
+\lean{LanglandsFirstMainLemma.normRepresentative_subcritical_mul_unit}
+\lean{LanglandsFirstMainLemma.unit_eq_unitFiltration_mul_norm}
+\leanok
+\SourceText{Lemma~\ref{lem:norm-stationary-representatives}.}
+\uses{mod:ramification-normfiltration,mod:localfield-lattices}
+\FormalizationContract
+The theorem applies only at the exact precision $s\le t$, with denominator
+lattice $\mathfrak p_F^{h+s}$ and congruence direction
+$c-N_{K/F}(c_1)$.  The source element and its norm both have exact depth
+$h$.  Quotient-level existence retains the hypothesis that the supplied
+stationary class has an exact-depth-$h$ representative.
+
+Finite simultaneous choices vary independently in their coefficient,
+depth, and precision.  Precision compatibility reuses or projects a
+supplied existential witness; it never defines one globally.  The only
+choice-independence conclusions are equality in the stated target quotient
+and membership of the source ratio in $U_K^s$.
+
+The wild quadratic correction is kept as
+$c=\delta N_{K/F}(c_1)$ with $\delta\in U_F^t$.  It is not discarded and is
+not used to claim an exact norm representative beyond the subcritical
+range.  No theorem in this module defines or asserts a canonical
+field-valued representative.
+\end{lemma}

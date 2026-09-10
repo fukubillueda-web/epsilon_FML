@@ -1,0 +1,23 @@
+\begin{theorem}[Wild quadratic low lower-product coordinate transport]
+\label{mod:cases-wildquadratic-lowproductcoordinatetransport}
+Using the certified low upper/boundary package, construct the independent
+lower-product coordinate package in the strict-low and odd-boundary rows.
+The boundary certificate consumes the selected-source residue already proved
+by the upper package, preventing a duplicate or norm-only reconstruction of
+\(\rho\).
+
+The output contains the \(q\)-polymorphic actual product certificate and the
+actual norm, base, and twist phase-source equalities.  It selects no
+characteristic-two refinement.
+\LeanFile{LanglandsFirstMainLemma/Cases/WildQuadratic/LowProductCoordinateTransport.lean}
+\lean{LanglandsFirstMainLemma.wildQuadraticLowProductCoordinateTransport}
+\leanok
+\SourceText{Lemma lem:residual-parameter-transport and Proposition prop:quadratic-complete-assembly, low and boundary lower-product rows.}
+\uses{mod:parameters-phasereduction,mod:parameters-low,mod:cases-wildquadratic-coordinatetransport,mod:cases-wildquadratic-lowcoordinatetransport}
+\FormalizationContract
+Transport the lower product with its retained normalized-delta representatives
+and actual twist-row phase.  Reuse the low coordinate package's boundary
+source certificate; do not duplicate upper-coordinate or
+\texttt{MatchesCorrection} mathematics.  Every occurrence of \(q\) is
+universally quantified.
+\end{theorem}

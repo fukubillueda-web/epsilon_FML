@@ -1,0 +1,218 @@
+\begin{theorem}[High stationary classes: wild quadratic case]
+\label{mod:parameters-highquadratic}
+Let $K/F$ be prime cyclic of degree two and residue degree one.  Fix a
+positive lower break $t$, a generating integral uniformizer as in the
+ramification results, and write
+\[
+ T=t+1,\qquad m=a(\chi_F)\geq T,\qquad v=m-T,
+ \qquad r=\left\lfloor\frac T2\right\rfloor,
+ \qquad s=\left\lceil\frac T2\right\rceil.
+\]
+Assume that $\chi_F$ is minimal in its whole norm-character orbit, and put
+\[
+ \chi_K=\chi_F\circ N_{K/F},\qquad
+ \psi_K=\psi_F\circ\operatorname{Tr}_{K/F}.
+\]
+For the actual stationary conductor decompositions write
+\[
+ m=2d+\varepsilon,qquad
+ m_K=a(\chi_K)=2d_K+\varepsilon_K,qquad
+ q_F=d+\varepsilon,qquad q_K=d_K+\varepsilon_K.
+\]
+Then the actual upstairs conductor and all of its stationary depths are
+\[
+ \boxed{\ m_K+T=2m\ },\qquad
+ d_K=v+r,\qquad \varepsilon_K=T\bmod 2,
+ \qquad q_K=v+s=m-r.
+\]
+In particular,
+\[
+ q_K-v=s,\quad q_F\geq s,\quad d\leq d_K,\quad
+ r\leq t,\quad r+s=T,\quad
+ \varepsilon=m\bmod2.
+\]
+Thus the parity of the upstairs critical line is the parity of $T$, whereas
+the downstairs and twisted critical lines have the parity of $m$.
+The positive wild quadratic break also forces
+\(\operatorname{char}(k_F)=\operatorname{char}(k_K)=2\).
+
+Let $\tau\ne1$ be a norm character.  Its exact conductor is $T$, with
+stationary decomposition $(r,T\bmod2)$.  The actual datum for
+$\tau\chi_F$ has conductor exactly $m$ and hence retains the downstairs
+decomposition $(d,\varepsilon)$; this includes the boundary $m=T$.
+Choose $\gamma_F$ with
+\[
+ v_F(\gamma_F)=m+n_F(\psi_F).
+\]
+The ordered common-denominator pair is
+\[
+ (\gamma_F,\gamma_K)=
+ (\gamma_F,\operatorname{algebraMap}_{F,K}(\gamma_F)),
+ \qquad
+ v_K(\gamma_K)=m_K+n_K(\psi_K).
+\]
+Lean constructs the norm-polynomial precision at the three exact pairs
+$(q_K,q_F)$, $(m_K,m)$, and $(d_K,d)$, including when $d>t$; no norm
+representative at precision $d$ is used.
+
+The manuscript's field representatives are supplied by one simultaneous
+existential package.  First choose a unit $\beta$ representing
+\(\operatorname{St}(\chi_F,\psi_F;\gamma_F)\) in
+\(\mathcal O_F/\mathfrak p_F^d\).  The break-level norm theorem gives
+independent choices
+\[
+ \beta_1\in\mathcal O_K^\times,
+ \qquad \delta\in U_F^t,
+ \qquad \boxed{\ \beta=\delta N_{K/F}(\beta_1)\ }
+\]
+as an exact identity.  The unit correction $\delta$ remains in every
+subsequent formula; it is never replaced by $1$.
+
+For the stationary numerator of $\tau$ at ambient conductor $m$, choose
+its class in
+\[
+ \mathfrak p_F^v/\mathfrak p_F^{v+r}.
+\]
+Only at the permitted subcritical precision $r\leq t$, the norm
+representative lemma yields $\alpha_1\in K^\times$ with
+\[
+ v_K(\alpha_1)=v,qquad
+ \alpha=N_{K/F}(\alpha_1),qquad
+ c=\alpha\delta,qquad
+ [c]=\operatorname{St}_m(\tau,\psi_F;\gamma_F)
+ \quad\text{in }
+ \mathfrak p_F^v/\mathfrak p_F^{v+r}.
+\]
+Equivalently, relative to
+\(\gamma_\tau=\gamma_F/c\), whose order is $T+n_F(\psi_F)$, the stationary
+coefficient class of $\tau$ is $[1]\in\mathcal O_F/\mathfrak p_F^r$.
+No representative in any of these quotients is declared canonical.
+
+Put
+\[
+ u=\frac{\beta_1}{\alpha_1}\in K^\times,
+ \qquad n=\frac{\beta}{c}\in F^\times.
+\]
+The exact ratio and valuation identities are
+\[
+ N_{K/F}(u)=n,qquad cn=\beta,qquad
+ v_K(u)=v_F(n)=T-m=-v.
+\]
+Define only for this existential package
+\[
+ z=\frac{\beta_1\,c}{\alpha_1}=c\,u,\qquad
+ \beta_K^0=\beta-z=c(n-u),qquad
+ \beta_{\tau}^0=\beta+c=c(n+1),
+\]
+where scalars in the formula for $\beta_K^0$ are mapped to $K$.
+These field elements are selected representatives, not canonical lifts.
+
+For every $y\in\mathfrak p_K^s$, the exact quadratic identity is
+\[
+ N_{K/F}(1+y)=1+\operatorname{Tr}_{K/F}(y)+N_{K/F}(y),
+ \qquad
+ \operatorname{Tr}_{K/F}(y),N_{K/F}(y)\in\mathfrak p_F^s.
+\]
+Since $\tau$ is trivial on norms, its stationary linearization gives the
+sign-sensitive conversion
+\[
+ \psi_F\!\left(\frac{cN(y)}{\gamma_F}\right)
+ =\psi_F\!\left(-\frac{c\operatorname{Tr}(y)}{\gamma_F}\right).
+\]
+Consequently the compatible stationary classes are precisely
+\[
+ \boxed{\quad
+ [\beta_K^0]
+   =\operatorname{St}(\chi_K,\psi_K;\gamma_K)
+   =P^*_{K/F;\gamma_F,\gamma_K}
+       ([\beta])
+ \quad}
+ \quad\text{in }\mathcal O_K/\mathfrak p_K^{d_K},
+\]
+and
+\[
+ \boxed{\quad
+ [\beta_{\tau}^0]
+   =\operatorname{St}(\tau\chi_F,\psi_F;\gamma_F)
+ \quad}
+ \quad\text{in }\mathcal O_F/\mathfrak p_F^d.
+\]
+Here $P^*$ is the adjoint of the truncated norm for the displayed ordered
+denominator pair.  Both boxes are quotient-class equalities; neither is an
+equality between arbitrary representatives in $K$.
+
+At the boundary $m=T$, minimal-orbit stationary noncancellation proves
+\[
+ \beta+c\notin\mathfrak p_F,
+\]
+and hence $1+n\ne0$.  For $m>T$ the same denominator statement follows
+from $v_F(n)=-v<0$.  Thus no boundary conclusion is obtained merely by
+pretending that the two stationary representatives have unique lifts.
+
+Finally $v_K(z)=v$, and the trace-depth theorem gives
+\(\operatorname{Tr}_{K/F}(z)\in\mathfrak p_F^d\), while
+\(N_{K/F}(z)=\beta c\) exactly.  Retaining the trace sign in
+\[
+ N_{K/F}(\beta-z)
+  =\beta^2-\beta\operatorname{Tr}_{K/F}(z)+N_{K/F}(z)
+\]
+therefore yields exactly the product-class congruence
+\[
+ [N_{K/F}(\beta_K^0)]=[\beta(\beta+c)]
+ \quad\text{in }\mathcal O_F/\mathfrak p_F^d.
+\]
+The characteristic-two interface makes no choice of a refinement.  For
+every explicitly supplied normalized refinement $q$, it retains the
+positive polar convention
+\[
+ q(x+y)=q(x)q(y)\psi_0(xy)
+ \]
+and the Frobenius normalization $q(x^2)=q(x)$ required downstream.
+
+\LeanFile{LanglandsFirstMainLemma/Parameters/HighQuadratic.lean}
+\lean{LanglandsFirstMainLemma.wildQuadraticHigh_depth_relations}
+\lean{LanglandsFirstMainLemma.wildQuadratic_normPolynomialValue_eq_trace_add_norm}
+\lean{LanglandsFirstMainLemma.wildQuadratic_norm_sub}
+\lean{LanglandsFirstMainLemma.highParameter_wildQuadratic_conductor_relation}
+\lean{LanglandsFirstMainLemma.highParameter_wildQuadratic_residueCharacteristic}
+\lean{LanglandsFirstMainLemma.highParameter_wildQuadratic_residueCharacteristic_upstairs}
+\lean{LanglandsFirstMainLemma.highParameter_wildQuadratic_commonDenominator}
+\lean{LanglandsFirstMainLemma.highParameter_wildQuadratic_precision}
+\lean{LanglandsFirstMainLemma.highParameter_wildQuadratic_trace_norm_mem}
+\lean{LanglandsFirstMainLemma.wildQuadraticHighTauDecomposition}
+\lean{LanglandsFirstMainLemma.highParameter_wildQuadratic_twist_conductor}
+\lean{LanglandsFirstMainLemma.WildQuadraticHighRepresentatives}
+\lean{LanglandsFirstMainLemma.highParameter_wildQuadratic_exists_representatives}
+\lean{LanglandsFirstMainLemma.WildQuadraticHighRepresentatives.norm_u_eq_n}
+\lean{LanglandsFirstMainLemma.WildQuadraticHighRepresentatives.u_order}
+\lean{LanglandsFirstMainLemma.WildQuadraticHighRepresentatives.n_order}
+\lean{LanglandsFirstMainLemma.WildQuadraticHighRepresentatives.tau_unit_class}
+\lean{LanglandsFirstMainLemma.WildQuadraticHighRepresentatives.conversion}
+\lean{LanglandsFirstMainLemma.WildQuadraticHighRepresentatives.twist_class}
+\lean{LanglandsFirstMainLemma.WildQuadraticHighRepresentatives.upstairs_class}
+\lean{LanglandsFirstMainLemma.WildQuadraticHighRepresentatives.betaK_adjoint_class}
+\lean{LanglandsFirstMainLemma.WildQuadraticHighRepresentatives.boundary_noncancellation}
+\lean{LanglandsFirstMainLemma.WildQuadraticHighRepresentatives.norm_betaK_class}
+\lean{LanglandsFirstMainLemma.WildQuadraticHighParameterData}
+\lean{LanglandsFirstMainLemma.highParameter_wildQuadratic}
+\lean{LanglandsFirstMainLemma.highParameter_wildQuadratic_charTwoNormalization}
+\leanok
+\SourceText{Propositions prop:high-parameter-table and prop:wild-quadratic-high-parameters.}
+\uses{mod:parameters-stationaryclassundernorm,
+mod:parameters-minimalorbitstationary,
+mod:ramification-normrepresentatives,
+mod:finitefield-chartworefinement}
+\FormalizationContract
+The principal theorem returns a nonempty simultaneous representative
+package together with the actual conductor relation, exact norm-polynomial
+precision, common ordered denominator pair, downstairs twist class,
+upstairs stationary class and denominator-sensitive adjoint class, product
+quotient, exact correction norm, trace depth, denominator nonvanishing, and
+the minimal-orbit boundary statement.  The only exact norm representative
+is selected at $r=\lfloor(t+1)/2\rfloor\leq t$; the unrelated unit
+$\beta_1$ is obtained at the break with the indispensable factor
+$\delta\in U_F^t$.  All stationary equalities live in their stated lattice
+quotients.  The result neither selects a canonical stationary lift nor a
+canonical characteristic-two refinement, and it imports no later
+high-product, high-table, low-parameter, phase-reduction, or case theorem.
+\end{theorem}

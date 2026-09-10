@@ -1,0 +1,89 @@
+\begin{theorem}[Wild quadratic boundary cancellation]\label{mod:cases-wildquadratic-boundary}
+Let the exact wild-quadratic stationary assembly lie in its exceptional
+boundary row.  Lean first recovers the boundary condition from the retained
+coefficient view itself:
+\[
+  m=t+1,\qquad b=m-1=t,\qquad T=t+1\text{ is odd}.
+\]
+Thus the condition is not replaced by an unrelated parity hypothesis.
+
+The input is the exact \texttt{WildQuadraticErrorFormula}, together with the
+two actual refinement-correction records selected by that formula.  These
+records retain their admissible denominators, stationary numerators,
+normalized quotient classes, affine coefficients, and positively oriented
+inverse-character identities.  The representative translations used
+upstream have the precise direction
+\[
+ H_{\mathrm{after}}=H_{\mathrm{before}}(\,\cdot+a),\qquad
+ E_{\mathrm{after}}=H_{\mathrm{before}}(a)E_{\mathrm{before}},
+\]
+so the elementary value and residual Hasse phase are transported together.
+Consequently the complete quotient, in the numerator/denominator orientation
+\[
+ \frac{L_{\chi_K}L_\tau}{L_{\chi_F}L_{\tau\chi_F}},
+\]
+is independent of the chosen compatible representatives.
+
+Put
+\[
+ A_\rho=\frac{\rho}{1+\rho},\qquad
+ B=\frac{\rho^2}{1+\rho^2},\qquad
+ C=\frac{\rho}{1+\rho^2},\qquad
+ \gamma_1=\frac{\gamma_0+\rho\gamma+r}{1+\rho},
+ \quad r^2=\rho.
+\]
+The exact error formula, including both positive quadratic correction factors
+and the translated elementary phase, is
+\[
+ \operatorname{Err}_{K/F}(\chi_F)
+ =\mathfrak q(A_\rho)\mathfrak q(B)\mathfrak q(C)\psi_0(a_1),
+ \qquad
+ a_1=\gamma_1A_\rho+\gamma B+\gamma_0C+C+A_\rho.
+\]
+No affine coefficient, polar sign, correction unit, or representative
+translation is discarded in passing to this formula.
+
+The proof splits on the characteristic of $F$.  In equal characteristic
+two, the exact lower-break theorem gives $t$ odd, while the boundary row
+gives $t+1$ odd; hence this row is impossible.  In mixed characteristic,
+the positive-polar refinement identities give
+\[
+ B+C=A_\rho,
+ \qquad
+ \mathfrak q(B)\mathfrak q(C)
+   =\mathfrak q(A_\rho)\psi_0(BC),
+ \qquad
+ \mathfrak q(A_\rho)^2=\psi_0(A_\rho).
+\]
+All remaining terms therefore form the exact residue exponent
+\[
+ a_1+A_\rho+BC.
+\]
+With the manuscript's numerator and denominator orientation, define
+\[
+ z=\frac{r^3}{1+\rho^2}+\frac{1}{1+\rho}.
+\]
+A direct characteristic-two calculation, using the nonvanishing of
+$1+\rho$ and $1+\rho^2$, proves
+\[
+ a_1+A_\rho+BC=z+z^2.
+\]
+The Artin--Schreier sign is the plus sign shown here.  Hence
+\(\psi_0(z+z^2)=1\), and the complete boundary error is exactly
+\[
+ \operatorname{Err}_{K/F}(\chi_F)=1.
+\]
+
+\LeanFile{LanglandsFirstMainLemma/Cases/WildQuadratic/Boundary.lean}
+\lean{LanglandsFirstMainLemma.WildQuadraticBoundaryData.artinSchreierWitness}
+\lean{LanglandsFirstMainLemma.WildQuadraticBoundaryData.B_add_C_eq_A_rho}
+\lean{LanglandsFirstMainLemma.WildQuadraticBoundaryData.boundary_residual_eq_artinSchreier}
+\lean{LanglandsFirstMainLemma.WildQuadraticBoundaryData.value_eq_one}
+\lean{LanglandsFirstMainLemma.WildQuadraticBoundaryFormula.exceptionalCondition}
+\lean{LanglandsFirstMainLemma.WildQuadraticBoundaryFormula.equalCharacteristic_elim}
+\lean{LanglandsFirstMainLemma.wildQuadratic_boundary}
+\leanok
+\SourceText{Proposition prop:wild-quadratic-cancellation, boundary case.}
+\uses{mod:cases-wildquadratic-errorformula,mod:cases-wildquadratic-quadraticrefinement,mod:cases-wildquadratic-equalcharacteristicbreak,mod:parameters-minimalorbitstationary}
+\FormalizationContract
+\end{theorem}

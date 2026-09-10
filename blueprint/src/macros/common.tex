@@ -1,0 +1,40 @@
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\providecommand{\C}{\mathbf C}
+\providecommand{\R}{\mathbf R}
+\providecommand{\Q}{\mathbf Q}
+\providecommand{\F}{\mathbf F}
+\providecommand{\cO}{\mathcal O}
+\providecommand{\p}{\mathfrak p}
+\providecommand{\Tr}{\operatorname{Tr}}
+\providecommand{\Nm}{\operatorname{N}}
+\providecommand{\Gal}{\operatorname{Gal}}
+\providecommand{\ph}{\operatorname{ph}}
+\providecommand{\ord}{\operatorname{ord}}
+\providecommand{\cond}{\operatorname{cond}}
+\providecommand{\Res}{\operatorname{Res}}
+\providecommand{\Deltatwo}{\Delta_2}
+\providecommand{\Deltathree}{\Delta_3}
+\providecommand{\Err}{\mathcal E}
+\providecommand{\Aphase}{\mathcal A}
+\providecommand{\kF}{k_F}
+\providecommand{\kK}{k_K}
+\providecommand{\HerbPhi}{\varphi^{\mathrm H}}
+\providecommand{\HerbPsi}{\psi^{\mathrm H}}
+
+% Manuscript source labels are external to the blueprint.
+% Inside \SourceText, render \ref{...}/\eqref{...} as stable manuscript labels
+% instead of trying to resolve them against the blueprint's .aux file.
+\let\BlueprintOriginalSourceText\SourceText
+\renewcommand{\SourceText}[1]{%
+  \begingroup
+  \def\ref##1{##1}%
+  \def\eqref##1{##1}%
+  \BlueprintOriginalSourceText{#1}%
+  \endgroup
+}

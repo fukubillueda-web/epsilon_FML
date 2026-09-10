@@ -1,0 +1,144 @@
+\begin{theorem}[Exact stable twist]\label{mod:lamprecht-stabletwist}
+Let $F$ be a nonarchimedean local field, let $\psi$ have exact additive
+conductor $n$, and let $\theta$ and $\nu$ be quasi-characters with exact
+multiplicative conductors.  Suppose
+\[
+ m_F(\theta)=q=2d+\varepsilon>1,
+ \qquad \varepsilon\in\{0,1\},
+ \qquad m_F(\nu)\leq d.
+\]
+Put $r=d+\varepsilon$.  Then $q\leq2r$ and $r+1\leq q$, so $r$ is the
+minimal permitted Lamprecht depth.  Moreover $m_F(\nu)<q$, hence
+$\nu\theta$ has exact conductor $q$, and $\nu$ is trivial on $U_F^r$.
+
+Choose an admissible denominator $\Gamma\in F^\times$, so
+\[
+ \operatorname{ord}_F(\Gamma)=q+n.
+\]
+The stationary numerators at depth $r$ are the quotient classes
+\[
+ \operatorname{St}_{\Gamma,r}(\theta),
+ \operatorname{St}_{\Gamma,r}(\nu\theta)
+ \in \mathcal O_F/\mathfrak p_F^{q-r}
+     =\mathcal O_F/\mathfrak p_F^d.
+\]
+They are equal:
+\[
+ \operatorname{St}_{\Gamma,r}(\nu\theta)
+ =\operatorname{St}_{\Gamma,r}(\theta).
+\]
+This is an equality of quotient classes, not a choice of a canonical
+representative.  Indeed, every representative $\beta$ of the class of
+$\theta$ satisfies
+\[
+ \theta(1+x)=\psi(\beta x/\Gamma)
+ \qquad(x\in\mathfrak p_F^r),
+\]
+and multiplication by $\nu(1+x)=1$ gives the same identity for
+$\nu\theta$.  Exact stationary order proves
+$\operatorname{ord}_F(\beta)=0$, so each such $\beta$ is a nonzero local
+unit and $\Gamma/\beta$ is defined.
+
+For every representative $\beta$ of this stationary class, the finite
+Gauss sums satisfy the exact identity
+\[
+ G_\Gamma(\nu\theta,\psi)
+ =\nu(\beta)^{-1}G_\Gamma(\theta,\psi).
+\]
+Consequently
+\[
+ \boxed{
+ \Delta_F^{\mathrm{fin}}(\nu\theta,\psi;\Gamma)
+ =\nu(\Gamma/\beta)\,
+  \Delta_F^{\mathrm{fin}}(\theta,\psi;\Gamma).}
+\]
+The quotient factor is representative-independent: if $\beta'$ is another
+representative, then
+\[
+ \beta'/\beta\in U_F^d,
+ \qquad
+ \nu(\beta'/\beta)=1,
+ \qquad
+ \nu(\Gamma/\beta')=\nu(\Gamma/\beta).
+\]
+\LeanFile{LanglandsFirstMainLemma/Lamprecht/StableTwist.lean}
+\lean{LanglandsFirstMainLemma.stableTwistData}
+\lean{LanglandsFirstMainLemma.stableTwistData_conductor}
+\lean{LanglandsFirstMainLemma.stableTwist_stationaryDepth}
+\lean{LanglandsFirstMainLemma.stableTwist_trivialOnStationaryLayer}
+\lean{LanglandsFirstMainLemma.stationaryNumeratorClass_stableTwist}
+\lean{LanglandsFirstMainLemma.stableStationaryRepresentativeUnit}
+\lean{LanglandsFirstMainLemma.stableTwist_characterFactor_representative_independent}
+\lean{LanglandsFirstMainLemma.stableTwistAdmissibleGamma}
+\lean{LanglandsFirstMainLemma.finiteGaussSum_stableTwist}
+\lean{LanglandsFirstMainLemma.stableTwist}
+\leanok
+\SourceText{Lemma~\ref{lem:stable-twist-new}.}
+\uses{mod:lamprecht-formula,mod:lamprecht-stationaryclasscalculus,mod:delta-elementary}
+\FormalizationContract The parity parameter in Lean is a natural number
+$\varepsilon\leq1$, hence exactly zero or one, and the stationary depth is
+literally $d+\varepsilon$.  The twist datum stores the unchanged exact
+conductor $q$ and the same admissible denominator.  The stationary numerator
+remains a class in the certified lattice quotient; every theorem about its
+value quantifies over a supplied representative and its proof of membership
+in that class.  The finite-sum proof averages over $U_F^r/U_F^q$ and uses the
+perfect Lamprecht pairing to annihilate every orbit except
+$u\equiv\beta\pmod{\mathfrak p_F^d}$.  It therefore treats the even branch
+$r=d$ and odd branch $r=d+1$ with their exact common denominator depth $d$,
+without importing a canonical representative or discarding an odd residual
+phase.  The principal theorem has the factor $\nu(\Gamma/\beta)$, with the
+inverse on $\beta$ and no additional sign.
+\end{theorem}
+\begin{proof}
+Since $m_F(\nu)\leq d<q=m_F(\theta)$, the unequal-conductor product lemma
+gives $m_F(\nu\theta)=q$.  The inequalities
+$q\leq2(d+\varepsilon)$ and $d+\varepsilon+1\leq q$ follow from
+$q=2d+\varepsilon>1$ and $\varepsilon\leq1$.  Thus both characters use the
+same stationary quotient at depth $r=d+\varepsilon$.  The character $\nu$
+is trivial on $U_F^r$, so stationary-duality uniqueness gives equality of
+their stationary classes.
+
+Fix an arbitrary representative $\beta$.  To prove the Gauss-sum identity
+without selecting representatives of any finite quotient, write
+$G=U_F^0/U_F^q$ and $H=U_F^r/U_F^q$.  For $u\in G$, let
+\[
+ f(u)=\psi(u/\Gamma)\theta(u)^{-1}.
+\]
+For $a\in H$, stationary linearization gives
+$\theta(a)=\psi(\beta(a-1)/\Gamma)$, and therefore
+\[
+ f(au)
+ =\psi\bigl((u-\beta)(a-1)/\Gamma\bigr)f(u).
+\]
+The character in $a$ is the Lamprecht pairing of the coefficient class
+$[u-\beta]\in\mathcal O_F/\mathfrak p_F^d$ with
+$[a-1]\in\mathfrak p_F^r/\mathfrak p_F^q$.  Perfectness of the pairing and
+finite additive-character orthogonality show that its sum over $H$ is zero
+unless $[u-\beta]=0$.  In that exceptional case
+$u/\beta\in U_F^d$, so $\nu(u)=\nu(\beta)$.
+
+Now average
+\[
+ \sum_{u\in G}
+ \bigl(\nu(u)^{-1}-\nu(\beta)^{-1}\bigr)f(u)
+\]
+over multiplication by $H$.  The factor in parentheses is constant on each
+$H$-orbit.  The preceding orthogonality kills every nonexceptional orbit,
+and it is zero on every exceptional orbit.  Since $H$ is nonempty, the
+original sum is zero.  This proves
+$G_\Gamma(\nu\theta,\psi)=\nu(\beta)^{-1}G_\Gamma(\theta,\psi)$.
+
+The finite Gauss sum for $\theta$ is nonzero, and $\nu(\beta)$ has complex
+norm one because $\beta$ is a local unit.  Hence taking total phases preserves
+the factor $\nu(\beta)^{-1}$.  Multiplying by the denominator value in the
+definition of $\Delta_F^{\mathrm{fin}}$ gives
+\[
+ (\nu\theta)(\Gamma)\nu(\beta)^{-1}
+ =\nu(\Gamma/\beta)\theta(\Gamma),
+\]
+which is the displayed stable-twist formula with the required direction.
+
+Finally, two representatives differ modulo $\mathfrak p_F^d$ and both have
+order zero.  Thus their ratio lies in $U_F^d$, where $\nu$ is trivial, proving
+the representative-independence assertion.
+\end{proof}

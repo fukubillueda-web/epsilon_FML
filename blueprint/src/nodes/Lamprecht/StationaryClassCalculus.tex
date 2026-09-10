@@ -1,0 +1,165 @@
+\begin{lemma}[Stationary-class calculus]\label{mod:lamprecht-stationaryclasscalculus}
+Let $F$ be a nonarchimedean local field.  Fix an additive character
+$\psi$ of exact conductor $n$, an integer $M$, and
+$\Gamma\in F^\times$ with
+\[
+ \operatorname{ord}_F(\Gamma)=M+n.
+\]
+All stationary numerators below are quotient classes; none of the
+constructions selects a field-valued representative.
+
+Suppose that $q>1$ and that $r$ is stationary, so
+$q\leq2r$ and $r+1\leq q$.  If
+$r\leq s$ and $s+1\leq q$, then $s$ is also stationary.  Replacing the
+denominator ideal $\mathfrak p_F^{M-r}$ by
+$\mathfrak p_F^{M-s}$ gives the representative-free projection
+\[
+ \operatorname{res}_{r,s}\colon
+ \mathfrak p_F^{M-q}/\mathfrak p_F^{M-r}
+ \longrightarrow
+ \mathfrak p_F^{M-q}/\mathfrak p_F^{M-s}.
+\]
+It keeps the same numerator representative, and finite-duality uniqueness
+proves
+\[
+ \operatorname{res}_{r,s}
+   \bigl(\operatorname{St}_{\Gamma,r}(\theta)\bigr)
+ =\operatorname{St}_{\Gamma,s}(\theta).
+\]
+
+For $a\in F^\times$, put $v=\operatorname{ord}_F(a)$ and
+$M'=M+v$.  Multiplication by $a$ descends, with its representative
+independence proved at both bounds, to
+\[
+ \mathfrak p_F^{M-q}/\mathfrak p_F^{M-r}
+ \longrightarrow
+ \mathfrak p_F^{M'-q}/\mathfrak p_F^{M'-r},
+ \qquad[c]\longmapsto[ac].
+\]
+Since $\operatorname{ord}_F(a\Gamma)=M'+n$, this map sends
+$\operatorname{St}_{\Gamma,r}(\theta)$ to
+$\operatorname{St}_{a\Gamma,r}(\theta)$.  Thus the arbitrary valuation of
+$a$ is recorded by the shift from $M$ to $M'$; no unit assumption is hidden.
+
+For a common layer $r\leq Q$, Lean's predicate
+\texttt{IsStationaryRestrictionClass} says that a class
+\[
+ s\in\mathfrak p_F^{M-Q}/\mathfrak p_F^{M-r}
+\]
+linearizes a quasi-character on $\mathfrak p_F^r$.  It quantifies over every
+$c$ representing $s$ and requires
+\[
+ \theta(1+x)=\psi(cx/\Gamma)
+ \qquad(x\in\mathfrak p_F^r).
+\]
+The stationary class constructed in the preceding node satisfies this
+predicate.  If $s_1,s_2$ linearize $\theta_1,\theta_2$ on the same layer,
+then $s_1+s_2$ linearizes $\theta_1\theta_2$.  For every $j\in\mathbf Z$,
+$j s_1$ linearizes $\theta_1^j$.  These are quotient-class statements;
+their proofs descend arbitrary sum and integer-multiple representatives and
+use the exact annihilator pairing to prove representative independence.
+
+The minimal stationary depth is
+\[
+ r(q)=\left\lceil\frac q2\right\rceil.
+\]
+It is admissible for $q>1$, and if $q'<q$ then
+$r(q')\leq r$ for every stationary depth $r$ at conductor $q$.
+If $\theta_1$ and $\theta_2$ both have exact conductor $q$, while their
+product has exact conductor $q'$, then first
+\[
+ q'\leq q.
+\]
+Projection of the sum of stationary classes to the leading quotient
+\[
+ \mathfrak p_F^{M-q}/\mathfrak p_F^{M-q+1}
+\]
+vanishes exactly when the product conductor drops:
+\[
+ q'<q
+ \quad\Longleftrightarrow\quad
+ \operatorname{lead}
+ \bigl(\operatorname{St}_{\Gamma,r}(\theta_1)
+       +\operatorname{St}_{\Gamma,r}(\theta_2)\bigr)=0.
+\]
+Equivalently, for every explicitly quantified pair of representatives
+$c_1,c_2$ of the two stationary classes,
+\[
+ q'<q
+ \quad\Longleftrightarrow\quad
+ c_1+c_2\in\mathfrak p_F^{M-q+1}.
+\]
+The proof uses exact triviality on $U_F^{q-1}$ and the exact left
+annihilator $\mathfrak p_F^{M-q+1}$, not a pointwise-kernel converse.
+
+Assume now that $1<q'<q$.  Form the product datum with its supplied exact
+conductor $q'$, set $r'=r(q')$, and first construct the genuinely new class
+\[
+ \operatorname{St}_{\Gamma,r'}(\theta_1\theta_2)
+ \in
+ \mathfrak p_F^{M-q'}/\mathfrak p_F^{M-r'}.
+\]
+Only then use the certified inclusions
+\[
+ \mathfrak p_F^{M-q'}\subseteq\mathfrak p_F^{M-q},
+ \qquad
+ \mathfrak p_F^{M-r'}\subseteq\mathfrak p_F^{M-r}
+\]
+to map this class into the old quotient.  There it equals the old sum:
+\[
+ \operatorname{res}_{(q',r'),(q,r)}
+   \bigl(\operatorname{St}_{\Gamma,r'}(\theta_1\theta_2)\bigr)
+ =\operatorname{St}_{\Gamma,r}(\theta_1)
+  +\operatorname{St}_{\Gamma,r}(\theta_2).
+\]
+This two-bound map remains well typed even when $r\geq q'$.  In particular,
+the construction never treats the old sum as a numerator class at the new
+depth.  At the representative level, every $c'$ representing the newly
+constructed class and every old pair $c_1,c_2$ satisfy exactly
+\[
+ c'-(c_1+c_2)\in\mathfrak p_F^{M-r}.
+\]
+If $q'\leq1$, no admissible stationary depth exists, so no stationary
+parameter is retained and the conductor-zero or conductor-one endpoint
+formula must be used.
+\LeanFile{LanglandsFirstMainLemma/Lamprecht/StationaryClassCalculus.lean}
+\lean{LanglandsFirstMainLemma.IsLamprechtStationaryDepth.deeper}
+\lean{LanglandsFirstMainLemma.latticeQuotientChangeBounds}
+\lean{LanglandsFirstMainLemma.latticeQuotientChangeBounds_mk}
+\lean{LanglandsFirstMainLemma.stationaryClassRestriction}
+\lean{LanglandsFirstMainLemma.stationaryNumeratorClass_restrict}
+\lean{LanglandsFirstMainLemma.stationaryDenominatorScale}
+\lean{LanglandsFirstMainLemma.stationaryDenominatorScale_mk}
+\lean{LanglandsFirstMainLemma.stationaryDenominatorScale_order}
+\lean{LanglandsFirstMainLemma.stationaryNumeratorClass_scaleDenominator}
+\lean{LanglandsFirstMainLemma.IsStationaryRestrictionClass}
+\lean{LanglandsFirstMainLemma.stationaryNumeratorClass_isRestriction}
+\lean{LanglandsFirstMainLemma.IsStationaryRestrictionClass.mul}
+\lean{LanglandsFirstMainLemma.IsStationaryRestrictionClass.continuousQuasiChar_zpow_apply}
+\lean{LanglandsFirstMainLemma.IsStationaryRestrictionClass.zpow}
+\lean{LanglandsFirstMainLemma.lamprechtHalfDepth}
+\lean{LanglandsFirstMainLemma.lamprechtHalfDepth_isDepth}
+\lean{LanglandsFirstMainLemma.lamprechtHalfDepth_le_of_conductor_lt}
+\lean{LanglandsFirstMainLemma.quasiCharDataOfIsConductor}
+\lean{LanglandsFirstMainLemma.quasiCharDataOfIsConductor_character}
+\lean{LanglandsFirstMainLemma.quasiCharDataOfIsConductor_conductor}
+\lean{LanglandsFirstMainLemma.stationaryProductConductor_le}
+\lean{LanglandsFirstMainLemma.stationaryLeadingCancellation_iff}
+\lean{LanglandsFirstMainLemma.stationaryLeadingClassProjection}
+\lean{LanglandsFirstMainLemma.stationaryLeadingClassCancellation_iff}
+\lean{LanglandsFirstMainLemma.droppedStationaryClassRestriction}
+\lean{LanglandsFirstMainLemma.stationaryClass_afterConductorDrop}
+\lean{LanglandsFirstMainLemma.stationaryClass_afterConductorDrop_representatives}
+\lean{LanglandsFirstMainLemma.noStationaryClass_of_conductor_le_one}
+\lean{LanglandsFirstMainLemma.stationaryClassCalculus}
+\leanok
+\SourceText{Lemma~\ref{lem:stationary-class-calculus}.}
+\uses{mod:lamprecht-stationaryclass,mod:delta-elementary}
+\FormalizationContract Every public stationary numerator is a certified
+lattice-quotient class.  Restriction and scaling are representative-free
+quotient maps.  Product and integer-power results quantify over all
+representatives of a common-layer class.  After a conductor drop greater than
+one, the class is constructed at the new conductor and new half-depth before
+being compared with the old sum; at conductor zero or one there is no
+stationary parameter.
+\end{lemma}

@@ -1,0 +1,202 @@
+\begin{theorem}[High stationary classes: unramified and stable cases]
+\label{mod:parameters-highunramifiedstable}
+Let $K/F$ be a finite valuative extension of nonarchimedean local fields and
+let
+\[
+ \chi_K=\chi_F\circ N_{K/F},\qquad
+ \psi_K=\psi_F\circ\operatorname{Tr}_{K/F}.
+\]
+Write the separately stored exact multiplicative conductors as
+\[
+ m_F=2d_F+\varepsilon_F,\qquad
+ m_K=2d_K+\varepsilon_K,\qquad
+ \varepsilon_F,\varepsilon_K\leq1,\qquad m_F,m_K>1,
+\]
+and put $q_F=d_F+\varepsilon_F$ and
+$q_K=d_K+\varepsilon_K$.  Given a downstairs denominator $\gamma_F$ with
+\[
+ v_F(\gamma_F)=m_F+n_F(\psi_F),
+\]
+the theorems below use the ordered pair
+\[
+ (\gamma_F,\gamma_K)
+   =(\gamma_F,\operatorname{algebraMap}_{F,K}(\gamma_F)).
+\]
+In every case Lean first proves that $\gamma_K$ has the required upstairs
+valuation $m_K+n_K(\psi_K)$.
+
+Let
+\[
+ \beta_F\in\mathcal O_F/\mathfrak p_F^{d_F},\qquad
+ \beta_K\in\mathcal O_K/\mathfrak p_K^{d_K}
+\]
+be the stationary numerator classes constructed at the exact depths $q_F$
+and $q_K$.  Whenever the truncated norm is trace at these depths, combining
+the stationary-class transport of
+Corollary~\ref{mod:parameters-stationaryclassundernorm} with the
+denominator-sensitive adjoint gives
+\[
+ \boxed{\quad
+ \beta_K=
+ P^*_{K/F;\gamma_F,\gamma_K}(\beta_F)
+ =\iota^{d_F,d_K}_{\gamma_F,\gamma_K}(\beta_F)
+ \quad}
+ \qquad\text{in }\mathcal O_K/\mathfrak p_K^{d_K}.
+\]
+Here $P$ points from the upstairs variable quotient to the downstairs
+variable quotient, $P^*$ points from the downstairs numerator quotient to
+the upstairs numerator quotient, and
+$\iota^{d_F,d_K}_{\gamma_F,\gamma_K}$ is Lean's
+\texttt{denominatorScaledAlgebraMap}.  Thus the right side is a quotient
+class obtained from the algebra map with this ordered denominator pair; it
+is not a chosen element of $K$.
+
+\paragraph{Unramified row.}
+Assume $K/F$ is prime cyclic and $e(K/F)=1$, so
+$f(K/F)=[K:F]$.  The factor $e=1$ controls the common denominator and the
+factor $f=[K:F]$ is retained in the terminal norm bound.  Lean proves the exact
+preservation identities
+\[
+ m_K=m_F,\qquad n_K(\psi_K)=n_F(\psi_F),
+\]
+and uses the same decomposition $(d_K,\varepsilon_K)=(d_F,\varepsilon_F)$.
+It constructs the three norm-filtration inclusions at the exact pairs
+\[
+ (q_K,q_F)=(q_F,q_F),\qquad (m_K,m_F)=(m_F,m_F),
+ \qquad(d_K,d_F)=(d_F,d_F).
+\]
+For $x\in\mathfrak p_K^{q_F}$ the degree-$j$ elementary symmetric term has
+downstairs valuation at least $j q_F$; hence every term with $j\geq2$
+vanishes modulo $\mathfrak p_F^{m_F}$ because $m_F\leq2q_F$.  Therefore
+\[
+ P:[x]\longmapsto[N_{K/F}(1+x)-1]
+   =\operatorname{Tr}_{K/F}
+\]
+on
+$\mathfrak p_K^{q_F}/\mathfrak p_K^{m_F}
+ \to\mathfrak p_F^{q_F}/\mathfrak p_F^{m_F}$, and the displayed quotient
+identity is precisely the specialization $P^*(\beta_F)=\beta_F$ in
+$\mathcal O_K/\mathfrak p_K^{d_F}$.
+
+\paragraph{Stable odd-degree ramified row.}
+Assume $K/F$ is prime cyclic, $f(K/F)=1$, and supply the lower break $t$ and
+the generating integral uniformizer required by the ramification lemmas.
+Put
+\[
+ \ell=[K:F]=e(K/F),\qquad T=t+1,\qquad
+ D=(\ell-1)T,
+\]
+assume $\ell$ is odd and retain the manuscript's exact stable inequality
+$T\leq d_F$.  No further tame/wild disjunction is assumed.  Lean splits
+internally on $t=0$; in the positive-break branch it derives
+$\operatorname{char}(k_F)=\ell$ from the supplied lower-break and generating
+uniformizer data.
+The conductor results of Theorem~\ref{mod:ramification-pullbackconductors}
+give
+\[
+ m_K+D=\ell m_F,
+ \qquad
+ m_K+n_K(\psi_K)=\ell\bigl(m_F+n_F(\psi_F)\bigr),
+\]
+so the common denominator is admissible.  Writing $\ell=2k+1$, the Lean
+arithmetic proof derives, without truncated-subtraction ambiguity,
+\[
+ \varepsilon_K=\varepsilon_F,\qquad
+ d_K=d_F+k(m_F-T),\qquad
+ q_K=q_F+k(m_F-T).
+\]
+In particular it proves
+\[
+ q_K\geq m_F,\qquad d_K\leq\ell d_F,\qquad
+ \ell q_F\leq q_K+D,\qquad
+ \ell m_F=m_K+D,
+\]
+as well as the coefficient-depth bound needed for
+$N(U_K^{d_K})\subseteq U_F^{d_F}$.  Lean constructs, rather than assumes,
+all three exact-precision containments
+\[
+ N(U_K^{q_K})\subseteq U_F^{q_F},\qquad
+ N(U_K^{m_K})\subseteq U_F^{m_F},\qquad
+ N(U_K^{d_K})\subseteq U_F^{d_F},
+\]
+and the trace containments at $(q_K,q_F)$ and $(m_K,m_F)$.
+
+For $t=0$ it applies the totally ramified tame elementary-symmetric bound;
+for $t>0$ it applies the wild bound with
+$\operatorname{char}(k_F)=\ell$.  The shared numerical estimate
+\[
+ \ell m_F\leq2q_K+D
+\]
+kills every intermediate term modulo $\mathfrak p_F^{m_F}$.  The terminal
+norm term has $v_F(Nx)=f(K/F)v_K(x)=v_K(x)\geq q_K\geq m_F$.
+Consequently $P=\operatorname{Tr}_{K/F}$ on the exact variable quotients,
+and Lean returns a proof of $d_K\leq e(K/F)d_F$ together with the displayed
+stationary numerator quotient equality.
+
+\paragraph{Tamely ramified quadratic row.}
+Assume further
+\[
+ \ell=e(K/F)=2,\qquad f(K/F)=1,\qquad t=0,\qquad
+ \operatorname{char}(k_F)\ne2.
+\]
+From the actual pullback conductor, rather than an independently supplied
+upstairs depth, Lean proves
+\[
+ m_K+1=2m_F,\qquad
+ m_K=2(m_F-1)+1,\qquad
+ d_K=m_F-1,\qquad \varepsilon_K=1,\qquad q_K=m_F.
+\]
+Thus the truncated norm has the exact source and target
+\[
+ P:\mathfrak p_K^{m_F}/\mathfrak p_K^{2m_F-1}
+   \longrightarrow
+   \mathfrak p_F^{d_F+\varepsilon_F}/\mathfrak p_F^{m_F}.
+\]
+The intermediate range is empty in degree two, while
+$v_F(Nx)=v_K(x)\geq m_F$ kills the quadratic terminal term.  Hence the
+quadratic identity $N(1+x)-1=\operatorname{Tr}(x)+N(x)$ specializes to
+$P=\operatorname{Tr}_{K/F}$ on these exact quotients.  Lean also proves
+$m_F-1\leq2d_F$ and the common-denominator identity
+\[
+ v_K(\gamma_K)=2\bigl(m_F+n_F(\psi_F)\bigr)
+               =m_K+n_K(\psi_K),
+\]
+then concludes the quotient-class equality in
+$\mathcal O_K/\mathfrak p_K^{m_F-1}$.  No equality of representatives in
+$K$, and no choice of a quadratic uniformizer, is asserted.
+
+\LeanFile{LanglandsFirstMainLemma/Parameters/HighUnramifiedStable.lean}
+\lean{LanglandsFirstMainLemma.highParameter_unramified_conductor_eq}
+\lean{LanglandsFirstMainLemma.highParameter_unramified_additiveConductor_eq}
+\lean{LanglandsFirstMainLemma.highParameter_unramified_sourceDecomposition}
+\lean{LanglandsFirstMainLemma.highParameter_unramified_commonDenominator}
+\lean{LanglandsFirstMainLemma.highParameter_unramified}
+\lean{LanglandsFirstMainLemma.highParameter_ramified_conductor_eq}
+\lean{LanglandsFirstMainLemma.highParameter_ramified_conductor_relation}
+\lean{LanglandsFirstMainLemma.highParameter_ramified_commonDenominator}
+\lean{LanglandsFirstMainLemma.highParameter_stableOdd}
+\lean{LanglandsFirstMainLemma.highParameter_tameQuadratic_conductor_relation}
+\lean{LanglandsFirstMainLemma.highParameter_tameQuadratic_sourceDecomposition}
+\lean{LanglandsFirstMainLemma.highParameter_tameQuadratic_variableDepth}
+\lean{LanglandsFirstMainLemma.highParameter_tameQuadratic}
+\leanok
+\SourceText{Proposition prop:high-parameter-table, parts (a), (b), and the
+tame quadratic part.}
+\uses{mod:parameters-stationaryclassundernorm,
+mod:ramification-pullbackconductors,
+mod:ramification-unramifiedcompatibility}
+\FormalizationContract
+The three principal results are equalities in literal coefficient lattice
+quotients.  Their right sides are the denominator-sensitive algebra-map
+images for the common ordered denominator pair.  The unramified theorem uses
+depths $(q_F,m_F,d_F)$ on both sides; the stable odd theorem uses the actual
+upstairs depths $(q_K,m_K,d_K)$ determined by norm pullback and assumes
+exactly $t+1\leq d_F$; the tame quadratic theorem derives
+$(q_K,m_K,d_K)=(m_F,2m_F-1,m_F-1)$.  Norm maps from upstairs filtrations to
+downstairs filtrations, while its adjoint maps downstairs numerator classes
+to upstairs numerator classes.  The proofs use the exact trace
+specialization only after constructing the required conductor, variable,
+and ambiguity precision and after proving the common denominator admissible.
+They do not select stationary representatives and do not import any later
+high-parameter, phase-reduction, or case theorem.
+\end{theorem}

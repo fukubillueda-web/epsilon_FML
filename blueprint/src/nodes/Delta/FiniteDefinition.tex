@@ -1,0 +1,104 @@
+\begin{definition}[Computational local constant]\label{mod:delta-finitedefinition}
+Let $F$ be a nonarchimedean local field, let
+$\chi:F^\times\to\mathbf C^\times$ have exact multiplicative conductor
+$m\in\mathbf N$, and let $\psi:F\to\mathbf C^\times$ have exact additive
+conductor $n\in\mathbf Z$ in Langlands's convention.  An
+\emph{admissible denominator} is an element $\gamma\in F^\times$ satisfying
+\[
+ \operatorname{ord}_F(\gamma)=m+n.
+\]
+Equivalently,
+$\gamma\mathcal O_F=\mathfrak p_F^{m+n}$.  Such denominators exist.  If
+$\gamma$ and $\gamma'$ are admissible, their explicitly defined ratio
+$a=\gamma'/\gamma$ lies in $U_F^0$ and satisfies $\gamma'=a\gamma$.
+
+Put $Q_m=U_F^0/U_F^m$.  For $u\in U_F^0$ define
+\[
+ g_\gamma(u)=\psi(u/\gamma)\chi(u)^{-1}.
+\]
+If $u\equiv v\pmod {U_F^m}$, then $\chi(u/v)=1$ and
+\[
+ \frac{u-v}{\gamma}\in\mathfrak p_F^{-n},
+\]
+so $g_\gamma(u)=g_\gamma(v)$.  Thus the summand is first descended to a
+function on $Q_m$ using this invariance proof; no representative of a
+quotient class is selected.  Define the unnormalised finite Gauss sum
+\[
+ G_\gamma(\chi,\psi)
+   =\sum_{[u]\in Q_m}\psi(u/\gamma)\chi(u)^{-1}.
+\]
+There is no factor involving $|Q_m|$, $q_F$, a sign, or a choice of Haar
+measure.  The later integral--finite bridge supplies one positive common
+coset measure, which disappears after applying the phase.
+
+The sum is nonzero.  The formal proof is finite Fourier duality on
+\[
+ A_m=\mathcal O_F/\mathfrak p_F^m,
+ \qquad
+ T(x)=\sum_{[u]\in Q_m}\psi(xu/\gamma)\chi(u)^{-1}.
+\]
+When $m=0$, $Q_m$ is a singleton and its sole summand is nonzero.  Suppose
+$m>0$ and $G_\gamma=T(1)=0$.  A unit frequency is reduced to $T(1)$ by
+multiplicative reindexing.  A frequency in $\mathfrak p_F$ is killed by
+reindexing with an element of $U_F^{m-1}$ on which $\chi$ is nontrivial;
+exactness of the multiplicative conductor supplies that element.  Hence
+$T(x)=0$ for every $x\in A_m$.  On the other hand, exactness of the additive
+conductor makes the pairing
+\[
+ (x,y)\longmapsto\psi(xy/\gamma)
+\]
+on $A_m$ nondegenerate.  Finite additive-character orthogonality therefore
+gives
+\[
+ \sum_{x\in A_m}T(x)\psi(-x/\gamma)=|A_m|\ne0,
+\]
+a contradiction.  In particular the proof does not assume nonvanishing
+from a downstream integral or Lamprecht formula.
+
+Multiplication by $a=\gamma'/\gamma$ permutes $Q_m$, and the descended
+summand and the finite sum obey the exact change formulas
+\[
+ g_{\gamma'}(au)=\chi(a)^{-1}g_\gamma(u),
+ \qquad
+ G_{\gamma'}=\chi(a)^{-1}G_\gamma.
+\]
+The restriction of $\chi$ to $U_F^0$ factors through the finite group
+$Q_m$, so $|\chi(a)|=1$; this proves the manuscript's unitary assertion
+without a compactness or hidden-choice assumption.
+
+With the total phase $\operatorname{ph}(0)=1$, define the computational
+local constant by the manuscript normalization
+\[
+ \Delta_F^{\mathrm{fin}}(\chi,\psi;\gamma)
+   =\chi(\gamma)\operatorname{ph}
+      \bigl(G_\gamma(\chi,\psi)\bigr).
+\]
+The proved nonvanishing of $G_\gamma$ permits the nonzero branch of phase
+multiplicativity.  Combining it with the two change factors above proves
+unconditionally that this value is independent of the admissible
+denominator $\gamma$.
+
+\LeanFile{LanglandsFirstMainLemma/Delta/FiniteDefinition.lean}
+\lean{LanglandsFirstMainLemma.AdmissibleGamma}
+\lean{LanglandsFirstMainLemma.AdmissibleGamma.exists_admissible}
+\lean{LanglandsFirstMainLemma.AdmissibleGamma.smul_lattice_zero}
+\lean{LanglandsFirstMainLemma.AdmissibleGamma.ratio_mem_unitFiltration}
+\lean{LanglandsFirstMainLemma.finiteGaussSummandRepresentative_eq_of_congruent}
+\lean{LanglandsFirstMainLemma.finiteGaussSummand}
+\lean{LanglandsFirstMainLemma.finiteGaussSummand_mk}
+\lean{LanglandsFirstMainLemma.finiteGaussSum}
+\lean{LanglandsFirstMainLemma.finiteGaussSum_ne_zero}
+\lean{LanglandsFirstMainLemma.finiteGaussSum_admissibleGamma_change}
+\lean{LanglandsFirstMainLemma.quasiChar_norm_eq_one_of_mem_unitFiltration_zero}
+\lean{LanglandsFirstMainLemma.deltaFinite}
+\lean{LanglandsFirstMainLemma.deltaFinite_gamma_independent}
+\leanok
+\SourceText{Definition of Delta and Lemma lem:gamma-independent.}
+\uses{mod:basic-characterconductors,mod:localfield-finitequotients,mod:basic-phase}
+\FormalizationContract The finite sum is unnormalised and is defined only
+after its summand has been descended with an explicit congruence-invariance
+proof.  Admissible denominators and quotient classes are explicit inputs;
+no declaration chooses either one.  Nonvanishing is proved here because the
+total phase cannot transport a zero sum through an admissible-denominator
+change.
+\end{definition}

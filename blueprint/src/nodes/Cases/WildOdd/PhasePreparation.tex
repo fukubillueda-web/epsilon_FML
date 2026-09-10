@@ -1,0 +1,27 @@
+\begin{theorem}[Wild odd phase preparation]
+\label{mod:cases-wildodd-phasepreparation}
+Construct the conductor decomposition and nonstable range, the actual
+\texttt{FirstMainComputationalData}, and the source-tied
+\texttt{FirstMainPhaseData}.  Retain the complete High or Low provenance,
+including the actual stationary representatives, representative changes,
+and the clean critical coordinates.  Construct the residual additive
+character and parity package and prove the exact raw critical quotient
+identity with \texttt{wildOddCompleteResidualPhaseQuotient}.
+
+Every indexed row remains tied to its real norm character and actual
+conductor.  A conductor drop reconstructs the stationary class at the new
+depth.  The High and low-boundary representative changes are simplified only
+after their source-faithful affine translation coefficients have been proved
+zero.  No \texttt{ExactOddPhaseAssembly} is constructed in this node.
+\LeanFile{LanglandsFirstMainLemma/Cases/WildOdd/PhasePreparation.lean}
+\lean{LanglandsFirstMainLemma.wildOddPhasePreparation}
+\leanok
+\SourceText{Propositions prop:exact-odd-assembly, prop:odd-coefficient-table, and prop:odd-phase-cancel.}
+\uses{mod:ramification-primecyclicpreparation,mod:parameters-phasereduction,mod:parameters-high,mod:parameters-low,mod:parameters-minimalorbitstationary,mod:cases-wildodd-residualcoefficients,mod:cases-wildodd-upperresidualcoefficients,mod:cases-wildodd-parityreduction,mod:cases-wildodd-main,mod:cases-wildodd-affinetranslationbridge,mod:cases-wildodd-lowsourcenormalization}
+\FormalizationContract
+Use the live High or Low source at the actual depth and retain representative,
+translation, residual-phase, and denominator data for CorrectionPreparation.
+The output order is actual source rows, residual additive character and parity,
+then the raw critical quotient.  Expected implementation size: 2200--2900
+Lean lines, with hard architecture review at 3000 lines.
+\end{theorem}

@@ -1,0 +1,25 @@
+\begin{theorem}[Wild quadratic low and boundary upper-coordinate transport]
+\label{mod:cases-wildquadratic-lowcoordinatetransport}
+In the low and boundary ranges, transport the actual upstairs stationary
+coordinate through the degree-two norm polynomial.  The construction retains
+the selected low representative pair, low conductor table, and actual
+upstairs witness.  It proves the correction comparison and a
+\(q\)-polymorphic upper-coordinate certificate while the actual residual
+coordinate is live.
+
+At the boundary, \(\rho\) is the residue of the retained selected source
+coordinate.  It is not reconstructed from the norm identity alone.  The
+representatives remain at \texttt{lowCriticalFloorDepth t} and the actual
+stationary depth; no stronger representative is selected.
+\LeanFile{LanglandsFirstMainLemma/Cases/WildQuadratic/LowCoordinateTransport.lean}
+\lean{LanglandsFirstMainLemma.wildQuadraticLowCoordinateTransport}
+\leanok
+\SourceText{Lemma lem:residual-parameter-transport and Propositions prop:quadratic-critical-functions and prop:quadratic-gamma-table, low and boundary upper rows.}
+\uses{mod:parameters-phasereduction,mod:parameters-low,mod:cases-wildquadratic-coordinatetransport}
+\FormalizationContract
+Retain the actual low table, representative pair, upstairs witness, and
+equalities identifying the selected correction units.  Produce the upper
+coordinate and its actual extension-row phase uniformly for every refinement
+\(q\).  Do not select \(q\), strengthen representative precision, or infer the
+boundary source from \(N(u)=n\) alone.
+\end{theorem}

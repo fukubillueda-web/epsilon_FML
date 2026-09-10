@@ -1,0 +1,45 @@
+\begin{theorem}[Odd-prime finite phase cancellation]\label{mod:cases-wildodd-parityreduction}
+Let $p\ne2$ be prime, let $k$ be the residue field of characteristic $p$,
+and let $\psi_0$ be the certified nontrivial residual additive character.
+Suppose the completed residual-coefficient table supplies the named generator
+and base pairs
+\[
+ (\eta_0,\eta_0\gamma_0),\qquad (\eta,\eta\gamma),
+\]
+and, only in the odd boundary case $b=v$ with $v+1$ odd, the boundary
+noncancellation conditions $j+d_0\ne0$ for every $j\in\F_p^\times$.
+No prime-field shift nonvanishing certificate is required in either strict
+branch or in the even boundary case.  Supply also an injective realization of
+$\F_p^\times$ in $k^\times$ for the scalar products.
+Give a conductor of even parity the residual phase $1$, and give an odd
+conductor with coefficient pair $(A,B)$ the complete phase
+$Q_{\psi_0}(A,B)$.
+
+Then the following five manuscript patterns hold with their displayed
+orientations:
+\begin{enumerate}
+\item below the break, the odd base phase equals the upper phase;
+\item below the break, the product of the odd nonidentity scalar phases is
+  $1$;
+\item the product of those two below-break contributions has quotient $1$;
+\item above the break, in the all-factors-odd pattern the scalar product is
+  $1$ and the product of the $p$ repeated twist phases is the upper phase;
+\item at the boundary, the complete affine-pencil product is exactly the
+  upper phase times the nonidentity generator product.
+\end{enumerate}
+Consequently, after exhaustive parity dispatch and the disjoint trichotomy
+$b<v$, $v<b$, or $b=v$, the complete residual quotient in manuscript
+orientation
+\[
+ U\,\frac{\prod_{j\ne0}R_j}{\prod_jT_j}
+\]
+is exactly $1$.  The exported assembly API also retains the completed
+coefficient table and the certified $q_0^2$, $q_0^{p-1}$, and $q_0^p$
+identities used by the scalar and repeated-phase theorems.
+\LeanFile{LanglandsFirstMainLemma/Cases/WildOdd/ParityReduction.lean}
+\lean{LanglandsFirstMainLemma.wildOdd_parityReduction}
+\leanok
+\SourceText{Proposition prop:odd-phase-cancel.}
+\uses{mod:cases-wildodd-residualcoefficients,mod:cases-wildodd-scalarphaseproducts,mod:cases-wildodd-boundarypencil,mod:finitefield-q0powers}
+\FormalizationContract
+\end{theorem}

@@ -1,0 +1,32 @@
+\begin{theorem}[Nonvanishing of local constants]\label{mod:delta-nonvanishing}
+Let $F$ be a nonarchimedean local field, let $\chi$ and $\psi$ be exact
+multiplicative and additive character data, and let $\gamma$ be an admissible
+denominator.  By Definition~\ref{mod:delta-finitedefinition},
+\[
+ \Delta_F^{\mathrm{fin}}(\chi,\psi;\gamma)
+ =\chi(\gamma)\,
+   \operatorname{ph}\bigl(G_\gamma(\chi,\psi)\bigr).
+\]
+The character value $\chi(\gamma)$ is nonzero because the quasi-character is
+$\mathbf C^\times$-valued, and the total phase is nonzero at every complex
+argument by Definition~\ref{mod:basic-phase}.  Hence
+\[
+ \Delta_F^{\mathrm{fin}}(\chi,\psi;\gamma)\ne0.
+\]
+Moreover, the theorem
+\texttt{finiteGaussSum\_ne\_zero} proved in
+Definition~\ref{mod:delta-finitedefinition} shows that
+$G_\gamma(\chi,\psi)$ itself is genuinely nonzero.  Thus the zero branch of
+the totalized phase is not used, although only the unconditional
+nonvanishing of the total phase is needed for the displayed product.
+\LeanFile{LanglandsFirstMainLemma/Delta/Nonvanishing.lean}
+\lean{LanglandsFirstMainLemma.deltaFinite_ne_zero}
+\leanok
+\SourceText{Definition~\ref{eq:def-delta}; Corollary~\ref{cor:local-gauss-integral-nonzero}.}
+\uses{mod:delta-finitedefinition}
+\FormalizationContract The exported theorem has no conductor-case hypotheses
+and assumes no nonvanishing fact: it combines the nonzero character value
+with the unconditional nonvanishing of the total phase.  The separately
+proved nonvanishing of the underlying finite Gauss sum records that the
+phase's zero branch is never reached.
+\end{theorem}

@@ -1,0 +1,79 @@
+\begin{definition}[Multiplicative polynomial weights]\label{mod:finitefield-polynomialweights}
+For a commutative semiring $R$, let
+$\operatorname{MonicPolynomial}(R)\subset R[X]$ be the submonoid of monic
+polynomials.  If $M$ is a monoid, define a monic-polynomial weight to be a
+monoid homomorphism
+\[
+ \operatorname{MonicWeight}(R,M)
+   =\operatorname{MonicPolynomial}(R)\longrightarrow M.
+\]
+A function $w:R[X]\to M$ with $w(1)=1$ which is multiplicative whenever
+both inputs are monic induces such a weight.
+
+Use Mathlib's $\operatorname{nextCoeff}(P)$ for the coefficient immediately
+below the leading coefficient, and define
+\[
+ \operatorname{secondCoeff}(P)=[X^2]P^{\mathrm{reverse}}.
+\]
+Thus, if $2\leq\deg P$, then
+\[
+ \operatorname{secondCoeff}(P)
+   =[X^{\deg P-2}]P,
+\]
+whereas $\operatorname{secondCoeff}(P)=0$ when $\deg P<2$.  In particular
+this implements the manuscript's convention $a_2=0$ in degree one.
+For monic $P,Q\in R[X]$, Mathlib's polynomial coefficient API gives
+\[
+ \begin{aligned}
+  \operatorname{nextCoeff}(PQ)
+    &=\operatorname{nextCoeff}(P)+\operatorname{nextCoeff}(Q),\\
+  \operatorname{secondCoeff}(PQ)
+    &=\operatorname{secondCoeff}(P)+\operatorname{secondCoeff}(Q)
+      +\operatorname{nextCoeff}(P)\operatorname{nextCoeff}(Q).
+ \end{aligned}
+\]
+
+Let now $k$ be a field, let
+$\chi\in\operatorname{FiniteMulChar}(k)$, and let
+$\psi\in\operatorname{FiniteAddChar}(k)$.  The Hasse--Davenport polynomial
+weight is the element of $\operatorname{MonicWeight}(k,\mathbf C)$ given by
+\[
+ w_{\chi,\psi}(P)
+ =\chi\!\left((-1)^{\deg P}[X^0]P\right)
+    \psi\!\left(-\operatorname{nextCoeff}(P)\right).
+\]
+This is the manuscript's
+$\chi((-1)^r a_r)\psi(-a_1)$, including its sign and constant-term
+normalization.
+
+Finally, suppose $\phi:k\to\mathbf C$ is nowhere zero and satisfies
+\[
+ \phi(x+y)=\phi(x)\phi(y)\psi(xy)
+ \qquad(x,y\in k).
+\]
+These hypotheses imply $\phi(0)=1$.  The Hasse-function polynomial weight
+is the element of $\operatorname{MonicWeight}(k,\mathbf C)$ given by
+\[
+ w_{\phi,\psi}(P)
+ =\phi\!\left(-\operatorname{nextCoeff}(P)\right)
+    \psi\!\left(-\operatorname{secondCoeff}(P)\right).
+\]
+Its multiplicativity uses the displayed second-coefficient identity: the
+factor $\psi(\operatorname{nextCoeff}(P)\operatorname{nextCoeff}(Q))$
+from the quadratic-refinement law cancels with the corresponding negative
+factor from the second coefficient.
+\LeanFile{LanglandsFirstMainLemma/FiniteField/PolynomialWeights.lean}
+\lean{LanglandsFirstMainLemma.MonicPolynomial}
+\lean{LanglandsFirstMainLemma.MonicWeight}
+\lean{LanglandsFirstMainLemma.MonicWeight.ofFun}
+\lean{LanglandsFirstMainLemma.secondCoeff}
+\lean{LanglandsFirstMainLemma.monic_firstCoeff_mul}
+\lean{LanglandsFirstMainLemma.monic_secondCoeff_mul}
+\lean{LanglandsFirstMainLemma.gaussPolynomialWeight}
+\lean{LanglandsFirstMainLemma.hasseFunction_zero}
+\lean{LanglandsFirstMainLemma.hassePolynomialWeight}
+\leanok
+\SourceText{Proofs of Theorems thm:HD-lift and thm:Hasse-lift.}
+\uses{mod:finitefield-characterapi}
+\FormalizationContract
+\end{definition}

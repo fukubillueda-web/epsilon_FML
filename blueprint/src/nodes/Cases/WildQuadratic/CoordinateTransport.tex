@@ -1,0 +1,28 @@
+\begin{theorem}[Wild quadratic degree-two coordinate transport]
+\label{mod:cases-wildquadratic-coordinatetransport}
+Provide the common degree-two coordinate and phase-transport interface used
+by every positive-polar Wild quadratic branch.  The public proposition
+\texttt{WildQuadraticPositivePolarCoordinateTransport} records, uniformly in
+the refinement parameter \(q\), the correction-class provenance, the exact
+upper coordinate certificate, and equality of the actual extension
+Lamprecht factor with the coefficient-table phase.  Its companion
+continuation retains the lower product coordinate and the actual
+extension, norm, base, and twist phase equalities without choosing \(q\).
+
+The node contains only shared norm-polynomial, normalized-ratio, critical-unit,
+coordinate-point, and actual phase-source transport.  Low, boundary, and
+strict-high source mathematics is supplied by the three downstream producer
+nodes.
+\LeanFile{LanglandsFirstMainLemma/Cases/WildQuadratic/CoordinateTransport.lean}
+\lean{LanglandsFirstMainLemma.WildQuadraticPositivePolarCoordinateTransport}
+\leanok
+\SourceText{Lemma lem:critical-polar-coordinate; Lemma lem:residual-parameter-transport; Propositions prop:quadratic-critical-functions, prop:quadratic-gamma-table, and prop:quadratic-complete-assembly.}
+\uses{mod:parameters-phasereduction,mod:parameters-highquadratic,mod:cases-wildquadratic-coefficienttable,mod:cases-wildquadratic-errorformula}
+\FormalizationContract
+The interface is polymorphic in \(q\).  Every stationary numerator remains a
+quotient class until a source-specific theorem supplies its representative.
+Elementary stationary values and residual Hasse phases are transported
+together, so the displayed equalities concern actual Lamprecht factors, not
+merely coefficient pairs.  No low or high source representative is selected
+in this shared node.
+\end{theorem}

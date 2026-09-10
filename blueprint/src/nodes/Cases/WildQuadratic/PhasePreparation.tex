@@ -1,0 +1,59 @@
+\begin{theorem}[Wild quadratic phase preparation]
+\label{mod:cases-wildquadratic-phasepreparation}
+Construct the high- or low-range q-free common coefficient view at the actual
+conductor, together with the computational data, actual phase data, exact
+quadratic assembly, four actual stationary rows, and common coordinate
+compatibility.  More precisely, the public type
+\texttt{WildQuadraticPhasePrepared} classifies the actual coefficient input
+by the proved exhaustive, disjoint dichotomy
+\[
+ \text{one of the three all-even rows}
+ \quad\text{or}\quad
+ \text{an actual \texttt{PositivePolarSource}}.
+\]
+Its \texttt{allEven} constructor contains the all-even coefficient view,
+actual-even row compatibility, common higher data, and
+\texttt{CompleteCorrectionData}; these feed
+\texttt{WildQuadraticHigherData.allEven} directly.  Its
+\texttt{needsRefinement} constructor contains the common view, the very
+positive-polar source selected by the actual quotient-derived row, the common
+higher data, the same four actual rows, and a finished q-polymorphic
+\texttt{WildQuadraticPositivePolarContinuation}.  The continuation retains
+the upper coordinate transport, the distinct lower-product certificate, and
+all four actual phase-source equalities.  This node does not choose a
+normalized refinement.
+
+High and low are alternative internal constructions of one q-free phase
+package.  The strict-high branch uses the live high-product-backed exact
+assembly, while the low branch uses the live table-backed exact assembly.
+Both use the actual selected \(\chi_F\) and \(\psi_F\) data and preserve every
+stationary representative, row orientation, affine translation, and
+\(A,u,n,z_0,z_1\) identity.
+\LeanFile{LanglandsFirstMainLemma/Cases/WildQuadratic/PhasePreparation.lean}
+\lean{LanglandsFirstMainLemma.wildQuadraticPhasePreparation}
+\leanok
+\SourceText{Propositions prop:quadratic-critical-functions, prop:quadratic-gamma-table, and prop:quadratic-complete-assembly.}
+\uses{mod:ramification-primecyclicpreparation,mod:parameters-phasereduction,mod:parameters-highquadratic,mod:parameters-low,mod:cases-wildquadratic-coefficienttable,mod:cases-wildquadratic-errorformula,mod:cases-wildquadratic-coordinatetransport,mod:cases-wildquadratic-lowcoordinatetransport,mod:cases-wildquadratic-lowproductcoordinatetransport,mod:cases-wildquadratic-highcoordinatetransport,mod:parameters-minimalorbitstationary,mod:cases-wildquadratic-main}
+\FormalizationContract
+Produce common coefficient, phase, actual-row, and coordinate data before
+any refinement is chosen.  The computational datum uses the selected base
+additive character, norm pullback, trace pullback, norm-character data, and
+actual minimal-orbit twists.  Its four phase rows occur in the literal
+extension--norm numerator and base--twist denominator orientation.  The
+common compatibility identifies the selected base and nontrivial
+norm-character data and, in the stated orientation, every
+\(A,u,n,z_0,z_1\) coordinate.  The positive-polar continuation is built while
+the low residual polynomial or original high representatives are still live;
+later refinement therefore only selects \(q\), transports the retained
+certificates, and compares the retained actual phases.
+
+The all-even branch is exactly
+\texttt{belowMEvenTEven}, \texttt{boundaryEven}, or
+\texttt{aboveMEvenTEven}; all four supplied Lamprecht rows are their actual
+\texttt{even} constructors, and the branch returns its q-free higher datum
+directly.  The other branch retains a \texttt{PositivePolarSource} built from
+an actual quotient-derived lower Hasse function; a numerical parity or phase
+equality is not a substitute for that source.  No characteristic-two
+refinement, refined critical source, or local refinement correction is
+selected here; the retained continuation is q-polymorphic.
+\end{theorem}

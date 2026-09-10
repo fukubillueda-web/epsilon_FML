@@ -1,0 +1,168 @@
+\begin{definition}[Wild odd correction units]\label{mod:cases-wildodd-correctionunits}
+Let $K/F$ be a cyclic extension of odd prime degree
+$p=\operatorname{char}k_F$, with residue degree one.  Fix $T\geq2$ and a
+conductor $m$ in the nonstable interval
+\[
+  2\leq m\leq 2T-1,
+  \qquad a=T-m.
+\]
+The Lean input packages an element $u\in K^\times$ with
+$v_K(u)=a$, its norm $n=N_{K/F}(u)$, the exact wild trace-ideal lower
+bound with different contribution $(p-1)T$, and the minimal-orbit boundary
+condition
+\[
+  a=0\quad\Longrightarrow\quad
+  v_F(n+[j])=0\quad(j\in\mathbf F_p).
+\]
+Here $[j]$ is always the canonical Teichmüller lift.  Lean separately
+defines the integer representative $j_{\mathbf Z}\in\{0,\ldots,p-1\}$;
+it proves that $[j]-j_{\mathbf Z}\in\mathfrak p_F$, not that these two
+representatives are literally equal in mixed characteristic.  Nonzero
+indices are represented by $(\mathbf Z/p\mathbf Z)^\times$, and the exact
+equivalence with the subtype $j\ne0$ gives the required finite-product
+reindexing.
+
+Put
+\[
+  u^\vee=-\frac{n}{u}.
+\]
+The exceptional correction is kept separate from every nonzero index:
+\begin{equation}\label{eq:lean-wildodd-correction-units}
+  z_0=\frac{N_{K/F}(1+u^\vee)}{1+N_{K/F}(u^\vee)},
+  \qquad
+  z_j=\frac{N_{K/F}(u+[j])}{n+[j]}
+  \quad(j\ne0),
+\end{equation}
+and $x_0=z_0-1$, $x_j=z_j-1$.  In particular, $z_0$ is not obtained by
+substituting $j=0$ into the second quotient.  Before any cancellation,
+Lean proves
+\[
+ u\ne0,\quad n\ne0,\quad u^\vee\ne0,\quad
+ n+[j]\ne0,\quad 1+N(u^\vee)\ne0,
+\]
+as well as nonvanishing of both numerators, the full prime-field product,
+and $N(n-u)$.  It then packages every $z_0,z_j$ as an element of
+$F^\times$ and subsequently proves the stronger principal-unit filtration
+statements below.
+
+All parameter identities are literal equalities.  With every sign and
+ratio in the manuscript direction, Lean proves
+\[
+ N(u^\vee)=-n^{p-1},
+ \qquad
+ N(1+u^\vee)=-\frac{N(n-u)}{n},
+ \qquad
+ \prod_{j\in\mathbf F_p}(n+[j])=n^p-n,
+\]
+\[
+ N(u+[j])=(n+[j])z_j\quad(j\ne0),
+ \qquad
+ N(n-u)=\left(\prod_{j\in\mathbf F_p}(n+[j])\right)z_0.
+\]
+Consequently the interfaces used by the correction formula are exactly
+\[
+ \frac{\prod_j(n+[j])}{N(n-u)}=z_0^{-1},
+ \qquad
+ \frac{n+[j]}{[j]}=
+ N\!\left(\frac{u+[j]}{[j]}\right)z_j^{-1}
+ \quad(j\ne0).
+\]
+No downstream correction formula or correction-valuation theorem is used.
+
+For
+\[
+ R(c)=\left\lfloor\frac{c+(p-1)T}{p}\right\rfloor,
+ \qquad c\geq0,
+\]
+Lean defines
+\[
+ Z(w)=\frac{N(1+w)}{1+N(w)}
+\]
+and proves the exact identity $Z(w^{-1})=Z(w)$.  After proving the relevant
+denominator has valuation zero, it expands
+\[
+ Z(w)-1=
+ \frac{s_1(w)+\cdots+s_{p-1}(w)}{1+N(w)}
+\]
+and applies the wild symmetric-function bound term by term.  This gives the
+manuscript's lower bounds
+\[
+ v_F(x_j)\geq R(|a|)\quad(j\ne0),
+ \qquad
+ v_F(x_0)\geq R((p-1)|a|).
+\]
+They are lower bounds, not asserted valuation equalities.  Finally Lean
+proves the exact filtration interfaces
+\[
+ z_j\in U_F^{R(|a|)}\subseteq U_F^{\lceil T/2\rceil},
+ \qquad
+ z_0\in U_F^{R((p-1)|a|)}\subseteq U_F^{\lceil m/2\rceil}.
+\]
+
+\LeanFile{LanglandsFirstMainLemma/Cases/WildOdd/CorrectionUnits.lean}
+\lean{LanglandsFirstMainLemma.WildOddCorrectionData}
+\lean{LanglandsFirstMainLemma.wildOddPrimeFieldLift}
+\lean{LanglandsFirstMainLemma.wildOddPrimeFieldLift_ne_zero}
+\lean{LanglandsFirstMainLemma.wildOddPrimeFieldLocalUnits}
+\lean{LanglandsFirstMainLemma.wildOddPrimeFieldUnits}
+\lean{LanglandsFirstMainLemma.ord_wildOddPrimeFieldLift}
+\lean{LanglandsFirstMainLemma.wildOddPrimeFieldNatRepresentative}
+\lean{LanglandsFirstMainLemma.wildOddPrimeFieldLift_sub_natCast_mem_lattice_one}
+\lean{LanglandsFirstMainLemma.wildOddPrimeFieldPolynomial}
+\lean{LanglandsFirstMainLemma.prod_add_wildOddPrimeFieldLift}
+\lean{LanglandsFirstMainLemma.wildOddCorrectionOffset}
+\lean{LanglandsFirstMainLemma.wildOddCorrectionDepth}
+\lean{LanglandsFirstMainLemma.wildOddNormalizedNorm}
+\lean{LanglandsFirstMainLemma.WildOddCorrectionData.n}
+\lean{LanglandsFirstMainLemma.WildOddCorrectionData.dual}
+\lean{LanglandsFirstMainLemma.WildOddCorrectionData.zeroDenominator}
+\lean{LanglandsFirstMainLemma.WildOddCorrectionData.denominator}
+\lean{LanglandsFirstMainLemma.WildOddCorrectionData.u_ne_zero}
+\lean{LanglandsFirstMainLemma.WildOddCorrectionData.n_ne_zero}
+\lean{LanglandsFirstMainLemma.WildOddCorrectionData.dual_ne_zero}
+\lean{LanglandsFirstMainLemma.WildOddCorrectionData.denominator_ne_zero}
+\lean{LanglandsFirstMainLemma.WildOddCorrectionData.zeroDenominator_ne_zero}
+\lean{LanglandsFirstMainLemma.WildOddCorrectionData.one_sub_n_pow_ne_zero}
+\lean{LanglandsFirstMainLemma.WildOddCorrectionData.nonzeroNumerator_ne_zero}
+\lean{LanglandsFirstMainLemma.WildOddCorrectionData.zeroNumerator_ne_zero}
+\lean{LanglandsFirstMainLemma.WildOddCorrectionData.zZero}
+\lean{LanglandsFirstMainLemma.WildOddCorrectionData.z}
+\lean{LanglandsFirstMainLemma.WildOddCorrectionData.xZero}
+\lean{LanglandsFirstMainLemma.WildOddCorrectionData.x}
+\lean{LanglandsFirstMainLemma.WildOddCorrectionData.primeFieldProduct}
+\lean{LanglandsFirstMainLemma.WildOddCorrectionData.nonzeroPrimeFieldProduct}
+\lean{LanglandsFirstMainLemma.WildOddCorrectionData.primeFieldProduct_reindex}
+\lean{LanglandsFirstMainLemma.WildOddCorrectionData.primeFieldProduct_eq}
+\lean{LanglandsFirstMainLemma.WildOddCorrectionData.norm_dual}
+\lean{LanglandsFirstMainLemma.WildOddCorrectionData.norm_one_add_dual}
+\lean{LanglandsFirstMainLemma.WildOddCorrectionData.norm_add_eq_denominator_mul}
+\lean{LanglandsFirstMainLemma.WildOddCorrectionData.norm_sub_eq_primeFieldProduct_mul}
+\lean{LanglandsFirstMainLemma.WildOddCorrectionData.primeFieldProduct_div_norm_sub}
+\lean{LanglandsFirstMainLemma.WildOddCorrectionData.denominator_div_index}
+\lean{LanglandsFirstMainLemma.WildOddCorrectionData.normalizedNorm_inv}
+\lean{LanglandsFirstMainLemma.WildOddCorrectionData.zZeroValue_eq_normalizedNorm}
+\lean{LanglandsFirstMainLemma.WildOddCorrectionData.zValue_eq_normalizedNorm}
+\lean{LanglandsFirstMainLemma.WildOddCorrectionData.normalizedNorm_sub_one_eq}
+\lean{LanglandsFirstMainLemma.WildOddCorrectionData.ord_n}
+\lean{LanglandsFirstMainLemma.WildOddCorrectionData.ord_dual}
+\lean{LanglandsFirstMainLemma.WildOddCorrectionData.ord_scaled_u}
+\lean{LanglandsFirstMainLemma.WildOddCorrectionData.ord_x_ge_correctionDepth}
+\lean{LanglandsFirstMainLemma.WildOddCorrectionData.ord_xZero_ge_correctionDepth}
+\lean{LanglandsFirstMainLemma.WildOddCorrectionData.wildOddCorrectionDepth_ge_half}
+\lean{LanglandsFirstMainLemma.WildOddCorrectionData.wildOddCorrectionDepth_exceptional_ge_half}
+\lean{LanglandsFirstMainLemma.WildOddCorrectionData.z_mem_correctionFiltration}
+\lean{LanglandsFirstMainLemma.WildOddCorrectionData.zZero_mem_correctionFiltration}
+\lean{LanglandsFirstMainLemma.WildOddCorrectionData.z_mem_halfFiltration}
+\lean{LanglandsFirstMainLemma.WildOddCorrectionData.zZero_mem_conductorHalfFiltration}
+\leanok
+\SourceText{Lemmas lem:parameter-ratios and lem:correction-depth.}
+\uses{mod:ramification-normfiltration,mod:ramification-symmetricbounds,mod:basic-finiteproducts}
+\FormalizationContract The exceptional index $0$ and the nonzero prime-field
+indices are separate types and separate definitions.  Every denominator is
+proved nonzero before it is canceled.  Prime-field elements in field-valued
+formulas are Teichmüller lifts, while natural representatives are used only
+through an explicit reduction-compatibility theorem.  Norm and ratio
+statements are exact identities with the manuscript signs and directions;
+only the depth conclusions are inequalities.  The proof imports neither the
+downstream correction formula nor its valuation theorem.
+\end{definition}
