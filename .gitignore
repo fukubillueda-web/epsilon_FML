@@ -1,0 +1,15 @@
+.lake/
+.work/
+__pycache__/
+*.pyc
+.DS_Store
+verification/
+checked-source.tar.gz
+references/epsilon_FML.pdf
+references/*.aux
+references/*.log
+references/*.out
+references/*.toc
+references/*.fls
+references/*.fdb_latexmk
+references/*.synctex.gz
